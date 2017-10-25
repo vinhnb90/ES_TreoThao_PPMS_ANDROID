@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp"
+    android:background="@drawable/bg_item_white">
+
+    <TextView
+        android:id="@+id/essp_row_dutoan_tvTenVTu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="5dp"
+        android:text="Tên vật tư"
+        android:textColor="@color/text_content"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/essp_row_dutoan_tvTitleSLuongDToan"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/essp_row_dutoan_tvTenVTu"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        android:text="Số lượng dự toán: "
+        android:textColor="@color/text_black"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/essp_row_dutoan_tvSLuongDToan"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_below="@+id/essp_row_dutoan_tvTenVTu"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/essp_row_dutoan_tvTitleSLuongDToan"
+        android:gravity="center_vertical"
+        android:text="1"
+        android:textColor="@color/text_content"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/essp_row_dutoan_tvTitleSLuongTTe"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_below="@+id/essp_row_dutoan_tvTenVTu"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/essp_row_dutoan_tvSLuongDToan"
+        android:gravity="center_vertical"
+        android:text="Số lượng thực tế:  "
+        android:textColor="@color/text_black"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/essp_row_dutoan_etSLuongTTe"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_below="@+id/essp_row_dutoan_tvTenVTu"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/essp_row_dutoan_tvTitleSLuongTTe"
+        android:background="@drawable/bg_edittext"
+        android:hint="SL"
+        android:inputType="numberDecimal"
+        android:padding="5dp"
+        android:textColor="@color/text_black"
+        android:textSize="20sp" />
+
+</RelativeLayout>

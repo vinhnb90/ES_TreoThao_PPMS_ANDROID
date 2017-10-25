@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/panel_background">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dự trù vật tư"
+        android:textColor="#FFF"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:background="@drawable/title_unselected"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <Spinner
+            android:id="@+id/essp_dialog_dutoan_sp_khaigia"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/bg_spinner">
+
+        </Spinner>
+
+        <Spinner
+            android:id="@+id/essp_dialog_dutoan_sp_loai_cp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_spinner">
+
+        </Spinner>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/essp_dialog_dutoan_tv_thanhtien"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:text="Thành tiền: 0"
+        android:textColor="#FFF"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_gravity="center"
+        android:textStyle="bold"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/essp_dialog_dutoan_rv_dutoan"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="right"
+        android:layout_weight="0">
+
+        <Button
+            android:id="@+id/essp_dialog_dutoan_ib_viewKhaiGia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="@drawable/bg_button"
+            android:text="Chi tiết khai giá"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textColor="@color/text_white"
+            android:padding="10dp"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_vertical"/>
+
+        <Button
+            android:id="@+id/essp_dialog_dutoan_ib_add_nht"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="@drawable/bg_button"
+            android:text="Vật tư ngoài hệ thống"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textColor="@color/text_white"
+            android:padding="10dp"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_vertical"/>
+
+        <Button
+            android:id="@+id/essp_dialog_dutoan_ib_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="@drawable/bg_button"
+            android:text="Vật tư hệ thống"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textColor="@color/text_white"
+            android:padding="10dp"
+            android:layout_margin="5dp"
+            android:layout_gravity="right|center_vertical"/>
+
+    </LinearLayout>
+
+</LinearLayout>

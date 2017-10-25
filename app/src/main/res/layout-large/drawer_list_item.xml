@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_gravity="center"
+    android:background="@drawable/drawer_list_selection"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:weightSum="10" >
+    
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginLeft="15dp"
+        android:contentDescription="@string/description_list_icon"
+        android:layout_weight="8"
+        android:background="@null"
+        android:src="@mipmap/invoice_ic_ip" />
+
+    <TextView
+        android:id="@+id/title"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:paddingRight="10dp"
+        android:layout_weight="2"
+        android:textColor="@color/list_item_title" />
+</LinearLayout>

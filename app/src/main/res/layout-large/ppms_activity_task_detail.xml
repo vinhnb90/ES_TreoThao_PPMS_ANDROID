@@ -1,0 +1,1348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_ppms_task_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.es.tungnv.views.PpmsTaskDetailActivity">
+
+    <LinearLayout
+        android:id="@+id/ppms_activity_task_detail_ll_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ttht_border_green"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:elevation="@dimen/ttht_elevation_row"
+            android:translationZ="@dimen/ttht_elevation_row_small"
+            android:layout_marginRight="@dimen/margin_evelation_ppms"
+            android:layout_marginLeft="@dimen/margin_evelation_ppms"
+            android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+            android:layout_marginTop="@dimen/margin_evelation_ppms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ttht_border_white_light"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/ttht_height_row"
+                android:layout_weight="1"
+                android:background="@drawable/ttht_boder_right"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Tên Khách Hàng"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/ttht_text_size_row"
+                android:textStyle="bold" />
+
+            <HorizontalScrollView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+                <TextView
+                    android:id="@+id/ppms_activity_task_detail_tvTenKH"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:scrollbars="horizontal"
+                    android:singleLine="true"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/ttht_text_size_row"
+                    android:textStyle="bold" />
+            </HorizontalScrollView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginRight="@dimen/margin_evelation_ppms"
+            android:layout_marginLeft="@dimen/margin_evelation_ppms"
+            android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+            android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+            android:elevation="@dimen/ttht_elevation_row"
+            android:translationZ="@dimen/ttht_elevation_row_small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ttht_border_white_light"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/ttht_height_row"
+                android:layout_weight="1"
+                android:background="@drawable/ttht_boder_right"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Địa chỉ Khách Hàng"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/ttht_text_size_row"
+                android:textStyle="bold"
+                android:id="@+id/textView18" />
+
+            <HorizontalScrollView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+                <TextView
+                    android:id="@+id/ppms_activity_task_detail_tvDiaChi"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:scrollbars="horizontal"
+                    android:singleLine="true"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/ttht_text_size_row"
+                    android:textStyle="bold" />
+
+            </HorizontalScrollView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginRight="@dimen/margin_evelation_ppms"
+            android:layout_marginLeft="@dimen/margin_evelation_ppms"
+            android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+            android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+            android:elevation="@dimen/ttht_elevation_row"
+            android:translationZ="@dimen/ttht_elevation_row_small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ttht_border_white_light"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/ttht_height_row"
+                android:layout_weight="1"
+                android:background="@drawable/ttht_boder_right"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Mã GCS"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/ttht_text_size_row"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/ppms_activity_task_detail_tvMaGCS"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:scrollbars="horizontal"
+                android:singleLine="true"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/ttht_text_size_row"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="2dp"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/margin_evelation_ppms"
+                android:layout_marginRight="@dimen/margin_evelation_small_ppms"
+                android:layout_marginBottom="@dimen/margin_evelation_ppms"
+                android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                android:elevation="@dimen/ttht_elevation_row"
+                android:translationZ="@dimen/ttht_elevation_row_small"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/ttht_border_white_light"
+                android:orientation="horizontal"
+                android:weightSum="5">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/ttht_height_row"
+                    android:layout_weight="2"
+                    android:background="@drawable/ttht_boder_right"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="Chỉ số cũ"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/ttht_text_size_row"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/ppms_activity_task_detail_tvChiSoCu"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:scrollbars="horizontal"
+                    android:singleLine="true"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/ttht_text_size_row"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginRight="@dimen/margin_evelation_ppms"
+                android:layout_marginLeft="@dimen/margin_evelation_small_ppms"
+                android:layout_marginBottom="@dimen/margin_evelation_ppms"
+                android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                android:elevation="@dimen/ttht_elevation_row"
+                android:translationZ="@dimen/ttht_elevation_row_small"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/ttht_border_white_light"
+                android:orientation="horizontal"
+                android:weightSum="5">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/ttht_height_row"
+                    android:layout_weight="2"
+                    android:background="@drawable/ttht_boder_right"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="Chỉ số mới"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/ttht_text_size_row"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/ppms_activity_task_detail_tvChiSoMoi"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:scrollbars="horizontal"
+                    android:singleLine="true"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/ttht_text_size_row"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_ppms_task_detail_menu_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:visibility="visible">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:gravity="center_horizontal"
+            android:weightSum="4"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/ppms_detail_task_tv_record_status"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/ppms_activity_task_detail_btnXoa"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@drawable/ttht_button_border_violet_blue"
+                android:onClick="clickBtnXoaDuLieu"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:text="Xóa Dữ liệu"
+                android:textColor="@color/text_white" />
+
+            <Button
+                android:id="@+id/ppms_activity_task_detail_btnGhi"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/ttht_button_border_violet_blue"
+                android:onClick="clickBtnGhiDulieu"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:text="GHI DỮ LIỆU"
+                android:textColor="@color/text_white" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ll_ppms_task_detail_menu_bottom"
+        android:layout_below="@id/ppms_activity_task_detail_ll_info"
+        android:layout_marginTop="10dp"
+        android:visibility="visible">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--thong tin phuc tra-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right">
+
+                <Button
+                    android:id="@+id/ppms_activity_task_detail_btnExpandThongTin"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/ppms_detail_task_title"
+                    android:background="@drawable/title_elasticity"
+                    android:drawablePadding="10dp"
+                    android:gravity="left|center_vertical"
+                    android:onClick="clickBtnExpandThongTin"
+                    android:paddingLeft="10dp"
+                    android:text="Thông tin phúc tra"
+                    android:textColor="@color/text_white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ppms_activity_task_detail_llExpandThongTin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/ttht_border_bottom_right_left"
+                android:orientation="vertical"
+                android:visibility="visible"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:layout_marginRight="@dimen/margin_evelation_ppms"
+                    android:layout_marginLeft="@dimen/margin_evelation_ppms"
+                    android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+                    android:layout_marginTop="@dimen/margin_evelation_ppms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ttht_border_white_light"
+                    android:elevation="@dimen/ttht_elevation_row_small"
+
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/ttht_height_row"
+                        android:layout_weight="1"
+                        android:background="@drawable/ttht_boder_right"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Thời gian ghi"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/ppms_activity_task_detail_tvThoiGianPhucTra"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:maxLines="1"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:scrollbars="horizontal"
+                        android:singleLine="true"
+                        android:text="01/01/2017"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginRight="@dimen/margin_evelation_ppms"
+                    android:layout_marginLeft="@dimen/margin_evelation_ppms"
+                    android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+                    android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ttht_border_white_light"
+                    android:elevation="@dimen/ttht_elevation_row_small"
+
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/ttht_height_row"
+                        android:layout_weight="1"
+                        android:background="@drawable/ttht_boder_right"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Chỉ số phúc tra"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:inputType="numberSigned"
+                        android:id="@+id/ppms_activity_task_detail_etChiSoPhucTra"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@drawable/bg_edit_text"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:maxLines="1"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:scrollbars="horizontal"
+                        android:singleLine="true"
+                        android:textColor="@color/text_black"
+                        android:textCursorDrawable="@drawable/bg_edit_text_cursor"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginRight="@dimen/margin_evelation_ppms"
+                    android:layout_marginLeft="@dimen/margin_evelation_ppms"
+                    android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+                    android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ttht_border_white_light"
+                    android:elevation="@dimen/ttht_elevation_row_small"
+
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/ttht_height_row"
+                        android:layout_weight="1"
+                        android:background="@drawable/ttht_boder_right"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Đánh giá sai lệch"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="2"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingLeft="10dp"
+                            android:text="Chính xác"
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/ttht_text_size_row"
+                            android:textStyle="italic" />
+
+                        <Switch
+                            android:id="@+id/ppms_activity_task_detail_swtSaiLech"
+                            android:layout_width="120dp"
+                            android:layout_height="match_parent"
+                            android:switchMinWidth="110dp"
+                            android:textSize="@dimen/ttht_text_size_row"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:paddingRight="10dp"
+                            android:text="Có sai lệch"
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/ttht_text_size_row"
+                            android:textStyle="italic" />
+
+                        <!--  <Button
+                              android:textColor="@color/text_white"
+                              android:background="@drawable/ttht_button_border_violet_blue_none"
+                              android:layout_width="0dp"
+                              android:layout_weight="1"
+                              android:layout_height="match_parent"
+                              android:text="Chính xác"/>
+
+                          <Button
+                              android:textColor="@color/text_white"
+                              android:background="@drawable/ttht_button_border_violet_gray_none"
+                              android:layout_marginLeft="10dp"
+                              android:layout_width="0dp"
+                              android:layout_weight="1"
+                              android:layout_height="match_parent"
+                              android:text="Lệch"/>
+  -->
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginRight="@dimen/margin_evelation_ppms"
+                    android:layout_marginLeft="@dimen/margin_evelation_ppms"
+                    android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+                    android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ttht_border_white_light"
+                    android:elevation="@dimen/ttht_elevation_row_small"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/ttht_height_row"
+                        android:layout_weight="1"
+                        android:background="@drawable/ttht_boder_bottom"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Chụp ảnh"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/ppms_task_detail_height_image"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:weightSum="10">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="7"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/ppms_activity_task_detail_ivFrame"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/image_not_found" />
+
+                            <ImageView
+                                android:id="@+id/ppms_activity_task_detail_ivImage"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:visibility="gone" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="3"
+                            android:orientation="vertical"
+                            android:weightSum="4">
+
+                            <Button
+                                android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                                android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+                                android:id="@+id/ppms_activity_task_detail_btnCamera"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/ttht_button_border_violet_blue"
+                                android:onClick="clickBtnCamera"
+                                android:text="Chụp ảnh\nmáy tính bảng"
+                                android:textSize="@dimen/ppms_detail_task_text_size_button"
+                                android:textColor="@color/text_white" />
+
+                            <Button
+                                android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                                android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+                                android:id="@+id/ppms_activity_task_detail_btnKetNoi"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/ttht_button_border_violet_blue"
+                                android:onClick="clickBtnKetNoi"
+                                android:textSize="@dimen/ppms_detail_task_text_size_button"
+                                android:text="Kết nối\nGậy Camera"
+                                android:textColor="@color/text_white" />
+
+                            <Button
+                                android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                                android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+                                android:id="@+id/ppms_activity_task_detail_btnChupAnh"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/ttht_button_border_violet_blue"
+                                android:onClick="clickBtnChupAnh"
+                                android:textSize="@dimen/ppms_detail_task_text_size_button"
+                                android:text="Chụp ảnh\nvới gậy camera"
+                                android:textColor="@color/text_white" />
+
+                            <Button
+                                android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                                android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+                                android:id="@+id/ppms_activity_task_detail_btnChupLai"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/ttht_button_border_violet_blue"
+                                android:onClick="clickBtnChupLai"
+                                android:textSize="@dimen/ppms_detail_task_text_size_button"
+                                android:text="Chụp lại\nvới gậy Camera"
+                                android:textColor="@color/text_white" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginRight="@dimen/margin_evelation_ppms"
+                    android:layout_marginLeft="@dimen/margin_evelation_ppms"
+                    android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+                    android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ttht_border_white_light"
+                    android:elevation="@dimen/ttht_elevation_row_small"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/ttht_height_row"
+                        android:layout_weight="1"
+                        android:background="@drawable/ttht_boder_bottom"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Tình trạng niêm phong"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/ppms_activity_task_detail_etTinhTrangMoi"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/ttht_height_row_two_line"
+                        android:layout_weight="2"
+                        android:background="@drawable/bg_edit_text"
+                        android:gravity="top|left"
+                        android:hint="Đầy đủ, dây chì nguyên vẹn, thể hiện rõ mã hiệu ở hai mặt viên chì."
+                        android:inputType="textNoSuggestions|textMultiLine"
+                        android:maxLines="2"
+                        android:padding="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:scrollbars="horizontal"
+                        android:singleLine="true"
+                        android:textColor="@color/text_black"
+                        android:textCursorDrawable="@drawable/bg_edit_text_cursor"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginRight="@dimen/margin_evelation_ppms"
+                    android:layout_marginLeft="@dimen/margin_evelation_ppms"
+                    android:layout_marginBottom="@dimen/margin_evelation_ppms"
+                    android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ttht_border_white_light"
+                    android:elevation="@dimen/ttht_elevation_row_small"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/ttht_height_row"
+                        android:layout_weight="1"
+                        android:background="@drawable/ttht_boder_bottom"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Nhận xét đề xuất"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/ppms_activity_task_detail_etNhanXet"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/ttht_height_row_two_line"
+                        android:layout_weight="2"
+                        android:background="@drawable/bg_edit_text"
+                        android:gravity="top|left"
+                        android:inputType="textNoSuggestions|textMultiLine"
+                        android:maxLines="2"
+                        android:padding="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:scrollbars="horizontal"
+                        android:singleLine="true"
+                        android:textColor="@color/text_black"
+                        android:textCursorDrawable="@drawable/bg_edit_text_cursor"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--thong tin them-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="right">
+
+                <Button
+                    android:id="@+id/ppms_activity_task_detail_btnExpandChiTiet"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/ppms_detail_task_title"
+                    android:background="@drawable/title_elasticity"
+                    android:drawablePadding="10dp"
+                    android:gravity="left|center_vertical"
+                    android:onClick="clickBtnExpandChiTiet"
+                    android:paddingLeft="10dp"
+                    android:text="Thông tin chi tiết"
+                    android:textColor="@color/text_white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ppms_activity_task_detail_llExpandChiTiet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/ttht_border_bottom_right_left"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:visibility="visible"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_evelation_ppms">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="của hợp đồng sử dụng điện:"
+                        android:textColor="@color/button_dark"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginRight="@dimen/margin_evelation_ppms"
+                    android:layout_marginLeft="@dimen/margin_evelation_ppms"
+                    android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+                    android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ttht_border_white_light"
+                    android:elevation="@dimen/ttht_elevation_row_small"
+
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/ttht_height_row"
+                        android:layout_weight="2"
+                        android:background="@drawable/ttht_boder_right"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Ngày phân công phúc tra"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/ppms_activity_task_detail_tvNgayPhanCong"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:scrollbars="horizontal"
+                        android:singleLine="true"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginRight="@dimen/margin_evelation_ppms"
+                    android:layout_marginLeft="@dimen/margin_evelation_ppms"
+                    android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+                    android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ttht_border_white_light"
+                    android:elevation="@dimen/ttht_elevation_row_small"
+
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/ttht_height_row"
+                        android:layout_weight="2"
+                        android:background="@drawable/ttht_boder_right"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Ngày ghi điện"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/ppms_activity_task_detail_tvNgayGhiDien"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:scrollbars="horizontal"
+                        android:singleLine="true"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginRight="@dimen/margin_evelation_ppms"
+                    android:layout_marginLeft="@dimen/margin_evelation_ppms"
+                    android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+                    android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ttht_border_white_light"
+                    android:elevation="@dimen/ttht_elevation_row_small"
+
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/ttht_height_row"
+                        android:layout_weight="2"
+                        android:background="@drawable/ttht_boder_right"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Tháng kiểm tra"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/ppms_activity_task_detail_tvThangKTra"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:scrollbars="horizontal"
+                        android:singleLine="true"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginRight="@dimen/margin_evelation_ppms"
+                    android:layout_marginLeft="@dimen/margin_evelation_ppms"
+                    android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+                    android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ttht_border_white_light"
+                    android:elevation="@dimen/ttht_elevation_row_small"
+
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/ttht_height_row"
+                        android:layout_weight="2"
+                        android:background="@drawable/ttht_boder_right"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Mục đích sử dụng"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/ppms_activity_task_detail_tvMucDichSD"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:scrollbars="horizontal"
+                        android:singleLine="true"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginRight="@dimen/margin_evelation_ppms"
+                    android:layout_marginLeft="@dimen/margin_evelation_ppms"
+                    android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+                    android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ttht_border_white_light"
+                    android:elevation="@dimen/ttht_elevation_row_small"
+
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/ttht_height_row"
+                        android:layout_weight="2"
+                        android:background="@drawable/ttht_boder_right"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Tình trạng sử dụng"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/ppms_activity_task_detail_tvTinhTrangSD"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:scrollbars="horizontal"
+                        android:singleLine="true"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginRight="@dimen/margin_evelation_ppms"
+                    android:layout_marginLeft="@dimen/margin_evelation_ppms"
+                    android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+                    android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ttht_border_white_light"
+                    android:elevation="@dimen/ttht_elevation_row_small"
+
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/ttht_height_row"
+                        android:layout_weight="2"
+                        android:background="@drawable/ttht_boder_right"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Sản lượng trung bình"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/ppms_activity_task_detail_tvSanLuongTB"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:scrollbars="horizontal"
+                        android:singleLine="true"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="@dimen/margin_evelation_ppms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="của công tơ:"
+                        android:textColor="@color/button_dark"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_marginLeft="@dimen/margin_evelation_ppms"
+                        android:layout_marginRight="@dimen/margin_evelation_small_ppms"
+                        android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                        android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+                        android:elevation="@dimen/ttht_elevation_row_small"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/ttht_border_white_light"
+                        android:orientation="horizontal"
+                        android:weightSum="5">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/ttht_height_row"
+                            android:layout_weight="2"
+                            android:background="@drawable/ttht_boder_right"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text="Loại"
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/ttht_text_size_row"
+                            android:textStyle="bold" />
+
+                        <HorizontalScrollView
+                            android:layout_width="0dp"
+                            android:layout_weight="3"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/ppms_activity_task_detail_tvLoaiCto"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/ttht_height_row"
+                                android:gravity="center_vertical"
+                                android:maxLines="1"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:scrollbars="horizontal"
+                                android:singleLine="true"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/ttht_text_size_row"
+                                android:textStyle="bold" />
+                        </HorizontalScrollView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginRight="@dimen/margin_evelation_ppms"
+                        android:layout_marginLeft="@dimen/margin_evelation_small_ppms"
+                        android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                        android:elevation="@dimen/ttht_elevation_row_small"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/ttht_border_white_light"
+                        android:orientation="horizontal"
+                        android:weightSum="5">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/ttht_height_row"
+                            android:layout_weight="2"
+                            android:background="@drawable/ttht_boder_right"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text="Loại hộp"
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/ttht_text_size_row"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/ppms_activity_task_detail_tvLoaiHopCto"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:scrollbars="horizontal"
+                            android:singleLine="true"
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/ttht_text_size_row"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:layout_marginLeft="@dimen/margin_evelation_ppms"
+                        android:layout_marginRight="@dimen/margin_evelation_small_ppms"
+                        android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                        android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+                        android:elevation="@dimen/ttht_elevation_row_small"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/ttht_height_row_two_line"
+                        android:layout_weight="1"
+                        android:background="@drawable/ttht_border_white_light"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/ttht_height_row"
+                            android:layout_weight="1"
+                            android:background="@drawable/ttht_boder_bottom"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text="Số cột "
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/ttht_text_size_row"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/ppms_activity_task_detail_tvSoCotCto"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/ttht_height_row"
+                            android:layout_marginRight="2dp"
+                            android:layout_weight="2"
+
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:scrollbars="horizontal"
+                            android:singleLine="true"
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/ttht_text_size_row"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginRight="@dimen/margin_evelation_small_ppms"
+                        android:layout_marginLeft="@dimen/margin_evelation_small_ppms"
+                        android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+                        android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/ttht_height_row_two_line"
+                        android:layout_weight="1"
+                        android:background="@drawable/ttht_border_white_light"
+                        android:elevation="@dimen/ttht_elevation_row_small"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/ttht_height_row"
+                            android:layout_weight="1"
+                            android:background="@drawable/ttht_boder_bottom"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text="Số hộp"
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/ttht_text_size_row"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/ppms_activity_task_detail_tvSoHopCto"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/ttht_height_row"
+                            android:layout_marginRight="2dp"
+                            android:layout_weight="2"
+
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:scrollbars="horizontal"
+                            android:singleLine="true"
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/ttht_text_size_row"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/ttht_height_row_two_line"
+                        android:layout_marginRight="@dimen/margin_evelation_ppms"
+                        android:layout_marginLeft="@dimen/margin_evelation_small_ppms"
+                        android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+                        android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                        android:layout_weight="1"
+                        android:background="@drawable/ttht_border_white_light"
+                        android:elevation="@dimen/ttht_elevation_row_small"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/ttht_height_row"
+                            android:layout_weight="1"
+                            android:background="@drawable/ttht_boder_bottom"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text="Số Ô"
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/ttht_text_size_row"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/ppms_activity_task_detail_tvSoOCto"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/ttht_height_row"
+                            android:layout_marginRight="2dp"
+                            android:layout_weight="2"
+
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:scrollbars="horizontal"
+                            android:singleLine="true"
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/ttht_text_size_row"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginRight="@dimen/margin_evelation_ppms"
+                    android:layout_marginLeft="@dimen/margin_evelation_ppms"
+                    android:layout_marginTop="@dimen/margin_evelation_small_ppms"
+                    android:layout_marginBottom="@dimen/margin_evelation_small_ppms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ttht_border_white_light"
+                    android:elevation="@dimen/ttht_elevation_row_small"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/ttht_height_row"
+                        android:layout_weight="1"
+                        android:background="@drawable/ttht_boder_bottom"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Tình trạng hộp công tơ"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/ppms_activity_task_detail_tvTinhTrangHopCto"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/ttht_height_row_two_line"
+                        android:layout_weight="2"
+                        android:background="@drawable/bg_edit_text"
+                        android:gravity="top|left"
+                        android:inputType="textNoSuggestions|textMultiLine"
+                        android:maxLines="2"
+                        android:padding="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:scrollbars="horizontal"
+                        android:singleLine="true"
+                        android:textColor="@color/text_black"
+                        android:textCursorDrawable="@drawable/bg_edit_text_cursor"
+                        android:textSize="@dimen/ttht_text_size_row"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

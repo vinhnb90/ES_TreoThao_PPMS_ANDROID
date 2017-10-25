@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="3dp">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_linearlayout"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/essp_row_congsuat_tvTitleKhoangGio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="5dp"
+            android:text="Khoảng giờ: "
+            android:textColor="@color/text_white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/essp_row_congsuat_tvKhoangGio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="5dp"
+            android:layout_toRightOf="@+id/essp_row_congsuat_tvTitleKhoangGio"
+            android:text="Khoảng giờ"
+            android:textColor="@color/text_white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/essp_row_congsuat_tvTitleCongSuat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/essp_row_congsuat_tvKhoangGio"
+            android:text="Công suất: "
+            android:textColor="@color/text_white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/essp_row_congsuat_tvCongSuat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/essp_row_congsuat_tvKhoangGio"
+            android:layout_toRightOf="@+id/essp_row_congsuat_tvTitleCongSuat"
+            android:text="1000 kWh"
+            android:textColor="@color/text_white"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+</LinearLayout>

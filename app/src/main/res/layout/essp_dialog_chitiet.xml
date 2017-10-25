@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/panel_background"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/essp_dialog_chitiet_tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/title_unselected"
+        android:padding="5dp"
+        android:text="Chi tiết hồ sơ"
+        android:textColor="#FFF"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_title_mahs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="Mã hồ sơ: "
+            android:textColor="#67e64e"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_mahs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/essp_dialog_chitiet_tv_title_mahs"
+            android:text="GK00000000"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_title_tenkh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/essp_dialog_chitiet_tv_mahs"
+            android:text="Tên khách hàng: "
+            android:textColor="#67e64e"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_tenkh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/essp_dialog_chitiet_tv_mahs"
+            android:layout_toRightOf="@+id/essp_dialog_chitiet_tv_title_tenkh"
+            android:text="Nguyễn Vũ Tùng"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_title_diachi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/essp_dialog_chitiet_tv_tenkh"
+            android:text="Địa chỉ: "
+            android:textColor="#67e64e"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_diachi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/essp_dialog_chitiet_tv_tenkh"
+            android:layout_toRightOf="@+id/essp_dialog_chitiet_tv_title_diachi"
+            android:text="44 Vũ Phạm Hàm, Yên Hòa, Cầu Giấy"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_title_diachi_cd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/essp_dialog_chitiet_tv_diachi"
+            android:text="Địa chỉ CĐ: "
+            android:textColor="#67e64e"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_diachi_cd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/essp_dialog_chitiet_tv_diachi"
+            android:layout_toRightOf="@+id/essp_dialog_chitiet_tv_title_diachi_cd"
+            android:text="44 Vũ Phạm Hàm, Yên Hòa, Cầu Giấy"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_title_tinhtrang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/essp_dialog_chitiet_tv_diachi_cd"
+            android:text="Tình trạng HS: "
+            android:textColor="#67e64e"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_tinhtrang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/essp_dialog_chitiet_tv_diachi_cd"
+            android:layout_toRightOf="@+id/essp_dialog_chitiet_tv_title_tinhtrang"
+            android:text="Chưa gửi"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_title_ma_loai_hdong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/essp_dialog_chitiet_tv_tinhtrang"
+            android:text="Mã loại hợp đồng: "
+            android:textColor="#67e64e"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_ma_loai_hdong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/essp_dialog_chitiet_tv_tinhtrang"
+            android:layout_toRightOf="@+id/essp_dialog_chitiet_tv_title_ma_loai_hdong"
+            android:text="Sinh hoạt"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_title_loai_diemdo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/essp_dialog_chitiet_tv_ma_loai_hdong"
+            android:text="Loại điểm đo: "
+            android:textColor="#67e64e"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_loai_diemdo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/essp_dialog_chitiet_tv_ma_loai_hdong"
+            android:layout_toRightOf="@+id/essp_dialog_chitiet_tv_title_loai_diemdo"
+            android:text="Điểm đo"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_title_ma_tram"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/essp_dialog_chitiet_tv_loai_diemdo"
+            android:text="Mã trạm: "
+            android:textColor="#67e64e"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_ma_tram"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/essp_dialog_chitiet_tv_loai_diemdo"
+            android:layout_toRightOf="@+id/essp_dialog_chitiet_tv_title_ma_tram"
+            android:text="Trạm 110"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_title_ky_mua_cspk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/essp_dialog_chitiet_tv_ma_tram"
+            android:text="Ký mua CSPK: "
+            android:textColor="#67e64e"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_ky_mua_cspk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/essp_dialog_chitiet_tv_ma_tram"
+            android:layout_toRightOf="@+id/essp_dialog_chitiet_tv_title_ky_mua_cspk"
+            android:text="Không"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_title_so_pha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/essp_dialog_chitiet_tv_ky_mua_cspk"
+            android:text="Số pha: "
+            android:textColor="#67e64e"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_so_pha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/essp_dialog_chitiet_tv_ky_mua_cspk"
+            android:layout_toRightOf="@+id/essp_dialog_chitiet_tv_title_so_pha"
+            android:text="1"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_title_dienthoai_dd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/essp_dialog_chitiet_tv_so_pha"
+            android:text="Điện thoại DĐ: "
+            android:textColor="#67e64e"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_dienthoai_dd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/essp_dialog_chitiet_tv_so_pha"
+            android:layout_toRightOf="@+id/essp_dialog_chitiet_tv_title_dienthoai_dd"
+            android:text="01656226909"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_title_dienthoai_cd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/essp_dialog_chitiet_tv_dienthoai_dd"
+            android:text="Điện thoại CĐ: "
+            android:textColor="#67e64e"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/essp_dialog_chitiet_tv_dienthoai_cd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/essp_dialog_chitiet_tv_dienthoai_dd"
+            android:layout_toRightOf="@+id/essp_dialog_chitiet_tv_title_dienthoai_cd"
+            android:text="048541265"
+            android:textColor="#FFF" />
+    </RelativeLayout>
+</LinearLayout>

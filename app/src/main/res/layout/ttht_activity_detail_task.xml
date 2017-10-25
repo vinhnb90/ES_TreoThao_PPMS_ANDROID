@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:id="@+id/rv_ttht_activity_detail_task"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_menu_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <Button
+            android:textColor="@color/text_white"
+            android:background="@drawable/bg_button"
+            android:id="@+id/ttht_activity_detail_task_truoc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onClickPre"
+            android:text="TRƯỚC" />
+
+        <Button
+            android:textColor="@color/text_white"
+            android:background="@drawable/bg_button"
+            android:id="@+id/ttht_activity_detail_task_ghi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onClickGhi"
+            android:text="GHI" />
+
+        <Button
+            android:textColor="@color/text_white"
+            android:background="@drawable/bg_button"
+            android:id="@+id/ttht_activity_detail_task_sau"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onClickNext"
+            android:text="SAU" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@color/blue_more_light"
+        android:id="@+id/ll_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/ll_menu_bottom"
+        android:orientation="vertical">
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:elevation="10dp"
+                >
+
+                <LinearLayout
+                    android:background="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="10">
+
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/tabs_ttht_ac"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="10"
+                        app:tabTextColor="@color/text_white"
+                        app:tabGravity="fill"
+                        app:tabMaxWidth="0dp"
+                        app:tabMode="fixed" />
+
+                    <Button
+                        android:padding="5dp"
+                        android:drawingCacheQuality="high"
+                        android:drawableTop="@drawable/ic_refresh"
+                        android:id="@+id/ttht_activity_detail_task_btSwitchTreoThao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="75dp"
+                        android:background="@color/colorPrimary"
+                        android:onClick="onClickSwitchTreoThao"
+                        android:text="CHUYỂN CÔNG TƠ"
+                        android:textColor="@color/text_white"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pagers_ttht_ac"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="10dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </android.support.design.widget.CoordinatorLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

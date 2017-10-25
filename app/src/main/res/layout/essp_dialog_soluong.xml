@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/essp_dialog_soluong_ll_Background"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:gravity="center_vertical">
+
+    <EditText
+        android:id="@+id/essp_dialog_soluong_et_soluong"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="7"
+        android:layout_marginRight="5dp"
+        android:padding="5dp"
+        android:gravity="center_vertical"
+        android:inputType="numberDecimal"
+        android:hint="Nhập số lượng"
+        android:background="@drawable/bg_edittext"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:id="@+id/essp_dialog_soluong_bt_luu_soluong"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:text="Lưu"
+        android:background="@drawable/bg_button"
+        android:textColor="@color/text_white"
+        android:textStyle="bold"
+        android:layout_gravity="center_vertical" />
+</LinearLayout>

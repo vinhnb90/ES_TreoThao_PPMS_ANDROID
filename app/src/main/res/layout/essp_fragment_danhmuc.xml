@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_linearlayout"
+                android:columnCount="1"
+                android:padding="5dp"
+                android:rowCount="3">
+
+                <RelativeLayout
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill|left">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:text="Danh mục trạm"
+                        android:textColor="#FFF"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <ImageButton
+                        android:id="@+id/essp_fragment_danhmuc_ib_get_tram"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="5dp"
+                        android:background="@null"
+                        android:src="@mipmap/invoice_ic_download" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_height="2dp"
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill_horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:background="#DDD" />
+
+                <TextView
+                    android:id="@+id/essp_fragment_danhmuc_tv_tongso_tram"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="Tổng số trạm: 0"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#FFF"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/essp_fragment_danhmuc_tv_time_dongbo_tram"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="Thời gian đồng bộ: 21/12/2016 12:00:00"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#FFF"
+                    android:textSize="16sp" />
+
+            </GridLayout>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_linearlayout"
+                android:columnCount="1"
+                android:padding="5dp"
+                android:rowCount="3">
+
+                <RelativeLayout
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill|left">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:text="Danh mục vật tư"
+                        android:textColor="#FFF"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <ImageButton
+                        android:id="@+id/essp_fragment_danhmuc_ib_get_vattu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="5dp"
+                        android:background="@null"
+                        android:src="@mipmap/invoice_ic_download" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_height="2dp"
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill_horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:background="#DDD" />
+
+                <TextView
+                    android:id="@+id/essp_fragment_danhmuc_tv_tongso_vattu"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="Tổng số vật tư: 0"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#FFF"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/essp_fragment_danhmuc_tv_time_dongbo_vattu"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="Thời gian đồng bộ: 21/12/2016 12:00:00"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#FFF"
+                    android:textSize="16sp" />
+
+            </GridLayout>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_linearlayout"
+                android:columnCount="1"
+                android:padding="5dp"
+                android:rowCount="3">
+
+                <RelativeLayout
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill|left">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:text="Danh mục sổ GCS"
+                        android:textColor="#FFF"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <ImageButton
+                        android:id="@+id/essp_fragment_danhmuc_ib_get_so"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="5dp"
+                        android:background="@null"
+                        android:src="@mipmap/invoice_ic_download" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_height="2dp"
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill_horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:background="#DDD" />
+
+                <TextView
+                    android:id="@+id/essp_fragment_danhmuc_tv_tongso_so"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="Tổng số sổ GCS: 0"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#FFF"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/essp_fragment_danhmuc_tv_time_dongbo_so"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="Thời gian đồng bộ: 21/12/2016 12:00:00"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#FFF"
+                    android:textSize="16sp" />
+
+            </GridLayout>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_linearlayout"
+                android:columnCount="1"
+                android:padding="5dp"
+                android:rowCount="3">
+
+                <RelativeLayout
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill|left">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:text="Danh mục trở ngại"
+                        android:textColor="#FFF"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <ImageButton
+                        android:id="@+id/essp_fragment_danhmuc_ib_get_tro_ngai"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="5dp"
+                        android:background="@null"
+                        android:src="@mipmap/invoice_ic_download" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_height="2dp"
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill_horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:background="#DDD" />
+
+                <TextView
+                    android:id="@+id/essp_fragment_danhmuc_tv_tongso_tro_ngai"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="Tổng số mục trở ngại: 0"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#FFF"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/essp_fragment_danhmuc_tv_time_dongbo_tro_ngai"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="Thời gian đồng bộ: 21/12/2016 12:00:00"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#FFF"
+                    android:textSize="16sp" />
+
+            </GridLayout>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_linearlayout"
+                android:columnCount="1"
+                android:padding="5dp"
+                android:rowCount="3">
+
+                <RelativeLayout
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill|left">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:text="Danh mục ngân hàng"
+                        android:textColor="#FFF"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <ImageButton
+                        android:id="@+id/essp_fragment_danhmuc_ib_get_ngan_hang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="5dp"
+                        android:background="@null"
+                        android:src="@mipmap/invoice_ic_download" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_height="2dp"
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill_horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:background="#DDD" />
+
+                <TextView
+                    android:id="@+id/essp_fragment_danhmuc_tv_tongso_ngan_hang"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="Tổng số ngân hàng: 0"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#FFF"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/essp_fragment_danhmuc_tv_time_dongbo_ngan_hang"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="Thời gian đồng bộ: 21/12/2016 12:00:00"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#FFF"
+                    android:textSize="16sp" />
+
+            </GridLayout>
+
+        </LinearLayout>
+    </ScrollView>
+    
+</LinearLayout>

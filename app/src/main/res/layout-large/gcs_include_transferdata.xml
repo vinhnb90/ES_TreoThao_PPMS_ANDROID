@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gcs_include_transferdata_rlDongBo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone">
+
+    <Button
+        android:id="@+id/gcs_include_transferdata_btDongBo"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="10dp"
+        android:text="Đồng bộ"
+        android:textColor="@color/text_white"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:background="@drawable/bg_button"
+        android:textAllCaps="false" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_toLeftOf="@+id/gcs_include_transferdata_btDongBo">
+
+        <RadioButton
+            android:id="@+id/gcs_include_transferdata_rbGetData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Lấy sổ"
+            android:padding="5dp"
+            android:textSize="18sp"
+            android:button="@mipmap/essp_uncheck"
+            android:layout_marginRight="5dp"
+            android:textColor="#FFF"/>
+
+        <RadioButton
+            android:id="@+id/gcs_include_transferdata_rbSentData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="5dp"
+            android:text="Gửi sổ"
+            android:textSize="18sp"
+            android:button="@mipmap/essp_uncheck"
+            android:textColor="#FFF"/>
+    </RadioGroup>
+
+    <ListView
+        android:id="@+id/gcs_include_transferdata_lvSo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:choiceMode="multipleChoice"
+        android:layout_above="@+id/gcs_include_transferdata_btDongBo"/>
+
+</RelativeLayout>

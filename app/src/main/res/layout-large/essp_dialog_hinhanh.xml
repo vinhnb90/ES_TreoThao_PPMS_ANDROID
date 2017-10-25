@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/panel_background">
+
+    <TextView
+        android:id="@+id/essp_dialog_hinhanh_tv_tenkh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tên KH: "
+        android:textStyle="bold"
+        android:textColor="#FFF"
+        android:textSize="22sp"
+        android:background="@drawable/title_unselected"
+        android:padding="10dp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/essp_dialog_hinhanh_rv_hinhanh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <ImageButton
+        android:id="@+id/essp_dialog_hinhanh_ib_chupanh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|right"
+        android:background="@null"
+        android:src="@mipmap/essp_capture"
+        android:layout_margin="5dp"
+        android:layout_weight="0"/>
+
+</LinearLayout>

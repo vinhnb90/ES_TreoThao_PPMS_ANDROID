@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_listitem_white"
+    android:layout_margin="5dp"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_tittle_stt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="STT: "
+        android:textColor="@color/text_content"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_stt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="000"
+        android:textColor="#FFF"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="2dp"
+        android:layout_toRightOf="@+id/invoice_row_pos_kh_tv_tittle_stt"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_tittle_so"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sổ: "
+        android:textColor="@color/text_content"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/invoice_row_pos_kh_tv_stt"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_so"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="000"
+        android:textColor="#FFF"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="2dp"
+        android:layout_toRightOf="@+id/invoice_row_pos_kh_tv_tittle_so"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_tittle_sdt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SĐT: "
+        android:textColor="@color/text_content"
+        android:textStyle="bold"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/invoice_row_pos_kh_tv_so"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_sdt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="01656226909"
+        android:textColor="#FFF"
+        android:layout_marginLeft="2dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/invoice_row_pos_kh_tv_tittle_sdt"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_tittle_ten_kh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tên KH: "
+        android:textColor="@color/text_content"
+        android:textStyle="bold"
+        android:layout_below="@+id/invoice_row_pos_kh_tv_sdt"
+        android:layout_alignParentLeft="true"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_ten_kh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nguyễn Vũ Tùng"
+        android:textColor="#FFF"
+        android:layout_marginLeft="2dp"
+        android:layout_below="@+id/invoice_row_pos_kh_tv_sdt"
+        android:layout_toRightOf="@+id/invoice_row_pos_kh_tv_tittle_ten_kh"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_tittle_diachi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Địa chỉ: "
+        android:textColor="@color/text_content"
+        android:textStyle="bold"
+        android:layout_below="@+id/invoice_row_pos_kh_tv_ten_kh"
+        android:layout_alignParentLeft="true"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_diachi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12b/132/71 Phố Tân Ấp, Phúc Xá, Ba Đình"
+        android:textColor="#FFF"
+        android:layout_marginLeft="2dp"
+        android:layout_below="@+id/invoice_row_pos_kh_tv_ten_kh"
+        android:layout_toRightOf="@+id/invoice_row_pos_kh_tv_tittle_diachi"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_tittle_sotien"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Số tiền: "
+        android:textColor="@color/text_content"
+        android:textStyle="bold"
+        android:layout_below="@+id/invoice_row_pos_kh_tv_diachi"
+        android:layout_alignParentLeft="true"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_sotien"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1 000 000"
+        android:textColor="#FFF"
+        android:layout_marginLeft="2dp"
+        android:layout_below="@+id/invoice_row_pos_kh_tv_diachi"
+        android:layout_toRightOf="@+id/invoice_row_pos_kh_tv_tittle_sotien"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_tittle_ngaynop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ngày nộp: "
+        android:textColor="@color/text_content"
+        android:textStyle="bold"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@+id/invoice_row_pos_kh_tv_diachi"
+        android:layout_toRightOf="@+id/invoice_row_pos_kh_tv_sotien"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_ngaynop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="07/03/2016"
+        android:textColor="#FFF"
+        android:layout_marginLeft="2dp"
+        android:layout_below="@+id/invoice_row_pos_kh_tv_diachi"
+        android:layout_toRightOf="@+id/invoice_row_pos_kh_tv_tittle_ngaynop"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_tittle_ma_kh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mã KH: "
+        android:textColor="@color/text_content"
+        android:textStyle="bold"
+        android:layout_below="@+id/invoice_row_pos_kh_tv_ngaynop"
+        android:layout_alignParentLeft="true"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_ma_kh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="16542052"
+        android:textColor="#FFF"
+        android:layout_marginLeft="2dp"
+        android:layout_below="@+id/invoice_row_pos_kh_tv_ngaynop"
+        android:layout_toRightOf="@+id/invoice_row_pos_kh_tv_tittle_ma_kh"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_tittle_so_cto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Số ctơ: "
+        android:textColor="@color/text_content"
+        android:textStyle="bold"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@+id/invoice_row_pos_kh_tv_ngaynop"
+        android:layout_toRightOf="@+id/invoice_row_pos_kh_tv_ma_kh"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_so_cto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1654205200"
+        android:textColor="#FFF"
+        android:layout_marginLeft="2dp"
+        android:layout_below="@+id/invoice_row_pos_kh_tv_ngaynop"
+        android:layout_toRightOf="@+id/invoice_row_pos_kh_tv_tittle_so_cto"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_tittle_ky"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kỳ: "
+        android:textColor="@color/text_content"
+        android:textStyle="bold"
+        android:layout_below="@+id/invoice_row_pos_kh_tv_so_cto"
+        android:layout_alignParentLeft="true"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_ky"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textColor="#FFF"
+        android:layout_marginLeft="2dp"
+        android:layout_below="@+id/invoice_row_pos_kh_tv_so_cto"
+        android:layout_toRightOf="@+id/invoice_row_pos_kh_tv_tittle_ky"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_tittle_thang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tháng: "
+        android:textColor="@color/text_content"
+        android:textStyle="bold"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@+id/invoice_row_pos_kh_tv_so_cto"
+        android:layout_toRightOf="@+id/invoice_row_pos_kh_tv_ky"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_thang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3"
+        android:textColor="#FFF"
+        android:layout_marginLeft="2dp"
+        android:layout_below="@+id/invoice_row_pos_kh_tv_so_cto"
+        android:layout_toRightOf="@+id/invoice_row_pos_kh_tv_tittle_thang"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_tittle_nam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Năm: "
+        android:textColor="@color/text_content"
+        android:textStyle="bold"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@+id/invoice_row_pos_kh_tv_so_cto"
+        android:layout_toRightOf="@+id/invoice_row_pos_kh_tv_thang"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/invoice_row_pos_kh_tv_nam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2016"
+        android:textColor="#FFF"
+        android:layout_marginLeft="2dp"
+        android:layout_below="@+id/invoice_row_pos_kh_tv_so_cto"
+        android:layout_toRightOf="@+id/invoice_row_pos_kh_tv_tittle_nam"
+        android:textSize="14sp"/>
+
+</RelativeLayout>

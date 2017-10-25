@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/panel_background">
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_tvMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/title_unselected"
+        android:padding="10dp"
+        android:text="Chi tiết công tơ"
+        android:textColor="#FFF"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_title_tongSLHC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/gcs_dialog_menu_tvMenu"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Tổng SLHC: "
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_tongSLHC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_dialog_menu_tvMenu"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/gcs_dialog_menu_title_tongSLHC"
+        android:text="1000"
+        android:textColor="#4dff47"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_title_tongSLVC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_dialog_menu_tvMenu"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/gcs_dialog_menu_tongSLHC"
+        android:text="Tổng SLVC: "
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_tongSLVC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_dialog_menu_tvMenu"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/gcs_dialog_menu_title_tongSLVC"
+        android:text="1000"
+        android:textColor="#4dff47"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_title_tongTTBT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/gcs_dialog_menu_tongSLVC"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Tình trạng bất thường: "
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_tongTTBT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_dialog_menu_tongSLVC"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/gcs_dialog_menu_title_tongTTBT"
+        android:text="0/5"
+        android:textColor="#4dff47"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/gcs_dialog_menu_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/gcs_dialog_menu_tongTTBT"
+        android:layout_margin="5dp"
+        android:background="#acacac" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_title_tenKH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/gcs_dialog_menu_line"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Tên KH: "
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_tenKH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_dialog_menu_line"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/gcs_dialog_menu_title_tenKH"
+        android:text="Nguyễn Vũ Tùng"
+        android:textColor="#4dff47"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_title_diaChi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/gcs_dialog_menu_tenKH"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Địa chỉ: "
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_diaChi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_dialog_menu_tenKH"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/gcs_dialog_menu_title_maKH"
+        android:text="Cầu giấy, Hà Nội"
+        android:textColor="#4dff47"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_title_maKH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/gcs_dialog_menu_diaChi"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Mã KH: "
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_maKH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_dialog_menu_diaChi"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/gcs_dialog_menu_title_maKH"
+        android:text="PD0100273472"
+        android:textColor="#4dff47"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_title_maDDo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/gcs_dialog_menu_maKH"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Mã Đ.Đo: "
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_maDDo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_dialog_menu_maKH"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/gcs_dialog_menu_title_maDDo"
+        android:text="PD0100273472"
+        android:textColor="#4dff47"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_title_maGC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/gcs_dialog_menu_maDDo"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Mã GC: "
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_maGC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_dialog_menu_maDDo"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/gcs_dialog_menu_title_maGC"
+        android:text="000000"
+        android:textColor="#4dff47"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_title_maTram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_dialog_menu_maDDo"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/gcs_dialog_menu_maGC"
+        android:text="Mã trạm: "
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_maTram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_dialog_menu_maDDo"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/gcs_dialog_menu_title_maTram"
+        android:text="PD0100273472"
+        android:textColor="#4dff47"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_title_soHo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/gcs_dialog_menu_maTram"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Số hộ: "
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_soHo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_dialog_menu_maTram"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/gcs_dialog_menu_title_soHo"
+        android:text="1"
+        android:textColor="#4dff47"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_title_HSN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_dialog_menu_maTram"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/gcs_dialog_menu_soHo"
+        android:text="HSN: "
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_HSN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_dialog_menu_maTram"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/gcs_dialog_menu_title_HSN"
+        android:text="1"
+        android:textColor="#4dff47"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_title_SLThao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_dialog_menu_maTram"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/gcs_dialog_menu_HSN"
+        android:text="SL tháo: "
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_SLThao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_dialog_menu_maTram"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/gcs_dialog_menu_title_SLThao"
+        android:text="0"
+        android:textColor="#4dff47"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_title_Pmax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/gcs_dialog_menu_SLThao"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Pmax: "
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_Pmax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_dialog_menu_SLThao"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/gcs_dialog_menu_title_Pmax"
+        android:text="0.0"
+        android:textColor="#4dff47"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_title_NgayPmax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_dialog_menu_SLThao"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/gcs_dialog_menu_Pmax"
+        android:text="Ngày Pmax: "
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_NgayPmax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_dialog_menu_SLThao"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/gcs_dialog_menu_title_NgayPmax"
+        android:text="20/06/2016 11:02"
+        android:textColor="#4dff47"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_title_chuoiGia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/gcs_dialog_menu_NgayPmax"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Chuỗi giá: "
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_chuoiGia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_dialog_menu_NgayPmax"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/gcs_dialog_menu_title_chuoiGia"
+        android:text="KT: 100%"
+        android:textColor="#4dff47"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_title_ghichu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/gcs_dialog_menu_chuoiGia"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Ghi chú: "
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/gcs_dialog_menu_ghichu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_dialog_menu_chuoiGia"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/gcs_dialog_menu_title_ghichu"
+        android:text="Ghi chú"
+        android:textColor="#4dff47"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <CheckBox
+        android:id="@+id/gcs_dialog_menu_cbCtoDtu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/gcs_dialog_menu_ghichu"
+        android:button="@drawable/essp_checkbox"
+        android:paddingLeft="10dp"
+        android:text="Công tơ điện tử"
+        android:textColor="#4dff47"
+        android:textSize="20sp" />
+
+    <View
+        android:id="@+id/gcs_dialog_menu_line2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/gcs_dialog_menu_cbCtoDtu"
+        android:layout_margin="5dp"
+        android:background="#acacac" />
+
+    <ListView
+        android:id="@+id/gcs_dialog_menu_lvMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_dialog_menu_line2"
+        android:listSelector="@color/titleDarkGsht">
+
+    </ListView>
+
+</RelativeLayout>

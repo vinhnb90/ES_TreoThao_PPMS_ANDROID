@@ -1,0 +1,64 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="corner_radius">8dp</dimen>
+    <dimen name="tab_space_top">4dp</dimen>
+    <dimen name="tab_space">0dp</dimen>
+    <dimen name="tab_space_plus1">3dp</dimen>
+    <dimen name="tab_space_bottom_line">36sp</dimen>
+    <dimen name="tab_space_unselected_top">6sp</dimen>
+    <dimen name="text_size_row_KH">24sp</dimen>
+    <dimen name="text_size_row_KH_small">18sp</dimen>
+    <dimen name="margin_recycle_2">2dp</dimen>
+    <dimen name="margin_item_recycle">5dp</dimen>
+
+    <dimen name="et_size_row">32dp</dimen>
+    <dimen name="bt_size">48dp</dimen>
+    <dimen name="image_height">200dp</dimen>
+    <dimen name="ib_doi_soat_height">70dp</dimen>
+    <dimen name="image_doi_soat_width">300dp</dimen>
+    <dimen name="image_doi_soat_height">280dp</dimen>
+    <dimen name="image_doi_soat_tu_ti_width">300dp</dimen>
+    <dimen name="image_doi_soat_tu_ti_height">250dp</dimen>
+    <dimen name="margin_top_1">10dp</dimen>
+
+    <!--Common-->
+    <dimen name="common_text_size_row">18sp</dimen>
+    <dimen name="common_height_size_top_menu">100dp</dimen>
+    <dimen name="common_height_size_bottom_menu">84dp</dimen>
+
+    <!--ppms_activity_task-->
+    <dimen name="text_size_ac_task">32dp</dimen>
+
+    <!--ppms_row_rview_task_fragment-->
+    <dimen name="heigh_index_image_rview_task">50dp</dimen>
+    <dimen name="text_size_rview_task">24sp</dimen>
+    <dimen name="margin_element_rview_task">2dp</dimen>
+    <dimen name="view_size">40dp</dimen>
+    <dimen name="width_size_tv_date">200dp</dimen>
+    <dimen name="margin_ten_tram">8dp</dimen>
+
+
+    <!--ppmstask_detail_activity-->
+    <dimen name="text_size_row_detail_task">18sp</dimen>
+    <dimen name="text_size_title_detail_task">32sp</dimen>
+    <dimen name="margin_row_detail_task">8dp</dimen>
+    <dimen name="padding_element_rview_task">2dp</dimen>
+
+    <!--ppms doi soat fragment-->
+    <dimen name="frag_doi_soat_width_image">300dp</dimen>
+
+    <!--ppms_report_fragment-->
+    <dimen name="frag_report_width_chart">500dp</dimen>
+    <dimen name="frag_report_text_size_month_choose">32sp</dimen>
+
+    <!--ttht_activity_task-->
+    <dimen name="ttht_height_row_small">32dp</dimen>
+    <dimen name="ttht_height_row">48dp</dimen>
+    <dimen name="ttht_height_row_more_half_line">72dp</dimen>
+    <dimen name="ttht_height_row_two_line">96dp</dimen>
+    <dimen name="ttht_text_size_row">16sp</dimen>
+    <dimen name="ttht_elevation_row_small">5dp</dimen>
+</resources>

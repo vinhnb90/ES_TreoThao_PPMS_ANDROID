@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<item android:state_enabled="false" android:drawable="@drawable/invoice_np_button_2"></item>-->
+    <!--<item android:state_pressed="true" android:drawable="@drawable/invoice_np_button_2"></item>-->
+    <!--<item android:drawable="@drawable/invoice_np_button"></item>-->
+    <item >
+        <shape>
+            <solid android:color="@android:color/darker_gray"></solid>
+            <corners android:radius="10dp"></corners>
+            <stroke android:color="@color/text_white" android:width="2dp"></stroke>
+        </shape>
+    </item>
+
+
+</selector>
+    <!--
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <solid android:color="#adadeb"></solid>
+            <corners android:radius="10dp" />
+        </shape>
+    </item>
+
+</selector>-->

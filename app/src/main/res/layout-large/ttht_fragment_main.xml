@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_ttht_fragment_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="2dp">
+
+        <Spinner
+            android:id="@+id/gsht_fragment_chamno_spFilter"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/view_size"
+            android:layout_weight="3"
+            android:background="@drawable/bg_spinner" />
+
+        <EditText
+            android:id="@+id/gsht_fragment_chamno_et_search"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/view_size"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="5.5"
+            android:background="@drawable/bg_edittext"
+            android:drawableRight="@mipmap/invoice_ic_search"
+            android:hint="Nhập thông tin tìm kiếm"
+            android:lines="1"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/activity_vertical_margin"
+            android:singleLine="true"
+            android:textSize="@dimen/common_text_size_row" />
+
+        <ImageButton
+            android:id="@+id/gsht_fragment_chamno_ib_clear"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/view_size"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="1.5"
+            android:background="@drawable/bg_button"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:src="@mipmap/invoice_ic_clear" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_size"
+        android:gravity="left"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        android:weightSum="10">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chọn Trạm: "
+                android:textSize="@dimen/common_text_size_row" />
+
+            <AutoCompleteTextView
+                android:id="@+id/ttht_fragment_main_autotv_maTram"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edittext"
+                android:gravity="center_vertical|left"
+                android:hint="Nhập mã trạm"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/margin_item_recycle"
+                android:scrollbars="vertical"
+                android:singleLine="true"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/common_text_size_row" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            android:layout_weight="9"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/ttht_fragment_main_tv_tenTram"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|left"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/margin_ten_tram"
+                android:scrollbars="horizontal"
+                android:singleLine="true"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/common_text_size_row" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số công tơ Tổng/Ghi/Gửi: "
+                android:textSize="@dimen/common_text_size_row" />
+
+            <TextView
+                android:id="@+id/ttht_fragment_main_tongSo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="@dimen/common_text_size_row"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" / "
+                android:textSize="@dimen/common_text_size_row" />
+
+            <TextView
+                android:id="@+id/ttht_fragment_main_daGhi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="@dimen/common_text_size_row"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" / "
+                android:textSize="@dimen/common_text_size_row" />
+
+            <TextView
+                android:id="@+id/ttht_fragment_main_daGui"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 "
+                android:textSize="@dimen/common_text_size_row"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </LinearLayout>
+    <!--<LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:weightSum="3"
+        android:orientation="horizontal"
+        android:padding="2dp">
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:weightSum="3"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Tổng: "
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:gravity="center_horizontal"
+                android:editable="false"
+                android:background="@drawable/bg_edittext"
+                android:id="@+id/ttht_fragment_main_tongSo"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:textColor="@color/text_black"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:text="C.Tơ"
+                android:textSize="18sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:weightSum="3"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Đã ghi: "
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:editable="false"
+                android:gravity="center_horizontal"
+                android:background="@drawable/bg_edittext"
+                android:textColor="@color/text_black"
+                android:id="@+id/ttht_fragment_main_daGhi"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:text="C.Tơ"
+                android:textSize="18sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:weightSum="3"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Đã gửi:"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:editable="false"
+                android:gravity="center_horizontal"
+                android:background="@drawable/bg_edittext"
+                android:textColor="@color/text_black"
+                android:id="@+id/ttht_fragment_main_daGui"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:text="C.Tơ"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/gsht_fragment_chamno_rv_kh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/margin_recycle_2"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:id="@+id/ttht_frament_main_llCamera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/ttht_fragment_main_bt_ngayChon"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/bt_size"
+            android:layout_weight="1"
+            android:text="27/04/2016"
+            android:background="@drawable/bg_button"
+            android:textColor="@color/text_white" />
+
+        <Button
+            android:id="@+id/ttht_fragment_main_btNhanBBan"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/bt_size"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button"
+            android:text="Nhận biên bản"
+            android:textColor="@color/text_white" />
+
+        <Button
+            android:id="@+id/ttht_fragment_main_btGuiBBan"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/bt_size"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button"
+            android:text="Gửi biên bản"
+            android:textColor="@color/text_white" />
+
+        <Button
+            android:id="@+id/ttht_fragment_main_btDoiSanh"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/bt_size"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button"
+            android:text="Đối soát"
+            android:textColor="@color/text_white" />
+
+        <!--<include layout="@layout/ttht_include_image_camera" />-->
+
+        <!--<include layout="@layout/ttht_include_ghi" />-->
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_column="0"
+    android:layout_row="0"
+    android:background="@drawable/invoice_np_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="Đăng ký thu ngân viên"
+            android:textColor="#FFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Row 2 with 3 columns -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/invoice_activity_register_tv_madvql"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="Mã DVQL"
+                android:textColor="#FFF"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/invoice_activity_register_spn_ma_dvql"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_margin="5dp"
+                android:layout_weight="3"
+                android:background="@drawable/invoice_np_spinner" />
+
+        </LinearLayout>
+        <!-- Row 3 with 2 columns -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/invoice_activity_register_tv_ten_dvql"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="Tên DVQL"
+                android:textColor="#FFF"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/invoice_activity_register_et_ten_dvql"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="3"
+                android:background="@drawable/bg_edittext"
+                android:enabled="false"
+                android:hint="Tên đơn vị quản lý"
+                android:inputType="textNoSuggestions"
+                android:padding="5dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/invoice_activity_register_tv_ma_thungan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="Mã TN *"
+                android:textColor="#FFF"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/invoice_activity_register_et_ma_thungan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="3"
+                android:background="@drawable/bg_edittext"
+                android:hint="Mã thu ngân (3 ký tự)"
+                android:maxLength="3"
+                android:inputType="textNoSuggestions"
+                android:padding="5dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/invoice_activity_register_tv_ten_thungan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="Tên TN *"
+                android:textColor="#FFF"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/invoice_activity_register_et_ten_thungan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="3"
+                android:background="@drawable/bg_edittext"
+                android:hint="Tên thu ngân"
+                android:inputType="textNoSuggestions"
+                android:padding="5dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/invoice_activity_register_tv_matkhau"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="Mật khẩu *"
+                android:textColor="#FFF"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/invoice_activity_register_et_matkhau"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="3"
+                android:background="@drawable/bg_edittext"
+                android:hint="******"
+                android:inputType="textNoSuggestions"
+                android:padding="5dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/invoice_activity_register_tv_dienthoai"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="Điện thoại *"
+                android:textColor="#FFF"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/invoice_activity_register_et_dienthoai"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="3"
+                android:background="@drawable/bg_edittext"
+                android:hint="Điện thoại"
+                android:inputType="textNoSuggestions"
+                android:padding="5dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/invoice_activity_register_tv_imei"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="IMEI *"
+                android:textColor="#FFF"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/invoice_activity_register_et_imei"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="3"
+                android:background="@drawable/bg_edittext"
+                android:enabled="false"
+                android:hint="IMEI của thiết bị"
+                android:inputType="textNoSuggestions"
+                android:padding="5dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/invoice_activity_register_tv_maychu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="Máy chủ *"
+                android:textColor="#FFF"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/invoice_activity_register_spn_maychu"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_margin="5dp"
+                android:layout_weight="3"
+                android:background="@drawable/invoice_np_spinner">
+
+            </Spinner>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/invoice_activity_register_bt_dangky"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/bg_button"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Đăng ký"
+            android:textColor="#8b0606"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+</ScrollView>

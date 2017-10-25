@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/panel_background"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/title_unselected"
+                android:padding="5dp"
+                android:text="Điểm đấu điện"
+                android:textColor="#FFF"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/essp_dialog_phuongan_et_diemdaudien"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Điểm đấu điện"
+                android:padding="5dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/title_unselected"
+                android:inputType="textNoSuggestions"
+                android:padding="5dp"
+                android:text="Thông tin đo đếm điện"
+                android:textColor="#FFF"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/essp_dialog_phuongan_et_a"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_edittext"
+                    android:hint="A"
+                    android:inputType="textNoSuggestions"
+                    android:padding="5dp" />
+
+                <EditText
+                    android:id="@+id/essp_dialog_phuongan_et_v"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_edittext"
+                    android:hint="V"
+                    android:inputType="textNoSuggestions"
+                    android:padding="5dp" />
+
+                <EditText
+                    android:id="@+id/essp_dialog_phuongan_et_ti"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_edittext"
+                    android:hint="Ti"
+                    android:inputType="textNoSuggestions"
+                    android:padding="5dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/title_unselected"
+                android:inputType="textNoSuggestions"
+                android:padding="5dp"
+                android:text="Vị trí lắp đặt công tơ"
+                android:textColor="#FFF"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/essp_dialog_phuongan_rb_trongnha"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Trong nhà"
+                        android:textColor="#FFF" />
+
+                    <RadioButton
+                        android:id="@+id/essp_dialog_phuongan_rb_trentuong"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Trên tường"
+                        android:textColor="#FFF" />
+
+                    <RadioButton
+                        android:id="@+id/essp_dialog_phuongan_rb_taicot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="Tại cột"
+                        android:textColor="#FFF" />
+
+                    <RadioButton
+                        android:id="@+id/essp_dialog_phuongan_rb_vitrikhac"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Vị trí khác"
+                        android:textColor="#FFF" />
+
+                </RadioGroup>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/essp_dialog_phuongan_et_socot"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/bg_edittext"
+                        android:hint="Số cột"
+                        android:inputType="textNoSuggestions"
+                        android:padding="5dp" />
+
+                    <EditText
+                        android:id="@+id/essp_dialog_phuongan_et_vitrikhac"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/bg_edittext"
+                        android:hint="Vị trí khác"
+                        android:visibility="gone"
+                        android:inputType="textNoSuggestions"
+                        android:padding="5dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/title_unselected"
+                android:inputType="textNoSuggestions"
+                android:padding="5dp"
+                android:text="Hình thức thanh toán"
+                android:textColor="#FFF"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/essp_dialog_phuongan_rb_tienmat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Tiền mặt"
+                    android:textColor="#FFF" />
+
+                <RadioButton
+                    android:id="@+id/essp_dialog_phuongan_rb_nganhang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ngân hàng"
+                    android:textColor="#FFF" />
+
+                <RadioButton
+                    android:id="@+id/essp_dialog_phuongan_rb_congthanhtoan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cổng thanh toán"
+                    android:textColor="#FFF" />
+
+                <RadioButton
+                    android:id="@+id/essp_dialog_phuongan_rb_htkhac"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hình thức khác"
+                    android:textColor="#FFF" />
+
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/essp_dialog_phuongan_et_htk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_margin="5dp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Hình thức khác (Séc, nhờ thu, ...)"
+                android:inputType="textNoSuggestions"
+                android:padding="5dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/title_unselected"
+                android:inputType="textNoSuggestions"
+                android:padding="5dp"
+                android:text="Tình trạng sử dụng điện"
+                android:textColor="#FFF"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/essp_dialog_phuongan_rb_chuaco"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Chưa có điện"
+                    android:textColor="#FFF" />
+
+                <RadioButton
+                    android:id="@+id/essp_dialog_phuongan_rb_dungchung"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đang dùng chung"
+                    android:textColor="#FFF" />
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/title_unselected"
+                android:inputType="textNoSuggestions"
+                android:padding="5dp"
+                android:text="Hình thức GCS"
+                android:textColor="#FFF"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/essp_dialog_phuongan_rb_tructiep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Trực tiếp"
+                    android:textColor="#FFF" />
+
+                <RadioButton
+                    android:id="@+id/essp_dialog_phuongan_rb_hhu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Qua HHU"
+                    android:textColor="#FFF" />
+
+                <RadioButton
+                    android:id="@+id/essp_dialog_phuongan_rb_tuxa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Từ xa"
+                    android:textColor="#FFF" />
+
+            </RadioGroup>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/essp_dialog_phuongan_bt_luu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"
+        android:layout_weight="0"
+        android:background="@drawable/bg_button"
+        android:textColor="@color/text_white"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:text="Lưu"
+        android:textStyle="bold" />
+
+</LinearLayout>

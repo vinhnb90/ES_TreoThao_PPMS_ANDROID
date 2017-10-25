@@ -1,0 +1,64 @@
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gcs_activity_main_dl_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color">
+
+    <include
+        android:id="@+id/app_bar_sa"
+        layout="@layout/app_bar" />
+
+    <FrameLayout
+        android:id="@+id/gcs_activity_main_fl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/gcs_activity_main_ln_slidermenu"
+        android:layout_width="340dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="start">
+
+        <ListView
+            android:id="@+id/gcs_activity_main_lv_slidermenu_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:choiceMode="singleChoice"
+            android:divider="@color/list_divider"
+            android:dividerHeight="1dp"
+            android:background="@color/list_background"
+            android:listSelector="@drawable/drawer_list_selection">
+
+        </ListView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="Sổ GCS"
+            android:textSize="24sp"
+            android:textColor="#c1c1c1"
+            android:background="@drawable/title_unselected_light"
+            android:textStyle="bold"/>
+
+        <ListView
+            android:id="@+id/gcs_activity_main_lv_slidermenu_so"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:choiceMode="singleChoice"
+            android:divider="@color/list_divider"
+            android:dividerHeight="1dp"
+            android:background="@color/list_background_trans"
+            android:listSelector="@drawable/drawer_list_selection_trans">
+
+        </ListView>
+    </LinearLayout>
+
+
+</android.support.v4.widget.DrawerLayout>

@@ -1,0 +1,217 @@
+<resources>
+    <string name="app_name">Giải pháp hiện trường</string>
+    <string name="description_list_icon">Item Icon</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_about">About</string>
+    <string name="search_title">Search</string>
+    <string name="search_hint">Search Item</string>
+    <string name="menu_get_data_3g">Lấy dữ liệu 3G</string>
+    <string name="menu_get_data_xml">Lấy dữ liệu từ XML</string>
+
+
+    <string name="record_title">Ai-Ball Recorder</string>
+    <string name="record_title2"> (Motion Detection)</string>
+    <string name="playlist_title">Play Recorded Video</string>
+    <string name="player_title">Play Recorded Video</string>
+    <string name="record_status">Detecting Motion...</string>
+    <string name="delete_video">Delete Video</string>
+    <string name="checkConnection">Checking connection...</string>
+    <string name="isWifiOn">Please ensure that your WiFi is turned on.</string>
+    <string name="isFlucardWifi">Please ensure that you are connected to Ai-Ball WiFi.</string>
+
+    <string name="st1">Overview:</string>
+    <string name="st2">The Ai-Ball Motion Detection app allows you to view, record and take snapshots from Ai-Ball. For recording, you can set the Motion Sensitivity level to control when you want to record. Set to \"MAX\" will record all the time. Set to \"MIN\" will never record.</string>
+    <string name="st3">Recordings made with the app can be played back via the app, or copied to your computer.</string>
+    <string name="st4">Snapshots are automatically added to your Photo Album, and can also be transferred to your computer.</string>
+    <string name="st5">Instructions:</string>
+    <string name="st6">Connecting the Ai-Ball to your Android device:</string>
+    <string name="st7">Turn on your Ai-Ball.</string>
+    <string name="st8">On your Android device, go to \"Wireless and network\" and connect to your Ai-Ball WiFi (If your Ai-Ball is in Infrastructure Mode, then choose the router your Ai-Ball is connected to).</string>
+    <string name="st9">Start the app, fill in all necessary information on setting page. Click on \"Save\" to continue.</string>
+    <string name="st10">On the main menu page, click on \"Record\" to enter record page. It may take sometime for video streaming to start, if no video streaming, Please make sure you choose the correct Wifi network or type in the correct user name and password (if any), also make sure the Ai-Ball URL is correct.</string>
+    <string name="st11">Using the App:</string>
+    <string name="st12">After you see streaming in \"Record\" page, you can start record your video by clicking the start button, the video clip will be saved in a folder called \"aiball_motion_detect\" inside \"My files\".</string>
+    <string name="st13">You can also make a snapshot by clicking the camera icon, the picture taken will be saved in the \"aiball_motion_detect\" folder too.</string>
+    <string name="st14">To view the video recorded before, click \"Play\" on the main page, and then choose the video you want to play back.</string>
+    <string name="st15">In the \"Play\" page, you can also delete the video by press and hold the video you want to delete.</string>
+    <string name="st16">Support:</string>
+    <string name="st17">For product or app support please visit http://www.thumbdrive.com/aiball/support.html</string>
+    <string name="step1">Step 1: </string>
+    <string name="step2">Step 2: </string>
+    <string name="step3">Step 3: </string>
+    <string name="step4">Step 4: </string>
+    <string name="step5">Step 5: </string>
+
+    <string name="help">Help</string>
+    <string name="url">Ai-Ball URL (need to include \"http://\"):</string>
+    <string name="uname">User Name for Infrastructure Mode (if any):</string>
+    <string name="pword">Password for Infrastructure Mode (if any):</string>
+    <string name="save">Save</string>
+    <string name="settingTitle">Ai-Ball Motion Detection Settings</string>
+    <string name="size">Max Record File Size (in MB):</string>
+    <string name="initial">Initializing...</string>
+    <string name="record">Recording...</string>
+    <string name="detectMotion">Detecting Motion...</string>
+    <string name="disabled">Motion Detection is disabled...</string>
+    <string name="always">Always Recording...</string>
+    <string name="sensitivity">Motion Sensitivity</string>
+    <string name="max">MAX</string>
+    <string name="min">MIN</string>
+
+
+    <string-array name="invoice_nav_drawer_items">
+        <item>Chấm nợ</item>
+        <item>Tổng hợp</item>
+        <item>Cấu hình</item>
+    </string-array>
+
+    <string-array name="gsht_nav_drawer_items">
+        <item>GSHT</item>
+        <item>Cấu hình</item>
+    </string-array>
+
+    <string-array name="essp_nav_drawer_items">
+        <item>Khảo sát thiết kế</item>
+        <item>Nghiệm thu</item>
+        <item>Danh mục</item>
+        <item>Cấu hình</item>
+    </string-array>
+
+    <string-array name="gcs_nav_drawer_items">
+        <item>Đồng bộ dữ liệu</item>
+        <item>Cầu hình</item>
+        <item>Báo cáo tổng hợp</item>
+        <item>Quản lý sổ</item>
+    </string-array>
+
+    <!-- List Item Icons(Images) with strings(text of company name) -->
+    <!-- Keep them with titles array accordingly -->
+    <array name="invoice_nav_drawer_icons">
+        <item>@mipmap/invoice_ic_chamno</item>
+        <item>@mipmap/invoice_ic_tonghop</item>
+        <item>@mipmap/invoice_ic_cauhinh</item>
+    </array>
+
+    <array name="gsht_nav_drawer_icons">
+        <item>@mipmap/invoice_ic_chamno</item>
+        <item>@mipmap/invoice_ic_cauhinh</item>
+    </array>
+
+    <array name="essp_nav_drawer_icons">
+        <item>@mipmap/icon_khaosat</item>
+        <item>@mipmap/icon_khaosat</item>
+        <item>@mipmap/icon_danhmuc</item>
+        <item>@mipmap/invoice_ic_cauhinh</item>
+    </array>
+
+    <array name="gcs_nav_drawer_icons">
+        <item>@mipmap/gcs_ic_synchdata</item>
+        <item>@mipmap/invoice_ic_cauhinh</item>
+        <item>@mipmap/invoice_ic_tonghop</item>
+        <item>@mipmap/gcs_ic_book</item>
+    </array>
+
+    <!--Phương thức đo xa-->
+
+    <string-array name="ABB_017">
+        <item>GPRS/3G</item>
+        <item>RF</item>
+        <item>Không có</item>
+    </string-array>
+
+    <string-array name="EDMI_016">
+        <item>GPRS/3G</item>
+        <item>Không có</item>
+    </string-array>
+
+    <string-array name="Elster_018">
+        <item>GPRS/3G</item>
+        <item>RF</item>
+        <item>Không có</item>
+    </string-array>
+
+    <string-array name="EMH_015">
+        <item>GPRS/3G</item>
+        <item>Không có</item>
+    </string-array>
+
+    <string-array name="EMIC_001">
+        <item>Không có</item>
+    </string-array>
+
+    <string-array name="EMIC_Gelex">
+        <item>RF</item>
+        <item>RF-Mesh</item>
+        <item>Không có</item>
+    </string-array>
+
+    <string-array name="Gelex_EMIC">
+        <item>RF-Mesh</item>
+        <item>RF</item>
+        <item>GPRS/3G</item>
+        <item>Không có</item>
+    </string-array>
+
+    <string-array name="Hữu_Hồng">
+        <item>RF-Mesh</item>
+        <item>RF</item>
+        <item>GPRS/3G</item>
+        <item>Không có</item>
+    </string-array>
+
+    <string-array name="Landis_Gyr_014">
+        <item>GPRS/3G</item>
+        <item>Không có</item>
+    </string-array>
+
+    <string-array name="Mistubishi">
+        <item>Không có</item>
+    </string-array>
+
+    <string-array name="Nanjing">
+        <item>RF-Mesh</item>
+        <item>RF</item>
+        <item>Không có</item>
+    </string-array>
+
+    <string-array name="OMNI_000">
+        <item>RS485</item>
+        <item>Không có</item>
+    </string-array>
+
+    <string-array name="STAR">
+        <item>RF-Mesh</item>
+        <item>RF</item>
+        <item>GPRS/3G</item>
+        <item>Không có</item>
+    </string-array>
+
+    <string-array name="Thụy_Điển">
+        <item>Không có</item>
+    </string-array>
+
+    <string-array name="VINASINO">
+        <item>PLC</item>
+        <item>GPRS/3G</item>
+        <item>Không có</item>
+    </string-array>
+
+    <string-array name="Wasion">
+        <item>RF</item>
+        <item>Không có</item>
+    </string-array>
+
+    <string-array name="Vinasinco">
+        <item>PLC</item>
+        <item>Không có</item>
+    </string-array>
+
+    <string-array name="Mitsubisi_Thái_Lan">
+        <item>Không có</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--end array Phuong Thuc Do xa-->
+</resources>

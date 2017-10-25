@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/panel_background"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/title_unselected"
+        android:padding="5dp"
+        android:text="Khảo sát thông tin"
+        android:textColor="#FFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/essp_dialog_khaigia_vattu_tv_VatTu"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Vật tư "
+                    android:textColor="#FFF"
+                    android:textSize="18sp" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/essp_dialog_khaigia_vattu_et_VatTu"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_edittext"
+                    android:completionThreshold="1"
+                    android:imeOptions="actionSearch"
+                    android:inputType="textNoSuggestions"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Đơn vị tính "
+                    android:textColor="#FFF"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/essp_dialog_khaigia_vattu_et_donvi"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_edittext"
+                    android:enabled="false"
+                    android:inputType="textNoSuggestions"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Số lượng "
+                    android:textColor="#FFF"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/essp_dialog_khaigia_vattu_et_SoLuong"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_edittext"
+                    android:inputType="numberDecimal"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="HS điều chỉnh 1nc "
+                    android:textColor="#FFF"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/essp_dialog_khaigia_vattu_et_1nc"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_edittext"
+                    android:inputType="numberDecimal"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="HS điều chỉnh 2nc "
+                    android:textColor="#FFF"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/essp_dialog_khaigia_vattu_et_2nc"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_edittext"
+                    android:inputType="numberDecimal"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="HS điều chỉnh mtc "
+                    android:textColor="#FFF"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/essp_dialog_khaigia_vattu_et_mtc"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_edittext"
+                    android:inputType="numberDecimal"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/essp_dialog_khaigia_vattu_cbVTuChinh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:button="@drawable/essp_checkbox"
+                android:paddingLeft="5dp"
+                android:text="Vật tư chính"
+                android:textColor="@color/text_white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/title_unselected"
+                android:padding="5dp"
+                android:text="Đơn giá gốc"
+                android:textColor="#FFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Đơn giá vật tư "
+                    android:textColor="#FFF"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/essp_dialog_khaigia_vattu_et_dgVatTuGoc"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_edittext"
+                    android:enabled="false"
+                    android:inputType="numberDecimal"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Đơn giá nhân công "
+                    android:textColor="#FFF"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/essp_dialog_khaigia_vattu_et_dgNhanCongGoc"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_edittext"
+                    android:enabled="false"
+                    android:inputType="numberDecimal"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Đơn giá MTC "
+                    android:textColor="#FFF"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/essp_dialog_khaigia_vattu_et_dgMTCGoc"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_edittext"
+                    android:enabled="false"
+                    android:inputType="numberDecimal"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/title_unselected"
+                android:padding="5dp"
+                android:text="Đơn giá có điều chỉnh"
+                android:textColor="#FFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Đơn giá vật tư "
+                    android:textColor="#FFF"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/essp_dialog_khaigia_vattu_et_dgVatTu"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_edittext"
+                    android:enabled="false"
+                    android:inputType="numberDecimal"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Đơn giá nhân công "
+                    android:textColor="#FFF"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/essp_dialog_khaigia_vattu_et_dgNhanCong"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_edittext"
+                    android:enabled="false"
+                    android:inputType="numberDecimal"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Đơn giá MTC "
+                    android:textColor="#FFF"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/essp_dialog_khaigia_vattu_et_dgMTC"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_edittext"
+                    android:enabled="false"
+                    android:inputType="numberDecimal"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Đơn giá trước thuế "
+                    android:textColor="#FFF"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/essp_dialog_khaigia_vattu_et_dgTruocThue"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_edittext"
+                    android:enabled="false"
+                    android:inputType="numberDecimal"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Giá trị trước thuế "
+                    android:textColor="#FFF"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/essp_dialog_khaigia_vattu_et_gtTruocThue"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_edittext"
+                    android:enabled="false"
+                    android:inputType="numberDecimal"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/essp_dialog_khaigia_vattu_bt_luu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:layout_weight="0"
+        android:background="@drawable/bg_button"
+        android:gravity="center"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:text="Lưu"
+        android:textColor="@color/text_white"
+        android:textStyle="bold" />
+
+</LinearLayout>

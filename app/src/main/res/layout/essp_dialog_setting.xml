@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#0b5eb2"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tvTitleSetting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="Setting"
+                    android:textColor="#FFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/vLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_below="@+id/tvTitleSetting"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@color/text_white" />
+
+                <CheckBox
+                    android:id="@+id/cbDrawTop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/vLine"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:button="@drawable/essp_checkbox"
+                    android:checked="true"
+                    android:padding="5dp"
+                    android:text="Tự động vẽ hình chiếu mặt bằng"
+                    android:textColor="@color/text_white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvDrawTop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cbDrawTop"
+                    android:layout_marginLeft="15dp"
+                    android:padding="5dp"
+                    android:text="Cho phép tự động vẽ ra hình chiếu mặt bằng bên trên bản vẽ bao gồm nhà dân, trạm biến áp, đường dây, cột treo công tơ và các ghi chú"
+                    android:textColor="@color/switch_thumb_material_light"
+                    android:textStyle="italic" />
+
+                <CheckBox
+                    android:id="@+id/cbAllowViewDraw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tvDrawTop"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:button="@drawable/essp_checkbox"
+                    android:checked="true"
+                    android:padding="5dp"
+                    android:text="Hiển thị và phòng to vùng đang vẽ lên góc màn hình"
+                    android:textColor="@color/text_white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvAllowViewDraw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cbAllowViewDraw"
+                    android:layout_marginLeft="15dp"
+                    android:padding="5dp"
+                    android:text="Cho phép phóng to vùng đang vẽ trên góc màn hình"
+                    android:textColor="@color/switch_thumb_material_light"
+                    android:textStyle="italic" />
+
+                <CheckBox
+                    android:id="@+id/cbShowSnapPoint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tvAllowViewDraw"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:button="@drawable/essp_checkbox"
+                    android:checked="true"
+                    android:padding="5dp"
+                    android:text="Hiển thị các điểm mốc"
+                    android:textColor="@color/text_white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvShowSnapPoint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cbShowSnapPoint"
+                    android:layout_marginLeft="15dp"
+                    android:padding="5dp"
+                    android:text="Mỗi đối tượng sẽ có các điểm có tác dụng hút các đường vẽ khác lại để tăng độ chính xác của bản vẽ, tích chọn mục này để hiển thị các điểm đó"
+                    android:textColor="@color/switch_thumb_material_light"
+                    android:textStyle="italic" />
+
+            </RelativeLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/ibClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="10dp"
+        android:background="@drawable/border_draw_icon_pink"
+        android:padding="10dp"
+        android:src="@mipmap/icon_draw_close_popup" />
+
+</RelativeLayout>

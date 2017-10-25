@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/gcs_include_login_llLogin"
+    android:background="@drawable/bg_linearlayout"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_margin="10dp"
+    android:padding="5dp"
+    android:layout_gravity="center">
+
+        <EditText
+            android:id="@+id/gcs_include_login_etUser"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:hint="Tài khoản"
+            android:inputType="textNoSuggestions"
+            android:maxLines="1"
+            android:background="@drawable/bg_edittext"
+            android:singleLine="true" />
+
+
+        <EditText
+            android:id="@+id/gcs_include_login_etPass"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="******"
+            android:imeActionId="@+id/login"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:imeOptions="actionUnspecified"
+            android:background="@drawable/bg_edittext"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+
+    <Button
+        android:id="@+id/gcs_include_login_btLogin"
+        style="?android:textAppearanceSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Đăng nhập"
+        android:textStyle="bold"
+        android:textColor="@color/text_white"
+        android:background="@drawable/bg_button"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>

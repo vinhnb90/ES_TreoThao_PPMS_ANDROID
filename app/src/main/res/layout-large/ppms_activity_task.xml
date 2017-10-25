@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_task"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.es.tungnv.views.PpmsTaskActivity">
+
+    <LinearLayout
+        android:id="@+id/ll_ppms_top_menu"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height_size_top_menu"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_item_recycle"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/btn_ppms_task_menu"
+            android:layout_width="@dimen/common_height_size_top_menu"
+            android:layout_height="@dimen/common_height_size_top_menu"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/ic_ppms_task_menu"
+            android:onClick="clickTaskMenu"
+            android:text="LỊCH PHÂN CÔNG"
+            android:textColor="@color/text_white" />
+
+        <Button
+            android:id="@+id/btn_ppms_history_menu"
+            android:layout_width="@dimen/common_height_size_top_menu"
+            android:layout_height="@dimen/common_height_size_top_menu"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/ic_ppms_report_menu"
+            android:onClick="clickHistoryMenu"
+            android:text="LỊCH SỬ TẢI LÊN"
+            android:textColor="@color/text_white" />
+
+        <Button
+            android:id="@+id/btn_ppms_report_menu"
+            android:layout_width="@dimen/common_height_size_top_menu"
+            android:layout_height="@dimen/common_height_size_top_menu"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/ic_ppms_menu_task"
+            android:onClick="clickReportMenu"
+            android:text="THỐNG KÊ"
+            android:textColor="@color/text_white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_ppms_bottom_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_item_recycle"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_ppms_download_menu"
+                android:layout_width="@dimen/common_height_size_bottom_menu"
+                android:layout_height="@dimen/common_height_size_bottom_menu"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_ppms_download_menu"
+                android:onClick="clickDownloadMenu"
+                android:text="CẬP NHẬT"
+                android:textColor="@color/text_white" />
+
+            <Button
+                android:id="@+id/btn_ppms_search_menu"
+                android:layout_width="@dimen/common_height_size_bottom_menu"
+                android:layout_height="@dimen/common_height_size_bottom_menu"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_ppms_search_menu"
+                android:onClick="clickSearchMenu"
+                android:text="TÌM KIẾM"
+                android:textColor="@color/text_white"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_ppms_check_menu"
+                android:layout_width="@dimen/common_height_size_bottom_menu"
+                android:layout_height="@dimen/common_height_size_bottom_menu"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_ppms_check_menu"
+                android:onClick="clickDoiSoatMenu"
+                android:text="ĐỐI SOÁT"
+                android:textColor="@color/text_white" />
+
+            <Button
+                android:id="@+id/btn_ppms_choose_or_clear_all_menu"
+                android:layout_width="@dimen/common_height_size_bottom_menu"
+                android:layout_height="@dimen/common_height_size_bottom_menu"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_ppms_upload_menu_48"
+                android:onClick="clickChooseOrClearAllMenu"
+                android:text="[CHỌN/BỎ CHỌN] TẤT CẢ"
+                android:textColor="@color/text_white"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_ppms_upload_menu"
+                android:layout_width="@dimen/common_height_size_bottom_menu"
+                android:layout_height="@dimen/common_height_size_bottom_menu"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_ppms_upload_menu_48"
+                android:onClick="clickUploadMenu"
+                android:text="GỬI BIÊN BẢN"
+                android:textColor="@color/text_white"
+                android:visibility="gone" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_ppms_task_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/ll_ppms_bottom_menu"
+        android:layout_below="@id/ll_ppms_top_menu"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_item_recycle">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@color/colorPrimaryDark"
+        android:layout_above="@id/ll_ppms_bottom_menu"
+        android:visibility="visible"
+        android:id="@+id/ppms_activity_task_ll_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_horizontal_margin_small"
+        android:weightSum="1">
+
+
+        <LinearLayout
+            android:padding="@dimen/activity_horizontal_margin_small"
+            android:weightSum="1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/ppms_activity_task_rd_searchByText"
+                android:textStyle="italic"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Theo tên, địa chỉ, mã GCS:"
+                android:textColor="@color/text_white" />
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/ppms_activity_task_ll_searchByText"
+            android:visibility="visible"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:weightSum="4">
+
+           <!-- <EditText
+                android:inputType="text"
+                android:paddingLeft="@dimen/margin_item_recycle"
+                android:id="@+id/ppms_activity_task_et_search"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/text_size_ac_task"
+                android:layout_weight="4"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:background="@drawable/bg_edittext"
+                />-->
+            <EditText
+                android:textSize="@dimen/common_text_size_row"
+                android:hint="Nhập thông tin tìm kiếm"
+                android:drawableRight="@drawable/ic_pen_32"
+                android:inputType="text"
+                android:paddingLeft="@dimen/margin_item_recycle"
+                android:id="@+id/ppms_activity_task_et_search_by_text"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/text_size_ac_task"
+                android:layout_weight="4"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:background="@drawable/bg_edittext"
+                />
+
+
+
+          <!--  <ImageButton
+                android:onClick="clickChooseDate"
+                android:id="@+id/ppms_activity_task_ibtn_choose_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_item_recycle"
+                android:background="@drawable/ic_ppms_calendar_menu"
+                />-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="@dimen/activity_horizontal_margin_small"
+            android:weightSum="1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/ppms_activity_task_rd_searchByDate"
+                android:textStyle="italic"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Theo ngày phân công, ngày phúc tra):"
+                android:textColor="@color/text_white" />
+
+        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ppms_activity_task_ll_searchByDate"
+        android:visibility="visible"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:weightSum="4">
+        <TextView
+            android:textSize="@dimen/common_text_size_row"
+            android:gravity="center_vertical"
+            android:elevation="10dp"
+            android:onClick="clickChooseDate"
+            android:hint="Nhấn để chọn ngày"
+            android:drawableRight="@drawable/ic_date_32"
+            android:inputType="text"
+            android:paddingLeft="@dimen/margin_item_recycle"
+            android:id="@+id/ppms_activity_task_tv_choose_date"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/text_size_ac_task"
+            android:layout_weight="4"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:background="@drawable/bg_edittext"
+            />
+</LinearLayout>
+        <View
+            style="@style/DividerLineVertical"
+            android:layout_marginTop="@dimen/margin_item_recycle"
+            android:background="@color/text_white" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/ppms_activity_login_iv_logo_1"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textColor="@color/text_white"
+        android:textSize="20sp"
+        android:text="GIÁM SÁT HỢP ĐỒNG MUA BÁN ĐIỆN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/ppms_activity_login_ll_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ppms_activity_login_iv_logo"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_linearlayout"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <EditText
+            android:id="@+id/ppms_activity_login_et_ip"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/bg_edittext"
+            android:drawableLeft="@mipmap/invoice_ic_ip"
+            android:drawablePadding="5dp"
+            android:hint="IP máy chủ"
+            android:inputType="textNoSuggestions"
+            android:padding="5dp"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/ppms_activity_login_sp_dvi"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_weight="4"
+                android:background="@drawable/bg_spinner" />
+
+            <ImageButton
+                android:scaleType="centerInside"
+                android:scaleX="0.7"
+                android:scaleY="0.7"
+                android:id="@+id/ppms_activity_login_ib_loaddvi"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@null"
+                android:src="@mipmap/invoice_ic_download" />
+        </LinearLayout>
+
+        <AutoCompleteTextView
+            android:id="@+id/ppms_activity_login_et_username"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/bg_edittext"
+            android:drawableLeft="@mipmap/invoice_ic_username"
+            android:drawablePadding="5dp"
+            android:hint="Tài khoản"
+            android:inputType="textNoSuggestions"
+            android:padding="5dp"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/ppms_activity_login_auto_et_password"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/bg_edittext"
+            android:drawableLeft="@mipmap/invoice_ic_password"
+            android:drawablePadding="5dp"
+            android:hint="******"
+            android:inputType="textPassword"
+            android:padding="5dp"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/ppms_activity_login_tv_developed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ppms_activity_login_tv_version"
+        android:layout_marginLeft="10dp"
+        android:text="Developed by: E-Solutions"
+        android:textColor="#FFF"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/ppms_activity_login_tv_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="Version: 1.0"
+        android:textColor="#FFF"
+        android:textSize="14sp" />
+
+    <!--<Button-->
+    <!--android:id="@+id/ppms_activity_login_bt_cmd"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:background="@drawable/bg_button_black"-->
+    <!--android:text="cmd"-->
+    <!--android:layout_margin="5dp"-->
+    <!--android:textColor="@color/text_white"-->
+    <!--android:textSize="14sp" />-->
+
+
+    <!-- <LinearLayout
+         android:orientation="vertical"
+         android:id="@+id/ppms_activity_login_warning_date"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+         <TextView
+             android:text="Cảnh báo: Lệch thời gian trên thiết bị so với hệ thống!"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content" />
+         <TextView
+             android:layout_width="match_parent"
+             android:layout_height="" />
+     </LinearLayout>-->
+
+    <Button
+        android:id="@+id/ppms_activity_login_bt_login"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:background="@drawable/bg_button"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="Đăng nhập"
+        android:textColor="@color/text_white"
+        android:textSize="16sp"
+        android:layout_below="@+id/ppms_activity_login_ll_login"
+        android:layout_centerHorizontal="true" />
+
+    <ProgressBar
+        android:id="@+id/ppms_activity_login_pbar"
+        style="@android:style/Widget.ProgressBar.Large.Inverse"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textColor="@color/text_white"
+        android:textSize="20sp"
+        android:visibility="gone"
+        android:layout_below="@+id/ppms_activity_login_bt_login"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/ppms_activity_login_iv_logo"
+        android:textStyle="bold"
+        android:textColor="@color/text_white"
+        android:textSize="15sp"
+        android:gravity="center_horizontal"
+        android:text="Power Purchase Monitoring System (PPMS)"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/ppms_activity_login_iv_logo_1"
+        android:layout_alignStart="@+id/ppms_activity_login_ll_login" />
+</RelativeLayout>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/panel_background">
+
+    <TextView
+        android:id="@+id/dialog_cmd_tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/title_unselected"
+        android:padding="5dp"
+        android:text="CMD"
+        android:textColor="#FFF"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/dialog_cmd_etCMD"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/dialog_cmd_tvTitle"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:gravity="top|left"
+        android:textColor="@color/text_white"
+        android:background="@drawable/bg_button_black">
+
+    </EditText>
+
+    <Button
+        android:id="@+id/dialog_cmd_btOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/dialog_cmd_etCMD"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/bg_button_black"
+        android:text="OK"
+        android:textColor="@color/text_white" />
+
+    <Button
+        android:id="@+id/dialog_cmd_btClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/dialog_cmd_btOK"
+        android:layout_below="@+id/dialog_cmd_etCMD"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/bg_button_black"
+        android:text="Clear"
+        android:textColor="@color/text_white" />
+
+</RelativeLayout>

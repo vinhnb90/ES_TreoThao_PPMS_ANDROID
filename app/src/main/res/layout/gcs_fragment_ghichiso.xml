@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/gcs_fragment_ghichiso_rvKH"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:isScrollContainer="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/gcs_fragment_ghichiso_etNgayPmax"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edittext"
+                android:editable="false"
+                android:hint="Ngày Pmax"
+                android:inputType="date"
+                android:textSize="13sp"
+                android:padding="5dp" />
+
+            <EditText
+                android:id="@+id/gcs_fragment_ghichiso_etPmax"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edittext"
+                android:hint="Pmax"
+                android:inputType="number"
+                android:padding="5dp" />
+
+            <EditText
+                android:id="@+id/gcs_fragment_ghichiso_etChiSo"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edittext"
+                android:hint="Chỉ số"
+                android:inputType="numberDecimal"
+                android:padding="5dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:orientation="horizontal"
+            android:padding="2dp">
+
+            <com.es.tungnv.zoomImage.ImageViewTouch xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/gcs_fragment_ghichiso_ivViewImage"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="1dp"
+                android:layout_weight="1"
+                android:background="#000">
+            </com.es.tungnv.zoomImage.ImageViewTouch>
+
+            <!--<ImageView-->
+                <!--android:id="@+id/gcs_fragment_ghichiso_ivViewImage"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginRight="1dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="#000" />-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:id="@+id/gcs_fragment_ghichiso_spTinhTrang"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/invoice_np_spinner" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/gcs_fragment_ghichiso_btCameraMTB"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_button"
+                        android:text="Camera MTB"
+                        android:textColor="@color/text_white"
+                        android:textSize="13sp" />
+
+                    <Button
+                        android:id="@+id/gcs_fragment_ghichiso_btGayCamera"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/text_white"
+                        android:background="@drawable/bg_button"
+                        android:text="Gậy Camera"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/gcs_fragment_ghichiso_btChucNang"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_button"
+                        android:text="Chức năng"
+                        android:textColor="@color/text_white"
+                        android:textSize="13sp" />
+
+                    <Button
+                        android:id="@+id/gcs_fragment_ghichiso_btGhi"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_button_orange"
+                        android:text="Ghi"
+                        android:textColor="@color/text_white"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

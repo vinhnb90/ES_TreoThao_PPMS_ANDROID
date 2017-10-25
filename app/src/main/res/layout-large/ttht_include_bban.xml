@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvTitleTenKH"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="5dp"
+                    android:text="Tên khách hàng: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvTenKH"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/ttht_dialog_detail_tvTitleTenKH"
+                    android:text="Nguyễn Vũ Tùng"
+                    android:textColor="@color/text_black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvTitleDChi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/ttht_dialog_detail_tvTenKH"
+                    android:layout_marginBottom="5dp"
+                    android:text="Địa chỉ: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvDChi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ttht_dialog_detail_tvTenKH"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/ttht_dialog_detail_tvTitleDChi"
+                    android:text="44 Vũ Phạm Hàm"
+                    android:textColor="@color/text_black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvTitleSDT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/ttht_dialog_detail_tvDChi"
+                    android:layout_marginBottom="5dp"
+                    android:text="SĐT: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvSDT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ttht_dialog_detail_tvDChi"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/ttht_dialog_detail_tvTitleSDT"
+                    android:text="01656845956"
+                    android:textColor="@color/text_black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvTitleMaTram"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/ttht_dialog_detail_tvSDT"
+                    android:layout_marginBottom="5dp"
+                    android:text="Mã trạm: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvMaTram"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ttht_dialog_detail_tvSDT"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/ttht_dialog_detail_tvTitleMaTram"
+                    android:text="PD1215421054041"
+                    android:textColor="@color/text_black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvTitleMaHDong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/ttht_dialog_detail_tvMaTram"
+                    android:layout_marginBottom="5dp"
+                    android:text="Mã hợp đồng: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvMaHDong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ttht_dialog_detail_tvMaTram"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/ttht_dialog_detail_tvTitleMaHDong"
+                    android:text="PD1215421054041"
+                    android:textColor="@color/text_black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvTitleMaDDo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/ttht_dialog_detail_tvMaHDong"
+                    android:layout_marginBottom="5dp"
+                    android:text="Mã điểm đo: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvMaDDo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ttht_dialog_detail_tvMaHDong"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/ttht_dialog_detail_tvTitleMaDDo"
+                    android:text="PD000000000"
+                    android:textColor="@color/text_black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvTitleSoBBan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/ttht_dialog_detail_tvMaDDo"
+                    android:layout_marginBottom="5dp"
+                    android:text="Số biên bản: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvSoBBan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ttht_dialog_detail_tvMaDDo"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/ttht_dialog_detail_tvTitleSoBBan"
+                    android:text="01"
+                    android:textColor="@color/text_black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvTitleNgayTreoThao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/ttht_dialog_detail_tvSoBBan"
+                    android:layout_marginBottom="5dp"
+                    android:text="Ngày treo tháo: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvNgayTreoThao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ttht_dialog_detail_tvSoBBan"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/ttht_dialog_detail_tvTitleNgayTreoThao"
+                    android:text="25/08/2016"
+                    android:textColor="@color/text_black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvTitleMaNVien"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/ttht_dialog_detail_tvNgayTreoThao"
+                    android:layout_marginBottom="5dp"
+                    android:text="Mã nhân viên: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvMaNVien"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ttht_dialog_detail_tvNgayTreoThao"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/ttht_dialog_detail_tvTitleMaNVien"
+                    android:text="PD1021542"
+                    android:textColor="@color/text_black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvTitleMaLDo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/ttht_dialog_detail_tvMaNVien"
+                    android:layout_marginBottom="5dp"
+                    android:text="Mã lý do: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvMaLDo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ttht_dialog_detail_tvMaNVien"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/ttht_dialog_detail_tvTitleMaLDo"
+                    android:text="PD1021542"
+                    android:textColor="@color/text_black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvTitleNgayTao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/ttht_dialog_detail_tvMaLDo"
+                    android:layout_marginBottom="5dp"
+                    android:text="Ngày tạo: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvNgayTao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ttht_dialog_detail_tvMaLDo"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/ttht_dialog_detail_tvTitleNgayTao"
+                    android:text="25/08/2016 16:46:00 PM"
+                    android:textColor="@color/text_black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvTitleNguoiTao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/ttht_dialog_detail_tvNgayTao"
+                    android:layout_marginBottom="5dp"
+                    android:text="Người tạo: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvNguoiTao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ttht_dialog_detail_tvNgayTao"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/ttht_dialog_detail_tvTitleNguoiTao"
+                    android:text="Nguyễn Vũ Tùng"
+                    android:textColor="@color/text_black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvTitleNgaySua"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/ttht_dialog_detail_tvNguoiTao"
+                    android:layout_marginBottom="5dp"
+                    android:text="Ngày sửa: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvNgaySua"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ttht_dialog_detail_tvNguoiTao"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/ttht_dialog_detail_tvTitleNgaySua"
+                    android:text="25/08/2016 16:46:00 PM"
+                    android:textColor="@color/text_black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvTitleNguoiSua"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/ttht_dialog_detail_tvNgaySua"
+                    android:layout_marginBottom="5dp"
+                    android:text="Người sửa: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvNguoiSua"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ttht_dialog_detail_tvNgaySua"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/ttht_dialog_detail_tvTitleNguoiSua"
+                    android:text="Nguyễn Vũ Tùng"
+                    android:textColor="@color/text_black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvTitleMaYCau"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/ttht_dialog_detail_tvNguoiSua"
+                    android:layout_marginBottom="5dp"
+                    android:text="Mã yêu cầu: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvMaYCau"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ttht_dialog_detail_tvNguoiSua"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/ttht_dialog_detail_tvTitleMaYCau"
+                    android:text="GK152421052"
+                    android:textColor="@color/text_black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvTitleGhiChu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/ttht_dialog_detail_tvMaYCau"
+                    android:layout_marginBottom="5dp"
+                    android:text="Ghi chú: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvGhiChu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ttht_dialog_detail_tvMaYCau"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/ttht_dialog_detail_tvTitleGhiChu"
+                    android:text="nội dung ghi chú"
+                    android:textColor="@color/text_black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvTitleLoaiBBan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/ttht_dialog_detail_tvGhiChu"
+                    android:layout_marginBottom="5dp"
+                    android:text="Loại biên bản: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvLoaiBBan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ttht_dialog_detail_tvGhiChu"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/ttht_dialog_detail_tvTitleLoaiBBan"
+                    android:text="A"
+                    android:textColor="@color/text_black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvTitleMaGCSCto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/ttht_dialog_detail_tvLoaiBBan"
+                    android:layout_marginBottom="5dp"
+                    android:text="Mã GCS: "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ttht_dialog_detail_tvMaGCSCto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ttht_dialog_detail_tvLoaiBBan"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/ttht_dialog_detail_tvTitleMaGCSCto"
+                    android:text="12012244"
+                    android:textColor="@color/text_black"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

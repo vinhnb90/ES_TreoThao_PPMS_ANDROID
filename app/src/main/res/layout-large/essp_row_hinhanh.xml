@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_margin="5dp"
+    android:background="@drawable/bg_linearlayout">
+
+    <ImageView
+        android:id="@+id/essp_row_hinhanh_iv_hinhanh"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_margin="10dp"
+        android:layout_alignParentLeft="true"/>
+
+    <TextView
+        android:id="@+id/essp_row_hinhanh_tv_ghichu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/essp_row_hinhanh_iv_hinhanh"
+        android:layout_margin="10dp"
+        android:textColor="#FFF"
+        android:textSize="18sp"
+        android:text="abc"/>
+
+    <ImageButton
+        android:id="@+id/essp_row_hinhanh_ib_draw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/essp_draw_image"
+        android:background="@null"
+        android:layout_margin="5dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:focusable="false" />
+
+    <ImageButton
+        android:id="@+id/essp_row_hinhanh_ib_ghichu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/essp_note_image"
+        android:background="@null"
+        android:layout_margin="5dp"
+        android:layout_toLeftOf="@+id/essp_row_hinhanh_ib_draw"
+        android:layout_alignParentBottom="true"
+        android:focusable="false" />
+
+    <ImageButton
+        android:id="@+id/essp_row_hinhanh_ib_xoa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/essp_delete"
+        android:background="@null"
+        android:layout_margin="5dp"
+        android:layout_toLeftOf="@+id/essp_row_hinhanh_ib_ghichu"
+        android:layout_alignParentBottom="true"
+        android:focusable="false" />
+
+</RelativeLayout>

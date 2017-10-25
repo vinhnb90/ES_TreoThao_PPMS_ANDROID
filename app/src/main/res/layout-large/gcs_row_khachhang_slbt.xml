@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp"
+    android:background="@drawable/gcs_bg_listitem_white"
+    android:padding="2dp">
+
+    <TextView
+        android:id="@+id/gcs_row_khachhang_stt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="5dp"
+        android:text="1."
+        android:textColor="#691112"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_row_khachhang_tenkh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/gcs_row_khachhang_stt"
+        android:text="Nguyễn Vũ Tùng"
+        android:textColor="#691112"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/gcs_row_khachhang_title_csmoi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/gcs_row_khachhang_tenkh"
+        android:text="CS mới: "
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/gcs_row_khachhang_csmoi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_row_khachhang_tenkh"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@+id/gcs_row_khachhang_title_csmoi"
+        android:text="12345"
+        android:textColor="#691112"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_row_khachhang_title_slmoi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_row_khachhang_tenkh"
+        android:layout_toRightOf="@+id/gcs_row_khachhang_csmoi"
+        android:text="SL mới: "
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/gcs_row_khachhang_slmoi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_row_khachhang_tenkh"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@+id/gcs_row_khachhang_title_slmoi"
+        android:text="12345"
+        android:textColor="#691112"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_row_khachhang_title_dtt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_row_khachhang_tenkh"
+        android:layout_toRightOf="@+id/gcs_row_khachhang_slmoi"
+        android:text="ĐTT: "
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/gcs_row_khachhang_dtt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_row_khachhang_tenkh"
+        android:layout_toRightOf="@+id/gcs_row_khachhang_title_dtt"
+        android:text="13245"
+        android:textColor="#691112"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_row_khachhang_title_cscu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/gcs_row_khachhang_dtt"
+        android:text="CS Cũ: "
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/gcs_row_khachhang_cscu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_row_khachhang_dtt"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@+id/gcs_row_khachhang_title_cscu"
+        android:text="13245"
+        android:textColor="#691112"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_row_khachhang_title_slcu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_row_khachhang_dtt"
+        android:layout_toRightOf="@+id/gcs_row_khachhang_cscu"
+        android:text="SL Cũ: "
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/gcs_row_khachhang_slcu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_row_khachhang_dtt"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@+id/gcs_row_khachhang_title_slcu"
+        android:text="13245"
+        android:textColor="#691112"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_row_khachhang_title_macot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_row_khachhang_dtt"
+        android:layout_toRightOf="@+id/gcs_row_khachhang_slcu"
+        android:text="Mã cột: "
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/gcs_row_khachhang_macot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_row_khachhang_dtt"
+        android:layout_toRightOf="@+id/gcs_row_khachhang_title_macot"
+        android:text="13245"
+        android:textColor="#691112"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_row_khachhang_title_loaibcs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/gcs_row_khachhang_macot"
+        android:text="Loại BCS: "
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/gcs_row_khachhang_loaibcs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_row_khachhang_macot"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@+id/gcs_row_khachhang_title_loaibcs"
+        android:text="KT"
+        android:textColor="#691112"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_row_khachhang_title_ttrmoi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_row_khachhang_macot"
+        android:layout_toRightOf="@+id/gcs_row_khachhang_loaibcs"
+        android:text="TTR mới: "
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/gcs_row_khachhang_ttrmoi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_row_khachhang_macot"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@+id/gcs_row_khachhang_title_ttrmoi"
+        android:text=""
+        android:textColor="#691112"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gcs_row_khachhang_title_socto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_row_khachhang_macot"
+        android:layout_toRightOf="@+id/gcs_row_khachhang_ttrmoi"
+        android:text="Cố Ctơ: "
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/gcs_row_khachhang_socto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_row_khachhang_macot"
+        android:layout_toRightOf="@+id/gcs_row_khachhang_title_socto"
+        android:text="102462174"
+        android:textColor="#691112"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/gcs_row_khachhang_showMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/gcs_row_khachhang_macot"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="2dp"
+        android:background="@null"
+        android:src="@mipmap/gcs_ic_arrow_red" />
+
+
+</RelativeLayout>

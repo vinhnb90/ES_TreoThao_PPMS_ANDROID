@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/panel_background"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/title_unselected"
+        android:padding="10dp"
+        android:text="Danh sách vật tư"
+        android:textColor="#FFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/essp_dialog_vattu_et_tenvtu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_edittext"
+        android:hint="Tên vật tư"
+        android:inputType="textNoSuggestions"
+        android:padding="10dp"
+        android:textSize="18sp">
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/essp_dialog_vattu_et_soluong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/bg_edittext"
+        android:hint="Số lượng"
+        android:inputType="numberDecimal"
+        android:padding="10dp"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/essp_dialog_vattu_et_dvi_tinh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/bg_edittext"
+        android:hint="Đơn vị tính"
+        android:inputType="textNoSuggestions"
+        android:padding="10dp"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/essp_dialog_vattu_et_dongia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/bg_edittext"
+        android:hint="Đơn giá nhân công"
+        android:inputType="numberDecimal"
+        android:padding="10dp"
+        android:textSize="18sp" />
+
+    <CheckBox
+        android:id="@+id/essp_dialog_vattu_ckVatTuChinh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vật tư chính"
+        android:textColor="@color/text_white"
+        android:checked="true"
+        android:layout_marginLeft="10dp"
+        android:paddingLeft="10dp"
+        android:textSize="18sp"
+        android:button="@drawable/essp_checkbox"/>
+
+    <Button
+        android:id="@+id/essp_dialog_vattu_bt_add"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|right"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="0"
+        android:background="@drawable/bg_button"
+        android:text="Thêm"
+        android:textColor="@color/text_white"
+        android:textSize="20sp" />
+
+
+</LinearLayout>

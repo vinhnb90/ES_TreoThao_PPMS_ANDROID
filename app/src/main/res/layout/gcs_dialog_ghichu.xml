@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/panel_background">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ghi chú công tơ"
+        android:background="@drawable/title_unselected"
+        android:textColor="#FFF"
+        android:textSize="16sp"
+        android:padding="5dp"/>
+
+    <EditText
+        android:id="@+id/gcs_dialog_ghichu_etGhichu"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="5dp"
+        android:hint="Nội dung ghi chú"
+        android:gravity="top|left"
+        android:padding="5dp"
+        android:background="@drawable/bg_edittext"
+        android:inputType="textNoSuggestions|textMultiLine"/>
+
+    <Button
+        android:id="@+id/gcs_dialog_ghichu_btLuu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lưu"
+        android:textColor="@color/text_white"
+        android:background="@drawable/bg_button"
+        android:layout_gravity="center_vertical|right"
+        android:layout_margin="5dp"/>
+</LinearLayout>

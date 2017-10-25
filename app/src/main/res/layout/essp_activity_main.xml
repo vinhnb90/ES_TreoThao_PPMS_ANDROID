@@ -1,0 +1,27 @@
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/essp_activity_main_dl_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/button_disable_light_gray">
+
+    <FrameLayout
+        android:id="@+id/essp_activity_main_fl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+    <ListView
+        android:id="@+id/essp_activity_main_lv_slidermenu"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/list_background"
+        android:choiceMode="singleChoice"
+        android:divider="@color/list_divider"
+        android:dividerHeight="1dp"
+        android:listSelector="@drawable/drawer_list_selection">
+
+    </ListView>
+
+</android.support.v4.widget.DrawerLayout>

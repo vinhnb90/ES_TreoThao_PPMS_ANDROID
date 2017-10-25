@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/gcs_row_menu_ivIcon"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:src="@mipmap/ic_camera"/>
+
+    <TextView
+        android:id="@+id/gcs_row_menu_tvMenu"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="8.5"
+        android:textColor="#FFF"
+        android:textSize="18sp"
+        android:text="Menu content"
+        android:gravity="center_vertical"/>
+
+</LinearLayout>

@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="fill"
+    android:background="@drawable/invoice_np_background"
+    android:columnCount="5"
+    android:orientation="horizontal"
+    android:rowCount="7">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_columnSpan="5"
+        android:layout_margin="5dp"
+        android:layout_row="0"
+        android:background="@drawable/bg_linearlayout"
+        android:columnCount="3"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:rowCount="6">
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_columnSpan="5"
+        android:layout_margin="5dp"
+        android:layout_row="0"
+        android:background="@drawable/bg_linearlayout"
+        android:columnCount="3"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:rowCount="6">
+
+        <TextView
+            android:layout_columnSpan="1"
+            android:layout_gravity="center_vertical|left"
+            android:text="Thu ngân: "
+            android:textColor="#FFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/invoice_fragment_tonghop_tv_thungan"
+            android:layout_columnSpan="2"
+            android:layout_gravity="fill|center"
+            android:text="015-05565"
+            android:textColor="#FFF"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_columnSpan="1"
+            android:layout_gravity="center_vertical|left"
+            android:text="Số HĐ giao: "
+            android:textColor="#FFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/invoice_fragment_tonghop_tv_so_hd_giao"
+            android:layout_columnSpan="2"
+            android:layout_gravity="fill|center"
+            android:text="1000"
+            android:textColor="#FFF"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_columnSpan="1"
+            android:layout_gravity="center_vertical|left"
+            android:text="Số tiền giao: "
+            android:textColor="#FFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/invoice_fragment_tonghop_tv_so_tien_giao"
+            android:layout_columnSpan="2"
+            android:layout_gravity="fill|center"
+            android:text="100.000.000"
+            android:textColor="#FFF"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_columnSpan="1"
+            android:layout_gravity="center_vertical|left"
+            android:text="Số HĐ thu/tồn: "
+            android:textColor="#FFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/invoice_fragment_tonghop_tv_so_hd_thu_ton"
+            android:layout_columnSpan="2"
+            android:layout_gravity="fill|center"
+            android:text="500"
+            android:textColor="#FFF"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_columnSpan="1"
+            android:layout_gravity="center_vertical|left"
+            android:text="Số tiền thu/tồn: "
+            android:textColor="#FFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/invoice_fragment_tonghop_tv_so_tien_thu_ton"
+            android:layout_columnSpan="2"
+            android:layout_gravity="fill|center"
+            android:text="500000"
+            android:textColor="#FFF"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_columnSpan="1"
+            android:layout_gravity="center_vertical|left"
+            android:text="HĐ chấm offline: "
+            android:textColor="#FFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/invoice_fragment_tonghop_tv_so_hd_chưa_dong_bo"
+            android:layout_columnSpan="2"
+            android:layout_gravity="fill|center"
+            android:text="50"
+            android:textColor="#FFF"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_columnSpan="1"
+            android:layout_gravity="center_vertical|left"
+            android:text="Tiền chấm offline: "
+            android:textColor="#FFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/invoice_fragment_tonghop_tv_so_tien_offline"
+            android:layout_columnSpan="2"
+            android:layout_gravity="fill|center"
+            android:text="50"
+            android:textColor="#FFF"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_columnSpan="1"
+            android:layout_gravity="center_vertical|left"
+            android:text="HĐ chấm online: "
+            android:textColor="#FFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/invoice_fragment_tonghop_tv_so_hd_cham_online"
+            android:layout_columnSpan="2"
+            android:layout_gravity="fill|center"
+            android:text="50"
+            android:textColor="#FFF"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_columnSpan="1"
+            android:layout_gravity="center_vertical|left"
+            android:text="Tiền chấm online: "
+            android:textColor="#FFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/invoice_fragment_tonghop_tv_so_tien_cham_online"
+            android:layout_columnSpan="2"
+            android:layout_gravity="fill|center"
+            android:text="50"
+            android:textColor="#FFF"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_columnSpan="1"
+            android:layout_gravity="center_vertical|left"
+            android:text="Số HĐ thu HTK: "
+            android:textColor="#FFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/invoice_fragment_tonghop_tv_so_hd_thu_htk"
+            android:layout_columnSpan="2"
+            android:layout_gravity="fill|center"
+            android:text="50"
+            android:textColor="#FFF"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_columnSpan="1"
+            android:layout_gravity="center_vertical|left"
+            android:text="Số tiền thu HTK: "
+            android:textColor="#FFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/invoice_fragment_tonghop_tv_so_tien_thu_htk"
+            android:layout_columnSpan="2"
+            android:layout_gravity="fill|center"
+            android:text="50"
+            android:textColor="#FFF"
+            android:textSize="18sp" />
+
+    </GridLayout>
+
+    <LinearLayout
+        android:layout_column="0"
+        android:layout_columnSpan="5"
+        android:layout_gravity="fill_horizontal"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_row="1"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="7.5"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/invoice_fragment_tonghop_sp_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/invoice_np_spinner" />
+
+            <Spinner
+                android:id="@+id/invoice_fragment_tonghop_sp_so"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/invoice_np_spinner" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/invoice_fragment_tonghop_ib_in"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:layout_weight="2.5"
+            android:background="@null"
+            android:src="@mipmap/invoice_ic_in" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_columnSpan="5"
+        android:layout_gravity="fill_horizontal"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/invoice_fragment_tonghop_bt_lay_dl_3g"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_horizontal"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button"
+            android:text="Lấy DL 3G/wifi"
+            android:textColor="#8b0606"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/invoice_fragment_tonghop_bt_xoa_dl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_horizontal"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button"
+            android:text="Xóa dữ liệu"
+            android:textColor="#8b0606"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_columnSpan="5"
+        android:layout_gravity="fill_horizontal"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/invoice_fragment_tonghop_bt_lay_dl_xml"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_horizontal"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button"
+            android:text="Nhận file XML"
+            android:textColor="#8b0606"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/invoice_fragment_tonghop_bt_xuat_dl_xml"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_horizontal"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button"
+            android:text="Xuất file XML"
+            android:textColor="#8b0606"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_columnSpan="5"
+        android:layout_gravity="fill_horizontal"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/invoice_fragment_tonghop_bt_dong_bo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_horizontal"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button"
+            android:text="Đồng bộ HĐ"
+            android:textColor="#8b0606"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/invoice_fragment_tonghop_bt_quyet_toan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_horizontal"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button"
+            android:text="Quyết toán"
+            android:textColor="#8b0606"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</GridLayout>

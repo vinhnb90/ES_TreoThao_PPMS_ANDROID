@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_listitem_white"
+    android:layout_margin="5dp"
+    android:gravity="center_vertical"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/essp_row_dutoan_tv_tittle_ten_vattu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vật tư: "
+        android:textColor="#1eecd4"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/essp_row_dutoan_tv_ten_vattu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PD00000000"
+        android:textColor="#FFF"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/essp_row_dutoan_tv_tittle_ten_vattu"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/essp_row_dutoan_tv_tittle_dongia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đơn giá: "
+        android:textColor="#1EECD4"
+        android:textStyle="bold"
+        android:layout_below="@+id/essp_row_dutoan_tv_ten_vattu"
+        android:layout_alignParentLeft="true"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/essp_row_dutoan_tv_dongia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nguyễn Vũ Tùng"
+        android:textColor="#FFF"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@+id/essp_row_dutoan_tv_ten_vattu"
+        android:layout_toRightOf="@+id/essp_row_dutoan_tv_tittle_dongia"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/essp_row_dutoan_tv_tittle_soluong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Số lượng: "
+        android:textColor="#1EECD4"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/essp_row_dutoan_tv_dongia"
+        android:layout_alignParentLeft="true"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/essp_row_dutoan_tv_soluong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:gravity="center_vertical"
+        android:textColor="#FFF"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@+id/essp_row_dutoan_tv_dongia"
+        android:layout_toRightOf="@+id/essp_row_dutoan_tv_tittle_soluong"
+        android:textSize="16sp"/>
+
+    <CheckBox
+        android:id="@+id/essp_row_dutoan_ck_tutuc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/essp_checkbox"
+        android:button="@null"
+        android:layout_marginRight="5dp"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/essp_row_dutoan_tv_soluong"
+        android:layout_alignParentLeft="true"/>
+
+    <TextView
+        android:id="@+id/essp_row_dutoan_tv_tittle_tutuc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Khách hàng tự túc: "
+        android:textColor="#1EECD4"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/essp_row_dutoan_tv_soluong"
+        android:layout_toRightOf="@+id/essp_row_dutoan_ck_tutuc"
+        android:textSize="16sp"/>
+
+    <CheckBox
+        android:id="@+id/essp_row_dutoan_ck_tutuc_ht"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/essp_checkbox"
+        android:button="@null"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="3dp"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/essp_row_dutoan_ck_tutuc"
+        android:layout_alignParentLeft="true"/>
+
+    <TextView
+        android:id="@+id/essp_row_dutoan_tv_tittle_tutuc_ht"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Khách hàng tự túc hoàn toàn: "
+        android:textColor="#1EECD4"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/essp_row_dutoan_ck_tutuc"
+        android:layout_toRightOf="@+id/essp_row_dutoan_ck_tutuc_ht"
+        android:textSize="16sp"/>
+
+    <CheckBox
+        android:id="@+id/essp_row_dutoan_ck_thuhoi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/essp_checkbox"
+        android:button="@null"
+        android:layout_marginRight="5dp"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:layout_below="@+id/essp_row_dutoan_tv_soluong"
+        android:layout_alignParentLeft="true"/>
+
+    <TextView
+        android:id="@+id/essp_row_dutoan_tv_tittle_thuhoi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thu hồi vật tư: "
+        android:textColor="#1EECD4"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:layout_below="@+id/essp_row_dutoan_tv_soluong"
+        android:layout_toRightOf="@+id/essp_row_dutoan_ck_thuhoi"
+        android:textSize="16sp"/>
+
+    <ImageButton
+        android:id="@+id/essp_row_dutoan_ib_add_sl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/essp_add_number"
+        android:background="@null"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/essp_row_dutoan_tv_dongia"
+        android:focusable="false" />
+
+    <ImageButton
+        android:id="@+id/essp_row_dutoan_ib_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/essp_delete"
+        android:background="@null"
+        android:layout_toLeftOf="@+id/essp_row_dutoan_ib_add_sl"
+        android:layout_below="@+id/essp_row_dutoan_tv_dongia"
+        android:focusable="false" />
+
+</RelativeLayout>

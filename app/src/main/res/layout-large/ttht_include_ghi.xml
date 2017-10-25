@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="6"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="2dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/gsht_include_ghi_et_titleCs1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="BT: " />
+
+        <EditText
+            android:textColorHint="@color/colorPrimaryDark"
+            android:id="@+id/gsht_include_ghi_et_cs1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="2dp"
+            android:layout_weight="9"
+            android:background="@drawable/bg_edittext"
+            android:hint="BT"
+            android:inputType="numberDecimal"
+            android:paddingLeft="5dp" />
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:textColorHint="@color/text_black"
+            android:id="@+id/gsht_include_ghi_et_titleCs2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="CD: " />
+
+        <EditText
+            android:textColorHint="@color/colorPrimaryDark"
+            android:id="@+id/gsht_include_ghi_et_cs2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="2dp"
+            android:layout_weight="9"
+            android:background="@drawable/bg_edittext"
+            android:hint="CD"
+            android:inputType="numberDecimal"
+            android:paddingLeft="5dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/gsht_include_ghi_et_titleCs3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TD: " />
+
+        <EditText
+            android:textColorHint="@color/colorPrimaryDark"
+            android:layout_weight="9"
+            android:id="@+id/gsht_include_ghi_et_cs3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/bg_edittext"
+            android:hint="TD"
+            android:inputType="numberDecimal"
+            android:paddingLeft="5dp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/gsht_include_ghi_et_titleCs4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SG: " />
+
+        <EditText
+            android:textColorHint="@color/colorPrimaryDark"
+            android:id="@+id/gsht_include_ghi_et_cs4"
+            android:layout_weight="9"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/bg_edittext"
+            android:hint="SG"
+            android:inputType="numberDecimal"
+            android:paddingLeft="5dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/gsht_include_ghi_et_titleCs5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="VC: " />
+
+        <EditText
+            android:textColorHint="@color/colorPrimaryDark"
+            android:id="@+id/gsht_include_ghi_et_cs5"
+            android:layout_weight="9"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/bg_edittext"
+            android:hint="VC"
+            android:inputType="numberDecimal"
+            android:paddingLeft="5dp" />
+    </LinearLayout>
+
+
+</LinearLayout>

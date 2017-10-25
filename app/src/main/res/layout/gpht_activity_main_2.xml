@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/gpht_activity_main_2_rlBanner"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:background="@drawable/invoice_np_background">
+
+        <ImageView
+            android:id="@+id/gpht_activity_main_2_ivBanner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/banner_evn" />
+
+        <Button
+            android:id="@+id/gpht_activity_main_2_btDangXuat"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="-2dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_button_logout"
+            android:padding="5dp"
+            android:text="Đăng xuất"
+            android:textAllCaps="false"
+            android:textColor="@color/text_white"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#DDD" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_daydien_blue">
+
+        <LinearLayout
+            android:id="@+id/gpht_activity_main_2_llButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:background="@drawable/bg_linearlayout_light"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/gpht_activity_main_2_btGCS"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_button"
+                android:text="Ghi chỉ số"
+                android:layout_margin="2dp"
+                android:textAllCaps="false"
+                android:textColor="@color/text_white"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/gpht_activity_main_2_btCapDien"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_button"
+                android:text="Cấp điện"
+                android:layout_margin="2dp"
+                android:textAllCaps="false"
+                android:textColor="@color/text_white"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/gpht_activity_main_2_btChanNo"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_button"
+                android:text="Chấm nợ"
+                android:layout_margin="2dp"
+                android:textAllCaps="false"
+                android:visibility="gone"
+                android:textColor="@color/text_white"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/gpht_activity_main_2_btTreoThao"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_button"
+                android:text="Treo tháo công tơ"
+                android:layout_margin="2dp"
+                android:textAllCaps="false"
+                android:textColor="@color/text_white"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

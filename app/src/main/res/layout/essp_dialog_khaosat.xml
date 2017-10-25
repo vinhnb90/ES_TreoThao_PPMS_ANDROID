@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/panel_background"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/title_unselected"
+        android:padding="5dp"
+        android:text="Khảo sát thông tin"
+        android:textColor="#FFF"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Mã loại YC "
+                    android:textColor="#FFF" />
+
+                <Spinner
+                    android:id="@+id/essp_dialog_khaosat_sp_maloai_yc"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_spinner" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Mã loại HĐ "
+                    android:textColor="#FFF" />
+
+                <Spinner
+                    android:id="@+id/essp_dialog_khaosat_sp_maloai_hd"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_spinner" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Loại ĐĐo "
+                    android:textColor="#FFF" />
+
+                <Spinner
+                    android:id="@+id/essp_dialog_khaosat_sp_loai_ddo"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_spinner" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Ký mua CSPK "
+                    android:textColor="#FFF" />
+
+                <Spinner
+                    android:id="@+id/essp_dialog_khaosat_sp_kymua_cspk"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_spinner" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Số pha "
+                    android:textColor="#FFF" />
+
+                <Spinner
+                    android:id="@+id/essp_dialog_khaosat_sp_so_pha"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_spinner" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Hình thức "
+                    android:textColor="#FFF" />
+
+                <Spinner
+                    android:id="@+id/essp_dialog_khaosat_sp_hinhthuc"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_spinner" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Loại cáp "
+                    android:textColor="#FFF" />
+
+                <Spinner
+                    android:id="@+id/essp_dialog_khaosat_sp_loaicap"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_spinner" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Nhật ký KS "
+                    android:textColor="#FFF" />
+
+                <Spinner
+                    android:id="@+id/essp_dialog_khaosat_sp_nkyksat"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_spinner" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/essp_dialog_khaosat_tv_ma_tram"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Mã trạm "
+                    android:textColor="#FFF" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/essp_dialog_khaosat_et_ma_tram"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:imeOptions="actionSearch"
+                    android:background="@drawable/bg_edittext"
+                    android:completionThreshold="1"
+                    android:inputType="textNoSuggestions"
+                    android:padding="5dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/essp_dialog_khaosat_tv_ma_quyen"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Mã sổ GCS "
+                    android:textColor="#FFF" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/essp_dialog_khaosat_et_ma_quyen"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:imeOptions="actionSearch"
+                    android:background="@drawable/bg_edittext"
+                    android:completionThreshold="1"
+                    android:inputType="textNoSuggestions"
+                    android:padding="5dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Tài khoản "
+                    android:textColor="#FFF" />
+
+                <EditText
+                    android:id="@+id/essp_dialog_khaosat_et_taikhoan"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_edittext"
+                    android:inputType="textNoSuggestions"
+                    android:padding="5dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Ngân hàng "
+                    android:textColor="#FFF" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/essp_dialog_khaosat_et_nganhang"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_edittext"
+                    android:completionThreshold="1"
+                    android:imeOptions="actionSearch"
+                    android:inputType="textNoSuggestions"
+                    android:padding="5dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Chức vụ "
+                    android:textColor="#FFF" />
+
+                <EditText
+                    android:id="@+id/essp_dialog_khaosat_et_chucvu"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_edittext"
+                    android:inputType="textNoSuggestions"
+                    android:padding="5dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Người đại diện "
+                    android:textColor="#FFF" />
+
+                <EditText
+                    android:id="@+id/essp_dialog_khaosat_et_nguoidaidien"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_edittext"
+                    android:inputType="textNoSuggestions"
+                    android:padding="5dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Đơn vị đại diện "
+                    android:visibility="gone"
+                    android:textColor="#FFF" />
+
+                <EditText
+                    android:id="@+id/essp_dialog_khaosat_et_donvidaidien"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:visibility="gone"
+                    android:background="@drawable/bg_edittext"
+                    android:inputType="textNoSuggestions"
+                    android:padding="5dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Hệ số đồng thời "
+                    android:textColor="#FFF" />
+
+                <EditText
+                    android:id="@+id/essp_dialog_khaosat_et_hsdongthoi"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_edittext"
+                    android:inputType="numberDecimal"
+                    android:padding="5dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Trở ngại "
+                    android:textColor="#FFF" />
+
+                <Spinner
+                    android:id="@+id/essp_dialog_khaosat_sp_tro_ngai"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_spinner" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="Ghi chú "
+                    android:textColor="#FFF" />
+
+                <EditText
+                    android:id="@+id/essp_dialog_khaosat_et_ghichu"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="fill|center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_edittext"
+                    android:inputType="textMultiLine|textNoSuggestions"
+                    android:padding="5dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/essp_dialog_khaosat_bt_luu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:layout_weight="0"
+        android:background="@drawable/bg_button"
+        android:textColor="@color/text_white"
+        android:gravity="center"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:text="Lưu"
+        android:textStyle="bold" />
+
+</LinearLayout>

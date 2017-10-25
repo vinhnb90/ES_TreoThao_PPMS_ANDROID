@@ -1,0 +1,3 @@
+alias: ESFS_KEYSTORE1
+Key: 1thegioimoi
+pass: 1thegioimoi

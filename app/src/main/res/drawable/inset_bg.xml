@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/essp_checkbox"
+    android:insetRight="25dip"
+    android:insetLeft="25dip"
+    android:insetBottom="10dp" />

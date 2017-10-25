@@ -1,0 +1,1608 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ttht_dialog_ghi_ll_total"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/ll_menu2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:padding="2dp">
+
+        <Button
+            android:id="@+id/gsht_fragment_main_bt_Preview"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/bt_size"
+            android:layout_marginRight="2dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/bg_button"
+            android:text="&#60;&#60;"
+            android:textColor="@color/text_white" />
+
+        <Button
+            android:id="@+id/gsht_fragment_main_bt_ChucNang"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button"
+            android:text="Chức năng"
+            android:textAllCaps="false"
+            android:textColor="@color/text_white"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/gsht_include_ghi_bt_ghi"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/bt_size"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button"
+            android:text="Ghi"
+            android:textAllCaps="false"
+            android:textColor="@color/text_white" />
+
+        <Button
+            android:id="@+id/gsht_fragment_main_bt_Next"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/bt_size"
+            android:layout_weight="0.5"
+            android:background="@drawable/bg_button"
+            android:text="&#62;&#62;"
+            android:textColor="@color/text_white" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ll_menu2"
+
+        android:background="@color/button_disable_light_gray"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/tabTitleUnselect"
+                    android:gravity="center_horizontal"
+                    android:padding="2dp"
+                    android:text="BIÊN BẢN TREO - THÁO CÔNG TƠ"
+                    android:textColor="#FFF"
+                    android:textSize="20sp"
+                    android:textStyle="normal"  />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <Button
+                        android:id="@+id/bt_1_1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/tabTitleUnselect"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:onClick="click1_1"
+                        android:text="CÔNG TƠ TREO"
+                        android:textColor="@color/text_white"
+                        android:textSize="18sp"
+                        android:textStyle="normal"  />
+
+                    <Button
+                        android:id="@+id/bt_1_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/button_press_light"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:onClick="click1_2"
+                        android:text="TREO THÁO TU-TI"
+                        android:textColor="@color/text_white"
+                        android:textSize="18sp"
+                        android:textStyle="normal"  />
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/button_press_light"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="CÔNG TƠ THÁO"
+                        android:textColor="@color/text_white"
+                        android:textSize="18sp"
+                        android:textStyle="normal" 
+                        android:id="@+id/button8" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="TREO THÁO TU - TI"
+                android:textColor="@color/text_black"
+                android:textSize="24sp"
+                android:textStyle="normal"  />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:paddingTop="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tên Khách Hàng: "
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/common_text_size_row" />
+
+            <TextView
+                android:id="@+id/ttht_dialog_ghi_tvTenKH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nguyễn Vũ Tùng"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/common_text_size_row"
+                android:textStyle="normal"  />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:paddingTop="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Địa chỉ Khách Hàng: "
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/common_text_size_row" />
+
+            <TextView
+                android:id="@+id/ttht_dialog_ghi_tvDiaChiKH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="44 VŨ PHẠM HÀM"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/common_text_size_row"
+                android:textStyle="normal"  />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:paddingTop="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mã GCS: "
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/common_text_size_row" />
+
+            <TextView
+                android:id="@+id/ttht_dialog_ghi_tvMaGCS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PD01234879423"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/common_text_size_row"
+                android:textStyle="normal"  />
+
+        </LinearLayout>
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:paddingTop="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số No: "
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/common_text_size_row" />
+
+            <TextView
+                android:id="@+id/ttht_dialog_ghi_tvSoNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="749749799"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/common_text_size_row"
+                android:textStyle="normal"  />
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
+            android:background="@color/background_color" />
+        <ScrollView
+            android:id="@+id/scrollView4"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="right"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <Button
+                        android:background="@drawable/title_elasticity"
+                        android:gravity="left|center_vertical"
+                        android:paddingLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:onClick="onClickThao_TU_TI"
+                        android:text="Tháo TU - TI"
+                        android:textColor="@color/text_white"
+                        android:textSize="16sp"
+                        android:textStyle="normal"  />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_thao_tu_ti"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/ttht_border_bottom_right_left"
+                    android:orientation="vertical"
+                    android:padding="3dp"
+                    android:weightSum="10">
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="2dp"
+                        android:weightSum="4">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Lý do thay: "
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/common_text_size_row" />
+
+
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/et_size_row"
+                            android:layout_weight="3"
+                            android:background="@drawable/bg_edittext"
+                            android:enabled="false"
+                            android:hint="Lý do thay TU - TI"
+                            android:maxLines="1"
+                            android:padding="2dp"
+                            android:singleLine="true"
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/common_text_size_row" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="2dp"
+                        android:weightSum="3">
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:weightSum="5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Số TU-TI: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="3"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show(Nhập)"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:weightSum="5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:text="CCX: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="3"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show(Nhập)"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:weightSum="5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_weight="2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:text="Nước SX: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="3"
+                                android:enabled="false"
+                                android:gravity="center_vertical"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="2dp"
+                        android:weightSum="3">
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:weightSum="5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Số vòng: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="3"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show(Nhập)"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:weightSum="5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:text="Chì k.định: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row"
+                                />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="3"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show(Nhập)"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:weightSum="5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_weight="2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:text="Chì hộp đấu dây: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="3"
+                                android:enabled="false"
+                                android:gravity="center_vertical"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="2dp"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Cấp đ.áp/D.lượng: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row"
+                                />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show(Nhập)"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:text="Tỷ số biến: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show(Nhập)"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="2dp"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Số tem k.định: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:text="Ngày k.định: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="right"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <Button
+                        android:background="@drawable/title_elasticity"
+                        android:gravity="left|center_vertical"
+                        android:paddingLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:onClick="onClickLap_TU_TI"
+                        android:text="Lắp TU - TI"
+                        android:textColor="@color/text_white"
+                        android:textSize="16sp"
+                        android:textStyle="normal"  />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_lap_tu_ti"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/ttht_border_bottom_right_left"
+                    android:orientation="vertical"
+                    android:padding="3dp"
+                    android:weightSum="10">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="2dp"
+                        android:weightSum="4">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Lý do thay: "
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/common_text_size_row" />
+
+
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/et_size_row"
+                            android:layout_weight="3"
+                            android:background="@drawable/bg_edittext"
+                            android:enabled="false"
+                            android:hint="Lý do thay TU - TI"
+                            android:maxLines="1"
+                            android:padding="2dp"
+                            android:singleLine="true"
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/common_text_size_row" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="2dp"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Cấp đ.áp/D.lượng: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row"
+                                android:id="@+id/textView3" />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show(Nhập)"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:text="Tỷ số biến: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show(Nhập)"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="2dp"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Số tem k.định: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:text="Ngày k.định: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="2dp"
+                        android:weightSum="3">
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:weightSum="5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Số TU-TI: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="3"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show(Nhập)"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:weightSum="5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:text="CCX: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="3"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show(Nhập)"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:weightSum="5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_weight="2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:text="Nước SX: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="3"
+                                android:enabled="false"
+                                android:gravity="center_vertical"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="2dp"
+                        android:weightSum="3">
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:weightSum="5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Số vòng: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="3"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show(Nhập)"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:weightSum="5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:text="Chì k.định: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row"
+                                />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="3"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show(Nhập)"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:weightSum="5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_weight="2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:text="Chì hộp đấu dây: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="3"
+                                android:enabled="false"
+                                android:gravity="center_vertical"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="right"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <Button
+                        android:background="@drawable/title_elasticity"
+                        android:gravity="left|center_vertical"
+                        android:paddingLeft="10dp"
+                        android:onClick="onClickSauLap_tu_ti"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:text="THÔNG SỐ CÔNG TƠ SAU KHI LẮP TU - TI"
+                        android:textColor="@color/text_white"
+                        android:textSize="16sp"
+                        android:textStyle="normal" 
+                        android:id="@+id/button9" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_sau_lap_tu_ti"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/ttht_border_bottom_right_left"
+                    android:orientation="vertical"
+                    android:padding="3dp"
+                    android:weightSum="10">
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="2dp"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Dòng điện: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row"
+                                />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Nhập"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:text="Điện áp: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Nhập"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="2dp"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="K: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Nhập"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:text="CCX: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Nhập"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="2dp"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Chỉ số tổng(P): "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Nhập"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:text="Chỉ số tổng(Q): "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Nhập"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="2dp"
+                        android:weightSum="3">
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:weightSum="5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Giờ cao điểm : "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="3"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Nhập"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:weightSum="5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:text="Giờ bình thường: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="3"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Nhập"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row"
+                                android:id="@+id/editText2" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:weightSum="5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_weight="2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:text="Giờ thấp điẻm: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="3"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Nhập"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="2dp"
+                        android:weightSum="3">
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:weightSum="5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Lắp qua TU: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="3"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show(Nhập)"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:weightSum="5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_weight="2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:text="Lắp qua TI: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row"
+                                android:id="@+id/textView12" />
+
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="3"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show(Nhập)"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:weightSum="5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_weight="2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:text="Hệ số nhân: "
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row"
+                                android:id="@+id/textView13" />
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/et_size_row"
+                                android:layout_marginLeft="@dimen/margin_recycle_2"
+                                android:layout_weight="3"
+                                android:background="@drawable/bg_edittext"
+                                android:enabled="false"
+                                android:maxLines="1"
+                                android:padding="2dp"
+                                android:singleLine="true"
+                                android:text="Show(Nhập)"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/common_text_size_row" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</RelativeLayout>

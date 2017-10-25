@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:background="@drawable/invoice_np_background">
+
+    <ImageView
+        android:id="@+id/invoice_activity_login_iv_logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/invoice_logo"
+        android:layout_margin="30dp"
+        android:layout_alignParentTop="true"/>
+
+    <LinearLayout
+        android:id="@+id/invoice_activity_login_ll_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/invoice_activity_login_iv_logo"
+        android:padding="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_linearlayout"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/invoice_activity_login_et_ip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:hint="IP máy chủ"
+            android:inputType="textNoSuggestions"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_edittext"
+            android:drawableLeft="@mipmap/invoice_ic_ip"
+            android:drawablePadding="5dp"/>
+
+        <EditText
+            android:id="@+id/invoice_activity_login_et_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:hint="Tài khoản"
+            android:layout_marginBottom="10dp"
+            android:inputType="textNoSuggestions"
+            android:background="@drawable/bg_edittext"
+            android:drawableLeft="@mipmap/invoice_ic_username"
+            android:drawablePadding="5dp"/>
+
+        <EditText
+            android:id="@+id/invoice_activity_login_et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:hint="******"
+            android:layout_marginBottom="10dp"
+            android:inputType="textPassword"
+            android:background="@drawable/bg_edittext"
+            android:drawableLeft="@mipmap/invoice_ic_password"
+            android:drawablePadding="5dp"/>
+
+        <TextView
+            android:id="@+id/invoice_activity_login_tv_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đăng ký"
+            android:textSize="18sp"
+            android:textColor="#FFF"
+            android:textStyle="bold"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="right"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/invoice_activity_login_bt_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đăng nhập"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textSize="18sp"
+        android:textColor="#8b0606"
+        android:background="@drawable/bg_button"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/invoice_activity_login_ll_login"/>
+
+    <TextView
+        android:id="@+id/invoice_activity_login_tv_developed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Developed by: E-Solutions"
+        android:textColor="#FFF"
+        android:layout_above="@+id/invoice_activity_login_tv_version"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:id="@+id/invoice_activity_login_tv_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Version: 1.0"
+        android:textColor="#FFF"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="3dp"
+    android:background="@drawable/bg_item_white"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/essp_row_hoso_tv_stt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"
+            android:text="000"
+            android:textColor="@color/gsht_text_content"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!--<TextView-->
+        <!--android:id="@+id/essp_row_hoso_tv_tittle_ma_hoso"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Mã hồ sơ: "-->
+        <!--android:textColor="#1eecd4"-->
+        <!--android:textStyle="bold"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_toRightOf="@+id/essp_row_hoso_tv_stt"-->
+        <!--android:textSize="16sp"/>-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/essp_row_hoso_tv_ma_hoso"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="PD00000000"-->
+        <!--android:textColor="#FFF"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:layout_toRightOf="@+id/essp_row_hoso_tv_tittle_ma_hoso"-->
+        <!--android:textSize="16sp"/>-->
+
+        <CheckBox
+            android:id="@+id/essp_row_hoso_ck_chon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/essp_checkbox"
+            android:button="@null"
+            android:focusable="false" />
+
+        <TextView
+            android:id="@+id/essp_row_hoso_tv_tittle_ten_kh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/essp_row_hoso_tv_stt"
+            android:text="Tên KH: "
+            android:textColor="@color/gsht_text_content"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/essp_row_hoso_tv_ten_kh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/essp_row_hoso_tv_tittle_ten_kh"
+            android:text="Nguyễn Vũ Tùng"
+            android:textColor="@color/gsht_text_content"
+            android:textSize="16sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/essp_row_hoso_tv_tittle_diachi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/essp_row_hoso_tv_ten_kh"
+            android:text="Địa chỉ: "
+            android:textColor="@color/gsht_text_content"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/essp_row_hoso_tv_diachi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/essp_row_hoso_tv_ten_kh"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/essp_row_hoso_tv_tittle_diachi"
+            android:text="12b/132/71 Phố Tân Ấp, Phúc Xá, Ba Đình"
+            android:textColor="@color/gsht_text_content"
+            android:textSize="16sp"
+            android:textStyle="italic" />
+
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin_small">8dp</dimen>
+    <dimen name="margin_evelation_ppms">10dp</dimen>
+    <dimen name="margin_evelation_small_ppms">5dp</dimen>
+    <dimen name="ttht_elevation_row">10dp</dimen>
+    <dimen name="ttht_text_size_row_large">14sp</dimen>
+    <dimen name="ppms_detail_task_title">50dp</dimen>
+    <dimen name="ppms_task_detail_height_image">300dp</dimen>
+    <dimen name="ppms_detail_task_text_size_button">14sp</dimen>
+    <dimen name="ppms_row_view_task_fragment_size_stt">32dp</dimen>
+    <dimen name="ppms_row_rview_task_fragment_size_icon_update">48dp</dimen>
+</resources>

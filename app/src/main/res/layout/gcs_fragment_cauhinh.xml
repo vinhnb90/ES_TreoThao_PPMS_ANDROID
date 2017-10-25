@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_linearlayout"
+                android:columnCount="1"
+                android:padding="5dp"
+                android:rowCount="3">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="fill|left"
+                    android:text="Cấu hình chênh lệch sản lượng"
+                    android:textColor="#FFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_height="2dp"
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill_horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:background="#DDD" />
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill_horizontal"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/gcs_fragment_cauhinh_ck_sl200"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Khách hàng dùng quá 200%"
+                        android:textColor="#FFF" />
+
+                    <CheckBox
+                        android:id="@+id/gcs_fragment_cauhinh_ck_slphantram"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Chênh lệch sản lượng (%)"
+                        android:textColor="#FFF" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="fill_horizontal"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:id="@+id/gcs_fragment_cauhinh_tv_tren"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.5"
+                            android:text="0%"
+                            android:textColor="#FFF" />
+
+                        <SeekBar
+                            android:id="@+id/gcs_fragment_cauhinh_sb_tren"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="8.5"
+                            android:enabled="false"
+                            android:max="100" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="fill_horizontal"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:id="@+id/gcs_fragment_cauhinh_tv_duoi"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.5"
+                            android:text="0%"
+                            android:textColor="#FFF" />
+
+                        <SeekBar
+                            android:id="@+id/gcs_fragment_cauhinh_sb_duoi"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="8.5"
+                            android:enabled="false"
+                            android:max="100" />
+
+                    </LinearLayout>
+
+                    <CheckBox
+                        android:id="@+id/gcs_fragment_cauhinh_ck_slkwh"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Chênh lệch sản lượng (kWh)"
+                        android:textColor="#FFF" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="fill_horizontal"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <EditText
+                            android:id="@+id/gcs_fragment_cauhinh_et_tren"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_edittext"
+                            android:enabled="false"
+                            android:hint="Trên mức"
+                            android:inputType="number"
+                            android:padding="5dp" />
+
+                        <EditText
+                            android:id="@+id/gcs_fragment_cauhinh_et_duoi"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_edittext"
+                            android:enabled="false"
+                            android:hint="Dưới mức"
+                            android:inputType="number"
+                            android:padding="5dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </GridLayout>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_linearlayout"
+                android:columnCount="1"
+                android:padding="5dp"
+                android:rowCount="3">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="fill|left"
+                    android:text="Cấu hình IP"
+                    android:textColor="#FFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_height="2dp"
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill_horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:background="#DDD" />
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="IP server"
+                        android:textColor="#FFF" />
+
+                    <EditText
+                        android:id="@+id/gcs_fragment_cauhinh_et_ip"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="8"
+                        android:background="@drawable/bg_edittext"
+                        android:hint="IP server"
+                        android:inputType="textNoSuggestions"
+                        android:padding="5dp" />
+
+                </LinearLayout>
+
+            </GridLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="center_vertical|right"
+        android:padding="5dp">
+
+        <Button
+            android:id="@+id/gcs_fragment_cauhinh_bt_get_backup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lấy lại dữ liệu"
+            android:padding="10dp"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/text_white"
+            android:background="@drawable/bg_button"/>
+
+        <Button
+            android:id="@+id/gcs_fragment_cauhinh_bt_luu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lưu"
+            android:padding="10dp"
+            android:textColor="@color/text_white"
+            android:background="@drawable/bg_button"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

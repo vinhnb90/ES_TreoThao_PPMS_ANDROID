@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/panel_background"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Cập nhật công suất sử dụng trong ngày"
+        android:textColor="#FFF"
+        android:textStyle="bold" />
+
+    <!--<ScrollView-->
+        <!--android:id="@+id/scrollView4"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="1">-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|left"
+                android:orientation="horizontal"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:text="Mã hồ sơ: "
+                    android:textColor="#FFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvMaHS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="GK0100000121"
+                    android:textColor="#FFF"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:text="Khoảng giờ"
+                    android:textColor="#FFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etKhoangGio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:background="@drawable/bg_edittext"
+                    android:gravity="center_vertical"
+                    android:hint="Khoảng giờ"
+                    android:inputType="numberDecimal"
+                    android:digits="1234567890-"
+                    android:padding="10dp"
+                    android:textSize="12sp" />
+
+                <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="4"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:text="12h - 14h"-->
+                    <!--android:textColor="#FFF"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:textStyle="bold" />-->
+
+                <!--<EditText-->
+                    <!--android:id="@+id/etCS7"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="6"-->
+                    <!--android:background="@drawable/bg_edittext"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:hint="12h - 14h"-->
+                    <!--android:inputType="numberDecimal"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:textSize="12sp" />-->
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:text="Công suất"
+                    android:textColor="#FFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etCongSuat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:background="@drawable/bg_edittext"
+                    android:gravity="center_vertical"
+                    android:hint="Công suất"
+                    android:inputType="numberDecimal"
+                    android:padding="10dp"
+                    android:textSize="12sp" />
+
+                <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="4"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:text="14h - 16h"-->
+                    <!--android:textColor="#FFF"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:textStyle="bold" />-->
+
+                <!--<EditText-->
+                    <!--android:id="@+id/etCS8"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="6"-->
+                    <!--android:background="@drawable/bg_edittext"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:hint="14h - 16h"-->
+                    <!--android:inputType="numberDecimal"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:textSize="12sp" />-->
+            </LinearLayout>
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:padding="2dp">-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="4"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:text="4h - 6h"-->
+                    <!--android:textColor="#FFF"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:textStyle="bold" />-->
+
+                <!--<EditText-->
+                    <!--android:id="@+id/etCS3"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="6"-->
+                    <!--android:background="@drawable/bg_edittext"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:hint="4h - 6h"-->
+                    <!--android:inputType="numberDecimal"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:textSize="12sp" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="4"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:text="16h - 18h"-->
+                    <!--android:textColor="#FFF"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:textStyle="bold" />-->
+
+                <!--<EditText-->
+                    <!--android:id="@+id/etCS9"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="6"-->
+                    <!--android:background="@drawable/bg_edittext"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:hint="16h - 18h"-->
+                    <!--android:inputType="numberDecimal"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:textSize="12sp" />-->
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:padding="2dp">-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="4"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:text="6h - 8h"-->
+                    <!--android:textColor="#FFF"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:textStyle="bold" />-->
+
+                <!--<EditText-->
+                    <!--android:id="@+id/etCS4"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="6"-->
+                    <!--android:background="@drawable/bg_edittext"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:hint="6h - 8h"-->
+                    <!--android:inputType="numberDecimal"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:textSize="12sp" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="4"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:text="18h - 20h"-->
+                    <!--android:textColor="#FFF"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:textStyle="bold" />-->
+
+                <!--<EditText-->
+                    <!--android:id="@+id/etCS10"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="6"-->
+                    <!--android:background="@drawable/bg_edittext"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:hint="18h - 20h"-->
+                    <!--android:inputType="numberDecimal"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:textSize="12sp" />-->
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:padding="2dp">-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="4"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:text="8h - 10h"-->
+                    <!--android:textColor="#FFF"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:textStyle="bold" />-->
+
+                <!--<EditText-->
+                    <!--android:id="@+id/etCS5"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="6"-->
+                    <!--android:background="@drawable/bg_edittext"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:hint="8h - 10h"-->
+                    <!--android:inputType="numberDecimal"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:textSize="12sp" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="4"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:text="20h - 22h"-->
+                    <!--android:textColor="#FFF"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:textStyle="bold" />-->
+
+                <!--<EditText-->
+                    <!--android:id="@+id/etCS11"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="6"-->
+                    <!--android:background="@drawable/bg_edittext"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:hint="20h - 22h"-->
+                    <!--android:inputType="numberDecimal"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:textSize="12sp" />-->
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:padding="2dp">-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="4"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:text="10h - 12h"-->
+                    <!--android:textColor="#FFF"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:textStyle="bold" />-->
+
+                <!--<EditText-->
+                    <!--android:id="@+id/etCS6"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="6"-->
+                    <!--android:background="@drawable/bg_edittext"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:hint="10h - 12h"-->
+                    <!--android:inputType="numberDecimal"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:textSize="12sp" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="4"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:text="22h - 24h"-->
+                    <!--android:textColor="#FFF"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:textStyle="bold" />-->
+
+                <!--<EditText-->
+                    <!--android:id="@+id/etCS12"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="6"-->
+                    <!--android:background="@drawable/bg_edittext"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:hint="22h - 24h"-->
+                    <!--android:inputType="numberDecimal"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:textSize="12sp" />-->
+            <!--</LinearLayout>-->
+
+        </LinearLayout>
+    <!--</ScrollView>-->
+
+    <ListView
+        android:id="@+id/lvCongSuat"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:layout_weight="1">
+
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="center_vertical|right"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <Button
+            android:id="@+id/btXoa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/bg_button"
+            android:textColor="@color/text_white"
+            android:text="Xóa"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btLuu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:layout_gravity="center_vertical|right"
+            android:background="@drawable/bg_button"
+            android:textColor="@color/text_white"
+            android:text="Lưu"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</LinearLayout>

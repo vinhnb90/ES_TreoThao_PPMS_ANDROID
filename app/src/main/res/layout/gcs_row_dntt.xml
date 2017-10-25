@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_listitem_white"
+    android:layout_margin="3dp"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/gcs_row_dntt_tvSTT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp"
+        android:textStyle="bold"
+        android:text="1"
+        android:textColor="#FFF"/>
+
+    <TextView
+        android:id="@+id/gcs_row_dntt_tvTitleTram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/gcs_row_dntt_tvSTT"
+        android:layout_alignParentTop="true"
+        android:text="Trạm: "
+        android:textColor="#FFF" />
+
+    <TextView
+        android:id="@+id/gcs_row_dntt_tvTram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@+id/gcs_row_dntt_tvTitleTram"
+        android:text="PD000000"
+        android:textColor="#691112" />
+
+    <TextView
+        android:id="@+id/gcs_row_dntt_tvTitleDaGhi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/gcs_row_dntt_tvTram"
+        android:text="Đã ghi: "
+        android:textColor="#FFF" />
+
+    <TextView
+        android:id="@+id/gcs_row_dntt_tvDaGhi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@+id/gcs_row_dntt_tvTitleDaGhi"
+        android:text="PD000000"
+        android:textColor="#691112" />
+
+    <TextView
+        android:id="@+id/gcs_row_dntt_tvTitleDNTT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/gcs_row_dntt_tvSTT"
+        android:layout_below="@+id/gcs_row_dntt_tvDaGhi"
+        android:text="ĐN tiêu thụ: "
+        android:textColor="#FFF" />
+
+    <TextView
+        android:id="@+id/gcs_row_dntt_tvDNTT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_row_dntt_tvDaGhi"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@+id/gcs_row_dntt_tvTitleDNTT"
+        android:text="0"
+        android:textColor="#691112" />
+
+    <TextView
+        android:id="@+id/gcs_row_dntt_tvTitleDNDN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_row_dntt_tvDaGhi"
+        android:layout_toRightOf="@+id/gcs_row_dntt_tvDNTT"
+        android:text="ĐN đầu nguồn: "
+        android:textColor="#FFF" />
+
+    <TextView
+        android:id="@+id/gcs_row_dntt_tvDNDN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_row_dntt_tvDaGhi"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@+id/gcs_row_dntt_tvTitleDNDN"
+        android:text="0"
+        android:textColor="#691112" />
+
+    <TextView
+        android:id="@+id/gcs_row_dntt_tvTitleDNTThat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/gcs_row_dntt_tvSTT"
+        android:layout_below="@+id/gcs_row_dntt_tvDNDN"
+        android:text="ĐN tổn thất: "
+        android:textColor="#FFF" />
+
+    <TextView
+        android:id="@+id/gcs_row_dntt_tvDNTThat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_row_dntt_tvDNDN"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@+id/gcs_row_dntt_tvTitleDNTT"
+        android:text="0"
+        android:textColor="#691112" />
+
+    <TextView
+        android:id="@+id/gcs_row_dntt_tvTitlePhanTramTT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_row_dntt_tvDNDN"
+        android:layout_toRightOf="@+id/gcs_row_dntt_tvDNTThat"
+        android:text="% tổn thất: "
+        android:textColor="#FFF" />
+
+    <TextView
+        android:id="@+id/gcs_row_dntt_tvPhanTramTT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gcs_row_dntt_tvDNDN"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@+id/gcs_row_dntt_tvTitlePhanTramTT"
+        android:text="0%"
+        android:textColor="#691112" />
+
+</RelativeLayout>

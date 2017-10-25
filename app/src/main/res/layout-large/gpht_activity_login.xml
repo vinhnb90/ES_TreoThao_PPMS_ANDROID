@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4b000000">
+
+    <TextView
+        android:id="@+id/gpht_activity_login_tv_CountLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="Bạn còn 20 lần đăng nhập offline"
+        android:textColor="#f1f1f1"
+        android:textSize="24sp"
+        android:textStyle="normal" />
+
+    <LinearLayout
+        android:id="@+id/gpht_activity_login_ll_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/bg_linearlayout_fill"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/gpht_activity_login_et_ip"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="7"
+                android:background="@drawable/bg_edittext"
+                android:drawableLeft="@mipmap/invoice_ic_ip"
+                android:drawablePadding="5dp"
+                android:hint="IP máy chủ"
+                android:inputType="textNoSuggestions"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/gpht_activity_login_bt_loadDMuc"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="3"
+                android:background="@drawable/bg_button"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="Đồng Bộ danh mục"
+                android:textAllCaps="false"
+                android:textColor="@color/text_white"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <Spinner
+                android:id="@+id/gpht_activity_login_sp_dvi"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="7"
+                android:background="@drawable/bg_spinner" />
+
+            <Button
+                android:id="@+id/gpht_activity_login_bt_loadQuyen"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="3"
+                android:background="@drawable/bg_button"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="Đồng bộ quyền"
+                android:textAllCaps="false"
+                android:textColor="@color/text_white"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/gpht_activity_login_et_username"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_edittext"
+                android:drawableLeft="@mipmap/invoice_ic_username"
+                android:drawablePadding="5dp"
+                android:hint="Tài khoản"
+                android:inputType="textNoSuggestions"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/gpht_activity_login_et_password"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/bg_edittext"
+                android:drawableLeft="@mipmap/invoice_ic_password"
+                android:drawablePadding="5dp"
+                android:hint="******"
+                android:inputType="textPassword"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/gpht_activity_login_bt_login"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_gravity="right"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/bg_button"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="Đăng nhập"
+                android:textAllCaps="false"
+                android:textColor="@color/text_white"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/gpht_activity_login_tv_Version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gpht_activity_login_ll_login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/bg_conor_bottom_white"
+        android:paddingBottom="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="version: 1.0 - Imei: "
+        android:textColor="#252525"
+        android:textSize="18sp"
+        android:textStyle="italic" />
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/gpht_activity_login_ll_logo"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:paddingTop="3dp"-->
+    <!--android:paddingBottom="3dp"-->
+    <!--android:paddingLeft="25dp"-->
+    <!--android:paddingRight="25dp"-->
+    <!--android:layout_above="@+id/gpht_activity_login_ll_login">-->
+
+    <ImageView
+        android:id="@+id/gpht_activity_login_ivLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/gpht_activity_login_ll_login"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/logo_evn_hanoi" />
+
+    <!--</LinearLayout>-->
+
+    <LinearLayout
+        android:id="@+id/gpht_activity_login_ll_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/bg_item_white"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="8"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/gpht_activity_login_tvIP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="117.0.37.184:0000"
+                android:textColor="#393939"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/gpht_activity_login_tvDonVi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PD0100 - Công ty Điện lực Hoàn Kiếm"
+                android:textColor="#393939"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:gravity="center_vertical|right"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/gpht_activity_login_ibSyn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:background="@null"
+                android:src="@mipmap/icon_login_syn" />
+
+            <ImageButton
+                android:id="@+id/gpht_activity_login_ibSetting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@mipmap/icon_login_setting" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

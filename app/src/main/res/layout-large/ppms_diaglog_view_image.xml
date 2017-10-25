@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:gravity="center_horizontal|center_vertical"
+    android:layout_height="match_parent">
+
+    <com.es.tungnv.zoomImage.ImageViewTouch
+        android:background="@android:color/darker_gray"
+        android:id="@+id/ppms_dialog_ivTouch_anhCto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true">
+
+    </com.es.tungnv.zoomImage.ImageViewTouch>
+
+
+</RelativeLayout>

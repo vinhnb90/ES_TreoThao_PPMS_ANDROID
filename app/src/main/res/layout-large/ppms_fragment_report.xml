@@ -1,0 +1,85 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.es.tungnv.fragments.PpmsReportFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/activity_horizontal_margin">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:padding="@dimen/margin_item_recycle"
+                android:id="@+id/ll_1_report_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="CHỌN THÁNG:"
+                    android:textColor="@color/text_white" />
+
+                <ImageButton
+                    android:id="@+id/ppms_btn_choose_month_fragment_report"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_ppms_calendar_menu"
+                    android:onClick="clickChooseMonth" />
+
+                <TextView
+                    android:enabled="false"
+                    android:editable="false"
+                    android:textSize="@dimen/frag_report_text_size_month_choose"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:textStyle="bold"
+                    android:id="@+id/ppms_fragment_report_tv_month_year"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin_item_recycle"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_edittext"
+                    />
+
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:id="@+id/ppms_fragment_report_phucTra_PhanCong_chart"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/frag_report_width_chart"
+                android:layout_below="@id/ll_1_report_fragment" />
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_below="@id/ppms_fragment_report_phucTra_PhanCong_chart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="Biểu đồ: Thống kê số lượng biên bản được phân công và phúc tra trong tháng"
+                    android:textStyle="italic|bold"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+</RelativeLayout>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/panel_background"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/dialog_nghiem_thu_etSoKimNiemChi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/bg_edittext"
+        android:hint="Số kìm niêm chì"
+        android:inputType="textNoSuggestions"
+        android:maxLines="1"
+        android:padding="5dp"
+        android:singleLine="true"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="2dp">
+
+        <EditText
+            android:id="@+id/dialog_nghiem_thu_etCS1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_edittext"
+            android:hint="BT"
+            android:inputType="textNoSuggestions"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/dialog_nghiem_thu_etCS2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_edittext"
+            android:hint="CD"
+            android:inputType="textNoSuggestions"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/dialog_nghiem_thu_etCS3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_edittext"
+            android:hint="TD"
+            android:inputType="textNoSuggestions"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="2dp">
+
+        <EditText
+            android:id="@+id/dialog_nghiem_thu_etCS4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_edittext"
+            android:hint="SG"
+            android:inputType="textNoSuggestions"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/dialog_nghiem_thu_etCS5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_edittext"
+            android:hint="VC"
+            android:inputType="textNoSuggestions"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/dialog_nghiem_thu_rvVatTu"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="2dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/dialog_nghiem_thu_btLuu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|right"
+        android:layout_margin="2dp"
+        android:textSize="20sp"
+        android:layout_weight="0"
+        android:background="@drawable/bg_button"
+        android:text="Lưu"
+        android:textColor="@color/text_white" />
+
+</LinearLayout>

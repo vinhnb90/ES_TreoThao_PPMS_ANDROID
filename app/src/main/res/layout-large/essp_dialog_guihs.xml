@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/panel_background">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/title_unselected"
+        android:text="Gửi hồ sơ"
+        android:textStyle="bold"
+        android:textColor="#FFF"
+        android:textSize="22sp"
+        android:padding="10dp"/>
+
+    <CheckBox
+        android:id="@+id/essp_dialog_guihs_cb_chontat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chọn tất"
+        android:textColor="#FFF"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:paddingLeft="5dp"
+        android:layout_margin="5dp"
+        android:button="@drawable/essp_checkbox"/>
+
+    <ListView
+        android:id="@+id/essp_dialog_guihs_lv_tieuchi"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="5dp"
+        android:choiceMode="multipleChoice" />
+
+    <Button
+        android:id="@+id/essp_dialog_guihs_bt_gui"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:text="Gửi"
+        android:background="@drawable/bg_button"
+        android:textColor="@color/text_white"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_gravity="center_vertical|right"
+        android:layout_margin="5dp"/>
+</LinearLayout>

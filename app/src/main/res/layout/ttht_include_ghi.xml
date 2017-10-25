@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="6"
+    android:gravity="center"
+    android:weightSum="5"
+    android:orientation="vertical"
+    android:padding="2dp">
+
+    <!--<Button-->
+    <!--android:id="@+id/gsht_fragment_main_bt_ChucNang"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_marginBottom="2dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:background="@drawable/bg_button"-->
+    <!--android:text="Chức năng"-->
+    <!--android:textColor="@color/text_white"-->
+    <!--android:textSize="18sp" />-->
+
+    <!--<Button-->
+    <!--android:id="@+id/gsht_fragment_main_bt_gay"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_marginBottom="2dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:background="@drawable/bg_button"-->
+    <!--android:text="Gậy camera"-->
+    <!--android:textColor="@color/text_white"-->
+    <!--android:textSize="18sp" />-->
+
+    <!--<Button-->
+    <!--android:id="@+id/gsht_fragment_main_bt_camera"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_marginBottom="2dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:background="@drawable/bg_button"-->
+    <!--android:text="Camera MTB"-->
+    <!--android:textColor="@color/text_white"-->
+    <!--android:textSize="18sp" />-->
+
+    <!--<EditText-->
+    <!--android:id="@+id/gsht_include_ghi_et_socto"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_marginBottom="2dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:background="@drawable/bg_edittext"-->
+    <!--android:hint="Số ctơ"-->
+    <!--android:inputType="textNoSuggestions"-->
+    <!--android:padding="5dp" />-->
+
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:weightSum="10"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/gsht_include_ghi_et_titleCs1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="BT: " />
+
+        <EditText
+            android:id="@+id/gsht_include_ghi_et_cs1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="2dp"
+            android:textSize="@dimen/common_text_size_row"
+            android:layout_weight="9"
+            android:background="@drawable/bg_edittext"
+            android:hint="BT"
+            android:inputType="numberDecimal"
+            android:paddingLeft="5dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:weightSum="10"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/gsht_include_ghi_et_titleCs2"
+            android:layout_width="0dp"
+            android:textSize="@dimen/common_text_size_row"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="CD: " />
+
+        <EditText
+            android:id="@+id/gsht_include_ghi_et_cs2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="2dp"
+            android:textSize="@dimen/common_text_size_row"
+            android:layout_weight="9"
+            android:background="@drawable/bg_edittext"
+            android:hint="CĐ"
+            android:inputType="numberDecimal"
+            android:paddingLeft="5dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:weightSum="10"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/gsht_include_ghi_et_titleCs3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/common_text_size_row"
+            android:text="TD: " />
+
+        <EditText
+
+            android:layout_weight="9"
+            android:id="@+id/gsht_include_ghi_et_cs3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/bg_edittext"
+            android:hint="TD"
+            android:textSize="@dimen/common_text_size_row"
+            android:inputType="numberDecimal"
+            android:paddingLeft="5dp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:weightSum="10"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/gsht_include_ghi_et_titleCs4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/common_text_size_row"
+            android:text="SG: " />
+
+        <EditText
+            android:id="@+id/gsht_include_ghi_et_cs4"
+            android:layout_weight="9"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/bg_edittext"
+            android:hint="SG"
+            android:textSize="@dimen/common_text_size_row"
+            android:inputType="numberDecimal"
+            android:paddingLeft="5dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:weightSum="10"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/gsht_include_ghi_et_titleCs5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/common_text_size_row"
+            android:text="VC: " />
+
+        <EditText
+            android:id="@+id/gsht_include_ghi_et_cs5"
+            android:layout_weight="9"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/bg_edittext"
+            android:hint="VC"
+            android:textSize="@dimen/common_text_size_row"
+            android:inputType="numberDecimal"
+            android:paddingLeft="5dp" />
+    </LinearLayout>
+
+
+    <!--<Button-->
+    <!--android:id="@+id/gsht_include_ghi_bt_ghi"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_weight="1"-->
+    <!--android:background="@drawable/bg_button"-->
+    <!--android:text="Ghi"-->
+    <!--android:textColor="@color/text_white"-->
+    <!--android:textSize="18sp" />-->
+
+</LinearLayout>

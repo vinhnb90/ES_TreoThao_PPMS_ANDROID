@@ -1,0 +1,8 @@
+package com.es.tungnv.enums;
+
+/**
+ * Created by TUNGNV on 9/5/2016.
+ */
+public enum EsspSnapType {
+    HOUSE, TOP_HOUSE_1, TOP_HOUSE_2, POLES_CIRCLE, POLES_RECTANGLE, POLES_EXTRA, BOX, RECTANGLE_NAME, DUONG, NGO, POWER_POLES_TOP, SUBSTATION_CIRCLE
+}

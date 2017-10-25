@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_recycle_2"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:background="@null"
+        android:layout_gravity="top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/ttht_row_cto_rlItem"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="6">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="left"
+                android:id="@+id/ll_number_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:elevation="5dp"
+                    android:layout_width="50dp"
+                    android:background="@drawable/bg_item_green_light"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:layout_height="50dp">
+                    <TextView
+                        android:textSize="20sp"
+                        android:id="@+id/ttht_row_cto_tvSTT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginRight="2dp"
+                        android:text="1"
+                        android:textColor="@color/text_content" />
+                </LinearLayout>
+                <RelativeLayout
+                    android:paddingLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/ll_number_row"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+
+                        android:id="@+id/ttht_row_cto_tvTitleTenKH"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_row_KH"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginRight="2dp"
+                        android:text="Tên KH: " />
+
+                    <TextView
+                        android:id="@+id/ttht_row_cto_tvTenKH"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="2dp"
+                        android:textSize="@dimen/text_size_row_KH"
+                        android:layout_toRightOf="@+id/ttht_row_cto_tvTitleTenKH"
+                        android:text="Nguyễn Vũ Tùng"
+                        />
+
+                    <TextView
+                        android:textSize="@dimen/text_size_row_KH"
+                        android:id="@+id/ttht_row_cto_tvTitleDiaChi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/ttht_row_cto_tvTenKH"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginRight="2dp"
+                        android:text="Địa chỉ: " />
+
+                    <TextView
+                        android:textSize="@dimen/text_size_row_KH"
+                        android:id="@+id/ttht_row_cto_tvDiaChi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ttht_row_cto_tvTenKH"
+                        android:layout_marginBottom="2dp"
+                        android:layout_toRightOf="@+id/ttht_row_cto_tvTitleDiaChi"
+                        android:text="44 Vũ Phạm Hàm"
+
+                        />
+
+                    <TextView
+                        android:textSize="@dimen/text_size_row_KH"
+                        android:id="@+id/ttht_row_cto_tvTitleMaGCS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/ttht_row_cto_tvDiaChi"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginRight="2dp"
+                        android:text="Mã GCS: " />
+
+                    <TextView
+                        android:textSize="@dimen/text_size_row_KH"
+                        android:id="@+id/ttht_row_cto_tvMaGCS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ttht_row_cto_tvDiaChi"
+                        android:layout_marginBottom="2dp"
+                        android:layout_toRightOf="@+id/ttht_row_cto_tvTitleMaGCS"
+                        android:text="PD1343278423348"
+                        />
+
+                    <TextView
+                        android:textSize="@dimen/text_size_row_KH"
+                        android:id="@+id/ttht_row_cto_tvTitleSoNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/ttht_row_cto_tvMaGCS"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginRight="2dp"
+                        android:text="Số No: " />
+
+                    <TextView
+                        android:textSize="@dimen/text_size_row_KH"
+                        android:id="@+id/ttht_row_cto_tvSoNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ttht_row_cto_tvMaGCS"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_toRightOf="@+id/ttht_row_cto_tvTitleSoNo"
+                        android:text="123456"
+                        />
+                    <TextView
+                        android:textSize="@dimen/text_size_row_KH"
+                        android:id="@+id/ttht_row_cto_tvTitleMaTram"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/ttht_row_cto_tvTitleSoNo"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginRight="2dp"
+                        android:text="Mã Trạm: " />
+
+                    <TextView
+                        android:textSize="@dimen/text_size_row_KH"
+                        android:id="@+id/ttht_row_cto_tvMaTram"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ttht_row_cto_tvSoNo"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_toRightOf="@+id/ttht_row_cto_tvTitleMaTram"
+                        android:text="PD0187535-"
+                        />
+
+
+                    <TextView
+                        android:textSize="@dimen/text_size_row_KH"
+                        android:id="@+id/ttht_row_cto_tvTitleChiSo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ttht_row_cto_tvTitleMaTram"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginRight="2dp"
+                        android:text="Chỉ số: " />
+
+                    <TextView
+                        android:textSize="@dimen/text_size_row_KH"
+                        android:id="@+id/ttht_row_cto_tvChiSo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ttht_row_cto_tvMaTram"
+                        android:layout_marginBottom="2dp"
+                        android:layout_toRightOf="@+id/ttht_row_cto_tvTitleChiSo"
+                        android:text="123456"
+                        />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="top"
+            android:weightSum="2"
+
+            android:orientation="vertical"
+            android:padding= "1dp">
+
+
+
+            <LinearLayout
+                android:id="@+id/ttht_row_cto_lnMenu"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                >
+                <ImageButton
+                    android:id="@+id/ttht_row_cto_ibChiTiet"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ttht_menu_choose"
+                    android:scaleType="fitXY"
+                    android:scaleX="0.5"
+                    android:scaleY="0.5"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View style="@style/DividerSpace"/>
+</LinearLayout>

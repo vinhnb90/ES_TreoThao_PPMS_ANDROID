@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/invoice_np_background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <EditText
+                android:id="@+id/invoice_fragment_chamno_et_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|fill_horizontal"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="7"
+                android:background="@drawable/bg_edittext"
+                android:drawableRight="@mipmap/invoice_ic_search"
+                android:padding="5dp" />
+
+            <ImageButton
+                android:id="@+id/invoice_fragment_chamno_ib_clear"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1.5"
+                android:background="@null"
+                android:src="@mipmap/invoice_ic_clear" />
+
+            <ImageButton
+                android:id="@+id/invoice_fragment_chamno_ib_search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1.5"
+                android:background="@null"
+                android:src="@mipmap/invoice_ic_barcode_search" />
+
+            <ImageButton
+                android:id="@+id/invoice_fragment_chamno_ib_scanner"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1.5"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:src="@mipmap/invoice_ic_barcode_search_2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/invoice_fragment_chamno_sp_loai_hd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/invoice_np_spinner" />
+
+            <Spinner
+                android:id="@+id/invoice_fragment_chamno_sp_so"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/invoice_np_spinner" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/invoice_fragment_chamno_rv_kh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"/>
+    </LinearLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:columnCount="4"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_linearlayout"
+        android:rowCount="2">
+
+        <TextView
+            android:id="@+id/invoice_fragment_chamno_tv_hd"
+            android:layout_columnSpan="3"
+            android:layout_gravity="fill_horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_rowSpan="1"
+            android:text="Tổng hóa đơn:"
+            android:textColor="#FFF"
+            android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/invoice_fragment_chamno_ib_cham"
+            android:layout_columnSpan="1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_rowSpan="2"
+            android:background="@null"
+            android:src="@drawable/bg_image_button_cham" />
+
+        <TextView
+            android:id="@+id/invoice_fragment_chamno_tv_tien"
+            android:layout_columnSpan="3"
+            android:layout_gravity="fill_horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_rowSpan="1"
+            android:text="Tổng tiền:"
+            android:textColor="#FFF"
+            android:textSize="18sp" />
+    </GridLayout>
+
+</LinearLayout>

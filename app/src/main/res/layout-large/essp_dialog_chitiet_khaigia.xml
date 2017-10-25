@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/panel_background"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Chi tiết khai giá"
+        android:textColor="#FFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_title_cpVatLieu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:text="Chi phí vật liệu: "
+                android:textColor="#67e64e"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_cpVatLieu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="10dp"
+                android:text="0"
+                android:textColor="#FFF"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_title_cpNhanCong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/essp_dialog_chitiet_khaigia_tv_cpVatLieu"
+                android:text="Chi phí nhân công: "
+                android:textColor="#67e64e"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_cpNhanCong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/essp_dialog_chitiet_khaigia_tv_cpVatLieu"
+                android:layout_marginRight="10dp"
+                android:text="0"
+                android:textColor="#FFF"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_title_cpMayThiCong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/essp_dialog_chitiet_khaigia_tv_cpNhanCong"
+                android:text="Chi phí máy thi công: "
+                android:textColor="#67e64e"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_cpMayThiCong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/essp_dialog_chitiet_khaigia_tv_cpNhanCong"
+                android:layout_marginRight="10dp"
+                android:text="0"
+                android:textColor="#FFF"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_title_cpTrucTiepKhac"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/essp_dialog_chitiet_khaigia_tv_cpMayThiCong"
+                android:text="Chi phí trực tiếp khác: "
+                android:textColor="#67e64e"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_cpTrucTiepKhac"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/essp_dialog_chitiet_khaigia_tv_cpMayThiCong"
+                android:layout_marginRight="10dp"
+                android:text="0"
+                android:textColor="#FFF"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_title_cpTrucTiep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/essp_dialog_chitiet_khaigia_tv_cpTrucTiepKhac"
+                android:text="Chi phí trực tiếp: "
+                android:textColor="#67e64e"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_cpTrucTiep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/essp_dialog_chitiet_khaigia_tv_cpTrucTiepKhac"
+                android:layout_marginRight="10dp"
+                android:text="0"
+                android:textColor="#FFF"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_title_cpChung"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/essp_dialog_chitiet_khaigia_tv_cpTrucTiep"
+                android:text="Chi phí chung: "
+                android:textColor="#67e64e"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_cpChung"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/essp_dialog_chitiet_khaigia_tv_cpTrucTiep"
+                android:layout_marginRight="10dp"
+                android:text="0"
+                android:textColor="#FFF"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_title_chiuThueTruoc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/essp_dialog_chitiet_khaigia_tv_cpChung"
+                android:text="Thu nhập chịu thuế tính trước: "
+                android:textColor="#67e64e"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_chiuThueTruoc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/essp_dialog_chitiet_khaigia_tv_cpChung"
+                android:layout_marginRight="10dp"
+                android:text="0"
+                android:textColor="#FFF"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_title_gtXayLapTruocThue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/essp_dialog_chitiet_khaigia_tv_chiuThueTruoc"
+                android:text="Cộng giá trị xây lắp trước thuế: "
+                android:textColor="#67e64e"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_gtXayLapTruocThue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/essp_dialog_chitiet_khaigia_tv_chiuThueTruoc"
+                android:layout_marginRight="10dp"
+                android:text="0"
+                android:textColor="#FFF"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_title_khaoSat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/essp_dialog_chitiet_khaigia_tv_gtXayLapTruocThue"
+                android:text="Khảo sát: "
+                android:textColor="#67e64e"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_khaoSat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/essp_dialog_chitiet_khaigia_tv_gtXayLapTruocThue"
+                android:layout_marginRight="10dp"
+                android:text="0"
+                android:textColor="#FFF"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_title_tongDoanhThuTruocThue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/essp_dialog_chitiet_khaigia_tv_khaoSat"
+                android:text="Tổng doanh thu trước thuế: "
+                android:textColor="#67e64e"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_tongDoanhThuTruocThue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/essp_dialog_chitiet_khaigia_tv_khaoSat"
+                android:layout_marginRight="10dp"
+                android:text="0"
+                android:textColor="#FFF"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_title_vat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/essp_dialog_chitiet_khaigia_tv_tongDoanhThuTruocThue"
+                android:text="Thuế VAT: "
+                android:textColor="#67e64e"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_vat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/essp_dialog_chitiet_khaigia_tv_tongDoanhThuTruocThue"
+                android:layout_marginRight="10dp"
+                android:text="0"
+                android:textColor="#FFF"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_title_tongCong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/essp_dialog_chitiet_khaigia_tv_vat"
+                android:text="Tổng cộng: "
+                android:textColor="#67e64e"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/essp_dialog_chitiet_khaigia_tv_tongCong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/essp_dialog_chitiet_khaigia_tv_vat"
+                android:layout_marginRight="10dp"
+                android:text="0"
+                android:textColor="#FFF"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

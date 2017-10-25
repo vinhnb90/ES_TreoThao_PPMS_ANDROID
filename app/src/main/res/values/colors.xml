@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorBackGroundRow">#e2c9c9c9</color>
+    <color name="list_background">#c8454545</color>
+    <color name="list_background_light">#c8454545</color>
+    <color name="list_background_trans">#995c5c5c</color>
+    <color name="list_background_trans2">#ad303030</color>
+    <color name="list_divider">#99EEEEEE</color>
+    <color name="color_orange">#FFFFFF</color>
+    <color name="list_background_pressed">#66770000</color>
+    <color name="titleMedium">#CC23307c</color>
+    <color name="titleDark">#CC4b5bba</color>
+    <color name="titleMediumGsht">#CC292a74</color>
+    <color name="titleDarkGsht">#cc515297</color>
+    <color name="titleMediumEssp">#CC261915</color>
+    <color name="titleDarkEssp">#cc5c504b</color>
+    <color name="list_item_title">#ffffff</color>
+    <color name="text_content">#660202</color>
+    <color name="gsht_text_content">#101010</color>
+    <color name="color_main">#013153</color>
+    <color name="color_main_press">#0178cd</color>
+
+    <color name="tabMedium">#2B2B2B</color>
+    <color name="tabDark">#000000</color>
+    <color name="tabMedium_light">#505050</color>
+    <color name="tabDark_light">#252525</color>
+    <color name="tabTransparent">#10ffffff</color>
+    <color name="tabTitleUnselect">#c8292929</color>
+
+
+    <color name="button_dark">#0b598b</color>
+    <color name="button_light">#348ec9</color>
+    <color name="button_light_high">#5ab0e9</color>
+    <color name="button_light_high_max">#7bcaff</color>
+    <color name="button_press_dark">#044a78</color>
+    <color name="button_press_light">#1578b7</color>
+    <color name="button_disable_dark">#7e7e7e</color>
+    <color name="button_disable_light">#b4b4b4</color>
+    <color name="text_white">#FFF</color>
+    <color name="text_black">#000</color>
+    <color name="text_violet">#9400D3</color>
+    <color name="background_color">#003456</color><!--00416B-->
+    <color name="text_green_light">#99ffb9</color>
+    <color name="button_dark_orange">#ff6e13</color>
+    <color name="button_light_orange">#ff8e48</color>
+    <color name="button_press_dark_orange">#f76204</color>
+    <color name="button_press_light_orange">#f97f34</color>
+    <color name="button_disable_dark_orange">#7e7e7e</color>
+    <color name="button_disable_light_orange">#b4b4b4</color>
+    <color name="button_disable_light_gray">#e4e4e4</color>
+    <color name="text_white_orange">#FFF</color>
+    <color name="background_color_orange">#9b3e04</color>
+    <color name="text_yellow">#FFFF00</color>
+    <color name="orange_light">#99e600</color>
+    <color name="white_more_dark">#d9d9d9</color>
+    <color name="orange_more_light">#ffe0cc</color>
+    <color name="blue_more_light">#ccf3ff</color>
+
+
+
+
+</resources>

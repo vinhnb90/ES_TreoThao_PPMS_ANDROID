@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/ttht_activity_login_iv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:background="@drawable/logo_evn_hanoi" />
+
+    <LinearLayout
+        android:id="@+id/ttht_activity_login_ll_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ttht_activity_login_iv_logo"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_linearlayout"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <EditText
+            android:id="@+id/ttht_activity_login_et_ip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/bg_edittext"
+            android:drawableLeft="@mipmap/invoice_ic_ip"
+            android:drawablePadding="5dp"
+            android:hint="IP máy chủ"
+            android:inputType="textNoSuggestions"
+            android:padding="5dp"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/ttht_activity_login_sp_dvi"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="4"
+                android:background="@drawable/bg_spinner" />
+
+            <ImageButton
+                android:id="@+id/ttht_activity_login_ib_loaddvi"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@null"
+                android:src="@mipmap/invoice_ic_download" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/ttht_activity_login_et_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/bg_edittext"
+            android:drawableLeft="@mipmap/invoice_ic_username"
+            android:drawablePadding="5dp"
+            android:hint="Tài khoản"
+            android:inputType="textNoSuggestions"
+            android:padding="5dp"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/ttht_activity_login_et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/bg_edittext"
+            android:drawableLeft="@mipmap/invoice_ic_password"
+            android:drawablePadding="5dp"
+            android:hint="******"
+            android:inputType="textPassword"
+            android:padding="5dp"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/ttht_activity_login_tv_developed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ttht_activity_login_tv_version"
+        android:layout_marginLeft="10dp"
+        android:text="Developed by: E-Solutions"
+        android:textColor="#FFF"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/ttht_activity_login_tv_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="Version: 1.0"
+        android:textColor="#FFF"
+        android:textSize="18sp" />
+
+    <!--<Button-->
+    <!--android:id="@+id/ttht_activity_login_bt_cmd"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:background="@drawable/bg_button_black"-->
+    <!--android:text="cmd"-->
+    <!--android:layout_margin="5dp"-->
+    <!--android:textColor="@color/text_white"-->
+    <!--android:textSize="14sp" />-->
+
+    <ImageButton
+        android:id="@+id/ttht_activity_login_ib_cmd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_button_black"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:src="@mipmap/ic_cmd_text" />
+
+   <!-- <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/ttht_activity_login_warning_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="Cảnh báo: Lệch thời gian trên thiết bị so với hệ thống!"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="" />
+    </LinearLayout>-->
+
+    <Button
+        android:id="@+id/ttht_activity_login_bt_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_button"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="Đăng nhập"
+        android:textColor="@color/text_white"
+        android:textSize="20sp"
+        android:layout_below="@+id/ttht_activity_login_ll_login"
+        android:layout_centerHorizontal="true" />
+
+    <!--<Button
+        android:id="@+id/btform1"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_button"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="Test GIAO DIỆN"
+        android:textColor="@color/text_white"
+        android:textSize="20sp"
+        android:onClick="onClickForm1"
+        android:layout_below="@+id/ttht_activity_login_bt_login"
+        android:layout_centerHorizontal="true" />-->
+
+</RelativeLayout>
