@@ -77,11 +77,15 @@ public class TthtGhiCongToFragment extends Fragment implements View.OnClickListe
     private LinearLayout
             llExpand1,
             llExpand2,
-            llExpand5;
+            llExpand5, llExpand5_1;
     //TODO biến được lưu để sử dụng
     private StringBuilder CHI_SO = new StringBuilder();
-    private String DATE_TIME_TO_CREATE_FILE, DATE_TIME_TO_INPUT_SQL_ANH_CONG_TO, TEN_ANH_CONG_TO = "";
+    private String DATE_TIME_TO_CREATE_FILE, DATE_TIME_TO_INPUT_SQL_ANH_CONG_TO, TEN_ANH_CONG_TO = "", TEN_ANH_CONG_TO_NIEMPHONG = "";
     private boolean isRefreshImageCongTo = false;
+    private boolean isRefreshImageNiemPhongCongTo = false;
+    private Button btExpand5_1;
+    private ImageView ivChupCongToNiemPhong;
+    private Button btChupCongToNiemPhong;
 
     public TthtGhiCongToFragment() {
         // Required empty public constructor
@@ -132,6 +136,8 @@ public class TthtGhiCongToFragment extends Fragment implements View.OnClickListe
         btExpand2.setOnClickListener(this);
         btExpand5.setOnClickListener(this);
         btChupCongTo.setOnClickListener(this);
+        btChupCongToNiemPhong.setOnClickListener(this);
+        ivChupCongToNiemPhong.setOnClickListener(this);
         ivChupCongTo.setOnClickListener(this);
 
         //TODO set visible view at first time
@@ -148,6 +154,11 @@ public class TthtGhiCongToFragment extends Fragment implements View.OnClickListe
         btExpand5.setCompoundDrawablePadding(10);
         btExpand5.setPadding(10, 0, 0, 0);
 
+        llExpand5_1.setVisibility(View.VISIBLE);
+        btExpand5_1.setBackgroundResource(R.drawable.title_elasticity);
+        btExpand5_1.setCompoundDrawablePadding(10);
+        btExpand5_1.setPadding(10, 0, 0, 0);
+
         //TODO bắt sự kiện click nút backPress
         rootView.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -156,8 +167,14 @@ public class TthtGhiCongToFragment extends Fragment implements View.OnClickListe
                 if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
                     //TODO nếu đã chụp ảnh mới nhưng chưa ghi thì thông báo
                     if (!TEN_ANH_CONG_TO.isEmpty()) {
-                        PpmsCommon.showTitleByDialog(getActivity(), "Thông báo ", "Yêu cầu lưu thông tin sau khi đã chụp ảnh mới!", true, 0);
+                        PpmsCommon.showTitleByDialog(getActivity(), "Thông báo ", "Đã chụp ảnh công tơ mới nhưng chưa được lưu!", true, 0);
                     }
+
+                    if (!TEN_ANH_CONG_TO_NIEMPHONG.isEmpty()) {
+                        PpmsCommon.showTitleByDialog(getActivity(), "Thông báo ", "Đã chụp ảnh niêm phong mới nhưng chưa được lưu!", true, 0);
+                    }
+
+
                 }
                 return false;
             }
@@ -168,7 +185,7 @@ public class TthtGhiCongToFragment extends Fragment implements View.OnClickListe
         //TODO clear data
 
         CHI_SO = new StringBuilder();
-        DATE_TIME_TO_CREATE_FILE = DATE_TIME_TO_INPUT_SQL_ANH_CONG_TO = TEN_ANH_CONG_TO = "";
+        DATE_TIME_TO_CREATE_FILE = DATE_TIME_TO_INPUT_SQL_ANH_CONG_TO = TEN_ANH_CONG_TO = TEN_ANH_CONG_TO_NIEMPHONG = "";
 
         connection = TthtSQLiteConnection.getInstance(getActivity());
 
@@ -258,6 +275,14 @@ public class TthtGhiCongToFragment extends Fragment implements View.OnClickListe
                 tthtCtoEntity.setTEN_ANH_CONG_TO(TEN_ANH);
                 cusorGetAnhCongTo.close();
             }
+
+            Cursor cusorGetAnhNiemPhongCongTo = connection.getDataAnhByIDCto(ID_CHITIET_CTO, TthtCommon.TYPE_IMAGE.IMAGE_CONG_TO_NIEM_PHONG);
+            if (cusorGetAnhNiemPhongCongTo.moveToFirst()) {
+                String TEN_ANH = cusorGetAnhNiemPhongCongTo.getString(cusorGetAnhNiemPhongCongTo.getColumnIndex("TEN_ANH"));
+                tthtCtoEntity.setTEN_ANH_NIEMPHONG_CONG_TO(TEN_ANH);
+                cusorGetAnhNiemPhongCongTo.close();
+            }
+
             tthtCtoEntity.setID_CHITIET_CTO(ID_CHITIET_CTO);
             tthtCtoEntity.setTEN_LOAI_CTO(cCto.getString(cCto.getColumnIndex("TEN_LOAI_CTO")).trim());
 
@@ -317,7 +342,7 @@ public class TthtGhiCongToFragment extends Fragment implements View.OnClickListe
             CCX = cursorGetLoaiCto.getString(cursorGetLoaiCto.getColumnIndex("CAP_CXAC_P"));
             cursorGetLoaiCto.close();
         }
-        
+
         String tvCCXText = (CCX == null) ? "" : CCX;
         String tvNhaCungCapText = (MA_HANG == null) ? "" : MA_HANG;
 
@@ -471,6 +496,8 @@ public class TthtGhiCongToFragment extends Fragment implements View.OnClickListe
         int ID_CHITIET_CTO = tthtCtoEntity.getID_CHITIET_CTO();
 
         ivChupCongTo.setImageBitmap(null);
+        ivChupCongToNiemPhong.setImageBitmap(null);
+
         Cursor cursorAnhCongTo = connection.getDataAnhByIDCto(ID_CHITIET_CTO, TthtCommon.TYPE_IMAGE.IMAGE_CONG_TO);
         if (cursorAnhCongTo.moveToFirst()) {
             TEN_ANH_CONG_TO = cursorAnhCongTo.getString(cursorAnhCongTo.getColumnIndex("TEN_ANH"));
@@ -484,6 +511,19 @@ public class TthtGhiCongToFragment extends Fragment implements View.OnClickListe
             ivChupCongTo.setImageBitmap(null);
         }
 
+
+        Cursor cursorAnhNiemPhongCongTo = connection.getDataAnhByIDCto(ID_CHITIET_CTO, TthtCommon.TYPE_IMAGE.IMAGE_CONG_TO_NIEM_PHONG);
+        if (cursorAnhNiemPhongCongTo.moveToFirst()) {
+            TEN_ANH_CONG_TO_NIEMPHONG = cursorAnhNiemPhongCongTo.getString(cursorAnhCongTo.getColumnIndex("TEN_ANH"));
+            String uriImage = TthtCommon.getRecordDirectoryFolder(TthtCommon.FOLDER_NAME.FOLDER_ANH_CONG_TO.name()) + "/" + TEN_ANH_CONG_TO_NIEMPHONG;
+            Bitmap bitmap = TthtCommon.getBitmapFromUri(uriImage);
+            if (bitmap != null) {
+                ivChupCongToNiemPhong.setImageBitmap(bitmap);
+            }
+            cursorAnhNiemPhongCongTo.close();
+        } else {
+            ivChupCongToNiemPhong.setImageBitmap(null);
+        }
     }
 
     private void initView(final View rootView) {
@@ -541,32 +581,39 @@ public class TthtGhiCongToFragment extends Fragment implements View.OnClickListe
 
         //TODO init image View
         ivChupCongTo = (ImageView) rootView.findViewById(R.id.fragment_ttht_ghi_cong_to_ivChupCongTo);
+        ivChupCongToNiemPhong = (ImageView) rootView.findViewById(R.id.fragment_ttht_ghi_cong_to_ivChupCongTo_niemphong);
+
 
         //TODO init button
         btExpand1 = (Button) rootView.findViewById(R.id.onClickExpand1);
         btExpand2 = (Button) rootView.findViewById(R.id.onClickExpand2);
         btExpand5 = (Button) rootView.findViewById(R.id.onClickExpand5);
+        btExpand5_1 = (Button) rootView.findViewById(R.id.onClickExpand5_1);
+
         btChupCongTo = (Button) rootView.findViewById(R.id.fragment_ttht_ghi_cong_to_chupCongTo);
+        btChupCongToNiemPhong = (Button) rootView.findViewById(R.id.fragment_ttht_ghi_cong_to_chupCongTo_niemphong);
 
         //TODO init linear layout
         llExpand1 = (LinearLayout) rootView.findViewById(R.id.ll_expand1);
         llExpand2 = (LinearLayout) rootView.findViewById(R.id.ll_expand2);
         llExpand5 = (LinearLayout) rootView.findViewById(R.id.ll_expand5);
+        llExpand5_1 = (LinearLayout) rootView.findViewById(R.id.ll_expand5_1);
+
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != 0) {
+            String MA_DVIQLY = tthtBBanEntity.getMA_DVIQLY();
+            String MA_TRAM = tthtBBanEntity.getMA_TRAM();
+            int ID_BBAN_TRTH = tthtBBanEntity.getID_BBAN_TRTH();
+            String SO_CTO = tthtCtoEntity.getSO_CTO();
+            this.DATE_TIME_TO_CREATE_FILE = TthtCommon.getDateNow(TthtCommon.TYPE_DATENOW.ddMMyyyy.toString());
+            this.DATE_TIME_TO_INPUT_SQL_ANH_CONG_TO = TthtCommon.getDateNow(TthtCommon.TYPE_DATENOW.yyyyMMddTHHmmss_Slash_Colon.toString());
             // TODO thông tin thêm để hiển thị ảnh
             if (requestCode == TthtCommon.CAMERA_REQUEST_CONGTO) {
                 //TODO fill data
-                String MA_DVIQLY = tthtBBanEntity.getMA_DVIQLY();
-                String MA_TRAM = tthtBBanEntity.getMA_TRAM();
-                int ID_BBAN_TRTH = tthtBBanEntity.getID_BBAN_TRTH();
-                String SO_CTO = tthtCtoEntity.getSO_CTO();
-                this.DATE_TIME_TO_CREATE_FILE = TthtCommon.getDateNow(TthtCommon.TYPE_DATENOW.ddMMyyyy.toString());
-                this.DATE_TIME_TO_INPUT_SQL_ANH_CONG_TO = TthtCommon.getDateNow(TthtCommon.TYPE_DATENOW.yyyyMMddTHHmmss_Slash_Colon.toString());
                 this.TEN_ANH_CONG_TO = TthtCommon.getImageName(TthtCommon.TYPE_IMAGE.IMAGE_CONG_TO.name(), DATE_TIME_TO_CREATE_FILE, MA_DVIQLY, MA_TRAM, ID_BBAN_TRTH, SO_CTO);
                 String PATH_ANH = TthtCommon.getRecordDirectoryFolder(TthtCommon.FOLDER_NAME.FOLDER_ANH_CONG_TO.name()) + "/" + TEN_ANH_CONG_TO;
                 TthtCommon.scaleImage(PATH_ANH, getActivity());
@@ -576,6 +623,22 @@ public class TthtGhiCongToFragment extends Fragment implements View.OnClickListe
                 try {
                     setImageToView(bitmap);
                     isRefreshImageCongTo = true;
+                } catch (Exception e) {
+                    Common.showAlertDialogGreen(getActivity(), "Lỗi (401)", Color.WHITE,
+                            e.getMessage(), Color.WHITE, "OK", Color.WHITE);
+                }
+            }
+
+            if (requestCode == TthtCommon.CAMERA_REQUEST_CONGTO_NIEMPHONG) {
+                this.TEN_ANH_CONG_TO_NIEMPHONG = TthtCommon.getImageName(TthtCommon.TYPE_IMAGE.IMAGE_CONG_TO_NIEM_PHONG.name(), DATE_TIME_TO_CREATE_FILE, MA_DVIQLY, MA_TRAM, ID_BBAN_TRTH, SO_CTO);
+                String PATH_ANH = TthtCommon.getRecordDirectoryFolder(TthtCommon.FOLDER_NAME.FOLDER_ANH_CONG_TO.name()) + "/" + TEN_ANH_CONG_TO_NIEMPHONG;
+                TthtCommon.scaleImage(PATH_ANH, getActivity());
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                Bitmap bitmap = BitmapFactory.decodeFile(PATH_ANH, options);
+                try {
+                    setImageAnhNiemPhongCToView(bitmap);
+                    isRefreshImageNiemPhongCongTo= true;
                 } catch (Exception e) {
                     Common.showAlertDialogGreen(getActivity(), "Lỗi (401)", Color.WHITE,
                             e.getMessage(), Color.WHITE, "OK", Color.WHITE);
@@ -594,12 +657,15 @@ public class TthtGhiCongToFragment extends Fragment implements View.OnClickListe
         ivChupCongTo.setImageBitmap(bitmap);
     }
 
+    private void setImageAnhNiemPhongCToView(Bitmap bitmap) throws Exception {
+        ivChupCongToNiemPhong.setImageBitmap(bitmap);
+    }
 
     @Override
     public void onClick(View view) {
+        Bitmap bitmap = null;
         switch (view.getId()) {
             case R.id.onClickExpand1:
-
                 if (llExpand1.getVisibility() == View.VISIBLE) {
                     llExpand1.setVisibility(View.GONE);
                     btExpand1.setBackgroundResource(R.drawable.title_elasticity_full);
@@ -635,18 +701,66 @@ public class TthtGhiCongToFragment extends Fragment implements View.OnClickListe
                 btExpand5.setCompoundDrawablePadding(10);
                 break;
 
+            case R.id.onClickExpand5_1:
+                if (llExpand5_1.getVisibility() == View.VISIBLE) {
+                    llExpand5_1.setVisibility(View.GONE);
+                    btExpand5_1.setBackgroundResource(R.drawable.title_elasticity_full);
+                } else {
+                    llExpand5_1.setVisibility(View.VISIBLE);
+                    btExpand5_1.setBackgroundResource(R.drawable.title_elasticity);
+                }
+                btExpand5_1.setPadding(10, 0, 0, 0);
+                btExpand5_1.setCompoundDrawablePadding(10);
+                break;
+
+
             case R.id.fragment_ttht_ghi_cong_to_chupCongTo:
                 chupAnhCongTo();
                 break;
 
+            case R.id.fragment_ttht_ghi_cong_to_chupCongTo_niemphong:
+                chupAnhCongToNiemPhong();
+                break;
+
             case R.id.fragment_ttht_ghi_cong_to_ivChupCongTo:
-                Bitmap bitmap = (ivChupCongTo.getDrawable() == null) ? null : ((BitmapDrawable) ivChupCongTo.getDrawable()).getBitmap();
+                bitmap = (ivChupCongTo.getDrawable() == null) ? null : ((BitmapDrawable) ivChupCongTo.getDrawable()).getBitmap();
                 if (bitmap == null) {
                     return;
                 }
                 TthtCommon.zoomImage(getActivity(), bitmap);
                 break;
 
+            case R.id.fragment_ttht_ghi_cong_to_ivChupCongTo_niemphong:
+                bitmap = (ivChupCongToNiemPhong.getDrawable() == null) ? null : ((BitmapDrawable) ivChupCongToNiemPhong.getDrawable()).getBitmap();
+                if (bitmap == null) {
+                    return;
+                }
+                TthtCommon.zoomImage(getActivity(), bitmap);
+                break;
+        }
+    }
+
+    private void chupAnhCongToNiemPhong() {
+        try {
+
+            Intent cameraIntent = new Intent("android.media.action.IMAGE_CAPTURE");
+            String DATETIME = TthtCommon.getDateNow(TthtCommon.TYPE_DATENOW.ddMMyyyy.toString());
+            String MA_DVIQLY = tthtBBanEntity.getMA_DVIQLY();
+            String MA_TRAM = tthtBBanEntity.getMA_TRAM();
+            int ID_BBAN_TRTH = tthtBBanEntity.getID_BBAN_TRTH();
+            String SO_CTO = tthtCtoEntity.getSO_CTO();
+            final String fileName = TthtCommon.getRecordDirectoryFolder(TthtCommon.FOLDER_NAME.FOLDER_ANH_CONG_TO.name())
+                    + "/"
+                    + TthtCommon.getImageName(TthtCommon.TYPE_IMAGE.IMAGE_CONG_TO_NIEM_PHONG.name(), DATETIME, MA_DVIQLY, MA_TRAM, ID_BBAN_TRTH, SO_CTO);
+            File file = new File(fileName);
+            if (file.exists()) {
+                file.delete();
+            }
+            file.createNewFile();
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+            startActivityForResult(cameraIntent, TthtCommon.CAMERA_REQUEST_CONGTO_NIEMPHONG);
+        } catch (IOException ex) {
+            Common.showAlertDialogGreen(getActivity(), "Lỗi (402)", Color.RED, "Lỗi lưu ảnh niêm phong Công tơ\n" + ex.toString(), Color.WHITE, "OK", Color.RED);
         }
     }
 
@@ -709,31 +823,35 @@ public class TthtGhiCongToFragment extends Fragment implements View.OnClickListe
     public boolean checkWriteDataCongToComplete(final TthtGhiCongToFragment fragment) throws Exception {
         if (fragment != null && fragment == this) {
             Bitmap bitmapCongTo = (ivChupCongTo.getDrawable() == null) ? null : ((BitmapDrawable) ivChupCongTo.getDrawable()).getBitmap();
-            String etCS1Text = (etCS1.getHint()==null)?"0": etCS1.getHint().toString();
-            String etCS1Hint = (etCS1.getHint()==null)?"0": etCS1.getHint().toString();
-            String etCS2Text = (etCS2.getHint()==null)?"0": etCS2.getHint().toString();
-            String etCS2Hint = (etCS2.getHint()==null)?"0": etCS2.getHint().toString();
-            String etCS3Text = (etCS3.getHint()==null)?"0": etCS3.getHint().toString();
-            String etCS3Hint = (etCS3.getHint()==null)?"0": etCS3.getHint().toString();
+            Bitmap bitmapCongToNiemPhong = (ivChupCongToNiemPhong.getDrawable() == null) ? null : ((BitmapDrawable) ivChupCongToNiemPhong.getDrawable()).getBitmap();
+            String etCS1Text = (etCS1.getHint() == null) ? "0" : etCS1.getHint().toString();
+            String etCS1Hint = (etCS1.getHint() == null) ? "0" : etCS1.getHint().toString();
+            String etCS2Text = (etCS2.getHint() == null) ? "0" : etCS2.getHint().toString();
+            String etCS2Hint = (etCS2.getHint() == null) ? "0" : etCS2.getHint().toString();
+            String etCS3Text = (etCS3.getHint() == null) ? "0" : etCS3.getHint().toString();
+            String etCS3Hint = (etCS3.getHint() == null) ? "0" : etCS3.getHint().toString();
 
-            String etCS4Text = (etCS4.getHint()==null)?"0": etCS4.getHint().toString();
-            String etCS4Hint = (etCS4.getHint()==null)?"0": etCS4.getHint().toString();
-            String etCS5Text = (etCS5.getHint()==null)?"0": etCS5.getHint().toString();
-            String etCS5Hint = (etCS5.getHint()==null)?"0": etCS5.getHint().toString();
+            String etCS4Text = (etCS4.getHint() == null) ? "0" : etCS4.getHint().toString();
+            String etCS4Hint = (etCS4.getHint() == null) ? "0" : etCS4.getHint().toString();
+            String etCS5Text = (etCS5.getHint() == null) ? "0" : etCS5.getHint().toString();
+            String etCS5Hint = (etCS5.getHint() == null) ? "0" : etCS5.getHint().toString();
+
+            if (bitmapCongToNiemPhong == null)
+                throw new Exception("Vui lòng chụp ảnh niêm phong công tơ!");
 
             if (bitmapCongTo == null)
-                throw new Exception("Vui lòng chụp ảnh!");
+                throw new Exception("Vui lòng chụp ảnh công tơ!");
 
 //            if (etCS1Text.isEmpty() && etCS2Text.isEmpty() && etCS3Text.isEmpty() && etCS4Text.isEmpty() && etCS5Text.isEmpty()) {
 //                if (etCS1Hint.isEmpty() && etCS2Hint.isEmpty() && etCS3Hint.isEmpty() && etCS4Hint.isEmpty() && etCS5Hint.isEmpty()) {
 //                    throw new Exception("Vui lòng nhập chỉ số!");
 //                }
 //            } else {
-                etCS1.setHint(etCS1Text.isEmpty() ? etCS1Hint : etCS1Text);
-                etCS2.setHint(etCS2Text.isEmpty() ? etCS2Hint : etCS2Text);
-                etCS3.setHint(etCS3Text.isEmpty() ? etCS3Hint : etCS3Text);
-                etCS4.setHint(etCS4Text.isEmpty() ? etCS4Hint : etCS4Text);
-                etCS5.setHint(etCS5Text.isEmpty() ? etCS5Hint : etCS5Text);
+            etCS1.setHint(etCS1Text.isEmpty() ? etCS1Hint : etCS1Text);
+            etCS2.setHint(etCS2Text.isEmpty() ? etCS2Hint : etCS2Text);
+            etCS3.setHint(etCS3Text.isEmpty() ? etCS3Hint : etCS3Text);
+            etCS4.setHint(etCS4Text.isEmpty() ? etCS4Hint : etCS4Text);
+            etCS5.setHint(etCS5Text.isEmpty() ? etCS5Hint : etCS5Text);
 //            }
         } else {
             throw new Exception("Lỗi gọi dữ liệu casting fragment!");
@@ -751,6 +869,8 @@ public class TthtGhiCongToFragment extends Fragment implements View.OnClickListe
         int ID_BBAN_TUTI = 0;
         int ID_CHITIET_TUTI = 0;
         MA_BDONG = tthtCtoEntity.getMA_BDONG();
+
+
         if (TEN_ANH_CONG_TO.isEmpty()) {
             Cursor cursorAnhCongTo = connection.getDataAnhByIDCto(ID_CHITIET_CTO, TthtCommon.TYPE_IMAGE.IMAGE_CONG_TO);
             if (cursorAnhCongTo.moveToFirst()) {
@@ -761,6 +881,8 @@ public class TthtGhiCongToFragment extends Fragment implements View.OnClickListe
         if (TEN_ANH_CONG_TO.isEmpty())
             throw new Exception("Không có ảnh trong dữ liệu database!");
         String PATH_ANH = TthtCommon.getRecordDirectoryFolder(TthtCommon.FOLDER_NAME.FOLDER_ANH_CONG_TO.name()) + "/" + TEN_ANH_CONG_TO;
+
+
         String TEN_KHANG = tthtBBanEntity.getTEN_KHANG();
         String MA_DDO = tthtBBanEntity.getMA_DDO();
         DATE_TIME_TO_INPUT_SQL_ANH_CONG_TO = TthtCommon.getDateNow(TthtCommon.TYPE_DATENOW.yyyyMMddTHHmmss_Slash_Colon.toString());
@@ -825,7 +947,40 @@ public class TthtGhiCongToFragment extends Fragment implements View.OnClickListe
             setImageToView(bitmap);
 
         } else
-            throw new Exception("Lỗi ghi vào database dữ liệu ảnh!");
+            throw new Exception("Lỗi ghi vào database dữ liệu ảnh công tơ!");
+
+        //ghi ảnh niêm phong
+
+        if (TEN_ANH_CONG_TO_NIEMPHONG.isEmpty()) {
+            Cursor cursorAnhCongTo = connection.getDataAnhByIDCto(ID_CHITIET_CTO, TthtCommon.TYPE_IMAGE.IMAGE_CONG_TO_NIEM_PHONG);
+            if (cursorAnhCongTo.moveToFirst()) {
+                TEN_ANH_CONG_TO_NIEMPHONG = cursorAnhCongTo.getString(cursorAnhCongTo.getColumnIndex("TEN_ANH"));
+                cursorAnhCongTo.close();
+            }
+        }
+        if (TEN_ANH_CONG_TO_NIEMPHONG.isEmpty())
+            throw new Exception("Không có ảnh trong dữ liệu database!");
+        PATH_ANH = TthtCommon.getRecordDirectoryFolder(TthtCommon.FOLDER_NAME.FOLDER_ANH_CONG_TO.name()) + "/" + TEN_ANH_CONG_TO_NIEMPHONG;
+
+        TYPE_IMAGE_DRAW = (MA_BDONG.equals(TthtCommon.arrMaBDong[0])) ? "ẢNH NIÊM PHONG CTƠ TREO" : "ẢNH NIÊM PHONG CTƠ THÁO";
+//         CHI_SO_DRAW = (MA_BDONG.equals(TthtCommon.arrMaBDong[0])) ? "CS TREO: " + CHI_SO.toString() : "CS THÁO: " + CHI_SO.toString();
+        MA_DDO_DRAW = "MÃ Đ.ĐO:" + MA_DDO;
+        SO_CTO_DRAW = "SỐ C.TƠ:" + SO_CTO;
+        DATE_DRAW = TthtCommon.getDateNow(TthtCommon.TYPE_DATENOW.ddMMyyyy_Slash.toString());
+
+        //TODO kiểm tra ảnh trong dữ liệu và xóa dữ liệu ảnh cũ
+        cusorCheckImage = connection.checkAnh(ID_CHITIET_TUTI, MA_DVIQLY, ID_BBAN_TUTI, ID_CHITIET_CTO, TthtCommon.TYPE_IMAGE.IMAGE_CONG_TO_NIEM_PHONG);
+        if (cusorCheckImage != null && cusorCheckImage.getCount() > 0) {
+            connection.deleteAnh(ID_CHITIET_TUTI, MA_DVIQLY, ID_BBAN_TUTI, ID_CHITIET_CTO, TthtCommon.TYPE_IMAGE.IMAGE_CONG_TO_NIEM_PHONG);
+        }
+        rowAffect = connection.insertDataAnh(ID_CHITIET_TUTI, TEN_ANH_CONG_TO_NIEMPHONG, MA_DVIQLY, ID_BBAN_TUTI, ID_CHITIET_CTO, TthtCommon.TYPE_IMAGE.IMAGE_CONG_TO_NIEM_PHONG, DATE_TIME_TO_INPUT_SQL_ANH_CONG_TO);
+        if (rowAffect > 0) {
+            //TODO fill data
+            Bitmap bitmap = TthtCommon.drawTextOnBitmapCongTo(getActivity(), PATH_ANH, TEN_KHANG, TYPE_IMAGE_DRAW, DATE_DRAW, "", SO_CTO_DRAW, MA_DDO_DRAW);
+            setImageAnhNiemPhongCToView(bitmap);
+
+        } else
+            throw new Exception("Lỗi ghi vào database dữ liệu ảnh niêm phong công tơ!");
 
         //TODO ghi dữ liệu vào database
         String etTemCongQuangText = etTemCongQuang.getText().toString();
@@ -864,7 +1019,9 @@ public class TthtGhiCongToFragment extends Fragment implements View.OnClickListe
         etGhiChu.setText(ghiChu);
 
         isRefreshImageCongTo = false;
+        isRefreshImageNiemPhongCongTo = false;
         TEN_ANH_CONG_TO = "";
+        TEN_ANH_CONG_TO_NIEMPHONG = "";
     }
 
     public void checkSaveDataCongTo(final TthtGhiCongToFragment fragment) throws Exception {
@@ -872,6 +1029,10 @@ public class TthtGhiCongToFragment extends Fragment implements View.OnClickListe
             //TODO nếu chụp lại ảnh mà chưa lưu thì thông báo phải lưu lại
             if (isRefreshImageCongTo) {
                 throw new Exception("Thông tin Công tơ mới thay đổi vẫn chưa lưu. Bạn cần lưu thông tin Công tơ trước!");
+            }
+
+            if (isRefreshImageNiemPhongCongTo) {
+                throw new Exception("Thông tin ảnh niêm phong Công tơ thay đổi vẫn chưa lưu. Cần save!");
             }
         } else {
             throw new Exception("Lỗi gọi dữ liệu casting fragment!");

@@ -60,6 +60,7 @@ public class TthtCtoEntity {
     private String HANGSO_K_SAULAP_TUTI;
     private int CAP_CX_SAULAP_TUTI;
     private String TEN_ANH_CONG_TO;
+    private String TEN_ANH_NIEMPHONG_CONG_TO;
 
     public TthtCtoEntity() {
     }
@@ -504,4 +505,15 @@ public class TthtCtoEntity {
         this.TEN_ANH_CONG_TO = TEN_ANH_CONG_TO;
     }
 
+    public void setSOVIEN_CHOM(int SOVIEN_CHOM) {
+        this.SOVIEN_CHOM = SOVIEN_CHOM;
+    }
+
+    public String getTEN_ANH_NIEMPHONG_CONG_TO() {
+        return TEN_ANH_NIEMPHONG_CONG_TO;
+    }
+
+    public void setTEN_ANH_NIEMPHONG_CONG_TO(String TEN_ANH_NIEMPHONG_CONG_TO) {
+        this.TEN_ANH_NIEMPHONG_CONG_TO = TEN_ANH_NIEMPHONG_CONG_TO;
+    }
 }

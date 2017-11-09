@@ -3222,12 +3222,15 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
                                 int ID_CHITIET_TUTI_TU_CTO_TREO = 0;
                                 int ID_CHITIET_TUTI_TI_CTO_TREO = 0;
                                 String TEN_ANH_CTO_TREO = "";
+                                String TEN_ANH_NIEMPHONG_CTO_TREO = "";
                                 String TEN_ANH_TU_CTO_TREO = "";
                                 String TEN_ANH_TU_ANH_MACH_NHI_THU_CTO_TREO = "";
                                 String TEN_ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO = "";
                                 String ANH_CTO_TREO = "";
+                                String ANH_NIEMPHONG_CTO_TREO = "";
 
                                 String CREATE_DAY_ANH_CTO_TREO = "";
+                                String CREATE_DAY_ANH_NIEMPHONG_CTO_TREO = "";
                                 String CREATE_DAY_ANH_TU_CTO_TREO = "";
                                 String CREATE_DAY_ANH_MACH_NHI_THU_CTO_TREO = "";
                                 String CREATE_DAY_ANH_MACH_NIEM_PHONG_CTO_TREO = "";
@@ -3254,11 +3257,14 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
                                 int ID_CHITIET_TUTI_TU_CTO_THAO = 0;
                                 int ID_CHITIET_TUTI_TI_CTO_THAO = 0;
                                 String TEN_ANH_CTO_THAO = "";
+                                String TEN_ANH_NIEMPHONG_CTO_THAO = "";
                                 String TEN_ANH_TU_CTO_THAO = "";
                                 String TEN_ANH_TU_ANH_MACH_NHI_THU_CTO_THAO = "";
                                 String TEN_ANH_TU_ANH_MACH_NIEM_PHONG_CTO_THAO = "";
                                 String ANH_CTO_THAO = "";
+                                String ANH_NIEMPHONG_CTO_THAO = "";
                                 String CREATE_DAY_ANH_CTO_THAO = "";
+                                String CREATE_DAY_ANH_NIEMPHONG_CTO_THAO = "";
                                 String CREATE_DAY_ANH_TU_CTO_THAO = "";
                                 String CREATE_DAY_ANH_MACH_NHI_THU_CTO_THAO = "";
                                 String CREATE_DAY_ANH_MACH_NIEM_PHONG_CTO_THAO = "";
@@ -3345,7 +3351,7 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
                                     }
 
 
-                                    //anh cong to
+                                    //anh cong to treo
                                     Cursor cursorGetDataAnhCTo = connection.getDataAnhByIDCto(ID_CHITIET_CTO_TREO, TthtCommon.TYPE_IMAGE.IMAGE_CONG_TO);
                                     if (cursorGetDataAnhCTo.moveToFirst()) {
                                         TEN_ANH_CTO_TREO = cursorGetDataAnhCTo.getString(cursorGetDataAnhCTo.getColumnIndex("TEN_ANH"));
@@ -3353,6 +3359,16 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
                                         ANH_CTO_TREO = (TthtCommon.convertBitmapToByte64(PATH_ANH).isEmpty()) ? "" : TthtCommon.convertBitmapToByte64(PATH_ANH);
                                         CREATE_DAY_ANH_CTO_TREO = cursorGetDataAnhCTo.getString(cursorGetDataAnhCTo.getColumnIndex("CREATE_DAY"));
                                         cursorGetDataAnhCTo.close();
+                                    }
+
+                                    //anh niemPhong cong to treo
+                                    Cursor cursorGetDataAnhNiemPhongCTo = connection.getDataAnhByIDCto(ID_CHITIET_CTO_TREO, TthtCommon.TYPE_IMAGE.IMAGE_CONG_TO_NIEM_PHONG);
+                                    if (cursorGetDataAnhNiemPhongCTo.moveToFirst()) {
+                                        TEN_ANH_NIEMPHONG_CTO_TREO = cursorGetDataAnhNiemPhongCTo.getString(cursorGetDataAnhNiemPhongCTo.getColumnIndex("TEN_ANH"));
+                                        PATH_ANH = TthtCommon.getRecordDirectoryFolder(TthtCommon.FOLDER_NAME.FOLDER_ANH_CONG_TO.name()) + "/" + TEN_ANH_NIEMPHONG_CTO_TREO;
+                                        ANH_NIEMPHONG_CTO_TREO = (TthtCommon.convertBitmapToByte64(PATH_ANH).isEmpty()) ? "" : TthtCommon.convertBitmapToByte64(PATH_ANH);
+                                        CREATE_DAY_ANH_NIEMPHONG_CTO_TREO = cursorGetDataAnhNiemPhongCTo.getString(cursorGetDataAnhNiemPhongCTo.getColumnIndex("CREATE_DAY"));
+                                        cursorGetDataAnhNiemPhongCTo.close();
                                     }
 
                                     if (lstChooseTreoToSubmit.get(i).getTthtBBanTuTiEntity() != null) {
@@ -3442,6 +3458,17 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
                                         CREATE_DAY_ANH_CTO_THAO = cursorGetDataAnhCTo.getString(cursorGetDataAnhCTo.getColumnIndex("CREATE_DAY"));
                                         cursorGetDataAnhCTo.close();
                                     }
+
+                                    //anh niemPhong cong to treo
+                                    cursorGetDataAnhNiemPhongCTo = connection.getDataAnhByIDCto(ID_CHITIET_CTO_THAO, TthtCommon.TYPE_IMAGE.IMAGE_CONG_TO_NIEM_PHONG);
+                                    if (cursorGetDataAnhNiemPhongCTo.moveToFirst()) {
+                                        TEN_ANH_NIEMPHONG_CTO_THAO = cursorGetDataAnhNiemPhongCTo.getString(cursorGetDataAnhNiemPhongCTo.getColumnIndex("TEN_ANH"));
+                                        PATH_ANH = TthtCommon.getRecordDirectoryFolder(TthtCommon.FOLDER_NAME.FOLDER_ANH_CONG_TO.name()) + "/" + TEN_ANH_NIEMPHONG_CTO_THAO;
+                                        ANH_NIEMPHONG_CTO_THAO = (TthtCommon.convertBitmapToByte64(PATH_ANH).isEmpty()) ? "" : TthtCommon.convertBitmapToByte64(PATH_ANH);
+                                        CREATE_DAY_ANH_NIEMPHONG_CTO_THAO = cursorGetDataAnhNiemPhongCTo.getString(cursorGetDataAnhNiemPhongCTo.getColumnIndex("CREATE_DAY"));
+                                        cursorGetDataAnhNiemPhongCTo.close();
+                                    }
+
 
                                     //anh TU
                                     Cursor cursorGetDataAnhTu = connection.getDataAnhByIDCto(ID_CHITIET_CTO_THAO, TthtCommon.TYPE_IMAGE.IMAGE_TU);
@@ -3534,8 +3561,17 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
                                                     ID_CHITIET_CTO_TREO,
                                                     //anh cong to
                                                     TEN_ANH_CTO_TREO,
+
+                                                    //anh
+                                                    TEN_ANH_NIEMPHONG_CTO_TREO,
+
                                                     ANH_CTO_TREO,
+
+                                                    ANH_NIEMPHONG_CTO_TREO,
+
                                                     CREATE_DAY_ANH_CTO_TREO,
+
+                                                    CREATE_DAY_ANH_NIEMPHONG_CTO_TREO,
                                                     //anh TU
                                                     TEN_ANH_TU_CTO_TREO,
                                                     ANH_TU_CTO_TREO,
@@ -3570,8 +3606,17 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
                                                     ID_CHITIET_CTO_THAO,
                                                     //anh cong to
                                                     TEN_ANH_CTO_THAO,
+                                                    //anh
+                                                    TEN_ANH_NIEMPHONG_CTO_THAO,
+
                                                     ANH_CTO_THAO,
+
+                                                    ANH_NIEMPHONG_CTO_THAO,
+
                                                     CREATE_DAY_ANH_CTO_THAO,
+
+                                                    CREATE_DAY_ANH_NIEMPHONG_CTO_THAO,
+
                                                     //anh TU
                                                     TEN_ANH_TU_CTO_THAO,
                                                     ANH_TU_CTO_THAO,
@@ -3773,7 +3818,6 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
             String PHUONG_THUC_DO_XA_CTO_THAO,
             String GHI_CHU_CTO_THAO,
 
-
             //TODO update bang DU_LIEU_HIEN_TRUONG
             //TODO anh Cong To Treo
             int ID_BBAN_TUTI_CTO_TREO,
@@ -3783,8 +3827,11 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
             int ID_CHITIET_CTO_TREO,
             //anh cong to
             String TEN_ANH_CTO_TREO,
+            String TEN_ANH_NIEMPHONG_CTO_TREO,
             String ANH_CTO_TREO,
+            String ANH_NIEMPHONG_CTO_TREO,
             String CREATE_DAY_ANH_CTO_TREO,
+            String CREATE_DAY_ANH_NIEMPHONG_CTO_TREO,
             //anh TU
             String TEN_ANH_TU_CTO_TREO,
             String ANH_TU_CTO_TREO,
@@ -3792,7 +3839,7 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
             //anh TU mach nhi thu
             String TEN_ANH_TU_ANH_MACH_NHI_THU_CTO_TREO,
             String ANH_TU_ANH_MACH_NHI_THU_CTO_TREO,
-            String CREATE_DAY_ANH_MACH_NHI_THU_CTO_TREO,
+            String CREATE_DAY_ANH_TU_MACH_NHI_THU_CTO_TREO,
             //anh TU mach niem phong
             String TEN_ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO,
             String ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO,
@@ -3820,8 +3867,11 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
             int ID_CHITIET_CTO_THAO,
             //anh cong to
             String TEN_ANH_CTO_THAO,
+            String TEN_ANH_NIEMPHONG_CTO_THAO,
             String ANH_CTO_THAO,
+            String ANH_NIEMPHONG_CTO_THAO,
             String CREATE_DAY_ANH_CTO_THAO,
+            String CREATE_DAY_ANH_NIEMPHONG_CTO_THAO,
             //anh TU
             String TEN_ANH_TU_CTO_THAO,
             String ANH_TU_CTO_THAO,
@@ -3899,8 +3949,14 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
         String sID_CHITIET_CTO_TREO = "ID_CHITIET_CTO_TREO";
         //anh cong to
         String sTEN_ANH_CTO_TREO = "TEN_ANH_CTO_TREO";
+        String sTEN_ANH_NIEMPHONG_CTO_TREO = "TEN_ANH_NIEMPHONG_CTO_TREO";
+
         String sANH_CTO_TREO = "ANH_CTO_TREO";
+        String sANH_NIEMPHONG_CTO_TREO = "ANH_NIEMPHONG_CTO_TREO";
+
         String sCREATE_DAY_ANH_CTO_TREO = "CREATE_DAY_ANH_CTO_TREO";
+        String sCREATE_DAY_ANH_NIEMPHONG_CTO_TREO = "CREATE_DAY_ANH_NIEMPHONG_CTO_TREO";
+
         //anh TU
         String sTEN_ANH_TU_CTO_TREO = "TEN_ANH_TU_CTO_TREO";
         String sANH_TU_CTO_TREO = "ANH_TU_CTO_TREO";
@@ -3913,7 +3969,6 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
         String sTEN_ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO = "TEN_ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO";
         String sANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO = "ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO";
         String sCREATE_DAY_ANH_MACH_NIEM_PHONG_CTO_TREO = "CREATE_DAY_ANH_MACH_NIEM_PHONG_CTO_TREO";
-
 
         //anh TI
         String sTEN_ANH_TI_CTO_TREO = "TEN_ANH_TI_CTO_TREO";
@@ -3932,8 +3987,13 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
         String sID_CHITIET_CTO_THAO = "ID_CHITIET_CTO_THAO";
         //anh cong to
         String sTEN_ANH_CTO_THAO = "TEN_ANH_CTO_THAO";
+        String sTEN_ANH_NIEMPHONG_CTO_THAO = "TEN_ANH_NIEMPHONG_CTO_THAO";
+
         String sANH_CTO_THAO = "ANH_CTO_THAO";
+        String sANH_NIEMPHONG_CTO_THAO = "ANH_CTO_NIEMPHONG_THAO";
         String sCREATE_DAY_ANH_CTO_THAO = "CREATE_DAY_ANH_CTO_THAO";
+        String sCREATE_DAY_ANH_NIEMPHONG_CTO_THAO = "CREATE_DAY_ANH_NIEMPHONG_CTO_THAO";
+
         //anh TU
         String sTEN_ANH_TU_CTO_THAO = "TEN_ANH_TU_CTO_THAO";
         String sANH_TU_CTO_THAO = "ANH_TU_CTO_THAO";
@@ -3956,8 +4016,6 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
             jsonObject.accumulate(sTRANG_THAI, TRANG_THAI);
 
             //TODO cong sto treo
-
-
             jsonObject.accumulate(sLAN_CTO_TREO, LAN_CTO_TREO);
             jsonObject.accumulate(sVTRI_TREO_THAO_CTO_TREO, VTRI_TREO_THAO_CTO_TREO);
             jsonObject.accumulate(sSOVIEN_CBOOC_CTO_TREO, SOVIEN_CBOOC_CTO_TREO);
@@ -4009,10 +4067,17 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
             jsonObject.accumulate(sID_CHITIET_TUTI_TI_CTO_TREO, ID_CHITIET_TUTI_TI_CTO_TREO);
 
             jsonObject.accumulate(sID_CHITIET_CTO_TREO, ID_CHITIET_CTO_TREO);
+
             //anh cong to
             jsonObject.accumulate(sTEN_ANH_CTO_TREO, TEN_ANH_CTO_TREO == null ? "" : TEN_ANH_CTO_TREO);
+            jsonObject.accumulate(sTEN_ANH_NIEMPHONG_CTO_TREO, TEN_ANH_NIEMPHONG_CTO_TREO == null ? "" : TEN_ANH_NIEMPHONG_CTO_TREO);
+
             jsonObject.accumulate(sANH_CTO_TREO, ANH_CTO_TREO == null ? "" : ANH_CTO_TREO);
+            jsonObject.accumulate(sANH_NIEMPHONG_CTO_TREO, ANH_NIEMPHONG_CTO_TREO == null ? "" : TEN_ANH_NIEMPHONG_CTO_TREO);
+
             jsonObject.accumulate(sCREATE_DAY_ANH_CTO_TREO, CREATE_DAY_ANH_CTO_TREO == null ? "" : CREATE_DAY_ANH_CTO_TREO);
+            jsonObject.accumulate(sCREATE_DAY_ANH_NIEMPHONG_CTO_TREO, CREATE_DAY_ANH_NIEMPHONG_CTO_TREO == null ? "" : CREATE_DAY_ANH_NIEMPHONG_CTO_TREO);
+
             //anh TU
             jsonObject.accumulate(sTEN_ANH_TU_CTO_TREO, TEN_ANH_TU_CTO_TREO == null ? "" : TEN_ANH_TU_CTO_TREO);
             jsonObject.accumulate(sANH_TU_CTO_TREO, ANH_TU_CTO_TREO == null ? "" : ANH_TU_CTO_TREO);
@@ -4020,26 +4085,24 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
             //anh TU mach nhi thu
             jsonObject.accumulate(sTEN_ANH_TU_ANH_MACH_NHI_THU_CTO_TREO, TEN_ANH_TU_ANH_MACH_NHI_THU_CTO_TREO == null ? "" : TEN_ANH_TU_ANH_MACH_NHI_THU_CTO_TREO);
             jsonObject.accumulate(sANH_TU_ANH_MACH_NHI_THU_CTO_TREO, ANH_TU_ANH_MACH_NHI_THU_CTO_TREO == null ? "" : ANH_TU_ANH_MACH_NHI_THU_CTO_TREO);
-            jsonObject.accumulate(sCREATE_DAY_ANH_MACH_NHI_THU_CTO_TREO, CREATE_DAY_ANH_MACH_NHI_THU_CTO_TREO == null ? "" : CREATE_DAY_ANH_MACH_NHI_THU_CTO_TREO);
+            jsonObject.accumulate(sCREATE_DAY_ANH_MACH_NHI_THU_CTO_TREO, CREATE_DAY_ANH_TU_MACH_NHI_THU_CTO_TREO == null ? "" : CREATE_DAY_ANH_TU_MACH_NHI_THU_CTO_TREO);
             //anh TU mach niem phong
             jsonObject.accumulate(sTEN_ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO, TEN_ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO == null ? "" : TEN_ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO);
             jsonObject.accumulate(sANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO, ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO == null ? "" : ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO);
             jsonObject.accumulate(sCREATE_DAY_ANH_MACH_NIEM_PHONG_CTO_TREO, CREATE_DAY_ANH_MACH_NIEM_PHONG_CTO_TREO == null ? "" : CREATE_DAY_ANH_MACH_NIEM_PHONG_CTO_TREO);
 
-
             //anh TI
-            jsonObject.accumulate(sTEN_ANH_TI_CTO_TREO, TEN_ANH_TU_CTO_TREO == null ? "" : TEN_ANH_TU_CTO_TREO);
-            jsonObject.accumulate(sANH_TI_CTO_TREO, ANH_TU_CTO_TREO == null ? "" : ANH_TU_CTO_TREO);
-            jsonObject.accumulate(sCREATE_DAY_ANH_TI_CTO_TREO, CREATE_DAY_ANH_TU_CTO_TREO == null ? "" : CREATE_DAY_ANH_TU_CTO_TREO);
+            jsonObject.accumulate(sTEN_ANH_TI_CTO_TREO, TEN_ANH_TI_CTO_TREO == null ? "" : TEN_ANH_TI_CTO_TREO);
+            jsonObject.accumulate(sANH_TI_CTO_TREO, ANH_TI_CTO_TREO == null ? "" : ANH_TI_CTO_TREO);
+            jsonObject.accumulate(sCREATE_DAY_ANH_TI_CTO_TREO, CREATE_DAY_ANH_TI_CTO_TREO == null ? "" : CREATE_DAY_ANH_TI_CTO_TREO);
             //anh TI mach nhi thu
-            jsonObject.accumulate(sTEN_ANH_TI_ANH_MACH_NHI_THU_CTO_TREO, TEN_ANH_TU_ANH_MACH_NHI_THU_CTO_TREO == null ? "" : TEN_ANH_TU_ANH_MACH_NHI_THU_CTO_TREO);
-            jsonObject.accumulate(sANH_TI_ANH_MACH_NHI_THU_CTO_TREO, ANH_TU_ANH_MACH_NHI_THU_CTO_TREO == null ? "" : ANH_TU_ANH_MACH_NHI_THU_CTO_TREO);
-            jsonObject.accumulate(sCREATE_DAY_ANH_MACH_NHI_THU_TI_CTO_TREO, CREATE_DAY_ANH_MACH_NHI_THU_CTO_TREO == null ? "" : CREATE_DAY_ANH_MACH_NHI_THU_CTO_TREO);
+            jsonObject.accumulate(sTEN_ANH_TI_ANH_MACH_NHI_THU_CTO_TREO, TEN_ANH_TI_ANH_MACH_NHI_THU_CTO_TREO == null ? "" : TEN_ANH_TI_ANH_MACH_NHI_THU_CTO_TREO);
+            jsonObject.accumulate(sANH_TI_ANH_MACH_NHI_THU_CTO_TREO, ANH_TI_ANH_MACH_NHI_THU_CTO_TREO == null ? "" : ANH_TI_ANH_MACH_NHI_THU_CTO_TREO);
+            jsonObject.accumulate(sCREATE_DAY_ANH_MACH_NHI_THU_TI_CTO_TREO, CREATE_DAY_ANH_MACH_NHI_THU_TI_CTO_TREO == null ? "" : CREATE_DAY_ANH_MACH_NHI_THU_TI_CTO_TREO);
             //anh TI mach niem phong
-            jsonObject.accumulate(sTEN_ANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO, TEN_ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO == null ? "" : TEN_ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO);
-            jsonObject.accumulate(sANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO, ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO == null ? "" : ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO);
-            jsonObject.accumulate(sCREATE_DAY_ANH_MACH_NIEM_PHONG_TI_CTO_TREO, CREATE_DAY_ANH_MACH_NIEM_PHONG_CTO_TREO == null ? "" : CREATE_DAY_ANH_MACH_NIEM_PHONG_CTO_TREO);
-
+            jsonObject.accumulate(sTEN_ANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO, TEN_ANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO == null ? "" : TEN_ANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO);
+            jsonObject.accumulate(sANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO, ANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO == null ? "" : ANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO);
+            jsonObject.accumulate(sCREATE_DAY_ANH_MACH_NIEM_PHONG_TI_CTO_TREO, CREATE_DAY_ANH_MACH_NIEM_PHONG_TI_CTO_TREO == null ? "" : CREATE_DAY_ANH_MACH_NIEM_PHONG_TI_CTO_TREO);
 
             //TODO anh Cong To Thao
             jsonObject.accumulate(sID_BBAN_TUTI_CTO_THAO, ID_BBAN_TUTI_CTO_THAO);
@@ -4049,8 +4112,13 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
             jsonObject.accumulate(sID_CHITIET_CTO_THAO, ID_CHITIET_CTO_THAO);
             //anh cong to
             jsonObject.accumulate(sTEN_ANH_CTO_THAO, TEN_ANH_CTO_THAO == null ? "" : TEN_ANH_CTO_THAO);
+            jsonObject.accumulate(sTEN_ANH_NIEMPHONG_CTO_THAO, TEN_ANH_NIEMPHONG_CTO_THAO == null ? "" : TEN_ANH_NIEMPHONG_CTO_THAO);
+
             jsonObject.accumulate(sANH_CTO_THAO, ANH_CTO_THAO == null ? "" : ANH_CTO_THAO);
+            jsonObject.accumulate(sANH_NIEMPHONG_CTO_THAO, ANH_NIEMPHONG_CTO_THAO == null ? "" : ANH_NIEMPHONG_CTO_THAO);
+
             jsonObject.accumulate(sCREATE_DAY_ANH_CTO_THAO, CREATE_DAY_ANH_CTO_THAO == null ? "" : CREATE_DAY_ANH_CTO_THAO);
+            jsonObject.accumulate(sCREATE_DAY_ANH_NIEMPHONG_CTO_THAO, CREATE_DAY_ANH_NIEMPHONG_CTO_THAO == null ? "" : CREATE_DAY_ANH_NIEMPHONG_CTO_THAO);
             //anh TU
             jsonObject.accumulate(sTEN_ANH_TU_CTO_THAO, TEN_ANH_TU_CTO_THAO == null ? "" : TEN_ANH_TU_CTO_THAO);
             jsonObject.accumulate(sANH_TU_CTO_THAO, ANH_TU_CTO_THAO == null ? "" : ANH_TU_CTO_THAO);

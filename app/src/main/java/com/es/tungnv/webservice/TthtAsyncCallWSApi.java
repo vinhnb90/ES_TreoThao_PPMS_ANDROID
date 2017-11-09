@@ -25,6 +25,10 @@ public class TthtAsyncCallWSApi {
 
     private static String URL_SERVICE;
 
+    public static String getUrlService() {
+        return "http://" + TthtCommon.getIP_SERVER_1() + TthtCommon.getServerName();
+    }
+
     private TthtAsyncCallWSApi() {
     }
 
@@ -70,7 +74,7 @@ public class TthtAsyncCallWSApi {
         protected JSONObject doInBackground(Void... params) {
             try {
                 final String METHOD = "LogHistory";
-                URL url = new URL(URL_SERVICE + METHOD);
+                URL url = new URL(TthtAsyncCallWSApi.getUrlService() + METHOD);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 try {
                     json = jsonObject.toString();
@@ -139,7 +143,7 @@ public class TthtAsyncCallWSApi {
             try {
                 ArrayList<JSONObject> listJSon = new ArrayList<JSONObject>();
                 final String METHOD = "Get_d_dviqly";
-                URL url = new URL(URL_SERVICE + METHOD);
+                URL url = new URL(TthtAsyncCallWSApi.getUrlService() + METHOD);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -203,8 +207,8 @@ public class TthtAsyncCallWSApi {
                 ArrayList<JSONObject> listJSon = new ArrayList<JSONObject>();
 //                final String METHOD = "GetBienBanTreoThao";
                 final String METHOD = "GeT_BBAN";
-//                URL url = new URL(URL_SERVICE + METHOD + "/" + MaDonVi + "/" + MaNhanVien);
-                URL url = new URL(URL_SERVICE + METHOD + "?madonvi=" + MaDonVi + "&manhanvien=" + MaNhanVien);
+//                URL url = new URL(TthtAsyncCallWSApi.getUrlService() + METHOD + "/" + MaDonVi + "/" + MaNhanVien);
+                URL url = new URL(TthtAsyncCallWSApi.getUrlService() + METHOD + "?madonvi=" + MaDonVi + "&manhanvien=" + MaNhanVien);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -267,7 +271,7 @@ public class TthtAsyncCallWSApi {
             try {
                 ArrayList<JSONObject> listJSon = new ArrayList<JSONObject>();
                 final String METHOD = "Get_cto";
-                URL url = new URL(URL_SERVICE + METHOD + "?madonvi=" + MaDonVi + "&idBienBan=" + IdBienBan);
+                URL url = new URL(TthtAsyncCallWSApi.getUrlService() + METHOD + "?madonvi=" + MaDonVi + "&idBienBan=" + IdBienBan);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -330,7 +334,7 @@ public class TthtAsyncCallWSApi {
             try {
                 ArrayList<JSONObject> listJSon = new ArrayList<JSONObject>();
                 final String METHOD = "Get_tu";
-                URL url = new URL(URL_SERVICE + METHOD + "?MaDonVi=" + MaDonVi + "&IdBienBan" + IdBienBan);
+                URL url = new URL(TthtAsyncCallWSApi.getUrlService() + METHOD + "?MaDonVi=" + MaDonVi + "&IdBienBan" + IdBienBan);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -393,7 +397,7 @@ public class TthtAsyncCallWSApi {
             try {
                 ArrayList<JSONObject> listJSon = new ArrayList<JSONObject>();
                 final String METHOD = "Get_tu";
-                URL url = new URL(URL_SERVICE + METHOD + "?MaDonVi=" + MaDonVi + "&IdBienBan" + IdBienBan);
+                URL url = new URL(TthtAsyncCallWSApi.getUrlService() + METHOD + "?MaDonVi=" + MaDonVi + "&IdBienBan" + IdBienBan);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -444,7 +448,7 @@ public class TthtAsyncCallWSApi {
             try {
                 ArrayList<JSONObject> listJSon = new ArrayList<JSONObject>();
                 final String METHOD = "GetTram";
-                URL url = new URL(URL_SERVICE + METHOD + "?maDonViQuanLy=" + TthtCommon.getMaDviqly());
+                URL url = new URL(TthtAsyncCallWSApi.getUrlService() + METHOD + "?maDonViQuanLy=" + TthtCommon.getMaDviqly());
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -495,7 +499,7 @@ public class TthtAsyncCallWSApi {
                 ArrayList<JSONObject> listJSon = new ArrayList<JSONObject>();
                 final String METHOD = "Get_bban_TUTI";
 //               http://localhost:3966/api/serviceMTB/Get_bban_TUTI?madonvi=PD0100&manhanvien=TT_04
-                URL url = new URL(URL_SERVICE + METHOD + "?madonvi=" + TthtCommon.getMaDviqly() + "&" + "manhanvien=" + TthtCommon.getMaNvien());
+                URL url = new URL(TthtAsyncCallWSApi.getUrlService() + METHOD + "?madonvi=" + TthtCommon.getMaDviqly() + "&" + "manhanvien=" + TthtCommon.getMaNvien());
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -554,7 +558,7 @@ public class TthtAsyncCallWSApi {
                 final String METHOD = "Get_TUTI";
 //               http://localhost:3966/api/serviceMTB/Get_TUTI?madonvi=PD0100&idTuTi=1
 //                http://localhost:3966/api/serviceMTB/Get_TUTI?madonvi=PD0100
-                URL url = new URL(URL_SERVICE + METHOD + "?madonvi=" + TthtCommon.getMaDviqly() + "&" + "idTuTi=" + ID_CHITIET_TU_TI);
+                URL url = new URL(TthtAsyncCallWSApi.getUrlService() + METHOD + "?madonvi=" + TthtCommon.getMaDviqly() + "&" + "idTuTi=" + ID_CHITIET_TU_TI);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -610,7 +614,7 @@ public class TthtAsyncCallWSApi {
             try {
                 ArrayList<JSONObject> listJSon = new ArrayList<JSONObject>();
                 final String METHOD = "LayDuLieuLoaiCongTo";
-                URL url = new URL(URL_SERVICE + METHOD);
+                URL url = new URL(TthtAsyncCallWSApi.getUrlService() + METHOD);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -674,7 +678,7 @@ public class TthtAsyncCallWSApi {
             try {
                 ArrayList<JSONObject> listJSon = new ArrayList<JSONObject>();
                 final String METHOD = "LayDuLieuCMIS";
-                URL url = new URL(URL_SERVICE + METHOD + "?madonvi=" + madonvi + "&manhanvien=" + manhanvien);
+                URL url = new URL(TthtAsyncCallWSApi.getUrlService() + METHOD + "?madonvi=" + madonvi + "&manhanvien=" + manhanvien);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -773,7 +777,7 @@ public class TthtAsyncCallWSApi {
             try {
                 ArrayList<JSONObject> listJSon = new ArrayList<JSONObject>();
                 final String METHOD = "PostMTBWithImage";
-                URL url = new URL(URL_SERVICE + METHOD);
+                URL url = new URL(TthtAsyncCallWSApi.getUrlService() + METHOD);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 try {
                     json = jsonArr.toString();
@@ -1221,7 +1225,7 @@ public class TthtAsyncCallWSApi {
         protected JSONObject doInBackground(Void... params) {
             try {
                 final String METHOD = "Get_LoginMTB";
-                URL url = new URL(URL_SERVICE + METHOD + "?madonvi=" + madonvi + "&username=" + username
+                URL url = new URL(TthtAsyncCallWSApi.getUrlService() + METHOD + "?madonvi=" + madonvi + "&username=" + username
                         + "&password=" + password + "&imei=" + imei);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 try {

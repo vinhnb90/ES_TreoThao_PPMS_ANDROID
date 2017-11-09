@@ -65,7 +65,7 @@ public class TthtCommon {
     private static String MA_DVIQLY = "";
     private static String MA_NVIEN = "";
     private static String USERNAME = "";
-    private static String TEN_NVIEN ="";
+    private static String TEN_NVIEN = "";
     private static String SERVER_NAME = "/api/serviceMTB/";
     public static boolean isDownload = false;
     private static String TTHT_DATE_CHON = "";
@@ -82,6 +82,7 @@ public class TthtCommon {
     public static String[] arrFilter = {"Treo", "Tháo"};
     public static String[] arrMaBDong = {"B", "E"};
     public static final int CAMERA_REQUEST_CONGTO = 1111;
+    public static final int CAMERA_REQUEST_CONGTO_NIEMPHONG = 1112;
     public static final int CAMERA_REQUEST_TU = 2222;
     public static final int CAMERA_REQUEST_TI = 3333;
     public static final int CAMERA_REQUEST_NHI_THU_TU = 4444;
@@ -125,7 +126,7 @@ public class TthtCommon {
     }
 
     public enum TYPE_IMAGE {
-        IMAGE_CONG_TO, IMAGE_TU, IMAGE_TI, IMAGE_MACH_NHI_THU_TU, IMAGE_MACH_NHI_THU_TI, IMAGE_NIEM_PHONG_TU, IMAGE_NIEM_PHONG_TI;
+        IMAGE_CONG_TO, IMAGE_CONG_TO_NIEM_PHONG, IMAGE_TU, IMAGE_TI, IMAGE_MACH_NHI_THU_TU, IMAGE_MACH_NHI_THU_TI, IMAGE_NIEM_PHONG_TU, IMAGE_NIEM_PHONG_TI;
 
         @Override
         public String toString() {
@@ -136,6 +137,7 @@ public class TthtCommon {
             else if (this == IMAGE_MACH_NHI_THU_TI) return "5";
             else if (this == IMAGE_NIEM_PHONG_TU) return "6";
             else if (this == IMAGE_NIEM_PHONG_TI) return "7";
+            else if (this == IMAGE_CONG_TO_NIEM_PHONG) return "8";
             return super.toString();
         }
     }

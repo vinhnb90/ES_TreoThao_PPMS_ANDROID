@@ -77,8 +77,7 @@ public class TthtMainActivity extends AppCompatActivity{
 //            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
             CheckFileConfigExist();
-            getDataConfig();
-            
+
             navMenuTitles = getResources().getStringArray(R.array.gsht_nav_drawer_items);
             navMenuIcons = getResources().obtainTypedArray(R.array.gsht_nav_drawer_icons);
             mDrawerLayout = (DrawerLayout) findViewById(R.id.gsht_activity_main_dl_main);
@@ -315,61 +314,6 @@ public class TthtMainActivity extends AppCompatActivity{
         return fileConfig;
     }
 
-    public void getDataConfig() throws XmlPullParserException, IOException, SAXException {
-        try {
-            ArrListConfig = new ArrayList<LinkedHashMap<String, String>>();
-            XmlPullParserFactory pf = XmlPullParserFactory.newInstance();
-            XmlPullParser pp = pf.newPullParser();
-            try {
-                String file = getConfig();
-
-                FileInputStream ip = new FileInputStream(file);
-                pp.setInput(ip, "UTF-8");
-            } catch (Exception e1) {
-                return;
-            }
-            int event = -1;
-            String NodeName;
-            while (event != XmlPullParser.END_DOCUMENT) {
-                event = pp.next();
-                switch (event) {
-                    case XmlPullParser.START_DOCUMENT:
-                        break;
-                    case XmlPullParser.START_TAG:
-                        NodeName = pp.getName();
-                        if (NodeName.equalsIgnoreCase("Table1")) {
-                            hmConfig = new LinkedHashMap<String, String>();
-                            break;
-                        }
-                        for (int j = 0; j < TthtConstantVariables.CFG_COLUMN.length; j++) {
-                            if (NodeName.equalsIgnoreCase(TthtConstantVariables.CFG_COLUMN[j])) {
-                                hmConfig.put(TthtConstantVariables.CFG_COLUMN[j], pp.nextText());
-                                break;
-                            }
-                        }
-                        break;
-
-                    case XmlPullParser.END_TAG:
-                        NodeName = pp.getName();
-                        if (NodeName.equalsIgnoreCase("Table1")) {
-                            ArrListConfig.add(hmConfig);
-                            TthtCommon.setIP_SERVER_1(hmConfig.get("IP_SV_1"));
-                            TthtCommon.setVERSION(hmConfig.get("VERSION"));
-                        }
-                        break;
-                    case XmlPullParser.END_DOCUMENT:
-                        break;
-                    default:
-
-                        break;
-                }
-            }
-
-        } catch (Exception ex) {
-            Toast.makeText(TthtMainActivity.this.getApplicationContext(), "Lỗi đọc file cấu hình: " + ex.toString(), Toast.LENGTH_LONG).show();
-            return;
-        }
-    }
     //endregion
     
 }

@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -85,8 +86,8 @@ public class TthtLoginActivity extends ActionBarActivity implements View.OnClick
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
             getSupportActionBar().hide();
             initComponents();
-            CheckFileConfigExist();
-            getDataConfig();
+//            CheckFileConfigExist();
+//            getDataConfig();
 
             connection = TthtSQLiteConnection.getInstance(this);
             asyncCallWSApi = TthtAsyncCallWSApi.getInstance();
@@ -103,8 +104,9 @@ public class TthtLoginActivity extends ActionBarActivity implements View.OnClick
     protected void onResume() {
         super.onResume();
         try {
-            String oldIP = TthtCommon.cfgInfo.getIP_SV_1();
-            if (oldIP.trim().isEmpty()) {
+
+            String oldIP  = sSharePrefManager.getSharePref("shareRefIP", MODE_PRIVATE).getString("IP", "");
+            if (TextUtils.isEmpty(oldIP)) {
                 etIP.requestFocus();
             } else {
                 etIP.setText(oldIP);
@@ -128,17 +130,6 @@ public class TthtLoginActivity extends ActionBarActivity implements View.OnClick
     @Override
     protected void onPause() {
         super.onPause();
-        try {
-            String version = TthtCommon.cfgInfo.getVERSION();
-            String IP = etIP.getText().toString().trim();
-            if (!IP.isEmpty() && !IP.equals(TthtCommon.cfgInfo.getIP_SV_1())) {
-                saveConfig(IP, !version.isEmpty() ? version : "HN");
-                TthtCommon.setVERSION(!version.isEmpty() ? version : "HN");
-                TthtCommon.cfgInfo.setIP_SV_1(IP);
-            }
-        } catch (Exception ex) {
-            Toast.makeText(TthtLoginActivity.this.getApplicationContext(), "Lỗi onPause", Toast.LENGTH_LONG).show();
-        }
     }
 
     @Override
@@ -171,6 +162,7 @@ public class TthtLoginActivity extends ActionBarActivity implements View.OnClick
 
         sSharePrefManager = SharePrefManager.getInstance(this);
         sSharePrefManager.addSharePref("shareRefMaNhanVien", MODE_PRIVATE);
+        sSharePrefManager.addSharePref("shareRefIP", MODE_PRIVATE);
 
     }
     //endregion
@@ -190,8 +182,8 @@ public class TthtLoginActivity extends ActionBarActivity implements View.OnClick
                     Common.showAlertDialogGreen(TthtLoginActivity.this, "Thông báo", Color.WHITE, "Bạn chưa có kết nối mạng", Color.WHITE, "OK", Color.WHITE);
                     ibtDonVi.setEnabled(true);
                 } else if (etIP.length() == 0) {
-                    Common.showAlertDialogGreen(TthtLoginActivity.this, "Thông báo", Color.WHITE, "Bạn chưa nhập địa chỉ IP", Color.WHITE, "OK", Color.WHITE);
                     ibtDonVi.setEnabled(true);
+                    Common.showAlertDialogGreen(TthtLoginActivity.this, "Thông báo", Color.WHITE, "Bạn chưa nhập địa chỉ IP", Color.WHITE, "OK", Color.WHITE);
                 } else {
                     countDvi = 0;
                     lstJsonDviQly = new ArrayList<>();
@@ -394,6 +386,8 @@ public class TthtLoginActivity extends ActionBarActivity implements View.OnClick
                                                                         } else {
                                                                             TthtCommon.setMaDviqly(MA_DVIQLY);
                                                                             TthtCommon.setUSERNAME(etUser.getText().toString());
+                                                                            sSharePrefManager.getSharePref("shareRefIP", MODE_PRIVATE).edit().putString("IP", etIP.getText().toString().trim()).commit();
+
                                                                             startActivity(new Intent(TthtLoginActivity.this, TthtMainActivity.class));
                                                                         }
                                                                     } catch (Exception e) {
@@ -439,7 +433,7 @@ public class TthtLoginActivity extends ActionBarActivity implements View.OnClick
                             //end VinhNB
                             TthtCommon.setMaDviqly(MA_DVIQLY);
                             TthtCommon.setUSERNAME(etUser.getText().toString());
-
+                            sSharePrefManager.getSharePref("shareRefIP", MODE_PRIVATE).edit().putString("IP", etIP.getText().toString().trim()).commit();
                             startActivity(new Intent(TthtLoginActivity.this, TthtMainActivity.class));
                         } else {
                             Common.showAlertDialogGreen(TthtLoginActivity.this, "Thông báo", Color.WHITE, "Chưa có danh mục mã đơn vị quản lý", Color.WHITE, "OK", Color.WHITE);
@@ -503,61 +497,6 @@ public class TthtLoginActivity extends ActionBarActivity implements View.OnClick
         return fileConfig;
     }
 
-    public void getDataConfig() throws XmlPullParserException, IOException, SAXException {
-        try {
-            ArrListConfig = new ArrayList<LinkedHashMap<String, String>>();
-            XmlPullParserFactory pf = XmlPullParserFactory.newInstance();
-            XmlPullParser pp = pf.newPullParser();
-            try {
-                String file = getConfig();
-
-                FileInputStream ip = new FileInputStream(file);
-                pp.setInput(ip, "UTF-8");
-            } catch (Exception e1) {
-                return;
-            }
-            int event = -1;
-            String NodeName;
-            while (event != XmlPullParser.END_DOCUMENT) {
-                event = pp.next();
-                switch (event) {
-                    case XmlPullParser.START_DOCUMENT:
-                        break;
-                    case XmlPullParser.START_TAG:
-                        NodeName = pp.getName();
-                        if (NodeName.equalsIgnoreCase("Table1")) {
-                            hmConfig = new LinkedHashMap<String, String>();
-                            break;
-                        }
-                        for (int j = 0; j < TthtConstantVariables.CFG_COLUMN.length; j++) {
-                            if (NodeName.equalsIgnoreCase(TthtConstantVariables.CFG_COLUMN[j])) {
-                                hmConfig.put(TthtConstantVariables.CFG_COLUMN[j], pp.nextText());
-                                break;
-                            }
-                        }
-                        break;
-
-                    case XmlPullParser.END_TAG:
-                        NodeName = pp.getName();
-                        if (NodeName.equalsIgnoreCase("Table1")) {
-                            ArrListConfig.add(hmConfig);
-                            TthtCommon.setIP_SERVER_1(hmConfig.get("IP_SV_1"));
-                            TthtCommon.setVERSION(hmConfig.get("VERSION"));
-                        }
-                        break;
-                    case XmlPullParser.END_DOCUMENT:
-                        break;
-                    default:
-
-                        break;
-                }
-            }
-
-        } catch (Exception ex) {
-            Toast.makeText(TthtLoginActivity.this.getApplicationContext(), "Lỗi đọc file cấu hình: " + ex.toString(), Toast.LENGTH_LONG).show();
-            return;
-        }
-    }
 
     public boolean saveConfig(String IP_SERVER, String VERSION) {
         TthtConfigInfo config = new TthtConfigInfo(IP_SERVER, VERSION);
