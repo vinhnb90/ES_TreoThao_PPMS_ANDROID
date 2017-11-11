@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -30,21 +30,15 @@ import com.es.tungnv.utils.TthtConstantVariables;
 import com.es.tungnv.webservice.TthtAsyncCallWSApi;
 
 import org.json.JSONObject;
-import org.xml.sax.SAXException;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
  * Created by TUNGNV on 8/23/2016.
  */
-public class TthtLoginActivity extends ActionBarActivity implements View.OnClickListener {
+public class TthtLoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     //region Khai báo biến
     private EditText etIP, etUser, etPass;

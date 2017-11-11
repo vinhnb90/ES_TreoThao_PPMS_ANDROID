@@ -1,1 +1,1 @@
-include ':app', ':ESLoginLib', ':EsDatabaseLib'
+include ':app', ':EsDatabaseLib', ':EsLoginLib'

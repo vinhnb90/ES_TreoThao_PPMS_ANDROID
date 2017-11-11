@@ -9,6 +9,11 @@
     android:weightSum="1">
 
     <TextView
+        android:singleLine="true"
+        android:maxLines="1"
+        android:lines="1"
+        android:scrollHorizontally="true"
+        android:scrollbars="horizontal"
         android:layout_margin="@dimen/_1sdp"
         android:padding="@dimen/_2sdp"
         android:textSize="@dimen/_10sdp"
@@ -18,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_line"
         android:gravity="center_horizontal"
-        android:textColor="@color/colorPrimaryText"
+        android:textColor="@color/colorPriText"
         />
 
 </LinearLayout>

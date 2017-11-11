@@ -6,7 +6,7 @@ import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,13 +50,13 @@ public class GcsBaoCaoFragment extends Fragment{
             public void onTabChanged(String tabId) {
                 try {
                     if (tabId.equals("SLBT")) {
-                        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle("Sản lượng bất thường");
+                        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Sản lượng bất thường");
                         updateTab("SLBT", R.id.tabSLBT);
                     } else if (tabId.equals("TTBT")) {
-                        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle("Trạng thái bất thường");
+                        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Trạng thái bất thường");
                         updateTab("TTBT", R.id.tabTTBT);
                     } else {
-                        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle("Điện năng tổn thất");
+                        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Điện năng tổn thất");
                         updateTab("DNTT", R.id.tabDNTT);
                     }
                 } catch(Exception ex) {

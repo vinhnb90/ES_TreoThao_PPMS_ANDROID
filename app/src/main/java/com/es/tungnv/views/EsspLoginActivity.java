@@ -13,7 +13,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -50,7 +50,7 @@ import java.util.LinkedHashMap;
 /**
  * Created by TUNGNV on 3/30/2016.
  */
-public class EsspLoginActivity extends ActionBarActivity implements View.OnClickListener{
+public class EsspLoginActivity extends AppCompatActivity implements View.OnClickListener{
 
     //region Khai báo biến
     private EditText etIP, etUserName, etPassWord;

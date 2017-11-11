@@ -8,8 +8,8 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,7 +43,7 @@ import java.util.LinkedHashMap;
  * Created by TUNGNV on 2/24/2016.
  */
 @SuppressWarnings("ResourceType")
-public class EsspMainActivity extends ActionBarActivity {
+public class EsspMainActivity extends AppCompatActivity {
     @SuppressWarnings("ResourceType")
     //region Khai báo biến
     private DrawerLayout mDrawerLayout;
