@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.AppCompatSpinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.es.tungnv.views.R;
@@ -21,9 +22,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.vinhnb.ttht.common.Common;
-import es.vinhnb.ttht.entity.common.TthtHnDepartEntity;
 import es.vinhnb.ttht.entity.sharedpref.LoginSharePref;
+import es.vinhnb.ttht.entity.sqlite.TABLE_ANH_HIENTRUONG;
+import es.vinhnb.ttht.entity.sqlite.TABLE_BBAN_CTO;
+import es.vinhnb.ttht.entity.sqlite.TABLE_BBAN_TUTI;
+import es.vinhnb.ttht.entity.sqlite.TABLE_CHITIET_CTO;
+import es.vinhnb.ttht.entity.sqlite.TABLE_CHITIET_TUTI;
+import es.vinhnb.ttht.entity.sqlite.TABLE_CONGTO_TI;
+import es.vinhnb.ttht.entity.sqlite.TABLE_CONGTO_TU;
+import es.vinhnb.ttht.entity.sqlite.TABLE_DVIQLY;
+import es.vinhnb.ttht.entity.sqlite.TABLE_LOAI_CONG_TO;
+import es.vinhnb.ttht.entity.sqlite.TABLE_SESSION;
+import es.vinhnb.ttht.entity.sqlite.TABLE_TRAM;
+import es.vinhnb.ttht.entity.sqlite.TthtHnDbConfig;
+import es.vinhnb.ttht.entity.ttht.TthtHnDepartEntity;
 import esolutions.com.esdatabaselib.baseSharedPref.SharePrefManager;
+import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
+import esolutions.com.esdatabaselib.example.activity.DatabaseActivity;
+
+import static es.vinhnb.ttht.common.Common.NAME_FILE_DB;
+import static es.vinhnb.ttht.common.Common.PATH_DB;
 
 
 public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInteface<TthtHnDepartEntity> {
@@ -65,7 +83,6 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
             //fill listDepart shared pref
             fillDataSharePref();
 
-
         } catch (Exception e) {
             e.printStackTrace();
             try {
@@ -80,6 +97,8 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+
         switch (requestCode) {
             case Common.REQUEST_CODE_PERMISSION: {
                 if (grantResults.length == 0
@@ -107,22 +126,13 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
     private void fillDataSharePref() throws Exception {
         try {
             dataLoginSharePref = (LoginSharePref) mPrefManager.getSharePrefObject(LoginSharePref.class);
+
+
             if (dataLoginSharePref != null) {
                 //show listDepart
                 loginFragment.getmLoginViewEntity().getEtURL().setText(dataLoginSharePref.ip);
                 loginFragment.getmLoginViewEntity().getEtUser().setText(dataLoginSharePref.user);
                 loginFragment.getmLoginViewEntity().getEtPass().setText(dataLoginSharePref.pass);
-
-
-//                //find pos dvi in list dvi
-//                int posInList = -1;
-//                String maDvi = dataLoginSharePref.posSpinDvi;
-//                for (int i = 0; i < listDepart.size(); i++) {
-//                    if (maDvi.equalsIgnoreCase(listDepart.get(i).getMadvi())) {
-//                        posInList = i;
-//                        break;
-//                    }
-//                }
 
 
                 //check and set pos for dvi spin
@@ -189,6 +199,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
                 .setmIsSaveInfo(dataLoginSharePref.isCheckSave)
                 .build();
 
+
         return loginSharePrefData;
     }
     //endregion
@@ -201,6 +212,29 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         super.setupFullScreen();
 
 
+        //create database
+        SqlHelper.setupDB(
+                TthtHnLoginActivity.this,
+                TthtHnDbConfig.class,
+                new Class[]{
+                        TABLE_ANH_HIENTRUONG.class,
+                        TABLE_BBAN_CTO.class,
+                        TABLE_BBAN_TUTI.class,
+                        TABLE_CHITIET_CTO.class,
+                        TABLE_CHITIET_TUTI.class,
+                        TABLE_CONGTO_TI.class,
+                        TABLE_CONGTO_TU.class,
+                        TABLE_DVIQLY.class,
+                        TABLE_LOAI_CONG_TO.class,
+                        TABLE_SESSION.class,
+                        TABLE_TRAM.class,
+                });
+
+
+        //try reload because lib reload is not working
+        Toast.makeText(this, SqlHelper.getDatabasePath(), Toast.LENGTH_SHORT).show();
+
+
         //create shared pref
         ArrayList<Class<?>> setClassSharedPrefConfig = new ArrayList<Class<?>>();
         setClassSharedPrefConfig.add(LoginSharePref.class);
@@ -211,6 +245,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         listDepart = new ArrayList<>();
         listDepart.add(new TthtHnDepartEntity(1, "PD", "Tổng công ty Điện Lực Hà Nội"));
         listDepart.add(new TthtHnDepartEntity(2, "PD0100", "Điện lực Hoàn Kiếm"));
+
 
         //setup dataView login
         LoginViewEntity loginViewEntity = new LoginViewEntity

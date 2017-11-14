@@ -1,4 +1,4 @@
-package es.vinhnb.ttht.entity.common;
+package es.vinhnb.ttht.entity.ttht;
 
 public class TthtHnDepartEntity {
     private int id;

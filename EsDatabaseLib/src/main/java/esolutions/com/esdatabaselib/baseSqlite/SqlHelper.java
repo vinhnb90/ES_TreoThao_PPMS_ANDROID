@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.File;
@@ -22,9 +23,12 @@ import esolutions.com.esdatabaselib.baseSqlite.anonation.DBConfig;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.PrimaryKey;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.TYPE;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
+import esolutions.com.esdatabaselib.example.activity.DatabaseActivity;
 
 import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 import static android.util.Log.d;
+import static android.util.Log.e;
+import static esolutions.com.esdatabaselib.utils.EsDatabaseLibCommon.createFileIfNotExist;
 import static esolutions.com.esdatabaselib.utils.EsDatabaseLibCommon.hasPermissionWriteSdcard;
 
 
@@ -50,6 +54,11 @@ public class SqlHelper extends SQLiteOpenHelper {
     private static Class<?>[] sClassDBTable;
 
     private SqlHelper() throws Exception {
+        super(sConfigData.getContext(), sConfigData.getNameDB() + ".s3db", null, sConfigData.getVersion());
+    }
+
+    private SqlHelper(String nameFolder) throws Exception {
+
         super(sConfigData.getContext(), Environment.getExternalStorageDirectory() + File.separator + sConfigData.getNameFolder() + File.separator + sConfigData.getNameDB() + ".s3db", null, sConfigData.getVersion());
         SQLiteDatabase.openOrCreateDatabase(Environment.getExternalStorageDirectory() + File.separator + sConfigData.getNameFolder() + File.separator + sConfigData.getNameDB() + ".s3db", null);
     }
@@ -140,7 +149,13 @@ public class SqlHelper extends SQLiteOpenHelper {
 
         //create
         if (sIntance == null) {
-            sIntance = new SqlHelper();
+
+            if (!TextUtils.isEmpty(sConfigData.getNameFolder())) {
+                createFileIfNotExist(context, Environment.getExternalStorageDirectory() + File.separator + sConfigData.getNameFolder() + File.separator + sConfigData.getNameDB() + ".s3db");
+                sIntance = new SqlHelper(sConfigData.getNameFolder());
+            } else
+                sIntance = new SqlHelper();
+
             sIntance.getWritableDatabase();
         }
         return sIntance;
