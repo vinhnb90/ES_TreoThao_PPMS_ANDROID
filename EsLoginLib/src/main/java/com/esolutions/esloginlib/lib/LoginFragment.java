@@ -1,11 +1,13 @@
 package com.esolutions.esloginlib.lib;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -130,7 +132,7 @@ public class LoginFragment extends Fragment {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            showSnackbar(e.getMessage());
+            showSnackbar(e.getMessage(), null);
         }
     }
 
@@ -149,7 +151,7 @@ public class LoginFragment extends Fragment {
             setAction(savedInstanceState);
         } catch (Exception e) {
             e.printStackTrace();
-            showSnackbar(e.getMessage());
+            showSnackbar(e.getMessage(), null);
         }
         return viewRoot;
     }
@@ -164,7 +166,7 @@ public class LoginFragment extends Fragment {
                         mLoginInteface.saveDBDepart(mDepartModule.getmListDepart());
                     } catch (Exception e) {
                         e.printStackTrace();
-                        showSnackbar(e.getMessage());
+                        showSnackbar(e.getMessage(), null);
                     }
                 }
             });
@@ -227,7 +229,7 @@ public class LoginFragment extends Fragment {
                     }
 
                     //call server
-                    boolean resultCheckServerLogin = mLoginInteface.checkServerLogin(depart, mUser, mPass);
+                    final boolean resultCheckServerLogin = mLoginInteface.checkServerLogin(depart, mUser, mPass);
 
                     //check login offline
                     boolean resultCheckSessionLogin = false;
@@ -258,12 +260,32 @@ public class LoginFragment extends Fragment {
                         mLoginInteface.saveDataSharePref(loginSharePrefData);
                     }
 
-                    //open main
-                    if (resultCheckServerLogin || resultCheckSessionLogin)
-                        mLoginInteface.openMainView();
 
+                    //Hiển thị message thông báo nếu đang chế độ ofline trong 3s sau đó sẽ gọi main
+                    if (resultCheckServerLogin == false && resultCheckSessionLogin == true) {
+                        final boolean finalResultCheckSessionLogin = resultCheckSessionLogin;
+                        SnackbarIteractions snackbarIteractions = new SnackbarIteractions() {
+                            @Override
+                            public void doIfPressOK() {
+                                //open main
+                                if (resultCheckServerLogin || finalResultCheckSessionLogin)
+                                    mLoginInteface.openMainView();
+                            }
+                        };
+
+
+                        showSnackbar("Đăng nhập chế độ offline!", snackbarIteractions);
+                        return;
+                    }
+
+
+                    //open main
+                    if (resultCheckServerLogin || resultCheckSessionLogin) {
+                        mLoginInteface.openMainView();
+                        return;
+                    }
                 } catch (Exception e) {
-                    showSnackbar(e.getMessage());
+                    showSnackbar(e.getMessage(), null);
                 } finally {
                     //enable again all view in login
                     if (mDepartModule != null) {
@@ -411,7 +433,7 @@ public class LoginFragment extends Fragment {
         return this;
     }
 
-    private void showSnackbar(String message) {
+    private void showSnackbar(String message, @Nullable SnackbarIteractions snackbarIteractions) {
         snackbar = Snackbar
                 .make(mCoordinatorLayout, message, Snackbar.LENGTH_INDEFINITE)
                 .setActionTextColor(Color.WHITE)
@@ -519,5 +541,9 @@ public class LoginFragment extends Fragment {
             }
         }
 
+    }
+
+    public interface SnackbarIteractions {
+        void doIfPressOK();
     }
 }

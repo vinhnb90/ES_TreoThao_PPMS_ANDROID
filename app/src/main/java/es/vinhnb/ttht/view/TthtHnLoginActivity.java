@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.AppCompatSpinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.es.tungnv.views.R;
@@ -35,21 +34,18 @@ import es.vinhnb.ttht.entity.sqlite.TABLE_LOAI_CONG_TO;
 import es.vinhnb.ttht.entity.sqlite.TABLE_SESSION;
 import es.vinhnb.ttht.entity.sqlite.TABLE_TRAM;
 import es.vinhnb.ttht.entity.sqlite.TthtHnDbConfig;
-import es.vinhnb.ttht.entity.ttht.TthtHnDepartEntity;
 import esolutions.com.esdatabaselib.baseSharedPref.SharePrefManager;
+import esolutions.com.esdatabaselib.baseSqlite.SqlDAO;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
-import esolutions.com.esdatabaselib.example.activity.DatabaseActivity;
-
-import static es.vinhnb.ttht.common.Common.NAME_FILE_DB;
-import static es.vinhnb.ttht.common.Common.PATH_DB;
 
 
-public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInteface<TthtHnDepartEntity> {
+public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInteface<TABLE_DVIQLY> {
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-    private List<TthtHnDepartEntity> listDepart;
+    private List<TABLE_DVIQLY> listDepart;
     private SharePrefManager mPrefManager;
     private LoginFragment loginFragment;
     private LoginSharePref dataLoginSharePref;
+    private SqlDAO mSqlDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +78,10 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         try {
             //fill listDepart shared pref
             fillDataSharePref();
-
         } catch (Exception e) {
             e.printStackTrace();
+
+
             try {
                 super.showSnackBar(e.getMessage());
             } catch (Exception e1) {
@@ -155,7 +152,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
     }
 
     @Override
-    public List<TthtHnDepartEntity> callServerDepart() {
+    public List<TABLE_DVIQLY> callServerDepart() {
         return listDepart;
     }
 
@@ -165,18 +162,29 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
     }
 
     @Override
-    public boolean checkSessionLogin(boolean hasModeLoginOffline, String depart, String mUser, String mPass) {
-        return false;
+    public boolean checkSessionLogin(boolean hasModeLoginOffline, String depart, String mUser, String mPass) throws Exception {
+        if (hasModeLoginOffline) {
+            //create data check
+            TABLE_SESSION dataCheck = new TABLE_SESSION();
+            dataCheck.setMA_DVIQLY(depart);
+            dataCheck.setUSERNAME(mUser);
+            dataCheck.setPASSWORD(mPass);
+
+
+            //check row in TABLE_SESSION
+            return mSqlDAO.checkRows(TABLE_SESSION.class, dataCheck);
+        } else
+            return true;
     }
 
     @Override
-    public void saveDBDepart(List<TthtHnDepartEntity> list) throws Exception {
-
+    public void saveDBDepart(List<TABLE_DVIQLY> list) throws Exception {
+        mSqlDAO.insert(list);
     }
 
     @Override
-    public List<TthtHnDepartEntity> selectDBDepart() {
-        return listDepart;
+    public List<TABLE_DVIQLY> selectDBDepart() {
+        return mSqlDAO.selectAllLazy(TABLE_DVIQLY.class, null);
     }
 
     @Override
@@ -231,6 +239,10 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
                 });
 
 
+        //call Database access object
+        mSqlDAO = new SqlDAO(SqlHelper.getIntance().openDB(), this);
+
+
         //try reload because lib reload is not working
         Toast.makeText(this, SqlHelper.getDatabasePath(), Toast.LENGTH_SHORT).show();
 
@@ -243,8 +255,8 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
 
         //dump data test
         listDepart = new ArrayList<>();
-        listDepart.add(new TthtHnDepartEntity(1, "PD", "Tổng công ty Điện Lực Hà Nội"));
-        listDepart.add(new TthtHnDepartEntity(2, "PD0100", "Điện lực Hoàn Kiếm"));
+        listDepart.add(new TABLE_DVIQLY(1, "PD", "Tổng công ty Điện Lực Hà Nội"));
+        listDepart.add(new TABLE_DVIQLY(2, "PD0100", "Điện lực Hoàn Kiếm"));
 
 
         //setup dataView login
@@ -264,7 +276,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
 
 
         //setup module đơn vị
-        DepartUpdateFragment<TthtHnDepartEntity> departmentModule = new DepartUpdateFragment()
+        DepartUpdateFragment<TABLE_DVIQLY> departmentModule = new DepartUpdateFragment()
                 .setViewEntity(DepartViewEntity)
                 .setShowModule(true);
 
@@ -273,7 +285,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         loginFragment = LoginFragment.newInstance(null)
                 .setmLoginViewEntity(loginViewEntity)
                 .setmDepartModule(departmentModule)
-                .setmTitleAppName("Treo tháo hiện trường \nHà nội")
+                .setmTitleAppName("TREO THÁO HIỆN TRƯỜNG \nHÀ NỘI")
 //                    .setmIconLogin(R.mipmap.ic_home, (int) getResources().getDimension(R.dimen._50sdp), (int) getResources().getDimension(R.dimen._50sdp))
                 .setmColorBackground(R.color.colorPrimary)
                 .setmLoginSharedPref(mPrefManager.getSharePref(LoginSharePref.class));
