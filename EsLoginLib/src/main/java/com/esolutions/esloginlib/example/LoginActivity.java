@@ -68,10 +68,25 @@ public class LoginActivity extends AppCompatActivity implements LoginInteface<De
                     .setViewEntity(DepartViewEntity)
                     .setShowModule(true);
 
+
+            //set up mode login offline
+            LoginFragment.ILoginOffline loginOfflineModeConfig = new LoginFragment.ILoginOffline() {
+                @Override
+                public boolean checkSessionLogin(LoginFragment.LoginSharePrefData loginData) throws Exception {
+                    return false;
+                }
+
+                @Override
+                public void saveSessionLogin(LoginFragment.LoginSharePrefData dataLoginSession) {
+
+                }
+            };
+
             //setup View
             Fragment loginFragment = LoginFragment.newInstance(null)
                     .setmLoginViewEntity(loginViewEntity)
                     .setmDepartModule(departmentModule)
+                    .setmILoginOffline(loginOfflineModeConfig)
                     .setmTitleAppName("Treo tháo hiện trường")
                     .setmIconLogin(R.mipmap.ic_home, (int) getResources().getDimension(R.dimen._50sdp), (int) getResources().getDimension(R.dimen._50sdp))
                     .setmColorBackground(R.color.colorPrimary)
@@ -96,13 +111,8 @@ public class LoginActivity extends AppCompatActivity implements LoginInteface<De
     }
 
     @Override
-    public boolean checkServerLogin(String depart, String user, String pass) {
+    public boolean checkServerLogin(LoginFragment.LoginSharePrefData loginSharePrefData) {
         return true;
-    }
-
-    @Override
-    public boolean checkSessionLogin(boolean hasModeLoginOffline, String depart, String mUser, String mPass) {
-        return false;
     }
 
     @Override

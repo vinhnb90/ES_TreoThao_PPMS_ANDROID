@@ -11,9 +11,7 @@ public interface LoginInteface<T> {
 
     List<T> callServerDepart();
 
-    boolean checkServerLogin(String depart, String user, String pass);
-
-    boolean checkSessionLogin(boolean hasModeLoginOffline, String depart, String mUser, String mPass) throws Exception;
+    boolean checkServerLogin(LoginFragment.LoginSharePrefData loginSharePrefData);
 
     void saveDBDepart(List<T> list) throws Exception;
 

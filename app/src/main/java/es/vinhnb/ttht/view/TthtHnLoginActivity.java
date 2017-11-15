@@ -153,28 +153,13 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
 
     @Override
     public List<TABLE_DVIQLY> callServerDepart() {
+
         return listDepart;
     }
 
     @Override
-    public boolean checkServerLogin(String depart, String user, String pass) {
+    public boolean checkServerLogin(LoginFragment.LoginSharePrefData loginSharePrefData) {
         return true;
-    }
-
-    @Override
-    public boolean checkSessionLogin(boolean hasModeLoginOffline, String depart, String mUser, String mPass) throws Exception {
-        if (hasModeLoginOffline) {
-            //create data check
-            TABLE_SESSION dataCheck = new TABLE_SESSION();
-            dataCheck.setMA_DVIQLY(depart);
-            dataCheck.setUSERNAME(mUser);
-            dataCheck.setPASSWORD(mPass);
-
-
-            //check row in TABLE_SESSION
-            return mSqlDAO.checkRows(TABLE_SESSION.class, dataCheck);
-        } else
-            return true;
     }
 
     @Override
@@ -258,6 +243,35 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         listDepart.add(new TABLE_DVIQLY(1, "PD", "Tổng công ty Điện Lực Hà Nội"));
         listDepart.add(new TABLE_DVIQLY(2, "PD0100", "Điện lực Hoàn Kiếm"));
 
+
+        LoginFragment.ILoginOffline loginOfflineModeConfig = new LoginFragment.ILoginOffline() {
+
+            @Override
+            public boolean checkSessionLogin(LoginFragment.LoginSharePrefData loginData) throws Exception {
+                //create data check
+                TABLE_SESSION dataCheck = new TABLE_SESSION();
+                dataCheck.setMA_DVIQLY(listDepart.get(loginData.getmPosDvi()).getMA_DVIQLY());
+                dataCheck.setUSERNAME(loginData.getmUser());
+                dataCheck.setPASSWORD(loginData.getmPass());
+
+
+                //check row in TABLE_SESSION
+                return mSqlDAO.checkRows(TABLE_SESSION.class, dataCheck);
+            }
+
+            @Override
+            public void saveSessionLogin(LoginFragment.LoginSharePrefData dataLoginSession) throws Exception {
+                TABLE_SESSION dataCheck = new TABLE_SESSION();
+                dataCheck.setMA_DVIQLY(listDepart.get(dataLoginSession.getmPosDvi()).getMA_DVIQLY());
+                dataCheck.setUSERNAME(dataLoginSession.getmUser());
+                dataCheck.setPASSWORD(dataLoginSession.getmPass());
+                dataCheck.setDATE_LOGIN(Common.getDateTimeNow(Common.DATE_TIME_TYPE.ddMMyyyyHHmmss));
+
+
+                //save data
+                mSqlDAO.insert(dataCheck);
+            }
+        };
 
         //setup dataView login
         LoginViewEntity loginViewEntity = new LoginViewEntity

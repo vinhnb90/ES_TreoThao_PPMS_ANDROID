@@ -1,6 +1,5 @@
 package com.esolutions.esloginlib.lib;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -35,6 +34,7 @@ public class LoginFragment extends Fragment {
     private FragmentTransaction mTransaction;
     private LoginInteface mLoginInteface;
     private ICryptPass mICryptPass;
+    private ILoginOffline mILoginOffline;
     private DepartUpdateFragment mDepartModule;
     private LoginViewEntity mLoginViewEntity;
     private String mTitleAppName;
@@ -50,7 +50,6 @@ public class LoginFragment extends Fragment {
     private Button mBtnLogin;
     private CoordinatorLayout mCoordinatorLayout;
     private AppCompatCheckBox mCbSaveInfo;
-    private boolean hasModeLoginOffline;
     private Snackbar snackbar;
     private SharedPreferences mLoginSharedPref;
     private String mURL;
@@ -194,6 +193,8 @@ public class LoginFragment extends Fragment {
                     String depart = "";
                     mUser = mEtUser.getText().toString().trim();
                     mPass = mEtPass.getText().toString().trim();
+                    final LoginSharePrefData data = new LoginSharePrefData(mURL, mPosDvi, mUser, mPass, mIsSaveInfo);
+
 
                     //disable all view in login
                     if (mDepartModule != null && mDepartModule.isShowModule()) {
@@ -204,11 +205,14 @@ public class LoginFragment extends Fragment {
                     mEtPass.setEnabled(false);
                     mCbSaveInfo.setEnabled(false);
 
+
                     //check connect internet
-                    if (!hasModeLoginOffline) {
+                    if (mILoginOffline != null) {
                         if (!Common.isNetworkConnected(getContext()))
                             throw new Exception("Chưa có kết nối internet, vui lòng kiểm tra lại!");
                     }
+
+
                     //check validate
                     if (mDepartModule != null && mDepartModule.isShowModule()) {
                         depart = mDepartModule.getmListDepart().get(mDepartModule.getViewEntity().getSpDvi().getSelectedItemPosition()).toString();
@@ -228,13 +232,16 @@ public class LoginFragment extends Fragment {
                         throw new Exception("Không để trống mật khẩu");
                     }
 
-                    //call server
-                    final boolean resultCheckServerLogin = mLoginInteface.checkServerLogin(depart, mUser, mPass);
 
-                    //check login offline
-                    boolean resultCheckSessionLogin = false;
-                    if (hasModeLoginOffline) {
-                        resultCheckSessionLogin = mLoginInteface.checkSessionLogin(hasModeLoginOffline, depart, mUser, mPass);
+                    //call server
+                    final boolean resultCheckServerLogin = mLoginInteface.checkServerLogin(data);
+
+
+                    //check login offline,
+                    // nếu có mode login thì lấy kết quả seesion, ngược lại bỏ qua phần này resultCheckSessionLogin = true;
+                    boolean resultCheckSessionLogin = true;
+                    if (mILoginOffline != null) {
+                        resultCheckSessionLogin = mILoginOffline.checkSessionLogin(data);
                     }
 
 
@@ -261,28 +268,39 @@ public class LoginFragment extends Fragment {
                     }
 
 
+                    //login offline
                     //Hiển thị message thông báo nếu đang chế độ ofline trong 3s sau đó sẽ gọi main
-                    if (resultCheckServerLogin == false && resultCheckSessionLogin == true) {
+                    if (resultCheckServerLogin == false) {
                         final boolean finalResultCheckSessionLogin = resultCheckSessionLogin;
-                        SnackbarIteractions snackbarIteractions = new SnackbarIteractions() {
-                            @Override
-                            public void doIfPressOK() {
-                                //open main
-                                if (resultCheckServerLogin || finalResultCheckSessionLogin)
-                                    mLoginInteface.openMainView();
-                            }
-                        };
+
+                        if (resultCheckSessionLogin == true) {
+
+                            ISnackbarIteractions snackbarIteractions = new ISnackbarIteractions() {
+                                @Override
+                                public void doIfPressOK() {
+                                    try {
+                                        //save session
+                                        mILoginOffline.saveSessionLogin(data);
 
 
-                        showSnackbar("Đăng nhập chế độ offline!", snackbarIteractions);
-                        return;
-                    }
+                                        //open main
+                                        if (resultCheckServerLogin || finalResultCheckSessionLogin)
+                                            mLoginInteface.openMainView();
 
-
-                    //open main
-                    if (resultCheckServerLogin || resultCheckSessionLogin) {
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                        showSnackbar(e.getMessage(), null);
+                                    }
+                                }
+                            };
+                            showSnackbar("Đăng nhập chế độ offline!", snackbarIteractions);
+                        } else {
+                            showSnackbar("Đăng nhập thất bại. Yêu cầu có kết nối mạng!", null);
+                        }
+                    } else {
+                        //open main
+                        //login online
                         mLoginInteface.openMainView();
-                        return;
                     }
                 } catch (Exception e) {
                     showSnackbar(e.getMessage(), null);
@@ -400,6 +418,15 @@ public class LoginFragment extends Fragment {
         return this;
     }
 
+    public LoginFragment setmILoginOffline(ILoginOffline mILoginOffline) {
+        this.mILoginOffline = mILoginOffline;
+        return this;
+    }
+
+    public ILoginOffline getmILoginOffline() {
+        return mILoginOffline;
+    }
+
     public int getmIconLogin() {
         return mIconLogin;
     }
@@ -415,15 +442,6 @@ public class LoginFragment extends Fragment {
         return bundle;
     }
 
-    public LoginFragment setHasModeLoginOffline(boolean hasModeLoginOffline) {
-        this.hasModeLoginOffline = hasModeLoginOffline;
-        return this;
-    }
-
-    public boolean isHasModeLoginOffline() {
-        return hasModeLoginOffline;
-    }
-
     public int getmColorBackground() {
         return mColorBackground;
     }
@@ -433,7 +451,7 @@ public class LoginFragment extends Fragment {
         return this;
     }
 
-    private void showSnackbar(String message, @Nullable SnackbarIteractions snackbarIteractions) {
+    private void showSnackbar(String message, @Nullable ISnackbarIteractions snackbarIteractions) {
         snackbar = Snackbar
                 .make(mCoordinatorLayout, message, Snackbar.LENGTH_INDEFINITE)
                 .setActionTextColor(Color.WHITE)
@@ -543,7 +561,15 @@ public class LoginFragment extends Fragment {
 
     }
 
-    public interface SnackbarIteractions {
+    private interface ISnackbarIteractions {
         void doIfPressOK();
     }
+
+
+    public abstract static interface ILoginOffline {
+        public abstract boolean checkSessionLogin(LoginSharePrefData loginData) throws Exception;
+
+        public abstract void saveSessionLogin(LoginSharePrefData dataLoginSession) throws Exception;
+    }
+
 }
