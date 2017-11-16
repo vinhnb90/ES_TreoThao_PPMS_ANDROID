@@ -58,4 +58,9 @@ public class TABLE_DVIQLY {
     public void setTEN_DVIQLY(String TEN_DVIQLY) {
         this.TEN_DVIQLY = TEN_DVIQLY;
     }
+
+    @Override
+    public String toString() {
+        return MA_DVIQLY + " - " + TEN_DVIQLY;
+    }
 }

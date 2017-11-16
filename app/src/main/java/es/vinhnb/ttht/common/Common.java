@@ -2,9 +2,12 @@ package es.vinhnb.ttht.common;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.telephony.TelephonyManager;
 
 import java.io.File;
 import java.text.ParseException;
@@ -23,11 +26,21 @@ import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 
 public class Common {
 
-    public static final String PATH_DB = Environment.getExternalStorageDirectory() + File.separator + "ES_DB_TEST" + File.separator;
-    public static final String NAME_FILE_DB = "ES_Database_Test.s3db";
+    public static String URLServer = "";
+    public static void setURLServer(String andressServer) {
+        URLServer = "http://" + andressServer + "/api/ServiceMTB/";
+    }
 
     public enum MESSAGE {
-        ex01("Gặp vấn đề với việc lấy dữ liệu share pref đăng nhập của phiên trước!");
+        ex01("Gặp vấn đề với việc lấy dữ liệu share pref đăng nhập của phiên trước!"),
+        ex02("Không có dữ liệu trả về!"),
+        ex03("Lỗi khởi tạo!"),
+        ex04("Lỗi hiển thị!"),
+
+
+
+        ex0x("Xảy ra lỗi bất ngờ!")
+        ;
 
         private String content;
 
@@ -58,6 +71,15 @@ public class Common {
         } else {
             return false;
         }
+    }
+
+
+    public static String getImei(Context context) {
+        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            return "";
+        }
+        return telephonyManager.getDeviceId();
     }
 
 
@@ -101,7 +123,7 @@ public class Common {
         }
     }
 
-    public static String getDateTimeNow(Common.DATE_TIME_TYPE formatDate) {
+    public static String getDateTimeNow(DATE_TIME_TYPE formatDate) {
         SimpleDateFormat df = new SimpleDateFormat(formatDate.toString());
         return df.format(Calendar.getInstance().getTime());
     }
@@ -120,7 +142,7 @@ public class Common {
         return dateParse.getTime();
     }
 
-    public static String convertLongToDate(long time, Common.DATE_TIME_TYPE format) {
+    public static String convertLongToDate(long time, DATE_TIME_TYPE format) {
         if (time < 0)
             return null;
         if (format == null)

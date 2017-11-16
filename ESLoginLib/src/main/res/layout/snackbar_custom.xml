@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#323232"
+    android:gravity="center_vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_snackbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/btn_snackbar_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            android:text="OK"
+            android:textColor="@android:color/background_light" />
+
+        <Button
+            android:id="@+id/btn_snackbar_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/btn_snackbar_ok"
+            android:background="@android:color/transparent"
+            android:text="\?"
+            android:textColor="@android:color/background_light" />
+
+        <TextView
+            android:id="@+id/tv_snackbar_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/btn_snackbar_content"
+            android:maxLines="5"
+            android:scrollbars="vertical"
+            android:textColor="@android:color/white"
+            tools:text="dasdsadasdsadasdddddasdsadasdsadasdddd" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_snackbar"
+        android:scrollbars="vertical">
+
+        <EditText
+            android:id="@+id/et_snackbar_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:editable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:maxLines="3"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textSize="@dimen/_11sdp"
+            tools:text="AbdabdsabdsbdasbdbasdbasAbdabdsabdsbdasbdbasdbasAbdabdsabdsbdasbdbasdbasAbdabdsabdsbdasbdbasdbasAbdabdsabdsbdasbdbasdbasAbdabdsabdsbdasbdbasdbasAbdabdsabdsbdasbdbasdbasAbdabdsabdsbdasbdbasdbasAbdabdsabdsbdasbdbasdbasAbdabdsabdsbdasbdbasdbas" />
+    </ScrollView>
+</RelativeLayout>

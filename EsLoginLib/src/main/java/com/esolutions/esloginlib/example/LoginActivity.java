@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity implements LoginInteface<De
                     .setmLoginSharedPref(mPrefManager.getSharePref(PREF_CONFIG, MODE_PRIVATE));
 
             //call View
-            transaction.replace(R.id.rl_ac_login, loginFragment).commit();
+            transaction.replace(R.id.cl_ac_login, loginFragment).commit();
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();

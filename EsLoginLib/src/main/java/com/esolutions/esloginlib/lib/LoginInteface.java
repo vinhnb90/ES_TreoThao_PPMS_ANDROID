@@ -9,9 +9,9 @@ import java.util.List;
 public interface LoginInteface<T> {
     void openMainView();
 
-    List<T> callServerDepart();
+    boolean checkServerLogin(LoginFragment.LoginSharePrefData loginSharePrefData) throws Exception;
 
-    boolean checkServerLogin(LoginFragment.LoginSharePrefData loginSharePrefData);
+    List<T> callServerDepart() throws Exception;
 
     void saveDBDepart(List<T> list) throws Exception;
 

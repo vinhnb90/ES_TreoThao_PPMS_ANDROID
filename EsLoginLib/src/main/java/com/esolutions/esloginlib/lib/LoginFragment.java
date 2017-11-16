@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -15,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,9 +28,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.esolutions.esloginlib.R;
 import com.esolutions.esloginlib.common.Common;
+
+import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 public class LoginFragment extends Fragment {
     private Bundle bundle;
@@ -131,7 +139,12 @@ public class LoginFragment extends Fragment {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            showSnackbar(e.getMessage(), null);
+            try {
+                showSnackBar("Lỗi hiển thị ", e.getMessage(), null);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -150,7 +163,12 @@ public class LoginFragment extends Fragment {
             setAction(savedInstanceState);
         } catch (Exception e) {
             e.printStackTrace();
-            showSnackbar(e.getMessage(), null);
+            try {
+                showSnackBar("Lỗi hiển thị", e.getMessage(), null);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         }
         return viewRoot;
     }
@@ -160,13 +178,77 @@ public class LoginFragment extends Fragment {
             mDepartModule.getViewEntity().getIbtnDownloadDvi().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    try {
-                        mDepartModule.setmListDepart(mLoginInteface.callServerDepart());
-                        mLoginInteface.saveDBDepart(mDepartModule.getmListDepart());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        showSnackbar(e.getMessage(), null);
-                    }
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                //check url
+                                mURL = mEtURL.getText().toString();
+                                if (TextUtils.isEmpty(mURL))
+                                    throw new RuntimeException("Không để trống đường dẫn máy chủ");
+
+
+                                //call server
+                                final List<?> dataMTB = mLoginInteface.callServerDepart();
+
+
+                                //set data and save data
+                                //show depart spin
+                                mDepartModule.getViewEntity().getViewLayout().post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            mDepartModule.setmListDepart(dataMTB);
+
+                                            //and save data
+                                            if (!mDepartModule.getmListDepart().isEmpty())
+                                                mLoginInteface.saveDBDepart(mDepartModule.getmListDepart());
+
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        } finally {
+                                            //hide progressbar
+                                            try {
+                                                mDepartModule.getViewEntity().getViewLayout().post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        try {
+                                                            mDepartModule.getViewEntity().getIbtnDownloadDvi().setVisibility(View.VISIBLE);
+                                                            mDepartModule.getViewEntity().getPbarDownloadDvi().setVisibility(View.GONE);
+                                                        } catch (Exception e) {
+                                                            e.printStackTrace();
+                                                            try {
+                                                                showSnackBar("Lỗi hiển thị", e.getMessage(), null);
+                                                            } catch (Exception e1) {
+                                                                e1.printStackTrace();
+                                                                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        }
+                                                    }
+                                                });
+                                            } catch (Exception e) {
+                                                try {
+                                                    showSnackBar("Lỗi hiển thị", e.getMessage(), null);
+                                                } catch (Exception e1) {
+                                                    e1.printStackTrace();
+                                                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                try {
+                                    showSnackBar("Lỗi hiển thị", e.getMessage(), null);
+                                } catch (Exception e1) {
+                                    e1.printStackTrace();
+                                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    }).start();
                 }
             });
         }
@@ -191,6 +273,7 @@ public class LoginFragment extends Fragment {
                 try {
                     //declare var
                     String depart = "";
+                    mURL = mEtURL.getText().toString().trim();
                     mUser = mEtUser.getText().toString().trim();
                     mPass = mEtPass.getText().toString().trim();
                     final LoginSharePrefData data = new LoginSharePrefData(mURL, mPosDvi, mUser, mPass, mIsSaveInfo);
@@ -215,9 +298,18 @@ public class LoginFragment extends Fragment {
 
                     //check validate
                     if (mDepartModule != null && mDepartModule.isShowModule()) {
-                        depart = mDepartModule.getmListDepart().get(mDepartModule.getViewEntity().getSpDvi().getSelectedItemPosition()).toString();
+                        if (mDepartModule.getmListDepart().size() != 0)
+                            depart = mDepartModule.getmListDepart().get(mDepartModule.getViewEntity().getSpDvi().getSelectedItemPosition()).toString();
+
+
                         if (TextUtils.isEmpty(depart))
                             throw new Exception("Vui lòng chọn đơn vị");
+                    }
+
+                    if (TextUtils.isEmpty(mURL)) {
+                        mEtUser.setEnabled(true);
+                        mEtUser.requestFocus();
+                        throw new Exception("Không để trống đường dẫn máy chủ");
                     }
 
                     if (TextUtils.isEmpty(mUser)) {
@@ -289,13 +381,18 @@ public class LoginFragment extends Fragment {
 
                                     } catch (Exception e) {
                                         e.printStackTrace();
-                                        showSnackbar(e.getMessage(), null);
+                                        try {
+                                            showSnackBar("Lỗi đăng nhập", e.getMessage(), null);
+                                        } catch (Exception e1) {
+                                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+
                                     }
                                 }
                             };
-                            showSnackbar("Đăng nhập chế độ offline!", snackbarIteractions);
+                            showSnackBar("Thông báo", "Đăng nhập chế độ offline!", snackbarIteractions);
                         } else {
-                            showSnackbar("Đăng nhập thất bại. Yêu cầu có kết nối mạng!", null);
+                            showSnackBar("Thông báo", "Đăng nhập thất bại. Yêu cầu có kết nối mạng!", null);
                         }
                     } else {
                         //open main
@@ -303,7 +400,12 @@ public class LoginFragment extends Fragment {
                         mLoginInteface.openMainView();
                     }
                 } catch (Exception e) {
-                    showSnackbar(e.getMessage(), null);
+                    try {
+                        showSnackBar("Lỗi đăng nhập", e.getMessage(), null);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 } finally {
                     //enable again all view in login
                     if (mDepartModule != null) {
@@ -451,7 +553,12 @@ public class LoginFragment extends Fragment {
         return this;
     }
 
-    private void showSnackbar(String message, @Nullable ISnackbarIteractions snackbarIteractions) {
+    protected void showSnackBar(String message, @Nullable String content, @Nullable final ISnackbarIteractions actionOK) throws Exception {
+        //check
+        if (mCoordinatorLayout == null)
+            throw new RuntimeException("Be must set view CoordinatorLayout!");
+
+
         snackbar = Snackbar
                 .make(mCoordinatorLayout, message, Snackbar.LENGTH_INDEFINITE)
                 .setActionTextColor(Color.WHITE)
@@ -461,8 +568,54 @@ public class LoginFragment extends Fragment {
                         snackbar.dismiss();
                     }
                 });
+
+
+        // Hide the text and set width full screen
+        Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
         (snackbar.getView()).getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
-        ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setMaxLines(10);
+        ((TextView) layout.findViewById(android.support.design.R.id.snackbar_text)).setVisibility(View.INVISIBLE);
+        ((Button) layout.findViewById(android.support.design.R.id.snackbar_action)).setVisibility(View.INVISIBLE);
+
+
+        // Inflate our custom view
+        View snackView = this.getLayoutInflater().inflate(R.layout.snackbar_custom, null);
+        TextView tvMessage = (TextView) snackView.findViewById(R.id.tv_snackbar_message);
+        Button btnOk = (Button) snackView.findViewById(R.id.btn_snackbar_ok);
+        Button btnContent = (Button) snackView.findViewById(R.id.btn_snackbar_content);
+        final EditText etContent = (EditText) snackView.findViewById(R.id.et_snackbar_content);
+
+
+        //set value
+        etContent.setVisibility(View.GONE);
+        tvMessage.setText(message);
+        if (content == null) content = "";
+        etContent.setText(content);
+
+
+        //catch action
+        btnContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (etContent.getVisibility() == View.GONE)
+                    etContent.setVisibility(View.VISIBLE);
+                else
+                    etContent.setVisibility(View.GONE);
+            }
+        });
+
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (actionOK != null)
+                    actionOK.doIfPressOK();
+                else
+                    snackbar.dismiss();
+            }
+        });
+
+
+        // Add the view to the Snackbar's layout and show
+        layout.addView(snackView, 0);
         snackbar.show();
     }
 

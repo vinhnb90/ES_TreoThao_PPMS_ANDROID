@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.AppCompatSpinner;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.es.tungnv.views.R;
@@ -21,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.vinhnb.ttht.common.Common;
+import es.vinhnb.ttht.entity.api.D_DVIQLYModel;
+import es.vinhnb.ttht.entity.api.UserMtb;
 import es.vinhnb.ttht.entity.sharedpref.LoginSharePref;
 import es.vinhnb.ttht.entity.sqlite.TABLE_ANH_HIENTRUONG;
 import es.vinhnb.ttht.entity.sqlite.TABLE_BBAN_CTO;
@@ -34,9 +38,14 @@ import es.vinhnb.ttht.entity.sqlite.TABLE_LOAI_CONG_TO;
 import es.vinhnb.ttht.entity.sqlite.TABLE_SESSION;
 import es.vinhnb.ttht.entity.sqlite.TABLE_TRAM;
 import es.vinhnb.ttht.entity.sqlite.TthtHnDbConfig;
+import es.vinhnb.ttht.server.TthtHnApi;
+import es.vinhnb.ttht.server.TthtHnApiInterface;
 import esolutions.com.esdatabaselib.baseSharedPref.SharePrefManager;
 import esolutions.com.esdatabaselib.baseSqlite.SqlDAO;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInteface<TABLE_DVIQLY> {
@@ -46,6 +55,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
     private LoginFragment loginFragment;
     private LoginSharePref dataLoginSharePref;
     private SqlDAO mSqlDAO;
+    private TthtHnApiInterface apiInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +77,14 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
             //set action
             setAction(savedInstanceState);
         } catch (Exception e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
+            try {
+                super.showSnackBar(Common.MESSAGE.ex03.getContent(), e.getMessage(), null);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 
@@ -83,7 +99,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
 
 
             try {
-                super.showSnackBar(e.getMessage());
+                super.showSnackBar(Common.MESSAGE.ex04.getContent(), e.getMessage(), null);
             } catch (Exception e1) {
                 e1.printStackTrace();
                 Toast.makeText(this, e1.getMessage(), Toast.LENGTH_SHORT).show();
@@ -141,7 +157,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception(Common.MESSAGE.ex01.getContent());
+            throw new Exception(Common.MESSAGE.ex01.getContent() + " - " + e.getMessage());
         }
     }
 
@@ -152,14 +168,76 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
     }
 
     @Override
-    public List<TABLE_DVIQLY> callServerDepart() {
+    public List<TABLE_DVIQLY> callServerDepart() throws Exception {
+        //cài đặt đường dẫn máy chủ
+        //create api server
+        Common.setURLServer(loginFragment.getmLoginViewEntity().getEtURL().getText().toString());
+        apiInterface = TthtHnApi.getClient().create(TthtHnApiInterface.class);
+        List<TABLE_DVIQLY> dataMTB = new ArrayList<>();
+        List<D_DVIQLYModel> dataServer = new ArrayList<>();;
 
-        return listDepart;
+        //call server
+        Call<List<D_DVIQLYModel>> dviqlyModelCall = apiInterface.Get_d_dviqly();
+        Response<List<D_DVIQLYModel>> dviResponse = dviqlyModelCall.execute();
+
+
+        //nếu có response về thì check code 200 (OK) hoặc code khác 200 (FAIL)
+        int statusCode = dviResponse.code();
+        if (dviResponse.isSuccessful()) {
+            if (statusCode == 200) {
+                dataServer = dviResponse.body();
+
+
+                //convert list data server to data mtb
+                for (D_DVIQLYModel dviSever: dataServer) {
+                    TABLE_DVIQLY dviMTB = new TABLE_DVIQLY(0, dviSever.MA_DVIQLY, dviSever.TEN_DVIQLY);
+                    dataMTB.add(dviMTB);
+                }
+            } else {
+                showSnackBar(Common.MESSAGE.ex02.getContent(), "Mã lỗi: " + statusCode + "\nNội dung:" + dviResponse.errorBody().string(), null);
+            }
+        }
+
+
+        return dataMTB;
     }
 
     @Override
-    public boolean checkServerLogin(LoginFragment.LoginSharePrefData loginSharePrefData) {
-        return true;
+    public boolean checkServerLogin(LoginFragment.LoginSharePrefData data) throws Exception {
+        //cài đặt đường dẫn máy chủ
+        //create api server
+        Common.setURLServer(loginFragment.getmLoginViewEntity().getEtURL().getText().toString());
+        apiInterface = TthtHnApi.getClient().create(TthtHnApiInterface.class);
+
+        //gọi server với imei
+        String imei = Common.getImei(this);
+        Call<UserMtb> Get_LoginMTB = apiInterface
+                .Get_LoginMTB(
+                        listDepart.get(data.getmPosDvi()).getMA_DVIQLY(),
+                        data.getmUser(),
+                        data.getmPass(),
+                        imei
+                );
+
+
+        //gọi bất đồng bộ
+        //lấy dữ liệu
+        UserMtb userMtb = null;
+        Response<UserMtb> userMtbResponse = Get_LoginMTB.execute();
+
+
+        //nếu có response về thì check code 200 (OK) hoặc code khác 200 (FAIL)
+        int statusCode = userMtbResponse.code();
+        if (userMtbResponse.isSuccessful()) {
+            if (statusCode == 200) {
+                userMtb = userMtbResponse.body();
+                return true;
+            } else {
+                showSnackBar(Common.MESSAGE.ex02.getContent(), "Mã lỗi: " + statusCode + "\nNội dung:" + userMtbResponse.errorBody().string(), null);
+                return false;
+            }
+        } else
+            return false;
     }
 
     @Override
@@ -200,10 +278,14 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
     //region TthtHnBaseActivity
     @Override
     void initDataAndView() throws Exception {
-        //set view full screen
+        //set view
         setContentView(R.layout.activity_login);
-        super.setupFullScreen();
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.cl_ac_login);
 
+
+        //set view full screen
+        super.setupFullScreen();
+        super.setCoordinatorLayout(coordinatorLayout);
 
         //create database
         SqlHelper.setupDB(
@@ -308,7 +390,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
     @Override
     void setAction(Bundle savedInstanceState) throws Exception {
         //show view login
-        transaction.replace(R.id.rl_ac_login, loginFragment).commit();
+        transaction.replace(R.id.cl_ac_login, loginFragment).commit();
     }
     //endregion
 }

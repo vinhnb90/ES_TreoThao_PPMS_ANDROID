@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 
 import com.esolutions.esloginlib.R;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,19 @@ public class DepartUpdateFragment<T> extends ModuleFragment {
         super();
     }
 
-    public DepartUpdateFragment<T> setmListDepart(List<T> mListDepart) {
+    public DepartUpdateFragment<T> setmListDepart(List<T> mListDepart) throws Exception {
+        //check empty
+        if(mListDepart.isEmpty())
+            return this;
+
+
+        //check to String override of T class
+        //if we use method toString of class T and it return not object then class T really overrided toString method
+        T tClass = (T) mListDepart.get(0).getClass();
+        if((mListDepart.get(0).getClass().getClass().getMethod("toString").getDeclaringClass() == Object.class))
+            throw new RuntimeException("Class " + mListDepart.get(0).getClass().getSimpleName() + " must be override method toString to show content on spinner!");
+
+
         this.mListDepart.clear();
         this.mListDepart.addAll(mListDepart);
         fillData();

@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ES_TreoThao_PPMS_ANDROID.iml" filepath="$PROJECT_DIR$/ES_TreoThao_PPMS_ANDROID.iml" />
       <module fileurl="file://$PROJECT_DIR$/EsDatabaseLib/EsDatabaseLib.iml" filepath="$PROJECT_DIR$/EsDatabaseLib/EsDatabaseLib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/EsLoginLib/EsLoginLib.iml" filepath="$PROJECT_DIR$/EsLoginLib/EsLoginLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ESLoginLib/EsLoginLib.iml" filepath="$PROJECT_DIR$/ESLoginLib/EsLoginLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
