@@ -30,7 +30,8 @@
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
             android:layout_alignParentRight="true"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="@dimen/_1sdp">
 
             <ImageButton
                 android:id="@+id/ibtn_download_dvi"
@@ -39,9 +40,11 @@
                 android:background="@drawable/xml_button_cricle_type2"
                 android:elevation="@dimen/_2sdp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/ic_download_2" />
+                android:src="@mipmap/ic_download_2"
+                android:visibility="visible" />
 
             <ProgressBar
+
                 android:id="@+id/pbar_download_dvi"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

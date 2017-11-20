@@ -3,6 +3,7 @@ package es.vinhnb.ttht.entity.sqlite;
 
 import esolutions.com.esdatabaselib.baseSqlite.anonation.AutoIncrement;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Collumn;
+import esolutions.com.esdatabaselib.baseSqlite.anonation.EnumNameCollumn;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Params;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.PrimaryKey;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.TYPE;
@@ -14,6 +15,27 @@ import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
 
 @Table(name = "TABLE_BBAN_TUTI")
 public class TABLE_BBAN_TUTI {
+    @EnumNameCollumn()
+    public enum declared {
+        ID_TABLE_BBAN_TUTI,
+        MA_DVIQLY,
+        ID_BBAN_TUTI,
+        MA_DDO,
+        SO_BBAN,
+        NGAY_TRTH,
+        MA_NVIEN,
+        TRANG_THAI,
+        TEN_KHANG,
+        DCHI_HDON,
+        DTHOAI,
+        MA_GCS_CTO,
+        MA_TRAM,
+        LY_DO_TREO_THAO,
+        MA_KHANG,
+        ID_BBAN_WEB_TUTI,
+        NVIEN_KCHI;
+    }
+
     @PrimaryKey
     @AutoIncrement
     @Collumn(name = "ID_TABLE_BBAN_TUTI", type = TYPE.INTEGER, other = "NOT NULL")
@@ -22,7 +44,7 @@ public class TABLE_BBAN_TUTI {
     @Collumn(name = "MA_DVIQLY", type = TYPE.TEXT)
     private String MA_DVIQLY;
 
-    @Collumn(name = "ID_BBAN_TUTI",  type = TYPE.INTEGER)
+    @Collumn(name = "ID_BBAN_TUTI", type = TYPE.INTEGER)
     private int ID_BBAN_TUTI;
 
     @Collumn(name = "MA_DDO", type = TYPE.TEXT)
@@ -72,22 +94,22 @@ public class TABLE_BBAN_TUTI {
 
 
     public TABLE_BBAN_TUTI(@Params(name = "ID_TABLE_BBAN_TUTI") int ID_TABLE_BBAN_TUTI,
-                              @Params(name = "MA_DVIQLY") String MA_DVIQLY,
-                              @Params(name = "ID_BBAN_TUTI") int ID_BBAN_TUTI,
-                              @Params(name = "MA_DDO") String MA_DDO,
-                              @Params(name = "SO_BBAN") String SO_BBAN,
-                              @Params(name = "NGAY_TRTH") String NGAY_TRTH,
-                              @Params(name = "MA_NVIEN") String MA_NVIEN,
-                              @Params(name = "TRANG_THAI") int TRANG_THAI,
-                              @Params(name = "TEN_KHANG") String TEN_KHANG,
-                              @Params(name = "DCHI_HDON") String DCHI_HDON,
-                              @Params(name = "DTHOAI") String DTHOAI,
-                              @Params(name = "MA_GCS_CTO") String MA_GCS_CTO,
-                              @Params(name = "MA_TRAM") String MA_TRAM,
-                              @Params(name = "LY_DO_TREO_THAO") String LY_DO_TREO_THAO,
-                              @Params(name = "MA_KHANG") String MA_KHANG,
-                              @Params(name = "ID_BBAN_WEB_TUTI") int ID_BBAN_WEB_TUTI,
-                              @Params(name = "NVIEN_KCHI") String NVIEN_KCHI) {
+                           @Params(name = "MA_DVIQLY") String MA_DVIQLY,
+                           @Params(name = "ID_BBAN_TUTI") int ID_BBAN_TUTI,
+                           @Params(name = "MA_DDO") String MA_DDO,
+                           @Params(name = "SO_BBAN") String SO_BBAN,
+                           @Params(name = "NGAY_TRTH") String NGAY_TRTH,
+                           @Params(name = "MA_NVIEN") String MA_NVIEN,
+                           @Params(name = "TRANG_THAI") int TRANG_THAI,
+                           @Params(name = "TEN_KHANG") String TEN_KHANG,
+                           @Params(name = "DCHI_HDON") String DCHI_HDON,
+                           @Params(name = "DTHOAI") String DTHOAI,
+                           @Params(name = "MA_GCS_CTO") String MA_GCS_CTO,
+                           @Params(name = "MA_TRAM") String MA_TRAM,
+                           @Params(name = "LY_DO_TREO_THAO") String LY_DO_TREO_THAO,
+                           @Params(name = "MA_KHANG") String MA_KHANG,
+                           @Params(name = "ID_BBAN_WEB_TUTI") int ID_BBAN_WEB_TUTI,
+                           @Params(name = "NVIEN_KCHI") String NVIEN_KCHI) {
         this.ID_TABLE_BBAN_TUTI = ID_TABLE_BBAN_TUTI;
         this.MA_DVIQLY = MA_DVIQLY;
         this.ID_BBAN_TUTI = ID_BBAN_TUTI;

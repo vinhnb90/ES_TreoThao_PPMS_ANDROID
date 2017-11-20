@@ -3,6 +3,7 @@ package es.vinhnb.ttht.entity.sqlite;
 
 import esolutions.com.esdatabaselib.baseSqlite.anonation.AutoIncrement;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Collumn;
+import esolutions.com.esdatabaselib.baseSqlite.anonation.EnumNameCollumn;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Params;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.PrimaryKey;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.TYPE;
@@ -14,6 +15,71 @@ import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
 
 @Table(name = "TABLE_CHITIET_CTO")
 public class TABLE_CHITIET_CTO {
+    @EnumNameCollumn()
+    public enum declared {
+        ID_TABLE_CHITIET_CTO,
+        MA_DVIQLY,
+        MA_NVIEN,
+        ID_BBAN_TRTH,
+        MA_CTO,
+        SO_CTO,
+        LAN,
+        MA_BDONG,
+        NGAY_BDONG,
+        MA_CLOAI,
+        LOAI_CTO,
+        VTRI_TREO,
+        MO_TA_VTRI_TREO,
+        MA_SOCBOOC,
+        SO_VIENCBOOC,
+        LOAI_HOM,
+        MA_SOCHOM,
+        SO_VIENCHOM,
+
+
+        HS_NHAN,
+        NGAY_TAO,
+        NGUOI_TAO,
+        NGAY_SUA,
+        NGUOI_SUA,
+        MA_CNANG,
+        SO_TU,
+        SO_TI,
+        SO_COT,
+        SO_HOM,
+        CHI_SO,
+        NGAY_KDINH,
+        NAM_SX,
+        TEM_CQUANG,
+        MA_CHIKDINH,
+        MA_TEM,
+        SOVIEN_CHIKDINH,
+        DIEN_AP,
+
+        DONG_DIEN,
+        HANGSO_K,
+        MA_NUOC,
+        TEN_NUOC,
+        ID_CHITIET_CTO,
+        SO_KIM_NIEM_CHI,
+        TTRANG_NPHONG,
+        TEN_LOAI_CTO,
+        PHUONG_THUC_DO_XA,
+        GHI_CHU,
+        ID_BBAN_TUTI,
+        HS_NHAN_SAULAP_TUTI,
+        SO_TU_SAULAP_TUTI,
+        SO_TI_SAULAP_TUTI,
+        CHI_SO_SAULAP_TUTI,
+        DIEN_AP_SAULAP_TUTI,
+        DONG_DIEN_SAULAP_TUTI,
+        HANGSO_K_SAULAP_TUTI,
+
+        CAP_CX_SAULAP_TUTI,
+        TRANG_THAI_DU_LIEU;
+    }
+
+
     @PrimaryKey
     @AutoIncrement
     @Collumn(name = "ID_TABLE_CHITIET_CTO", type = TYPE.INTEGER, other = "NOT NULL")

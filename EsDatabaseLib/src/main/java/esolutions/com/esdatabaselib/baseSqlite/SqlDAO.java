@@ -12,9 +12,11 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import esolutions.com.esdatabaselib.baseSqlite.anonation.AutoIncrement;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Collumn;
@@ -257,7 +259,7 @@ public class SqlDAO {
     }
     //endregion
 
-    public <T> boolean checkRows(Class<T> tClass, T dataCheck) throws Exception {
+    public <T> boolean isExistRows(Class<T> tClass, T dataCheck) throws Exception {
         //check annotation table class
         Class<?> classz = tClass;
         boolean isTableSQL = classz.isAnnotationPresent(Table.class);
@@ -268,7 +270,7 @@ public class SqlDAO {
 
         //lấy tất cả field ngoài $change and serialVersionUID
         //kiểm tra collumn annotations và lấy dữ liệu tạo DatabaseParams.Select và chuỗi điều kiện whereClause và whereArgs
-        //nếu giá trị của trường dataCheck = null thì khi checkRows sẽ bỏ qua trường đó
+        //nếu giá trị của trường dataCheck = null thì khi isExistRows sẽ bỏ qua trường đó
         Field[] fields = dataCheck.getClass().getDeclaredFields();
         DatabaseParams.Select param = new DatabaseParams.Select();
         StringBuilder whereClause = new StringBuilder();
@@ -314,13 +316,120 @@ public class SqlDAO {
         //tinh chỉnh câu query
         //tăng index để loại bỏ "and" nếu index > 0
         if (index == 0)
-            throw new RuntimeException("Data checkRows null all field!");
+            throw new RuntimeException("Data isExistRows null all field!");
         whereClause.delete(whereClause.length() - (" and ").length(), whereClause.length());
 
 
         //select database
         param.table = annTable.name();
-        param.columns =listCollumn.toArray(new String[listCollumn.size()]);
+        param.columns = listCollumn.toArray(new String[listCollumn.size()]);
+        param.selection = whereClause.toString();
+        param.selectionArgs = whereArgs.toArray(new String[whereArgs.size()]);
+
+
+        //get Cursor and close db
+        Cursor cur = mDatabase.select(param);
+        boolean exist = (cur.getCount() > 0);
+        cur.close();
+
+
+        return exist;
+    }
+
+    public <T> boolean isExistRows(Class<T> tClass, String[] nameCollumnCheck, String[] valuesCheck) throws Exception {
+        //check validate
+        if (nameCollumnCheck.length != valuesCheck.length)
+            throw new Exception("total collumn not same total value object!");
+
+
+        //check annotation table class
+        Class<?> classz = tClass;
+        boolean isTableSQL = classz.isAnnotationPresent(Table.class);
+        if (!isTableSQL)
+            throw new RuntimeException("Class not description is table!");
+        Table annTable = classz.getAnnotation(Table.class);
+
+
+        //lấy tất cả field ngoài $change and serialVersionUID
+        //kiểm tra collumn annotations và lấy dữ liệu tạo DatabaseParams.Select và chuỗi điều kiện whereClause và whereArgs
+        //nếu giá trị của trường dataCheck = null thì khi isExistRows sẽ bỏ qua trường đó
+        Field[] fields = classz.getDeclaredFields();
+        DatabaseParams.Select param = new DatabaseParams.Select();
+        StringBuilder whereClause = new StringBuilder();
+        HashMap<String, Collumn> listCollumn = new HashMap<>();
+        ArrayList<String> nameFieldHasAnnotationsCollumn = new ArrayList<>();
+        List<String> whereArgs = new ArrayList<>();
+
+
+        int index = 0;
+        for (Field field : fields) {
+            String fieldName = field.getName();
+            if (fieldName.equals("$change") || fieldName.equals("serialVersionUID"))
+                break;
+
+
+            //check annotation collumn
+            boolean isCollumn = field.isAnnotationPresent(Collumn.class);
+            if (!isCollumn)
+                break;
+            Collumn collumn = field.getAnnotation(Collumn.class);
+            boolean isPrimaryKey = field.isAnnotationPresent(PrimaryKey.class);
+            boolean isAutoIncrement = field.isAnnotationPresent(AutoIncrement.class);
+
+
+            //thêm vào Map cột và tên field cột đó
+            //tăng index để loại bỏ "and" nếu index > 0
+            listCollumn.put(fieldName, collumn);
+            nameFieldHasAnnotationsCollumn.add(fieldName);
+//            whereClause.append(collumn.name() + " = ? ").append(" and ");
+//            whereArgs.add(value.toString());
+            index++;
+        }
+
+
+        //tăng index để loại bỏ "and" nếu index > 0
+        if (index == 0)
+            throw new RuntimeException("Data isExistRows null all field!");
+
+
+        //khi có list collumn thì check name collumn trong String[] nameCollumn
+        ArrayList<String> nameCollumnListInput = new ArrayList<>(Arrays.asList(nameCollumnCheck));
+        ArrayList<String> valuesCheckListInput = new ArrayList<>(Arrays.asList(valuesCheck));
+
+
+        //nếu có field không trùng tên như trong nameFieldHasAnnotationsCollumn của table thì báo Exceptions
+        ArrayList<String> collumnSame = (ArrayList<String>) nameCollumnListInput.clone();
+        collumnSame.retainAll(nameFieldHasAnnotationsCollumn);
+        ArrayList<String> collumnNotSame = (ArrayList<String>) nameCollumnListInput.clone();
+        collumnNotSame.removeAll(collumnSame);
+
+
+        //check đầu vào
+        if (collumnNotSame.size() != 0) {
+            StringBuilder message = new StringBuilder("Vui lòng kiểm tra lại các trường input nameCollumn[] không trùng annonations ở bảng " + annTable.name() + " gồm ");
+            for (String s : collumnNotSame
+                    ) {
+                message.append(", " + s);
+            }
+            throw new Exception(message.toString());
+        }
+
+
+        //create param
+        for (int i = 0; i < nameCollumnCheck.length; i++) {
+            Collumn collumn = listCollumn.get(nameCollumnCheck[i]);
+            whereClause.append(collumn.name() + " = ? ").append(" and ");
+            whereArgs.add(valuesCheck.toString());
+        }
+
+
+        //tinh chỉnh câu query
+        whereClause.delete(whereClause.length() - (" and ").length(), whereClause.length());
+
+
+        //select database
+        param.table = annTable.name();
+        param.columns = nameCollumnCheck;
         param.selection = whereClause.toString();
         param.selectionArgs = whereArgs.toArray(new String[whereArgs.size()]);
 

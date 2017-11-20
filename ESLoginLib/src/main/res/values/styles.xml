@@ -6,8 +6,9 @@
         <item name="actionButtonStyle">@style/myActionButtonStyle</item>
 
         <item name="actionBarSize">100dp</item>
-        <item name="windowActionBarOverlay">false</item>
+        <item name="windowActionBarOverlay">true</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="windowNoTitle">true</item>
 
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>

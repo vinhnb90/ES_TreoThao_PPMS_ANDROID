@@ -3,6 +3,7 @@ package es.vinhnb.ttht.entity.sqlite;
 
 import esolutions.com.esdatabaselib.baseSqlite.anonation.AutoIncrement;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Collumn;
+import esolutions.com.esdatabaselib.baseSqlite.anonation.EnumNameCollumn;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Params;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.PrimaryKey;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.TYPE;
@@ -14,6 +15,14 @@ import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
 
 @Table(name = "TABLE_DVIQLY")
 public class TABLE_DVIQLY {
+
+    @EnumNameCollumn()
+    public enum decrale {
+        ID_TABLE_DVIQLY,
+        MA_DVIQLY,
+        TEN_DVIQLY;
+    }
+
     @PrimaryKey
     @AutoIncrement
     @Collumn(name = "ID_TABLE_DVIQLY", type = TYPE.INTEGER, other = "NOT NULL")
@@ -25,7 +34,6 @@ public class TABLE_DVIQLY {
     @Collumn(name = "TEN_DVIQLY")
     private String TEN_DVIQLY;
 
-
     public TABLE_DVIQLY() {
     }
 
@@ -35,28 +43,28 @@ public class TABLE_DVIQLY {
         this.TEN_DVIQLY = TEN_DVIQLY;
     }
 
-    public int getID_TABLE_DVIQLY() {
+    public int getIdTableDviqly() {
         return ID_TABLE_DVIQLY;
     }
 
-    public void setID_TABLE_DVIQLY(int ID_TABLE_DVIQLY) {
-        this.ID_TABLE_DVIQLY = ID_TABLE_DVIQLY;
+    public void setIdTableDviqly(int idTableDviqly) {
+        ID_TABLE_DVIQLY = idTableDviqly;
     }
 
-    public String getMA_DVIQLY() {
+    public String getMaDviqly() {
         return MA_DVIQLY;
     }
 
-    public void setMA_DVIQLY(String MA_DVIQLY) {
-        this.MA_DVIQLY = MA_DVIQLY;
+    public void setMaDviqly(String maDviqly) {
+        MA_DVIQLY = maDviqly;
     }
 
-    public String getTEN_DVIQLY() {
+    public String getTenDviqly() {
         return TEN_DVIQLY;
     }
 
-    public void setTEN_DVIQLY(String TEN_DVIQLY) {
-        this.TEN_DVIQLY = TEN_DVIQLY;
+    public void setTenDviqly(String tenDviqly) {
+        TEN_DVIQLY = tenDviqly;
     }
 
     @Override

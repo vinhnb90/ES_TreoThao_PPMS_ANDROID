@@ -13,13 +13,18 @@ import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 import esolutions.com.esdatabaselib.baseSqlite.anonation.AutoIncrement;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Collumn;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.DBConfig;
+import esolutions.com.esdatabaselib.baseSqlite.anonation.EnumNameCollumn;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.PrimaryKey;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.TYPE;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
@@ -28,6 +33,7 @@ import esolutions.com.esdatabaselib.example.activity.DatabaseActivity;
 import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 import static android.util.Log.d;
 import static android.util.Log.e;
+import static android.util.Log.i;
 import static esolutions.com.esdatabaselib.utils.EsDatabaseLibCommon.createFileIfNotExist;
 import static esolutions.com.esdatabaselib.utils.EsDatabaseLibCommon.hasPermissionWriteSdcard;
 
@@ -75,9 +81,13 @@ public class SqlHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        for (Class<?> classz : sClassDBTable) {
-            String create = getQueryCreateTable(classz);
-            sqLiteDatabase.execSQL(create);
+        try {
+            for (Class<?> classz : sClassDBTable) {
+                String create = getQueryCreateTable(classz);
+                sqLiteDatabase.execSQL(create);
+            }
+        } catch (Exception e) {
+            Toast.makeText(sConfigData.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -184,42 +194,119 @@ public class SqlHelper extends SQLiteOpenHelper {
         return sConfigData;
     }
 
-    private String getQueryCreateTable(Class<?> classz) {
+    private String getQueryCreateTable(Class<?> classz) throws Exception {
+        //check table
         boolean isTableSQL = classz.isAnnotationPresent(Table.class);
         if (!isTableSQL)
             throw new RuntimeException("Class not description is table!");
-
         Table annTable = classz.getAnnotation(Table.class);
 
+
+        //check has EnumNameCollumn
+        Class<?>[] methods = classz.getClasses();
+        ArrayList<String> elementEnumNameCollumn = new ArrayList<>();
+        for (Class<?> aClass : methods) {
+            if (!aClass.isEnum())
+                continue;
+
+
+            boolean isEnumConstant = aClass.isAnnotationPresent(EnumNameCollumn.class);
+            if (!isEnumConstant)
+                continue;
+
+
+            if (elementEnumNameCollumn.size() != 0)
+                throw new Exception("EnumNameCollumn of enum " + aClass.getSimpleName() + " must be only declare 1 time!");
+
+
+            Object[] consts = aClass.getEnumConstants();
+            for (Object o : consts) {
+                String s = o.toString();
+                elementEnumNameCollumn.add(s);
+            }
+
+//            elementEnumNameCollumn;
+//            Field[] a = aClass.getDeclaredFields();
+//            Method[] b = aClass.getDeclaredMethods();
+        }
+
+
+        //tạo query
         StringBuilder query = new StringBuilder("CREATE TABLE IF NOT EXISTS "
                 + annTable.name()
                 + "(");
-
         Field[] fields = classz.getDeclaredFields();
+        ArrayList<String> annonationClass = new ArrayList<>();
+
+
         for (int i = 0; i < fields.length; i++) {
+
             boolean isCollumn = fields[i].isAnnotationPresent(Collumn.class);
             if (!isCollumn)
-                break;
+                continue;
+
 
             Collumn collumn = fields[i].getAnnotation(Collumn.class);
             boolean isPrimaryKey = fields[i].isAnnotationPresent(PrimaryKey.class);
             boolean isAutoIncrement = fields[i].isAnnotationPresent(AutoIncrement.class);
 
-            if (i != 0 && i != fields.length - 1)
-                query.append(",");
 
             query.append(" "
                     + collumn.name()
                     + " "
                     + collumn.type().getContentType()
                     + (isPrimaryKey ? " PRIMARY KEY" : "")
-                    + " "
                     + (isAutoIncrement ? " AUTOINCREMENT" : "")
                     + " "
                     + collumn.other());
+
+
+            query.append(",");
+
+
+            annonationClass.add(collumn.name());
         }
 
+
+        //xóa kí tự cuối
+        query.replace(query.length() - ",".length(), query.length(), "");
         query.append(");");
+
+
+        //check các trường khai báo trong enum có trùng với các trường annotations ở các field không
+        ArrayList<String> same = (ArrayList<String>) elementEnumNameCollumn.clone();
+        same.retainAll(annonationClass);
+        ArrayList<String> elementEnumNameCollumnNotSame = (ArrayList<String>) elementEnumNameCollumn.clone();
+        elementEnumNameCollumnNotSame.removeAll(same);
+        StringBuilder sElementEnumNameCollumnNotSame = new StringBuilder();
+        if (elementEnumNameCollumnNotSame.size() != 0) {
+            for (String s :
+                    elementEnumNameCollumnNotSame) {
+                sElementEnumNameCollumnNotSame.append(s).append(",");
+            }
+        }
+
+
+        ArrayList<String> annonationClassNotSame = (ArrayList<String>) annonationClass.clone();
+        annonationClassNotSame.removeAll(same);
+
+        StringBuilder sAnnonationClassNotSame = new StringBuilder();
+        if (annonationClassNotSame.size() != 0) {
+            for (String s :
+                    annonationClassNotSame) {
+                sAnnonationClassNotSame.append(s).append(",");
+            }
+        }
+
+
+        if (elementEnumNameCollumnNotSame.size() != 0 || annonationClassNotSame.size() != 0) {
+            Log.e(TAG, "Trong class " + classz.getSimpleName() + " hãy khai báo trường tên của các trường enum có @EnumNameCollumn bao gồm các tên cột được khai báo như trên các field của class! Như sau:");
+            Log.e(TAG, "EnumNameCollumn: " + sElementEnumNameCollumnNotSame.toString());
+            Log.e(TAG, "annonationClass Field:  " + sAnnonationClassNotSame.toString());
+            throw new Exception("Trong class " + classz.getSimpleName() + " hãy khai báo trường tên của các trường enum có @EnumNameCollumn bao gồm các tên cột được khai báo như trên các field của class!");
+        }
+
+
         return query.toString();
     }
 

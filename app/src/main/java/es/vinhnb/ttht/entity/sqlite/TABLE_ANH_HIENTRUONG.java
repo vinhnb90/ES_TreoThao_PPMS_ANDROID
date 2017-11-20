@@ -2,11 +2,15 @@ package es.vinhnb.ttht.entity.sqlite;
 
 import esolutions.com.esdatabaselib.baseSqlite.anonation.AutoIncrement;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Collumn;
+import esolutions.com.esdatabaselib.baseSqlite.anonation.EnumNameCollumn;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Params;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.PrimaryKey;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
 
-import static esolutions.com.esdatabaselib.baseSqlite.anonation.TYPE.*;
+import esolutions.com.esdatabaselib.baseSqlite.anonation.TYPE.*;
+
+import static esolutions.com.esdatabaselib.baseSqlite.anonation.TYPE.INTEGER;
+import static esolutions.com.esdatabaselib.baseSqlite.anonation.TYPE.TEXT;
 
 /**
  * Created by VinhNB on 10/10/2017.
@@ -14,6 +18,18 @@ import static esolutions.com.esdatabaselib.baseSqlite.anonation.TYPE.*;
 
 @Table(name = "TABLE_ANH_HIENTRUONG")
 public class TABLE_ANH_HIENTRUONG {
+
+    @EnumNameCollumn()
+    public enum declared {
+        ID_TABLE_ANH_HIENTRUONG,
+        ID_CHITIET_TUTI,
+        TEN_ANH,
+        MA_DVIQLY,
+        ID_BBAN_TUTI,
+        ID_CHITIET_CTO,
+        TYPE,
+        CREATE_DAY;
+    }
 
     @PrimaryKey
     @AutoIncrement
@@ -62,67 +78,36 @@ public class TABLE_ANH_HIENTRUONG {
         this.CREATE_DAY = CREATE_DAY;
     }
 
+
     public int getID_TABLE_ANH_HIENTRUONG() {
         return ID_TABLE_ANH_HIENTRUONG;
-    }
-
-    public void setID_TABLE_ANH_HIENTRUONG(int ID_TABLE_ANH_HIENTRUONG) {
-        this.ID_TABLE_ANH_HIENTRUONG = ID_TABLE_ANH_HIENTRUONG;
     }
 
     public int getID_CHITIET_TUTI() {
         return ID_CHITIET_TUTI;
     }
 
-    public void setID_CHITIET_TUTI(int ID_CHITIET_TUTI) {
-        this.ID_CHITIET_TUTI = ID_CHITIET_TUTI;
-    }
-
     public int getTEN_ANH() {
         return TEN_ANH;
-    }
-
-    public void setTEN_ANH(int TEN_ANH) {
-        this.TEN_ANH = TEN_ANH;
     }
 
     public String getMA_DVIQLY() {
         return MA_DVIQLY;
     }
 
-    public void setMA_DVIQLY(String MA_DVIQLY) {
-        this.MA_DVIQLY = MA_DVIQLY;
-    }
-
     public int getID_BBAN_TUTI() {
         return ID_BBAN_TUTI;
-    }
-
-    public void setID_BBAN_TUTI(int ID_BBAN_TUTI) {
-        this.ID_BBAN_TUTI = ID_BBAN_TUTI;
     }
 
     public int getID_CHITIET_CTO() {
         return ID_CHITIET_CTO;
     }
 
-    public void setID_CHITIET_CTO(int ID_CHITIET_CTO) {
-        this.ID_CHITIET_CTO = ID_CHITIET_CTO;
-    }
-
     public int getTYPE() {
         return TYPE;
     }
 
-    public void setTYPE(int TYPE) {
-        this.TYPE = TYPE;
-    }
-
     public String getCREATE_DAY() {
         return CREATE_DAY;
-    }
-
-    public void setCREATE_DAY(String CREATE_DAY) {
-        this.CREATE_DAY = CREATE_DAY;
     }
 }

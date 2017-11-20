@@ -53,6 +53,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
     private SharePrefManager mPrefManager;
     private LoginFragment loginFragment;
     private LoginSharePref dataLoginSharePref;
+    private String mMaNVien;
     private SqlDAO mSqlDAO;
     private TthtHnApiInterface apiInterface;
 
@@ -210,7 +211,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         String imei = Common.getImei(this);
         Call<UserMtb> Get_LoginMTB = apiInterface
                 .Get_LoginMTB(
-                        listDepart.get(data.getmPosDvi()).getMA_DVIQLY(),
+                        listDepart.get(data.getmPosDvi()).getMaDviqly(),
                         data.getmUser(),
                         data.getmPass(),
                         imei
@@ -228,6 +229,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         if (userMtbResponse.isSuccessful()) {
             if (statusCode == 200) {
                 userMtb = userMtbResponse.body();
+                mMaNVien = userMtb.MA_NHAN_VIEN;
                 return true;
             } else {
                 showSnackBar(Common.MESSAGE.ex02.getContent(), "Mã lỗi: " + statusCode + "\nNội dung:" + userMtbResponse.errorBody().string(), null);
@@ -239,7 +241,14 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
 
     @Override
     public void saveDBDepart(List<TABLE_DVIQLY> list) throws Exception {
-        mSqlDAO.insert(list);
+//        TABLE_DVIQLY.decrale.ID_TABLE_DVIQLY
+//        String[] collumnCheck = new String[]{list.get(0).getMaDviqly().};
+//        for (TABLE_DVIQLY dviqly : list) {
+//            String[] valueCheck = new String[]{dviqly.getMaDviqly()};
+//            if (!mSqlDAO.isExistRows(TABLE_DVIQLY.class, collumnCheck, valueCheck)) {
+//                mSqlDAO.insert(list);
+//            }
+//        }
     }
 
     @Override
@@ -250,7 +259,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
     @Override
     public void saveDataSharePref(LoginFragment.LoginData loginData) throws Exception {
         //convert data save of login fragment to data save of Login activity
-        dataLoginSharePref = new LoginSharePref(loginData.getmURL(), loginData.getmPosDvi(), loginData.getmMaDvi(), loginData.getmUser(), loginData.getmPass(), loginData.ismIsSaveInfo());
+        dataLoginSharePref = new LoginSharePref(loginData.getmURL(), loginData.getmPosDvi(), loginData.getmMaDvi(), loginData.getmUser(), loginData.getmMaNVien(), loginData.getmPass(), loginData.ismIsSaveInfo());
         mPrefManager.writeDataSharePref(LoginSharePref.class, dataLoginSharePref);
     }
 
@@ -264,6 +273,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         LoginFragment.LoginData loginData = new LoginFragment.LoginData
                 .Builder(dataLoginSharePref.ip, dataLoginSharePref.user, dataLoginSharePref.pass)
                 .setmDvi(dataLoginSharePref.posSpinDvi, dataLoginSharePref.maDvi)
+                .setmMaNVien(mMaNVien)
                 .setmIsSaveInfo(dataLoginSharePref.isCheckSave)
                 .build();
 
@@ -325,19 +335,30 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
             public boolean checkSessionLogin(LoginFragment.LoginData loginData) throws Exception {
                 //create data check
                 TABLE_SESSION dataCheck = new TABLE_SESSION();
-                dataCheck.setMA_DVIQLY(listDepart.get(loginData.getmPosDvi()).getMA_DVIQLY());
+                dataCheck.setMA_DVIQLY(listDepart.get(loginData.getmPosDvi()).getMaDviqly());
                 dataCheck.setUSERNAME(loginData.getmUser());
                 dataCheck.setPASSWORD(loginData.getmPass());
 
 
                 //check row in TABLE_SESSION
-                return mSqlDAO.checkRows(TABLE_SESSION.class, dataCheck);
+                String[] collumnCheck = new String[]{
+                        TABLE_SESSION.MA_DVIQLY.toString(),
+                        TABLE_SESSION.USERNAME.toString(),
+                        TABLE_SESSION.USERNAME.toString()};
+                String[] valuesCheck = new String[]{
+                        dataCheck.getMA_DVIQLY(),
+                        dataCheck.getUSERNAME(),
+                        dataCheck.getPASSWORD()
+                };
+
+
+                return mSqlDAO.isExistRows(TABLE_SESSION.class, collumnCheck, valuesCheck);
             }
 
             @Override
             public void saveSessionDatabaseLogin(LoginFragment.LoginData dataLoginSession) throws Exception {
                 TABLE_SESSION dataCheck = new TABLE_SESSION();
-                dataCheck.setMA_DVIQLY(listDepart.get(dataLoginSession.getmPosDvi()).getMA_DVIQLY());
+                dataCheck.setMA_DVIQLY(listDepart.get(dataLoginSession.getmPosDvi()).getMaDviqly());
                 dataCheck.setUSERNAME(dataLoginSession.getmUser());
                 dataCheck.setPASSWORD(dataLoginSession.getmPass());
                 dataCheck.setDATE_LOGIN(Common.getDateTimeNow(Common.DATE_TIME_TYPE.ddMMyyyyHHmmss));

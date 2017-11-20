@@ -168,107 +168,104 @@ public class LoginFragment extends Fragment {
             mDepartModule.getViewEntity().getIbtnDownloadDvi().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    try {
-                        mDepartModule.getViewEntity().getViewLayout().post(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    //show progressbar
-                                    mDepartModule.getViewEntity().getIbtnDownloadDvi().setVisibility(View.GONE);
-                                    mDepartModule.getViewEntity().getPbarDownloadDvi().setVisibility(View.VISIBLE);
+                    mDepartModule.getViewEntity().getViewLayout().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                //show progressbar
+                                mDepartModule.getViewEntity().getIbtnDownloadDvi().setVisibility(View.GONE);
+                                mDepartModule.getViewEntity().getPbarDownloadDvi().setVisibility(View.VISIBLE);
+                                mDepartModule.getViewEntity().getViewLayout().invalidate();
 
 
-                                    //check url
-                                    mURL = mEtURL.getText().toString();
-                                    if (TextUtils.isEmpty(mURL))
-                                        throw new RuntimeException("Không để trống đường dẫn máy chủ");
+                                //check url
+                                mURL = mEtURL.getText().toString();
+                                if (TextUtils.isEmpty(mURL))
+                                    throw new RuntimeException("Không để trống đường dẫn máy chủ");
 
 
-                                    //call server
-                                    new Thread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            try {
-                                                final List<?> dataMTB = mLoginInteface.callServerDepart();
+                                //call server
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            final List<?> dataMTB = mLoginInteface.callServerDepart();
 
 
-                                                mLoginViewEntity.getViewLayout().post(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        //set data and save data
-                                                        //show mDepart spin
-                                                        try {
-                                                            mDepartModule.setmListDepart(dataMTB);
+                                            mLoginViewEntity.getViewLayout().post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    //set data and save data
+                                                    //show mDepart spin
+                                                    try {
+                                                        mDepartModule.setmListDepart(dataMTB);
 
 
-                                                            //and save data
-                                                            if (!mDepartModule.getmListDepart().isEmpty())
-                                                                mLoginInteface.saveDBDepart(mDepartModule.getmListDepart());
-                                                        } catch (Exception e) {
-                                                            e.printStackTrace();
-                                                        } finally {
-                                                            //hide progressbar
-                                                            mDepartModule.getViewEntity().getViewLayout().post(new Runnable() {
-                                                                @Override
-                                                                public void run() {
-                                                                    try {
-                                                                        mDepartModule.getViewEntity().getIbtnDownloadDvi().setVisibility(View.VISIBLE);
-                                                                        mDepartModule.getViewEntity().getPbarDownloadDvi().setVisibility(View.GONE);
-                                                                    } catch (Exception e) {
-                                                                        e.printStackTrace();
-                                                                        showSnackBar("Lỗi hiển thị", e.getMessage(), null);
-                                                                    }
+                                                        //and save data
+                                                        if (!mDepartModule.getmListDepart().isEmpty())
+                                                            mLoginInteface.saveDBDepart(mDepartModule.getmListDepart());
+                                                    } catch (Exception e) {
+                                                        e.printStackTrace();
+                                                        showSnackBar("Lỗi hiển thị", e.getMessage(), null);
+                                                    } finally {
+                                                        //hide progressbar
+                                                        mDepartModule.getViewEntity().getViewLayout().post(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                try {
+                                                                    mDepartModule.getViewEntity().getIbtnDownloadDvi().setVisibility(View.VISIBLE);
+                                                                    mDepartModule.getViewEntity().getPbarDownloadDvi().setVisibility(View.GONE);
+                                                                } catch (Exception e) {
+                                                                    e.printStackTrace();
+                                                                    showSnackBar("Lỗi hiển thị", e.getMessage(), null);
                                                                 }
-                                                            });
-                                                        }
+                                                            }
+                                                        });
                                                     }
-                                                });
+                                                }
+                                            });
 
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
 
 
-                                                //hide progressbar
-                                                mDepartModule.getViewEntity().getViewLayout().post(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        try {
-                                                            mDepartModule.getViewEntity().getIbtnDownloadDvi().setVisibility(View.VISIBLE);
-                                                            mDepartModule.getViewEntity().getPbarDownloadDvi().setVisibility(View.GONE);
-                                                        } catch (Exception e) {
-                                                            e.printStackTrace();
-                                                            showSnackBar("Lỗi hiển thị", e.getMessage(), null);
-                                                        }
+                                            //hide progressbar
+                                            mDepartModule.getViewEntity().getViewLayout().post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    try {
+                                                        mDepartModule.getViewEntity().getIbtnDownloadDvi().setVisibility(View.VISIBLE);
+                                                        mDepartModule.getViewEntity().getPbarDownloadDvi().setVisibility(View.GONE);
+                                                    } catch (Exception e) {
+                                                        e.printStackTrace();
+                                                        showSnackBar("Lỗi hiển thị", e.getMessage(), null);
                                                     }
-                                                });
+                                                }
+                                            });
 
-                                                showSnackBar("Lỗi hiển thị", e.getMessage(), null);
-                                            }
+                                            showSnackBar("Lỗi hiển thị", e.getMessage(), null);
                                         }
-                                    }).start();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                } finally {
-                                    //hide progressbar
-                                    mDepartModule.getViewEntity().getViewLayout().post(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            try {
-                                                mDepartModule.getViewEntity().getIbtnDownloadDvi().setVisibility(View.VISIBLE);
-                                                mDepartModule.getViewEntity().getPbarDownloadDvi().setVisibility(View.GONE);
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                                showSnackBar("Lỗi hiển thị", e.getMessage(), null);
-                                            }
+                                    }
+                                }).start();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            } finally {
+                                //hide progressbar
+                                mDepartModule.getViewEntity().getViewLayout().post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            mDepartModule.getViewEntity().getIbtnDownloadDvi().setVisibility(View.VISIBLE);
+                                            mDepartModule.getViewEntity().getPbarDownloadDvi().setVisibility(View.GONE);
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                            showSnackBar("Lỗi hiển thị", e.getMessage(), null);
                                         }
-                                    });
-                                }
+                                    }
+                                });
                             }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        showSnackBar("Lỗi hiển thị", e.getMessage(), null);
-                    }
+                        }
+                    });
                 }
             });
         }
@@ -463,23 +460,27 @@ public class LoginFragment extends Fragment {
                             }).start();
                         } catch (Exception e) {
                             //enable again all view in login
-                            if (mDepartModule != null) {
-                                mEtUser.setEnabled(true);
-                                mEtPass.setEnabled(true);
-                                mCbSaveInfo.setEnabled(true);
 
-                                try {
+                            mEtUser.setEnabled(true);
+                            mEtPass.setEnabled(true);
+                            mCbSaveInfo.setEnabled(true);
+
+                            try {
+                                if (mDepartModule != null) {
                                     mDepartModule.getViewEntity().getSpDvi().setEnabled(true);
                                     mDepartModule.getViewEntity().getIbtnDownloadDvi().setEnabled(true);
-
-
-                                    //hide progressbar
-                                    mLoginViewEntity.getBtnLogin().setVisibility(View.VISIBLE);
-                                    mLoginViewEntity.getPbarLogin().setVisibility(View.GONE);
-                                } catch (Exception e1) {
-                                    e1.printStackTrace();
-                                    showSnackBar("Lỗi đăng nhập", e.getMessage(), null);
                                 }
+
+                                //hide progressbar
+                                mLoginViewEntity.getBtnLogin().setVisibility(View.VISIBLE);
+                                mLoginViewEntity.getPbarLogin().setVisibility(View.GONE);
+
+
+                                //show messasge
+                                showSnackBar("Lỗi đăng nhập", e.getMessage(), null);
+                            } catch (Exception e1) {
+                                e1.printStackTrace();
+                                showSnackBar("Lỗi đăng nhập", e.getMessage(), null);
                             }
                         }
                     }

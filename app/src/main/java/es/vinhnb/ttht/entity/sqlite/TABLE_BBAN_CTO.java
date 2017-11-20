@@ -3,6 +3,7 @@ package es.vinhnb.ttht.entity.sqlite;
 
 import esolutions.com.esdatabaselib.baseSqlite.anonation.AutoIncrement;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Collumn;
+import esolutions.com.esdatabaselib.baseSqlite.anonation.EnumNameCollumn;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Params;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.PrimaryKey;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.TYPE;
@@ -14,6 +15,36 @@ import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
 
 @Table(name = "TABLE_BBAN_CTO")
 public class TABLE_BBAN_CTO {
+    @EnumNameCollumn()
+    public enum declared {
+        ID_TABLE_BBAN_CTO,
+        MA_DVIQLY,
+        ID_BBAN_TRTH,
+        MA_DDO,
+        SO_BBAN,
+        NGAY_TRTH,
+        MA_NVIEN,
+        MA_LDO,
+        NGAY_TAO,
+        NGUOI_TAO,
+        NGAY_SUA,
+        NGUOI_SUA,
+        MA_CNANG,
+        MA_YCAU_KNAI,
+        TRANG_THAI,
+        GHI_CHU,
+        ID_BBAN_CONGTO,
+        LOAI_BBAN,
+        TEN_KHANG,
+        DCHI_HDON,
+        DTHOAI,
+        MA_GCS_CTO,
+        MA_TRAM,
+        MA_HDONG,
+        MA_KHANG,
+        LY_DO_TREO_THAO;
+    }
+
     @PrimaryKey
     @AutoIncrement
     @Collumn(name = "ID_TABLE_BBAN_CTO", type = TYPE.INTEGER, other = "NOT NULL")

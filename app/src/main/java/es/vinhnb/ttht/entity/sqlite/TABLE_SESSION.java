@@ -3,6 +3,7 @@ package es.vinhnb.ttht.entity.sqlite;
 
 import esolutions.com.esdatabaselib.baseSqlite.anonation.AutoIncrement;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Collumn;
+import esolutions.com.esdatabaselib.baseSqlite.anonation.EnumNameCollumn;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Params;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.PrimaryKey;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.TYPE;
@@ -14,22 +15,33 @@ import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
 
 @Table(name = "TABLE_SESSION")
 public class TABLE_SESSION {
+    @EnumNameCollumn()
+    public enum declared {
+        ID_TABLE_SESSION,
+        MA_DVIQLY,
+        USERNAME,
+        PASSWORD,
+        DATE_LOGIN;
+    }
+
+
+
     @PrimaryKey
     @AutoIncrement
     @Collumn(name = "ID_TABLE_SESSION", type = TYPE.INTEGER, other = "NOT NULL")
-    private int ID_TABLE_SESSION;
+    public static int ID_TABLE_SESSION;
 
     @Collumn(name = "MA_DVIQLY", type = TYPE.TEXT, other = "NOT NULL")
-    private String MA_DVIQLY;
+    public static String MA_DVIQLY;
 
     @Collumn(name = "USERNAME", type = TYPE.TEXT, other = "NOT NULL")
-    private String USERNAME;
+    public static String USERNAME;
 
     @Collumn(name = "PASSWORD", type = TYPE.TEXT, other = "NOT NULL")
-    private String PASSWORD;
+    public static String PASSWORD;
 
     @Collumn(name = "DATE_LOGIN", type = TYPE.TEXT, other = "NOT NULL")
-    private String DATE_LOGIN;
+    public static String DATE_LOGIN;
 
     public TABLE_SESSION() {
     }

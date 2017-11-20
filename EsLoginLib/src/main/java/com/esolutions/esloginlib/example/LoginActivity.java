@@ -152,7 +152,7 @@ public class LoginActivity extends AppCompatActivity implements LoginInteface<De
             //convert data save of login activity to data save of Login fragment
             LoginFragment.LoginData loginData = new LoginFragment.LoginData
                     .Builder(ip, user, pass)
-                    .setmDvi(posSpinDvi)
+                    .setmDvi(posSpinDvi, "")
                     .setmIsSaveInfo(isCheckSave)
                     .build();
 
