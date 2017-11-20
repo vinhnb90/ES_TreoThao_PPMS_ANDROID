@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 import com.esolutions.esloginlib.R;
@@ -30,14 +32,14 @@ public class DepartUpdateFragment<T> extends ModuleFragment {
 
     public DepartUpdateFragment<T> setmListDepart(List<T> mListDepart) throws Exception {
         //check empty
-        if(mListDepart.isEmpty())
+        if (mListDepart.isEmpty())
             return this;
 
 
         //check to String override of T class
         //if we use method toString of class T and it return not object then class T really overrided toString method
         T tClass = (T) mListDepart.get(0).getClass();
-        if((mListDepart.get(0).getClass().getClass().getMethod("toString").getDeclaringClass() == Object.class))
+        if ((mListDepart.get(0).getClass().getClass().getMethod("toString").getDeclaringClass() == Object.class))
             throw new RuntimeException("Class " + mListDepart.get(0).getClass().getSimpleName() + " must be override method toString to show content on spinner!");
 
 
@@ -47,7 +49,7 @@ public class DepartUpdateFragment<T> extends ModuleFragment {
         return this;
     }
 
-    public DepartViewEntity getViewEntity() throws Exception {
+    public DepartViewEntity getViewEntity() {
         return viewEntity;
     }
 
@@ -94,12 +96,11 @@ public class DepartUpdateFragment<T> extends ModuleFragment {
         Display display = ((Activity) viewEntity.getContext()).getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        int pixel = Math.round(size.x * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
 
-        viewEntity.getSpDvi().setDropDownWidth(pixel - 20);
+        viewEntity.getSpDvi().setDropDownWidth(size.x);
         viewEntity.getSpDvi().setGravity(RelativeLayout.CENTER_HORIZONTAL);
         viewEntity.getSpDvi().setAdapter(arrayAdapter);
+        viewEntity.getSpDvi().invalidate();
     }
 
     public List<T> getmListDepart() {

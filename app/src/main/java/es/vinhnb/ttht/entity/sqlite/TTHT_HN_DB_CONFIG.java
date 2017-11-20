@@ -8,6 +8,6 @@ import esolutions.com.esdatabaselib.baseSqlite.anonation.DBConfig;
  */
 
 @DBConfig(name = "ES_TTHT_HN", folderName = "ES_TTHT_HN/DB/", version = 1)
-public class TthtHnDbConfig {
+public class TTHT_HN_DB_CONFIG {
 
 }

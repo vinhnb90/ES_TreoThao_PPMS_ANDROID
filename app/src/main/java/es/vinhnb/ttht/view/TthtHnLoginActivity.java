@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.AppCompatSpinner;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.es.tungnv.views.R;
@@ -37,20 +36,20 @@ import es.vinhnb.ttht.entity.sqlite.TABLE_DVIQLY;
 import es.vinhnb.ttht.entity.sqlite.TABLE_LOAI_CONG_TO;
 import es.vinhnb.ttht.entity.sqlite.TABLE_SESSION;
 import es.vinhnb.ttht.entity.sqlite.TABLE_TRAM;
-import es.vinhnb.ttht.entity.sqlite.TthtHnDbConfig;
+import es.vinhnb.ttht.entity.sqlite.TTHT_HN_DB_CONFIG;
 import es.vinhnb.ttht.server.TthtHnApi;
 import es.vinhnb.ttht.server.TthtHnApiInterface;
 import esolutions.com.esdatabaselib.baseSharedPref.SharePrefManager;
 import esolutions.com.esdatabaselib.baseSqlite.SqlDAO;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 
 public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInteface<TABLE_DVIQLY> {
+    public static final String BUNDLE_LOGIN = "BUNDLE_LOGIN";
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-    private List<TABLE_DVIQLY> listDepart;
+    private List<TABLE_DVIQLY> listDepart = new ArrayList<>();
     private SharePrefManager mPrefManager;
     private LoginFragment loginFragment;
     private LoginSharePref dataLoginSharePref;
@@ -78,13 +77,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
             setAction(savedInstanceState);
         } catch (Exception e) {
             e.printStackTrace();
-            try {
-                super.showSnackBar(Common.MESSAGE.ex03.getContent(), e.getMessage(), null);
-            } catch (Exception e1) {
-                e1.printStackTrace();
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-
+            super.showSnackBar(Common.MESSAGE.ex03.getContent(), e.getMessage(), null);
         }
     }
 
@@ -92,18 +85,16 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
     protected void onResume() {
         super.onResume();
         try {
+            //lấy dữ liệu và fill Data dvi
+            listDepart = mSqlDAO.selectAllLazy(TABLE_DVIQLY.class, null);
+            ((DepartUpdateFragment) loginFragment.getmDepartModule()).setmListDepart(listDepart);
+
+
             //fill listDepart shared pref
             fillDataSharePref();
         } catch (Exception e) {
             e.printStackTrace();
-
-
-            try {
-                super.showSnackBar(Common.MESSAGE.ex04.getContent(), e.getMessage(), null);
-            } catch (Exception e1) {
-                e1.printStackTrace();
-                Toast.makeText(this, e1.getMessage(), Toast.LENGTH_SHORT).show();
-            }
+            super.showSnackBar(Common.MESSAGE.ex04.getContent(), e.getMessage(), null);
         }
     }
 
@@ -163,8 +154,11 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
 
     //region LoginInteface
     @Override
-    public void openMainView() {
-        startActivity(new Intent(TthtHnLoginActivity.this, TthtHnMainActivity.class));
+    public void openMainView(LoginFragment.LoginData mLoginData) {
+        Bundle bundle = new Bundle();
+        LoginFragment.LoginData loginData = loginFragment.getmLoginData();
+        bundle.putParcelable(BUNDLE_LOGIN, loginData);
+        startActivity(new Intent(TthtHnLoginActivity.this, TthtHnMainActivity.class).putExtras(bundle));
     }
 
     @Override
@@ -174,7 +168,8 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         Common.setURLServer(loginFragment.getmLoginViewEntity().getEtURL().getText().toString());
         apiInterface = TthtHnApi.getClient().create(TthtHnApiInterface.class);
         List<TABLE_DVIQLY> dataMTB = new ArrayList<>();
-        List<D_DVIQLYModel> dataServer = new ArrayList<>();;
+        List<D_DVIQLYModel> dataServer = new ArrayList<>();
+        ;
 
         //call server
         Call<List<D_DVIQLYModel>> dviqlyModelCall = apiInterface.Get_d_dviqly();
@@ -189,7 +184,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
 
 
                 //convert list data server to data mtb
-                for (D_DVIQLYModel dviSever: dataServer) {
+                for (D_DVIQLYModel dviSever : dataServer) {
                     TABLE_DVIQLY dviMTB = new TABLE_DVIQLY(0, dviSever.MA_DVIQLY, dviSever.TEN_DVIQLY);
                     dataMTB.add(dviMTB);
                 }
@@ -203,11 +198,13 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
     }
 
     @Override
-    public boolean checkServerLogin(LoginFragment.LoginSharePrefData data) throws Exception {
+    public boolean checkServerLogin(LoginFragment.LoginData data) throws Exception {
         //cài đặt đường dẫn máy chủ
         //create api server
+        //get list depart
         Common.setURLServer(loginFragment.getmLoginViewEntity().getEtURL().getText().toString());
         apiInterface = TthtHnApi.getClient().create(TthtHnApiInterface.class);
+        listDepart = ((DepartUpdateFragment) loginFragment.getmDepartModule()).getmListDepart();
 
         //gọi server với imei
         String imei = Common.getImei(this);
@@ -251,27 +248,27 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
     }
 
     @Override
-    public void saveDataSharePref(LoginFragment.LoginSharePrefData loginSharePrefData) throws Exception {
+    public void saveDataSharePref(LoginFragment.LoginData loginData) throws Exception {
         //convert data save of login fragment to data save of Login activity
-        dataLoginSharePref = new LoginSharePref(loginSharePrefData.getmURL(), loginSharePrefData.getmPosDvi(), loginSharePrefData.getmUser(), loginSharePrefData.getmPass(), loginSharePrefData.ismIsSaveInfo());
+        dataLoginSharePref = new LoginSharePref(loginData.getmURL(), loginData.getmPosDvi(), loginData.getmMaDvi(), loginData.getmUser(), loginData.getmPass(), loginData.ismIsSaveInfo());
         mPrefManager.writeDataSharePref(LoginSharePref.class, dataLoginSharePref);
     }
 
     @Override
-    public LoginFragment.LoginSharePrefData getDataLoginSharedPref() throws Exception {
+    public LoginFragment.LoginData getDataLoginSharedPref() throws Exception {
         //get data shared pref now
         dataLoginSharePref = (LoginSharePref) mPrefManager.getSharePrefObject(LoginSharePref.class);
 
 
         //convert data save of login activity to data save of Login fragment
-        LoginFragment.LoginSharePrefData loginSharePrefData = new LoginFragment.LoginSharePrefData
+        LoginFragment.LoginData loginData = new LoginFragment.LoginData
                 .Builder(dataLoginSharePref.ip, dataLoginSharePref.user, dataLoginSharePref.pass)
-                .setmPosDvi(dataLoginSharePref.posSpinDvi)
+                .setmDvi(dataLoginSharePref.posSpinDvi, dataLoginSharePref.maDvi)
                 .setmIsSaveInfo(dataLoginSharePref.isCheckSave)
                 .build();
 
 
-        return loginSharePrefData;
+        return loginData;
     }
     //endregion
 
@@ -290,7 +287,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         //create database
         SqlHelper.setupDB(
                 TthtHnLoginActivity.this,
-                TthtHnDbConfig.class,
+                TTHT_HN_DB_CONFIG.class,
                 new Class[]{
                         TABLE_ANH_HIENTRUONG.class,
                         TABLE_BBAN_CTO.class,
@@ -310,10 +307,6 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         mSqlDAO = new SqlDAO(SqlHelper.getIntance().openDB(), this);
 
 
-        //try reload because lib reload is not working
-        Toast.makeText(this, SqlHelper.getDatabasePath(), Toast.LENGTH_SHORT).show();
-
-
         //create shared pref
         ArrayList<Class<?>> setClassSharedPrefConfig = new ArrayList<Class<?>>();
         setClassSharedPrefConfig.add(LoginSharePref.class);
@@ -321,15 +314,15 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
 
 
         //dump data test
-        listDepart = new ArrayList<>();
-        listDepart.add(new TABLE_DVIQLY(1, "PD", "Tổng công ty Điện Lực Hà Nội"));
-        listDepart.add(new TABLE_DVIQLY(2, "PD0100", "Điện lực Hoàn Kiếm"));
+//        listDepart = new ArrayList<>();
+//        listDepart.add(new TABLE_DVIQLY(1, "PD", "Tổng công ty Điện Lực Hà Nội"));
+//        listDepart.add(new TABLE_DVIQLY(2, "PD0100", "Điện lực Hoàn Kiếm"));
 
 
         LoginFragment.ILoginOffline loginOfflineModeConfig = new LoginFragment.ILoginOffline() {
 
             @Override
-            public boolean checkSessionLogin(LoginFragment.LoginSharePrefData loginData) throws Exception {
+            public boolean checkSessionLogin(LoginFragment.LoginData loginData) throws Exception {
                 //create data check
                 TABLE_SESSION dataCheck = new TABLE_SESSION();
                 dataCheck.setMA_DVIQLY(listDepart.get(loginData.getmPosDvi()).getMA_DVIQLY());
@@ -342,7 +335,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
             }
 
             @Override
-            public void saveSessionLogin(LoginFragment.LoginSharePrefData dataLoginSession) throws Exception {
+            public void saveSessionDatabaseLogin(LoginFragment.LoginData dataLoginSession) throws Exception {
                 TABLE_SESSION dataCheck = new TABLE_SESSION();
                 dataCheck.setMA_DVIQLY(listDepart.get(dataLoginSession.getmPosDvi()).getMA_DVIQLY());
                 dataCheck.setUSERNAME(dataLoginSession.getmUser());
@@ -381,6 +374,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         loginFragment = LoginFragment.newInstance(null)
                 .setmLoginViewEntity(loginViewEntity)
                 .setmDepartModule(departmentModule)
+                .setmILoginOffline(loginOfflineModeConfig)
                 .setmTitleAppName("TREO THÁO HIỆN TRƯỜNG \nHÀ NỘI")
 //                    .setmIconLogin(R.mipmap.ic_home, (int) getResources().getDimension(R.dimen._50sdp), (int) getResources().getDimension(R.dimen._50sdp))
                 .setmColorBackground(R.color.colorPrimary)

@@ -6,8 +6,8 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -17,7 +17,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,8 +33,6 @@ import com.esolutions.esloginlib.R;
 import com.esolutions.esloginlib.common.Common;
 
 import java.util.List;
-
-import static android.content.ContentValues.TAG;
 
 public class LoginFragment extends Fragment {
     private Bundle bundle;
@@ -68,6 +65,8 @@ public class LoginFragment extends Fragment {
     private TextView mTvVersion;
     private TextView mTvImei;
     private ImageButton mIbtnVisibePass;
+    private LoginData mLoginData;
+    private String mDepart;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -110,21 +109,21 @@ public class LoginFragment extends Fragment {
     public void onResume() {
         super.onResume();
         try {
-            //fill data depart spin
+            //fill data mDepart spin
             if (mDepartModule != null) {
                 mDepartModule.setmListDepart(mLoginInteface.selectDBDepart());
             }
 
             if (mLoginSharedPref != null) {
-                LoginSharePrefData loginSharePrefData = mLoginInteface.getDataLoginSharedPref();
+                mLoginData = mLoginInteface.getDataLoginSharedPref();
 
-                mURL = loginSharePrefData.getmURL();
-                mPosDvi = loginSharePrefData.getmPosDvi();
-                mUser = loginSharePrefData.getmUser();
-                mIsSaveInfo = loginSharePrefData.ismIsSaveInfo();
+                mURL = mLoginData.getmURL();
+                mPosDvi = mLoginData.getmPosDvi();
+                mUser = mLoginData.getmUser();
+                mIsSaveInfo = mLoginData.ismIsSaveInfo();
 
                 //decrypt pass if has mode encrypt pass
-                mPass = loginSharePrefData.getmPass();
+                mPass = mLoginData.getmPass();
                 if (mICryptPass != null) {
                     mPass = mICryptPass.decyptPass(mPass);
                 }
@@ -139,12 +138,7 @@ public class LoginFragment extends Fragment {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            try {
-                showSnackBar("Lỗi hiển thị ", e.getMessage(), null);
-            } catch (Exception e1) {
-                e1.printStackTrace();
-                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
+            showSnackBar("Lỗi hiển thị ", e.getMessage(), null);
         }
     }
 
@@ -159,16 +153,12 @@ public class LoginFragment extends Fragment {
             else
                 viewRoot = inflater.inflate(R.layout.fragment_login, container, false);
 
+
             initView(viewRoot);
             setAction(savedInstanceState);
         } catch (Exception e) {
             e.printStackTrace();
-            try {
-                showSnackBar("Lỗi hiển thị", e.getMessage(), null);
-            } catch (Exception e1) {
-                e1.printStackTrace();
-                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
+            showSnackBar("Lỗi hiển thị", e.getMessage(), null);
         }
         return viewRoot;
     }
@@ -178,38 +168,67 @@ public class LoginFragment extends Fragment {
             mDepartModule.getViewEntity().getIbtnDownloadDvi().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                //check url
-                                mURL = mEtURL.getText().toString();
-                                if (TextUtils.isEmpty(mURL))
-                                    throw new RuntimeException("Không để trống đường dẫn máy chủ");
-
-
-                                //call server
-                                final List<?> dataMTB = mLoginInteface.callServerDepart();
+                    try {
+                        mDepartModule.getViewEntity().getViewLayout().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    //show progressbar
+                                    mDepartModule.getViewEntity().getIbtnDownloadDvi().setVisibility(View.GONE);
+                                    mDepartModule.getViewEntity().getPbarDownloadDvi().setVisibility(View.VISIBLE);
 
 
-                                //set data and save data
-                                //show depart spin
-                                mDepartModule.getViewEntity().getViewLayout().post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        try {
-                                            mDepartModule.setmListDepart(dataMTB);
+                                    //check url
+                                    mURL = mEtURL.getText().toString();
+                                    if (TextUtils.isEmpty(mURL))
+                                        throw new RuntimeException("Không để trống đường dẫn máy chủ");
 
-                                            //and save data
-                                            if (!mDepartModule.getmListDepart().isEmpty())
-                                                mLoginInteface.saveDBDepart(mDepartModule.getmListDepart());
 
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        } finally {
-                                            //hide progressbar
+                                    //call server
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
                                             try {
+                                                final List<?> dataMTB = mLoginInteface.callServerDepart();
+
+
+                                                mLoginViewEntity.getViewLayout().post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        //set data and save data
+                                                        //show mDepart spin
+                                                        try {
+                                                            mDepartModule.setmListDepart(dataMTB);
+
+
+                                                            //and save data
+                                                            if (!mDepartModule.getmListDepart().isEmpty())
+                                                                mLoginInteface.saveDBDepart(mDepartModule.getmListDepart());
+                                                        } catch (Exception e) {
+                                                            e.printStackTrace();
+                                                        } finally {
+                                                            //hide progressbar
+                                                            mDepartModule.getViewEntity().getViewLayout().post(new Runnable() {
+                                                                @Override
+                                                                public void run() {
+                                                                    try {
+                                                                        mDepartModule.getViewEntity().getIbtnDownloadDvi().setVisibility(View.VISIBLE);
+                                                                        mDepartModule.getViewEntity().getPbarDownloadDvi().setVisibility(View.GONE);
+                                                                    } catch (Exception e) {
+                                                                        e.printStackTrace();
+                                                                        showSnackBar("Lỗi hiển thị", e.getMessage(), null);
+                                                                    }
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+                                                });
+
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+
+
+                                                //hide progressbar
                                                 mDepartModule.getViewEntity().getViewLayout().post(new Runnable() {
                                                     @Override
                                                     public void run() {
@@ -218,40 +237,42 @@ public class LoginFragment extends Fragment {
                                                             mDepartModule.getViewEntity().getPbarDownloadDvi().setVisibility(View.GONE);
                                                         } catch (Exception e) {
                                                             e.printStackTrace();
-                                                            try {
-                                                                showSnackBar("Lỗi hiển thị", e.getMessage(), null);
-                                                            } catch (Exception e1) {
-                                                                e1.printStackTrace();
-                                                                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                                                            }
+                                                            showSnackBar("Lỗi hiển thị", e.getMessage(), null);
                                                         }
                                                     }
                                                 });
-                                            } catch (Exception e) {
-                                                try {
-                                                    showSnackBar("Lỗi hiển thị", e.getMessage(), null);
-                                                } catch (Exception e1) {
-                                                    e1.printStackTrace();
-                                                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                                                }
+
+                                                showSnackBar("Lỗi hiển thị", e.getMessage(), null);
                                             }
                                         }
-                                    }
-                                });
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                try {
-                                    showSnackBar("Lỗi hiển thị", e.getMessage(), null);
-                                } catch (Exception e1) {
-                                    e1.printStackTrace();
-                                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }).start();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                } finally {
+                                    //hide progressbar
+                                    mDepartModule.getViewEntity().getViewLayout().post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                mDepartModule.getViewEntity().getIbtnDownloadDvi().setVisibility(View.VISIBLE);
+                                                mDepartModule.getViewEntity().getPbarDownloadDvi().setVisibility(View.GONE);
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                                showSnackBar("Lỗi hiển thị", e.getMessage(), null);
+                                            }
+                                        }
+                                    });
                                 }
                             }
-                        }
-                    }).start();
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        showSnackBar("Lỗi hiển thị", e.getMessage(), null);
+                    }
                 }
             });
         }
+
         mIbtnVisibePass.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
 
@@ -270,159 +291,252 @@ public class LoginFragment extends Fragment {
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    //declare var
-                    String depart = "";
-                    mURL = mEtURL.getText().toString().trim();
-                    mUser = mEtUser.getText().toString().trim();
-                    mPass = mEtPass.getText().toString().trim();
-                    final LoginSharePrefData data = new LoginSharePrefData(mURL, mPosDvi, mUser, mPass, mIsSaveInfo);
+//                try {
+                mLoginViewEntity.getViewLayout().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            //declare var
+                            //set data
+                            mURL = mEtURL.getText().toString();
+                            if (mDepartModule != null)
+                                mPosDvi = mDepartModule.getViewEntity().getSpDvi().getSelectedItemPosition();
+                            mUser = mEtUser.getText().toString();
+                            mPass = mEtPass.getText().toString();
+                            mIsSaveInfo = mCbSaveInfo.isChecked();
 
 
-                    //disable all view in login
-                    if (mDepartModule != null && mDepartModule.isShowModule()) {
-                        mDepartModule.getViewEntity().getSpDvi().setEnabled(false);
-                        mDepartModule.getViewEntity().getIbtnDownloadDvi().setEnabled(false);
-                    }
-                    mEtUser.setEnabled(false);
-                    mEtPass.setEnabled(false);
-                    mCbSaveInfo.setEnabled(false);
+                            //disable all view in login
+                            if (mDepartModule != null && mDepartModule.isShowModule()) {
+                                mDepartModule.getViewEntity().getSpDvi().setEnabled(false);
+                                mDepartModule.getViewEntity().getIbtnDownloadDvi().setEnabled(false);
+                            }
+                            mEtUser.setEnabled(false);
+                            mEtPass.setEnabled(false);
+                            mCbSaveInfo.setEnabled(false);
 
 
-                    //check connect internet
-                    if (mILoginOffline != null) {
-                        if (!Common.isNetworkConnected(getContext()))
-                            throw new Exception("Chưa có kết nối internet, vui lòng kiểm tra lại!");
-                    }
+                            //check connect internet
+                            if (mILoginOffline != null) {
+                                if (!Common.isNetworkConnected(getContext()))
+                                    throw new Exception("Chưa có kết nối internet, vui lòng kiểm tra lại!");
+                            }
 
 
-                    //check validate
-                    if (mDepartModule != null && mDepartModule.isShowModule()) {
-                        if (mDepartModule.getmListDepart().size() != 0)
-                            depart = mDepartModule.getmListDepart().get(mDepartModule.getViewEntity().getSpDvi().getSelectedItemPosition()).toString();
+                            //check validate
+                            if (mDepartModule != null && mDepartModule.isShowModule()) {
+                                if (mDepartModule.getmListDepart().size() != 0)
+                                    mDepart = mDepartModule.getmListDepart().get(mDepartModule.getViewEntity().getSpDvi().getSelectedItemPosition()).toString();
 
 
-                        if (TextUtils.isEmpty(depart))
-                            throw new Exception("Vui lòng chọn đơn vị");
-                    }
+                                if (TextUtils.isEmpty(mDepart))
+                                    throw new Exception("Vui lòng chọn đơn vị");
+                            }
 
-                    if (TextUtils.isEmpty(mURL)) {
-                        mEtUser.setEnabled(true);
-                        mEtUser.requestFocus();
-                        throw new Exception("Không để trống đường dẫn máy chủ");
-                    }
+                            if (TextUtils.isEmpty(mURL)) {
+                                mEtUser.setEnabled(true);
+                                mEtUser.requestFocus();
+                                throw new Exception("Không để trống đường dẫn máy chủ");
+                            }
 
-                    if (TextUtils.isEmpty(mUser)) {
-                        mEtUser.setEnabled(true);
-                        mEtUser.requestFocus();
-                        throw new Exception("Không để trống tài khoản");
-                    }
+                            if (TextUtils.isEmpty(mUser)) {
+                                mEtUser.setEnabled(true);
+                                mEtUser.requestFocus();
+                                throw new Exception("Không để trống tài khoản");
+                            }
 
-                    if (TextUtils.isEmpty(mPass)) {
-                        mEtPass.setEnabled(true);
-                        mEtPass.requestFocus();
-                        throw new Exception("Không để trống mật khẩu");
-                    }
-
-
-                    //call server
-                    final boolean resultCheckServerLogin = mLoginInteface.checkServerLogin(data);
+                            if (TextUtils.isEmpty(mPass)) {
+                                mEtPass.setEnabled(true);
+                                mEtPass.requestFocus();
+                                throw new Exception("Không để trống mật khẩu");
+                            }
 
 
-                    //check login offline,
-                    // nếu có mode login thì lấy kết quả seesion, ngược lại bỏ qua phần này resultCheckSessionLogin = true;
-                    boolean resultCheckSessionLogin = true;
-                    if (mILoginOffline != null) {
-                        resultCheckSessionLogin = mILoginOffline.checkSessionLogin(data);
-                    }
+                            //set Data
+                            LoginData dataNeedCheckLogin = new LoginData.Builder(mURL, mUser, mPass).setmIsSaveInfo(mIsSaveInfo).setmDvi(mPosDvi, mDepart).build();
+                            mLoginData = dataNeedCheckLogin;
 
 
-                    //save share pref
-                    if (mCbSaveInfo.isChecked()) {
-                        mURL = (mCbSaveInfo.isChecked()) ? mEtURL.getText().toString() : "";
-                        if (mDepartModule != null)
-                            mPosDvi = (mCbSaveInfo.isChecked()) ? mDepartModule.getViewEntity().getSpDvi().getSelectedItemPosition() : 0;
-                        mUser = (mCbSaveInfo.isChecked()) ? mEtUser.getText().toString() : "";
-                        mPass = (mCbSaveInfo.isChecked()) ? mEtPass.getText().toString() : "";
-                        mIsSaveInfo = mCbSaveInfo.isChecked();
-
-                        //encrypt pass if return empty when not has requirement encrypt pass
-                        if (mICryptPass != null)
-                            mPass = mICryptPass.encryptPass(mPass);
-
-                        LoginSharePrefData loginSharePrefData = new LoginSharePrefData
-                                .Builder(mURL, mUser, mPass)
-                                .setmPosDvi(mPosDvi)
-                                .setmIsSaveInfo(mIsSaveInfo)
-                                .build();
-
-                        mLoginInteface.saveDataSharePref(loginSharePrefData);
-                    }
+                            //show progress bar
+                            mLoginViewEntity.getBtnLogin().setVisibility(View.GONE);
+                            mLoginViewEntity.getPbarLogin().setVisibility(View.VISIBLE);
 
 
-                    //login offline
-                    //Hiển thị message thông báo nếu đang chế độ ofline trong 3s sau đó sẽ gọi main
-                    if (resultCheckServerLogin == false) {
-                        final boolean finalResultCheckSessionLogin = resultCheckSessionLogin;
-
-                        if (resultCheckSessionLogin == true) {
-
-                            ISnackbarIteractions snackbarIteractions = new ISnackbarIteractions() {
+                            //call server
+                            new Thread(new Runnable() {
                                 @Override
-                                public void doIfPressOK() {
+                                public void run() {
                                     try {
-                                        //save session
-                                        mILoginOffline.saveSessionLogin(data);
+                                        final boolean resultCheckServerLogin = mLoginInteface.checkServerLogin(mLoginData);
 
 
-                                        //open main
-                                        if (resultCheckServerLogin || finalResultCheckSessionLogin)
-                                            mLoginInteface.openMainView();
-
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                        try {
-                                            showSnackBar("Lỗi đăng nhập", e.getMessage(), null);
-                                        } catch (Exception e1) {
-                                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        //check login offline,
+                                        // nếu có mode login thì lấy kết quả seesion, ngược lại bỏ qua phần này resultCheckSessionLogin = true;
+                                        boolean resultCheckSessionLogin = true;
+                                        if (mILoginOffline != null) {
+                                            resultCheckSessionLogin = mILoginOffline.checkSessionLogin(mLoginData);
                                         }
 
+
+                                        //login offline
+                                        //Hiển thị message thông báo nếu đang chế độ ofline gọi main
+                                        if (!resultCheckServerLogin) {
+                                            if (resultCheckSessionLogin) {
+                                                ISnackbarIteractions snackbarIteractions = new ISnackbarIteractions() {
+                                                    @Override
+                                                    public void doIfPressOK() {
+                                                        try {
+                                                            //process login
+                                                            processLogin();
+                                                        } catch (Exception e) {
+                                                            mLoginViewEntity.getViewLayout().post(new Runnable() {
+                                                                @Override
+                                                                public void run() {
+                                                                    try {
+                                                                        //enable again all view in login
+                                                                        if (mDepartModule != null) {
+                                                                            mEtUser.setEnabled(true);
+                                                                            mEtPass.setEnabled(true);
+                                                                            mCbSaveInfo.setEnabled(true);
+
+
+                                                                            mDepartModule.getViewEntity().getSpDvi().setEnabled(true);
+                                                                            mDepartModule.getViewEntity().getIbtnDownloadDvi().setEnabled(true);
+
+
+                                                                            //hide progressbar
+                                                                            mLoginViewEntity.getBtnLogin().setVisibility(View.VISIBLE);
+                                                                            mLoginViewEntity.getPbarLogin().setVisibility(View.GONE);
+
+                                                                        }
+                                                                    } catch (Exception e) {
+                                                                        e.printStackTrace();
+                                                                        showSnackBar("Lỗi đăng nhập", e.getMessage(), null);
+                                                                    }
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+                                                };
+                                                showSnackBar("Thông báo", "Đăng nhập chế độ offline!", snackbarIteractions);
+                                            } else {
+                                                showSnackBar("Thông báo", "Đăng nhập thất bại. Yêu cầu có kết nối mạng!", null);
+                                            }
+                                        } else {
+                                            //open main
+                                            //login online
+                                            //set data login
+                                            processLogin();
+                                        }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                        showSnackBar("Lỗi đăng nhập", e.getMessage(), null);
+                                    } finally {
+                                        mLoginViewEntity.getViewLayout().post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                try {
+                                                    //enable again all view in login
+                                                    if (mDepartModule != null) {
+                                                        mEtUser.setEnabled(true);
+                                                        mEtPass.setEnabled(true);
+                                                        mCbSaveInfo.setEnabled(true);
+
+
+                                                        mDepartModule.getViewEntity().getSpDvi().setEnabled(true);
+                                                        mDepartModule.getViewEntity().getIbtnDownloadDvi().setEnabled(true);
+
+
+                                                        //hide progressbar
+                                                        mLoginViewEntity.getBtnLogin().setVisibility(View.VISIBLE);
+                                                        mLoginViewEntity.getPbarLogin().setVisibility(View.GONE);
+
+                                                    }
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
+                                                    showSnackBar("Lỗi đăng nhập", e.getMessage(), null);
+                                                }
+                                            }
+                                        });
                                     }
                                 }
-                            };
-                            showSnackBar("Thông báo", "Đăng nhập chế độ offline!", snackbarIteractions);
-                        } else {
-                            showSnackBar("Thông báo", "Đăng nhập thất bại. Yêu cầu có kết nối mạng!", null);
-                        }
-                    } else {
-                        //open main
-                        //login online
-                        mLoginInteface.openMainView();
-                    }
-                } catch (Exception e) {
-                    try {
-                        showSnackBar("Lỗi đăng nhập", e.getMessage(), null);
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                } finally {
-                    //enable again all view in login
-                    if (mDepartModule != null) {
-                        mEtUser.setEnabled(true);
-                        mEtPass.setEnabled(true);
-                        mCbSaveInfo.setEnabled(true);
-
-                        try {
-                            mDepartModule.getViewEntity().getSpDvi().setEnabled(true);
-                            mDepartModule.getViewEntity().getIbtnDownloadDvi().setEnabled(true);
+                            }).start();
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            //enable again all view in login
+                            if (mDepartModule != null) {
+                                mEtUser.setEnabled(true);
+                                mEtPass.setEnabled(true);
+                                mCbSaveInfo.setEnabled(true);
+
+                                try {
+                                    mDepartModule.getViewEntity().getSpDvi().setEnabled(true);
+                                    mDepartModule.getViewEntity().getIbtnDownloadDvi().setEnabled(true);
+
+
+                                    //hide progressbar
+                                    mLoginViewEntity.getBtnLogin().setVisibility(View.VISIBLE);
+                                    mLoginViewEntity.getPbarLogin().setVisibility(View.GONE);
+                                } catch (Exception e1) {
+                                    e1.printStackTrace();
+                                    showSnackBar("Lỗi đăng nhập", e.getMessage(), null);
+                                }
+                            }
                         }
                     }
-                }
+                });
+
+
+//                }
+//                catch (Exception e) {
+//                    try {
+//                        showSnackBar("Lỗi đăng nhập", e.getMessage(), null);
+//                    } catch (Exception e1) {
+//                        e1.printStackTrace();
+//                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                } finally {
+//                    //enable again all view in login
+//                    if (mDepartModule != null) {
+//                        mEtUser.setEnabled(true);
+//                        mEtPass.setEnabled(true);
+//                        mCbSaveInfo.setEnabled(true);
+//
+//                        try {
+//                            mDepartModule.getViewEntity().getSpDvi().setEnabled(true);
+//                            mDepartModule.getViewEntity().getIbtnDownloadDvi().setEnabled(true);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
             }
         });
+    }
+
+    private void processLogin() throws Exception {
+        //encrypt pass if return empty when not has requirement encrypt pass
+        if (mICryptPass != null)
+            mPass = mICryptPass.encryptPass(mPass);
+        LoginData loginDataAfterEncryptPass = new LoginData
+                .Builder(mURL, mUser, mPass)
+                .setmDvi(mPosDvi, mDepart)
+                .setmIsSaveInfo(mIsSaveInfo)
+                .build();
+
+
+        //set data
+        mLoginData = loginDataAfterEncryptPass;
+
+
+        //save  data
+        if (mCbSaveInfo.isChecked()) {
+            mLoginInteface.saveDataSharePref(mLoginData);
+        }
+        mILoginOffline.saveSessionDatabaseLogin(mLoginData);
+
+
+        //open main
+        mLoginInteface.openMainView(mLoginData);
     }
 
     private void initView(final View viewRoot) throws Exception {
@@ -553,70 +667,75 @@ public class LoginFragment extends Fragment {
         return this;
     }
 
-    protected void showSnackBar(String message, @Nullable String content, @Nullable final ISnackbarIteractions actionOK) throws Exception {
-        //check
-        if (mCoordinatorLayout == null)
-            throw new RuntimeException("Be must set view CoordinatorLayout!");
+    protected void showSnackBar(String message, @Nullable String content, @Nullable final ISnackbarIteractions actionOK) {
+        try {
+            //check
+            if (mCoordinatorLayout == null)
+                throw new RuntimeException("Be must set view CoordinatorLayout!");
 
 
-        snackbar = Snackbar
-                .make(mCoordinatorLayout, message, Snackbar.LENGTH_INDEFINITE)
-                .setActionTextColor(Color.WHITE)
-                .setAction("OK", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+            snackbar = Snackbar
+                    .make(mCoordinatorLayout, message, Snackbar.LENGTH_INDEFINITE)
+                    .setActionTextColor(Color.WHITE)
+                    .setAction("OK", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            snackbar.dismiss();
+                        }
+                    });
+
+
+            // Hide the text and set width full screen
+            Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+            (snackbar.getView()).getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+            ((TextView) layout.findViewById(android.support.design.R.id.snackbar_text)).setVisibility(View.INVISIBLE);
+            ((Button) layout.findViewById(android.support.design.R.id.snackbar_action)).setVisibility(View.INVISIBLE);
+
+
+            // Inflate our custom view
+            View snackView = this.getLayoutInflater().inflate(R.layout.snackbar_custom, null);
+            TextView tvMessage = (TextView) snackView.findViewById(R.id.tv_snackbar_message);
+            Button btnOk = (Button) snackView.findViewById(R.id.btn_snackbar_ok);
+            Button btnContent = (Button) snackView.findViewById(R.id.btn_snackbar_content);
+            final EditText etContent = (EditText) snackView.findViewById(R.id.et_snackbar_content);
+
+
+            //set value
+            etContent.setVisibility(View.GONE);
+            tvMessage.setText(message);
+            if (content == null) content = "";
+            etContent.setText(content);
+
+
+            //catch action
+            btnContent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (etContent.getVisibility() == View.GONE)
+                        etContent.setVisibility(View.VISIBLE);
+                    else
+                        etContent.setVisibility(View.GONE);
+                }
+            });
+
+            btnOk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (actionOK != null)
+                        actionOK.doIfPressOK();
+                    else
                         snackbar.dismiss();
-                    }
-                });
+                }
+            });
 
 
-        // Hide the text and set width full screen
-        Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
-        (snackbar.getView()).getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
-        ((TextView) layout.findViewById(android.support.design.R.id.snackbar_text)).setVisibility(View.INVISIBLE);
-        ((Button) layout.findViewById(android.support.design.R.id.snackbar_action)).setVisibility(View.INVISIBLE);
-
-
-        // Inflate our custom view
-        View snackView = this.getLayoutInflater().inflate(R.layout.snackbar_custom, null);
-        TextView tvMessage = (TextView) snackView.findViewById(R.id.tv_snackbar_message);
-        Button btnOk = (Button) snackView.findViewById(R.id.btn_snackbar_ok);
-        Button btnContent = (Button) snackView.findViewById(R.id.btn_snackbar_content);
-        final EditText etContent = (EditText) snackView.findViewById(R.id.et_snackbar_content);
-
-
-        //set value
-        etContent.setVisibility(View.GONE);
-        tvMessage.setText(message);
-        if (content == null) content = "";
-        etContent.setText(content);
-
-
-        //catch action
-        btnContent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (etContent.getVisibility() == View.GONE)
-                    etContent.setVisibility(View.VISIBLE);
-                else
-                    etContent.setVisibility(View.GONE);
-            }
-        });
-
-        btnOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (actionOK != null)
-                    actionOK.doIfPressOK();
-                else
-                    snackbar.dismiss();
-            }
-        });
-
-
-        // Add the view to the Snackbar's layout and show
-        layout.addView(snackView, 0);
-        snackbar.show();
+            // Add the view to the Snackbar's layout and show
+            layout.addView(snackView, 0);
+            snackbar.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public SharedPreferences getmLoginSharedPref() {
@@ -643,29 +762,66 @@ public class LoginFragment extends Fragment {
     }
 
 
+    public LoginData getmLoginData() {
+        return mLoginData;
+    }
+
     public interface ICryptPass {
         String encryptPass(String mPass);
 
         String decyptPass(String mPass);
     }
 
-    public static class LoginSharePrefData {
+    public static class LoginData implements Parcelable {
         private final String mURL;
         private int mPosDvi;
+        private String mMaDvi;
         private final String mUser;
         private final String mPass;
         private boolean mIsSaveInfo;
+        private String mMaNVien;
 
-        private LoginSharePrefData(String mURL, int mPosDvi, String mUser, String mPass, boolean mIsSaveInfo) {
-            this.mURL = mURL;
-            this.mPosDvi = mPosDvi;
-            this.mUser = mUser;
-            this.mPass = mPass;
-            this.mIsSaveInfo = mIsSaveInfo;
+        private LoginData(Builder builder) {
+            this.mURL = builder.mURL;
+            this.mPosDvi = builder.mPosDvi;
+            this.mMaDvi = builder.mMaDvi;
+            this.mUser = builder.mUser;
+            this.mPass = builder.mPass;
+            this.mIsSaveInfo = builder.mIsSaveInfo;
+        }
+
+        protected LoginData(Parcel in) {
+            mURL = in.readString();
+            mPosDvi = in.readInt();
+            mMaDvi = in.readString();
+            mUser = in.readString();
+            mPass = in.readString();
+            mIsSaveInfo = in.readByte() != 0;
+            mMaNVien = in.readString();
+        }
+
+        public static final Creator<LoginData> CREATOR = new Creator<LoginData>() {
+            @Override
+            public LoginData createFromParcel(Parcel in) {
+                return new LoginData(in);
+            }
+
+            @Override
+            public LoginData[] newArray(int size) {
+                return new LoginData[size];
+            }
+        };
+
+        public String getmMaNVien() {
+            return mMaNVien;
         }
 
         public String getmURL() {
             return mURL;
+        }
+
+        public String getmMaDvi() {
+            return mMaDvi;
         }
 
         public int getmPosDvi() {
@@ -684,12 +840,30 @@ public class LoginFragment extends Fragment {
             return mIsSaveInfo;
         }
 
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeString(mURL);
+            parcel.writeInt(mPosDvi);
+            parcel.writeString(mMaDvi);
+            parcel.writeString(mUser);
+            parcel.writeString(mPass);
+            parcel.writeByte((byte) (mIsSaveInfo ? 1 : 0));
+            parcel.writeString(mMaNVien);
+        }
+
         public static class Builder {
             private final String mURL;
             private int mPosDvi;
+            private String mMaDvi;
             private final String mUser;
             private final String mPass;
             private boolean mIsSaveInfo;
+            private String mMaNVien;
 
             public Builder(String mURL, String mUser, String mPass) {
                 this.mURL = mURL;
@@ -697,8 +871,9 @@ public class LoginFragment extends Fragment {
                 this.mPass = mPass;
             }
 
-            public Builder setmPosDvi(int mPosDvi) {
+            public Builder setmDvi(int mPosDvi, String mMaDvi) {
                 this.mPosDvi = mPosDvi;
+                this.mMaDvi = mMaDvi;
                 return this;
             }
 
@@ -707,8 +882,13 @@ public class LoginFragment extends Fragment {
                 return this;
             }
 
-            public LoginSharePrefData build() {
-                return new LoginSharePrefData(mURL, mPosDvi, mUser, mPass, mIsSaveInfo);
+            public Builder setmMaNVien(String mMaNVien) {
+                this.mMaNVien = mMaNVien;
+                return this;
+            }
+
+            public LoginData build() {
+                return new LoginData(this);
             }
         }
 
@@ -720,9 +900,9 @@ public class LoginFragment extends Fragment {
 
 
     public abstract static interface ILoginOffline {
-        public abstract boolean checkSessionLogin(LoginSharePrefData loginData) throws Exception;
+        public abstract boolean checkSessionLogin(LoginData loginData) throws Exception;
 
-        public abstract void saveSessionLogin(LoginSharePrefData dataLoginSession) throws Exception;
+        public abstract void saveSessionDatabaseLogin(LoginData dataLoginSession) throws Exception;
     }
 
 }

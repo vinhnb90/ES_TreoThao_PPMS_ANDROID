@@ -72,12 +72,12 @@ public class LoginActivity extends AppCompatActivity implements LoginInteface<De
             //set up mode login offline
             LoginFragment.ILoginOffline loginOfflineModeConfig = new LoginFragment.ILoginOffline() {
                 @Override
-                public boolean checkSessionLogin(LoginFragment.LoginSharePrefData loginData) throws Exception {
+                public boolean checkSessionLogin(LoginFragment.LoginData loginData) throws Exception {
                     return false;
                 }
 
                 @Override
-                public void saveSessionLogin(LoginFragment.LoginSharePrefData dataLoginSession) {
+                public void saveSessionDatabaseLogin(LoginFragment.LoginData dataLoginSession) {
 
                 }
             };
@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity implements LoginInteface<De
     }
 
     @Override
-    public void openMainView() {
+    public void openMainView(LoginFragment.LoginData mLoginData) {
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
     }
 
@@ -111,7 +111,7 @@ public class LoginActivity extends AppCompatActivity implements LoginInteface<De
     }
 
     @Override
-    public boolean checkServerLogin(LoginFragment.LoginSharePrefData loginSharePrefData) {
+    public boolean checkServerLogin(LoginFragment.LoginData loginData) {
         return true;
     }
 
@@ -126,20 +126,20 @@ public class LoginActivity extends AppCompatActivity implements LoginInteface<De
     }
 
     @Override
-    public void saveDataSharePref(LoginFragment.LoginSharePrefData loginSharePrefData) throws Exception {
+    public void saveDataSharePref(LoginFragment.LoginData loginData) throws Exception {
         mPrefManager.getSharePref(PREF_CONFIG, MODE_PRIVATE)
                 .edit()
-                .putString(KEY_PREF_SERVER_URL, loginSharePrefData.getmURL())
-                .putInt(KEY_PREF_POS_DVI, loginSharePrefData.getmPosDvi())
-                .putString(KEY_PREF_USER, loginSharePrefData.getmUser())
-                .putString(KEY_PREF_PASS, loginSharePrefData.getmPass())
-                .putBoolean(KEY_PREF_CB_SAVE, loginSharePrefData.ismIsSaveInfo())
+                .putString(KEY_PREF_SERVER_URL, loginData.getmURL())
+                .putInt(KEY_PREF_POS_DVI, loginData.getmPosDvi())
+                .putString(KEY_PREF_USER, loginData.getmUser())
+                .putString(KEY_PREF_PASS, loginData.getmPass())
+                .putBoolean(KEY_PREF_CB_SAVE, loginData.ismIsSaveInfo())
                 .commit();
     }
 
 
     @Override
-    public LoginFragment.LoginSharePrefData getDataLoginSharedPref() {
+    public LoginFragment.LoginData getDataLoginSharedPref() {
         try {
             SharedPreferences sharedPreferences = mPrefManager.getSharePref(PREF_CONFIG, MODE_PRIVATE);
             String ip = sharedPreferences.getString(KEY_PREF_SERVER_URL, "");
@@ -150,13 +150,13 @@ public class LoginActivity extends AppCompatActivity implements LoginInteface<De
 
 
             //convert data save of login activity to data save of Login fragment
-            LoginFragment.LoginSharePrefData loginSharePrefData = new LoginFragment.LoginSharePrefData
+            LoginFragment.LoginData loginData = new LoginFragment.LoginData
                     .Builder(ip, user, pass)
-                    .setmPosDvi(posSpinDvi)
+                    .setmDvi(posSpinDvi)
                     .setmIsSaveInfo(isCheckSave)
                     .build();
 
-            return loginSharePrefData;
+            return loginData;
         }catch (Exception e)
         {
             e.printStackTrace();

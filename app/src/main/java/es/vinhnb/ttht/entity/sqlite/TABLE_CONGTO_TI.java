@@ -11,7 +11,7 @@ import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
 /**
  * Created by VinhNB on 10/10/2017.
  */
-
+@Deprecated
 @Table(name = "TABLE_CONGTO_TI")
 public class TABLE_CONGTO_TI {
     @PrimaryKey

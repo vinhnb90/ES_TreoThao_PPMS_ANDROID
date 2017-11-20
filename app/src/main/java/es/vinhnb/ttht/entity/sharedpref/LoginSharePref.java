@@ -17,6 +17,9 @@ public class LoginSharePref {
     @KeyType(name = "posSpinDvi", TYPE = TYPE.INT)
     public int posSpinDvi;
 
+    @KeyType(name = "maDvi")
+    public String maDvi;
+
     @KeyType(name = "user")
     public String user;
 
@@ -28,11 +31,13 @@ public class LoginSharePref {
 
     public LoginSharePref(@Params(name = "ip") String ip,
                           @Params(name = "posSpinDvi") int posSpinDvi,
+                          @Params(name = "maDvi") String maDvi,
                           @Params(name = "user") String user,
                           @Params(name = "pass") String pass,
                           @Params(name = "isCheckSave") boolean isCheckSave) {
         this.ip = ip;
         this.posSpinDvi = posSpinDvi;
+        this.maDvi = maDvi;
         this.user = user;
         this.pass = pass;
         this.isCheckSave = isCheckSave;

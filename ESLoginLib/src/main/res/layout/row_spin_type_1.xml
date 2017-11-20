@@ -9,6 +9,9 @@
     android:weightSum="1">
 
     <TextView
+        android:lines="1"
+        android:maxLines="1"
+        android:singleLine="true"
         android:layout_margin="@dimen/_1sdp"
         android:padding="@dimen/_2sdp"
         android:textSize="@dimen/_10sdp"
