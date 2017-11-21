@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:background="@android:color/transparent"
+    android:gravity="center_horizontal"
+    android:paddingBottom="@dimen/_10sdp"
+    android:paddingTop="@dimen/_32sdp"
+    tools:background="@color/colorPrimaryDark">
+
+    <ImageButton
+        android:id="@+id/ibtn_nav_icon_menu"
+        android:layout_width="@dimen/_42sdp"
+        android:layout_height="@dimen/_42sdp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:background="@drawable/xml_tththn_cricle"
+        tools:src="@drawable/ic_logout" />
+
+
+    <TextView
+        android:textSize="@dimen/_11sdp"
+        android:id="@+id/tv_nav_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ibtn_nav_icon_menu"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/text_white"
+        tools:text="Chức năng" />
+
+</RelativeLayout>

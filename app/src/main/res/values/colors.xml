@@ -60,6 +60,11 @@
     <color name="blue_more_light">#ccf3ff</color>
 
 
+    <!-- Ttht HN -->
+    <color name="tththn_navi_menu">#313A44</color>
+    <color name="tththn_navi_menu_bottom">#2D3238</color>
+    <color name="tththn_navi_menu_icon">#ff6e13</color>
+    <color name="tththn_navi_menu_icon_default">@android:color/white</color>
 
 
 </resources>

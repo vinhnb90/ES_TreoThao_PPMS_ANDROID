@@ -48,6 +48,7 @@ import retrofit2.Response;
 
 public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInteface<TABLE_DVIQLY> {
     public static final String BUNDLE_LOGIN = "BUNDLE_LOGIN";
+    public static final String MA_NVIEN = "MA_NVIEN";
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
     private List<TABLE_DVIQLY> listDepart = new ArrayList<>();
     private SharePrefManager mPrefManager;
@@ -143,9 +144,13 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
                 //check and set pos for dvi spin
                 if (loginFragment.getmDepartModule() == null)
                     return;
+
+
                 AppCompatSpinner spDvi = ((DepartUpdateFragment<DepartEntity>) loginFragment.getmDepartModule()).getViewEntity().getSpDvi();
-                spDvi.setSelection(dataLoginSharePref.posSpinDvi);
-                spDvi.invalidate();
+                if (dataLoginSharePref.posSpinDvi < spDvi.getCount()) {
+                    spDvi.setSelection(dataLoginSharePref.posSpinDvi);
+                    spDvi.invalidate();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -159,6 +164,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         Bundle bundle = new Bundle();
         LoginFragment.LoginData loginData = loginFragment.getmLoginData();
         bundle.putParcelable(BUNDLE_LOGIN, loginData);
+        bundle.putString(MA_NVIEN, mMaNVien);
         startActivity(new Intent(TthtHnLoginActivity.this, TthtHnMainActivity.class).putExtras(bundle));
     }
 
@@ -241,14 +247,13 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
 
     @Override
     public void saveDBDepart(List<TABLE_DVIQLY> list) throws Exception {
-//        TABLE_DVIQLY.decrale.ID_TABLE_DVIQLY
-//        String[] collumnCheck = new String[]{list.get(0).getMaDviqly().};
-//        for (TABLE_DVIQLY dviqly : list) {
-//            String[] valueCheck = new String[]{dviqly.getMaDviqly()};
-//            if (!mSqlDAO.isExistRows(TABLE_DVIQLY.class, collumnCheck, valueCheck)) {
-//                mSqlDAO.insert(list);
-//            }
-//        }
+        String[] collumnCheck = new String[]{TABLE_DVIQLY.decrale.MA_DVIQLY.name()};
+        for (TABLE_DVIQLY dviqly : list) {
+            String[] valueCheck = new String[]{dviqly.getMaDviqly()};
+            if (!mSqlDAO.isExistRows(TABLE_DVIQLY.class, collumnCheck, valueCheck)) {
+                mSqlDAO.insert(list);
+            }
+        }
     }
 
     @Override
@@ -259,7 +264,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
     @Override
     public void saveDataSharePref(LoginFragment.LoginData loginData) throws Exception {
         //convert data save of login fragment to data save of Login activity
-        dataLoginSharePref = new LoginSharePref(loginData.getmURL(), loginData.getmPosDvi(), loginData.getmMaDvi(), loginData.getmUser(), loginData.getmMaNVien(), loginData.getmPass(), loginData.ismIsSaveInfo());
+        dataLoginSharePref = new LoginSharePref(loginData.getmURL(), loginData.getmPosDvi(), loginData.getmMaDvi(), mMaNVien, loginData.getmUser(), loginData.getmPass(), loginData.ismIsSaveInfo());
         mPrefManager.writeDataSharePref(LoginSharePref.class, dataLoginSharePref);
     }
 
@@ -273,9 +278,9 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         LoginFragment.LoginData loginData = new LoginFragment.LoginData
                 .Builder(dataLoginSharePref.ip, dataLoginSharePref.user, dataLoginSharePref.pass)
                 .setmDvi(dataLoginSharePref.posSpinDvi, dataLoginSharePref.maDvi)
-                .setmMaNVien(mMaNVien)
                 .setmIsSaveInfo(dataLoginSharePref.isCheckSave)
                 .build();
+        mMaNVien = dataLoginSharePref.maNVien;
 
 
         return loginData;
@@ -293,6 +298,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         //set view full screen
         super.setupFullScreen();
         super.setCoordinatorLayout(coordinatorLayout);
+
 
         //create database
         SqlHelper.setupDB(
@@ -342,9 +348,10 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
 
                 //check row in TABLE_SESSION
                 String[] collumnCheck = new String[]{
-                        TABLE_SESSION.MA_DVIQLY.toString(),
-                        TABLE_SESSION.USERNAME.toString(),
-                        TABLE_SESSION.USERNAME.toString()};
+                        TABLE_SESSION.declared.MA_DVIQLY.name(),
+                        TABLE_SESSION.declared.USERNAME.name(),
+                        TABLE_SESSION.declared.PASSWORD.name()};
+
                 String[] valuesCheck = new String[]{
                         dataCheck.getMA_DVIQLY(),
                         dataCheck.getUSERNAME(),
@@ -356,7 +363,8 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
             }
 
             @Override
-            public void saveSessionDatabaseLogin(LoginFragment.LoginData dataLoginSession) throws Exception {
+            public void saveSessionDatabaseLogin(LoginFragment.LoginData dataLoginSession) throws
+                    Exception {
                 TABLE_SESSION dataCheck = new TABLE_SESSION();
                 dataCheck.setMA_DVIQLY(listDepart.get(dataLoginSession.getmPosDvi()).getMaDviqly());
                 dataCheck.setUSERNAME(dataLoginSession.getmUser());
@@ -393,13 +401,25 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
 
         //setup module login
         loginFragment = LoginFragment.newInstance(null)
-                .setmLoginViewEntity(loginViewEntity)
-                .setmDepartModule(departmentModule)
-                .setmILoginOffline(loginOfflineModeConfig)
-                .setmTitleAppName("TREO THÁO HIỆN TRƯỜNG \nHÀ NỘI")
+                .
+
+                        setmLoginViewEntity(loginViewEntity)
+                .
+
+                        setmDepartModule(departmentModule)
+                .
+
+                        setmILoginOffline(loginOfflineModeConfig)
+                .
+
+                        setmTitleAppName("TREO THÁO HIỆN TRƯỜNG \nHÀ NỘI")
 //                    .setmIconLogin(R.mipmap.ic_home, (int) getResources().getDimension(R.dimen._50sdp), (int) getResources().getDimension(R.dimen._50sdp))
-                .setmColorBackground(R.color.colorPrimary)
-                .setmLoginSharedPref(mPrefManager.getSharePref(LoginSharePref.class));
+                .
+
+                        setmColorBackground(R.color.colorPrimary)
+                .
+
+                        setmLoginSharedPref(mPrefManager.getSharePref(LoginSharePref.class));
     }
 
     @Override

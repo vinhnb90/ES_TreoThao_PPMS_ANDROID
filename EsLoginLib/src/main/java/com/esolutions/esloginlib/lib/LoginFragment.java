@@ -168,16 +168,15 @@ public class LoginFragment extends Fragment {
             mDepartModule.getViewEntity().getIbtnDownloadDvi().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //show progressbar
+                    mDepartModule.getViewEntity().getIbtnDownloadDvi().setVisibility(View.GONE);
+                    mDepartModule.getViewEntity().getPbarDownloadDvi().setVisibility(View.VISIBLE);
+
+
                     mDepartModule.getViewEntity().getViewLayout().post(new Runnable() {
                         @Override
                         public void run() {
                             try {
-                                //show progressbar
-                                mDepartModule.getViewEntity().getIbtnDownloadDvi().setVisibility(View.GONE);
-                                mDepartModule.getViewEntity().getPbarDownloadDvi().setVisibility(View.VISIBLE);
-                                mDepartModule.getViewEntity().getViewLayout().invalidate();
-
-
                                 //check url
                                 mURL = mEtURL.getText().toString();
                                 if (TextUtils.isEmpty(mURL))
@@ -780,7 +779,6 @@ public class LoginFragment extends Fragment {
         private final String mUser;
         private final String mPass;
         private boolean mIsSaveInfo;
-        private String mMaNVien;
 
         private LoginData(Builder builder) {
             this.mURL = builder.mURL;
@@ -798,7 +796,6 @@ public class LoginFragment extends Fragment {
             mUser = in.readString();
             mPass = in.readString();
             mIsSaveInfo = in.readByte() != 0;
-            mMaNVien = in.readString();
         }
 
         public static final Creator<LoginData> CREATOR = new Creator<LoginData>() {
@@ -812,10 +809,6 @@ public class LoginFragment extends Fragment {
                 return new LoginData[size];
             }
         };
-
-        public String getmMaNVien() {
-            return mMaNVien;
-        }
 
         public String getmURL() {
             return mURL;
@@ -854,7 +847,6 @@ public class LoginFragment extends Fragment {
             parcel.writeString(mUser);
             parcel.writeString(mPass);
             parcel.writeByte((byte) (mIsSaveInfo ? 1 : 0));
-            parcel.writeString(mMaNVien);
         }
 
         public static class Builder {
@@ -864,7 +856,6 @@ public class LoginFragment extends Fragment {
             private final String mUser;
             private final String mPass;
             private boolean mIsSaveInfo;
-            private String mMaNVien;
 
             public Builder(String mURL, String mUser, String mPass) {
                 this.mURL = mURL;
@@ -880,11 +871,6 @@ public class LoginFragment extends Fragment {
 
             public Builder setmIsSaveInfo(boolean mIsSaveInfo) {
                 this.mIsSaveInfo = mIsSaveInfo;
-                return this;
-            }
-
-            public Builder setmMaNVien(String mMaNVien) {
-                this.mMaNVien = mMaNVien;
                 return this;
             }
 

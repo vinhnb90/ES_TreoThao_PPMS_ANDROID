@@ -15,21 +15,45 @@
         android:fitsSystemWindows="true"
         tools:context="es.vinhnb.ttht.view.TthtHnMainActivity">
 
-        <android.support.design.widget.AppBarLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+            android:layout_height="match_parent">
+            <android.support.design.widget.AppBarLayout
+                android:layout_alignParentTop="true"
+                android:id="@+id/app_bar_tththn"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="@dimen/_72sdp"
                 android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+                android:stateListAnimator="@null"
+                android:theme="@style/AppTheme.AppBarOverlay">
 
-        </android.support.design.widget.AppBarLayout>
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_32sdp"
+                    android:background="?attr/colorPrimary"
+                    app:popupTheme="@style/AppTheme.PopupOverlay"
+                    app:titleTextAppearance="@style/ToolbarTitleText"></android.support.v7.widget.Toolbar>
 
-        <include layout="@layout/content_tththn_main" />
+            </android.support.design.widget.AppBarLayout>
+
+            <RelativeLayout
+                android:background="@android:color/white"
+                android:elevation="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_40sdp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <include layout="@layout/content_tththn_main" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+
+
+
 
     </android.support.design.widget.CoordinatorLayout>
 
@@ -38,7 +62,42 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/content_tththn_nav_header"
-        app:menu="@menu/content_tththn_nav_menu" />
+        android:background="@color/tththn_navi_menu">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/tththn_navi_menu_bottom"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp">
+
+                <include layout="@layout/content_tththn_nav_header" />
+            </RelativeLayout>
+
+
+            <GridView
+                android:id="@+id/gv_nav_menu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/rl_logout"
+                android:layout_alignParentTop="true"
+                android:columnWidth="90dp"
+                android:gravity="center"
+                android:horizontalSpacing="10dp"
+
+                android:numColumns="auto_fit"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="10dp" />
+        </RelativeLayout>
+    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

@@ -259,8 +259,6 @@ public class SqlHelper extends SQLiteOpenHelper {
                     + (isAutoIncrement ? " AUTOINCREMENT" : "")
                     + " "
                     + collumn.other());
-
-
             query.append(",");
 
 

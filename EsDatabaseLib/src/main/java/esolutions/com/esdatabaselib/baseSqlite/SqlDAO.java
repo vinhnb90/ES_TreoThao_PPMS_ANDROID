@@ -365,13 +365,13 @@ public class SqlDAO {
         for (Field field : fields) {
             String fieldName = field.getName();
             if (fieldName.equals("$change") || fieldName.equals("serialVersionUID"))
-                break;
+                continue;
 
 
             //check annotation collumn
             boolean isCollumn = field.isAnnotationPresent(Collumn.class);
             if (!isCollumn)
-                break;
+                continue;
             Collumn collumn = field.getAnnotation(Collumn.class);
             boolean isPrimaryKey = field.isAnnotationPresent(PrimaryKey.class);
             boolean isAutoIncrement = field.isAnnotationPresent(AutoIncrement.class);
@@ -419,7 +419,7 @@ public class SqlDAO {
         for (int i = 0; i < nameCollumnCheck.length; i++) {
             Collumn collumn = listCollumn.get(nameCollumnCheck[i]);
             whereClause.append(collumn.name() + " = ? ").append(" and ");
-            whereArgs.add(valuesCheck.toString());
+            whereArgs.add(valuesCheck[i]);
         }
 
 

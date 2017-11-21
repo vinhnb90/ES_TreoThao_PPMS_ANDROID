@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.es.tungnv.views">
 
     <supports-screens
@@ -30,7 +31,8 @@
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppThemeTthtHn"
+        tools:replace="android:theme">
         <activity
             android:name=".GphtLoginActivity"
             android:screenOrientation="portrait"
@@ -55,7 +57,7 @@
         <activity
             android:name=".TthtLoginActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name=".TthtMainActivity"
             android:screenOrientation="portrait"
@@ -240,7 +242,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="es.vinhnb.ttht.view.TthtHnMainActivity"></activity>
+        <activity android:name="es.vinhnb.ttht.view.TthtHnMainActivity" />
     </application>
 
 </manifest>

@@ -32,7 +32,7 @@ public class DepartUpdateFragment<T> extends ModuleFragment {
 
     public DepartUpdateFragment<T> setmListDepart(List<T> mListDepart) throws Exception {
         //check empty
-        if (mListDepart.isEmpty())
+        if (mListDepart.size() == 0)
             return this;
 
 
@@ -43,8 +43,9 @@ public class DepartUpdateFragment<T> extends ModuleFragment {
             throw new RuntimeException("Class " + mListDepart.get(0).getClass().getSimpleName() + " must be override method toString to show content on spinner!");
 
 
-        this.mListDepart.clear();
-        this.mListDepart.addAll(mListDepart);
+//        this.mListDepart.clear();
+//        this.mListDepart.addAll(mListDepart);
+        this.mListDepart = mListDepart;
         fillData();
         return this;
     }

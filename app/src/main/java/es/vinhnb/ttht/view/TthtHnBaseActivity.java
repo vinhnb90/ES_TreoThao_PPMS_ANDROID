@@ -1,12 +1,14 @@
 package es.vinhnb.ttht.view;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -30,7 +32,12 @@ public abstract class TthtHnBaseActivity extends AppCompatActivity {
     protected void setupFullScreen() {
         //full screen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getSupportActionBar().hide();
+        try {
+            getSupportActionBar().hide();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("TthtHnBaseActivity", "setupFullScreen: " + e.getMessage());
+        }
     }
 
     protected void showSnackBar(String message, @Nullable String content, @Nullable final ISnackbarIteractions actionOK) {
