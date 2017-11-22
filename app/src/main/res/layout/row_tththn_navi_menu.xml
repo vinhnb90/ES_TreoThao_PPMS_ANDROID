@@ -6,11 +6,11 @@
     android:layout_gravity="center_horizontal"
     android:background="@android:color/transparent"
     android:gravity="center_horizontal"
-    android:paddingBottom="@dimen/_10sdp"
-    android:paddingTop="@dimen/_32sdp"
+    android:id="@+id/rl_nav"
     tools:background="@color/colorPrimaryDark">
 
     <ImageButton
+        android:layout_marginTop="@dimen/_32sdp"
         android:id="@+id/ibtn_nav_icon_menu"
         android:layout_width="@dimen/_42sdp"
         android:layout_height="@dimen/_42sdp"
@@ -27,9 +27,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ibtn_nav_icon_menu"
-        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
         android:gravity="center_horizontal"
         android:textColor="@color/text_white"
         tools:text="Chức năng" />
 
+    <View
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:id="@+id/v_view_line"
+        android:layout_below="@+id/tv_nav_menu"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/tththn_navi_menu_icon_default" />
 </RelativeLayout>

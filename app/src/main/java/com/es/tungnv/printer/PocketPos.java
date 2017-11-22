@@ -639,8 +639,8 @@ public class PocketPos
 
  
   /*
-  The tag field (T) consists of one or more consecutive bytes. It indicates a class,
-  a type, and a number (see Table 35). The tag field of the data objects 
+  The typeFrag field (T) consists of one or more consecutive bytes. It indicates a class,
+  a type, and a number (see Table 35). The typeFrag field of the data objects
   described in this specification is coded on one or two bytes. 
   *The length field (L) consists of one or more consecutive bytes. It indicates the 
   length of the following field. The length field of the data objects described in 
@@ -669,7 +669,7 @@ public class PocketPos
 //      ___|___|___|Any other value <31|  Tag number 
 //
 //      Tag Field Structure (Subsequent Bytes) BER-TLV defines the coding 
-//      rules of the subsequent bytes of a BER-TLV tag when tag numbers �� 31 
+//      rules of the subsequent bytes of a BER-TLV typeFrag when typeFrag numbers �� 31
 //      are used (that is, bits b5 - b1 of the first byte equal '11111'). 
 //      b8_|b7_|b6_|b5_|b4_|b3_|b2_|b1_| Meaning 
 //      _1_|___|___|___|___|___|___|___|Another byte follows  

@@ -66,5 +66,12 @@
     <color name="tththn_navi_menu_icon">#ff6e13</color>
     <color name="tththn_navi_menu_icon_default">@android:color/white</color>
 
+    <color name="tththn_row_recyler">#ff6e13</color>
+    <color name="tththn_text_less_black">#80000000</color>
+    <color name="tththn_text_more_less_black">#50000000</color>
+    <color name="tththn_edited_row_recyler">#348ec9</color>
+    <color name="tththn_submited_row_recyler">@color/tththn_navi_menu_icon</color>
+
+    <color name="tththn_button">@color/tththn_submited_row_recyler</color>
 
 </resources>

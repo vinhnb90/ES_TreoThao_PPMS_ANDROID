@@ -166,7 +166,7 @@ public class DatabaseActivity extends AppCompatActivity {
 
     private void fillListView() throws Exception {
         SqlDAO sqlDAO = new SqlDAO(SqlHelper.getIntance().openDB(), DatabaseActivity.this);
-        LazyList<Student> students = sqlDAO.selectAllLazy(Student.class, null);
+        LazyList<Student> students = sqlDAO.selectAllLazy(Student.class);
 
         List<String> listData = new ArrayList<>();
         for(int i = 0; i<students.size() ;i++)

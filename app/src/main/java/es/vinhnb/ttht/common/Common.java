@@ -3,7 +3,10 @@ package es.vinhnb.ttht.common;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -36,6 +39,7 @@ public class Common {
         ex02("Không có dữ liệu trả về!"),
         ex03("Lỗi khởi tạo!"),
         ex04("Lỗi hiển thị!"),
+        ex05("Gặp vấn đề đồng bộ!"),
 
 
 
@@ -82,7 +86,37 @@ public class Common {
         return telephonyManager.getDeviceId();
     }
 
+    public static boolean isNetworkConnected(Context context) throws Exception {
+        if (context == null)
+            return false;
+        int[] networkTypes = {ConnectivityManager.TYPE_MOBILE,
+                ConnectivityManager.TYPE_WIFI};
+        try {
+            ConnectivityManager connectivityManager =
+                    (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            for (int networkType : networkTypes) {
+                NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+                if (activeNetworkInfo != null &&
+                        activeNetworkInfo.getType() == networkType)
+                    return true;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return false;
+    }
 
+
+    public static String getVersion(Context context) throws Exception {
+        String version = "";
+        try {
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            version = pInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return version;
+    }
     //region date time
     public enum DATE_TIME_TYPE {
         HHmmss,

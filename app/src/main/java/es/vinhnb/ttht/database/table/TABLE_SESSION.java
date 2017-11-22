@@ -1,4 +1,4 @@
-package es.vinhnb.ttht.entity.sqlite;
+package es.vinhnb.ttht.database.table;
 
 
 import esolutions.com.esdatabaselib.baseSqlite.anonation.AutoIncrement;
@@ -25,23 +25,22 @@ public class TABLE_SESSION {
     }
 
 
-
     @PrimaryKey
     @AutoIncrement
     @Collumn(name = "ID_TABLE_SESSION", type = TYPE.INTEGER, other = "NOT NULL")
-    public static int ID_TABLE_SESSION;
+    public int ID_TABLE_SESSION;
 
     @Collumn(name = "MA_DVIQLY", type = TYPE.TEXT, other = "NOT NULL")
-    public static String MA_DVIQLY;
+    public String MA_DVIQLY;
 
     @Collumn(name = "USERNAME", type = TYPE.TEXT, other = "NOT NULL")
-    public static String USERNAME;
+    public String USERNAME;
 
     @Collumn(name = "PASSWORD", type = TYPE.TEXT, other = "NOT NULL")
-    public static String PASSWORD;
+    public String PASSWORD;
 
     @Collumn(name = "DATE_LOGIN", type = TYPE.TEXT, other = "NOT NULL")
-    public static String DATE_LOGIN;
+    public String DATE_LOGIN;
 
     public TABLE_SESSION() {
     }

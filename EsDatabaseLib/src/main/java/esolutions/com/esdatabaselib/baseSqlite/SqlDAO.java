@@ -26,9 +26,9 @@ import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
 
 public class SqlDAO {
 
-    private static final String TAG = SqlDAO.class.getName();
-    private Database mDatabase;
-    private Context mContext;
+    protected static final String TAG = SqlDAO.class.getName();
+    protected Database mDatabase;
+    protected Context mContext;
 
     public SqlDAO(SQLiteDatabase database, Context context) {
         mDatabase = new Database(database);
@@ -41,11 +41,10 @@ public class SqlDAO {
      * select all by mode lazy,
      *
      * @param tClass: Class model with full anonations
-     * @param cursor: {@link Cursor} nullable, if null default select * from table
      * @param <T>:    Name Class model
      * @return
      */
-    public <T> LazyList<T> selectAllLazy(Class<T> tClass, @Nullable Cursor cursor) {
+    public <T> LazyList<T> selectAllLazy(Class<T> tClass) {
         //check annotation table class
         final Class<?> classz = tClass;
         boolean isTableSQL = classz.isAnnotationPresent(Table.class);
@@ -53,14 +52,13 @@ public class SqlDAO {
             throw new RuntimeException("Class not description is table!");
         Table annTable = classz.getAnnotation(Table.class);
 
-        if (cursor == null) {
-            String querySelectAll = "Select * from " + annTable.name();
-            cursor = mDatabase.rawQuery(querySelectAll, null);
-        }
+        String querySelectAll = "Select * from " + annTable.name();
+        Cursor cursor = mDatabase.rawQuery(querySelectAll, null);
+
 
         ItemFactory<T> item = new ItemFactory<T>(tClass) {
             @Override
-            T create(Cursor cursor, int index) {
+            protected T create(Cursor cursor, int index) {
                 T object = null;
 
                 HashMap<String, Object> data = new HashMap<>();
@@ -180,8 +178,8 @@ public class SqlDAO {
         return result;
     }
 
-    public Cursor getCursor(String query, String[] selectionArgs) throws Exception {
-        return mDatabase.rawQuery(query, selectionArgs);
+    public <T> LazyList<T> selectAllLazy(Cursor cursor, ItemFactory<T> itemFactory) {
+        return new LazyList<>(cursor, itemFactory);
     }
     //endregion
 
@@ -258,83 +256,6 @@ public class SqlDAO {
         return mDatabase.delete(paramDelete);
     }
     //endregion
-
-    public <T> boolean isExistRows(Class<T> tClass, T dataCheck) throws Exception {
-        //check annotation table class
-        Class<?> classz = tClass;
-        boolean isTableSQL = classz.isAnnotationPresent(Table.class);
-        if (!isTableSQL)
-            throw new RuntimeException("Class not description is table!");
-        Table annTable = classz.getAnnotation(Table.class);
-
-
-        //lấy tất cả field ngoài $change and serialVersionUID
-        //kiểm tra collumn annotations và lấy dữ liệu tạo DatabaseParams.Select và chuỗi điều kiện whereClause và whereArgs
-        //nếu giá trị của trường dataCheck = null thì khi isExistRows sẽ bỏ qua trường đó
-        Field[] fields = dataCheck.getClass().getDeclaredFields();
-        DatabaseParams.Select param = new DatabaseParams.Select();
-        StringBuilder whereClause = new StringBuilder();
-        List<String> listCollumn = new ArrayList<>();
-        List<String> whereArgs = new ArrayList<>();
-
-
-        int index = 0;
-        for (Field field : fields) {
-            String fieldName = field.getName();
-            if (fieldName.equals("$change") || fieldName.equals("serialVersionUID"))
-                break;
-
-
-            //check annotation collumn
-            boolean isCollumn = field.isAnnotationPresent(Collumn.class);
-            if (!isCollumn)
-                break;
-            Collumn collumn = field.getAnnotation(Collumn.class);
-            boolean isPrimaryKey = field.isAnnotationPresent(PrimaryKey.class);
-            boolean isAutoIncrement = field.isAnnotationPresent(AutoIncrement.class);
-
-
-            //truy cập trực tiếp object
-            field.setAccessible(true);
-            Object value = field.get(dataCheck);
-
-
-            //nếu null thì đồng nghĩa không check giá trị trường này trong câu query
-            if (value == null)
-                continue;
-
-
-            //thêm vào Map tên cột và value
-            //tăng index để loại bỏ "and" nếu index > 0
-            listCollumn.add(collumn.name());
-            whereClause.append(collumn.name() + " = ? ").append(" and ");
-            whereArgs.add(value.toString());
-            index++;
-        }
-
-
-        //tinh chỉnh câu query
-        //tăng index để loại bỏ "and" nếu index > 0
-        if (index == 0)
-            throw new RuntimeException("Data isExistRows null all field!");
-        whereClause.delete(whereClause.length() - (" and ").length(), whereClause.length());
-
-
-        //select database
-        param.table = annTable.name();
-        param.columns = listCollumn.toArray(new String[listCollumn.size()]);
-        param.selection = whereClause.toString();
-        param.selectionArgs = whereArgs.toArray(new String[whereArgs.size()]);
-
-
-        //get Cursor and close db
-        Cursor cur = mDatabase.select(param);
-        boolean exist = (cur.getCount() > 0);
-        cur.close();
-
-
-        return exist;
-    }
 
     public <T> boolean isExistRows(Class<T> tClass, String[] nameCollumnCheck, String[] valuesCheck) throws Exception {
         //check validate

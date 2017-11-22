@@ -1,4 +1,4 @@
-package es.vinhnb.ttht.entity.sqlite;
+package es.vinhnb.ttht.database.config;
 
 
 import esolutions.com.esdatabaselib.baseSqlite.anonation.DBConfig;

@@ -25,18 +25,18 @@ import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.entity.api.D_DVIQLYModel;
 import es.vinhnb.ttht.entity.api.UserMtb;
 import es.vinhnb.ttht.entity.sharedpref.LoginSharePref;
-import es.vinhnb.ttht.entity.sqlite.TABLE_ANH_HIENTRUONG;
-import es.vinhnb.ttht.entity.sqlite.TABLE_BBAN_CTO;
-import es.vinhnb.ttht.entity.sqlite.TABLE_BBAN_TUTI;
-import es.vinhnb.ttht.entity.sqlite.TABLE_CHITIET_CTO;
-import es.vinhnb.ttht.entity.sqlite.TABLE_CHITIET_TUTI;
-import es.vinhnb.ttht.entity.sqlite.TABLE_CONGTO_TI;
-import es.vinhnb.ttht.entity.sqlite.TABLE_CONGTO_TU;
-import es.vinhnb.ttht.entity.sqlite.TABLE_DVIQLY;
-import es.vinhnb.ttht.entity.sqlite.TABLE_LOAI_CONG_TO;
-import es.vinhnb.ttht.entity.sqlite.TABLE_SESSION;
-import es.vinhnb.ttht.entity.sqlite.TABLE_TRAM;
-import es.vinhnb.ttht.entity.sqlite.TTHT_HN_DB_CONFIG;
+import es.vinhnb.ttht.database.table.TABLE_ANH_HIENTRUONG;
+import es.vinhnb.ttht.database.table.TABLE_BBAN_CTO;
+import es.vinhnb.ttht.database.table.TABLE_BBAN_TUTI;
+import es.vinhnb.ttht.database.table.TABLE_CHITIET_CTO;
+import es.vinhnb.ttht.database.table.TABLE_CHITIET_TUTI;
+import es.vinhnb.ttht.database.table.TABLE_CONGTO_TI;
+import es.vinhnb.ttht.database.table.TABLE_CONGTO_TU;
+import es.vinhnb.ttht.database.table.TABLE_DVIQLY;
+import es.vinhnb.ttht.database.table.TABLE_LOAI_CONG_TO;
+import es.vinhnb.ttht.database.table.TABLE_SESSION;
+import es.vinhnb.ttht.database.table.TABLE_TRAM;
+import es.vinhnb.ttht.database.config.TTHT_HN_DB_CONFIG;
 import es.vinhnb.ttht.server.TthtHnApi;
 import es.vinhnb.ttht.server.TthtHnApiInterface;
 import esolutions.com.esdatabaselib.baseSharedPref.SharePrefManager;
@@ -88,7 +88,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         super.onResume();
         try {
             //lấy dữ liệu và fill Data dvi
-            listDepart = mSqlDAO.selectAllLazy(TABLE_DVIQLY.class, null);
+            listDepart = mSqlDAO.selectAllLazy(TABLE_DVIQLY.class);
             ((DepartUpdateFragment) loginFragment.getmDepartModule()).setmListDepart(listDepart);
 
 
@@ -258,7 +258,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
 
     @Override
     public List<TABLE_DVIQLY> selectDBDepart() {
-        return mSqlDAO.selectAllLazy(TABLE_DVIQLY.class, null);
+        return mSqlDAO.selectAllLazy(TABLE_DVIQLY.class);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package es.vinhnb.ttht.entity.sqlite;
+package es.vinhnb.ttht.database.table;
 
 import esolutions.com.esdatabaselib.baseSqlite.anonation.AutoIncrement;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Collumn;
@@ -6,8 +6,6 @@ import esolutions.com.esdatabaselib.baseSqlite.anonation.EnumNameCollumn;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Params;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.PrimaryKey;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
-
-import esolutions.com.esdatabaselib.baseSqlite.anonation.TYPE.*;
 
 import static esolutions.com.esdatabaselib.baseSqlite.anonation.TYPE.INTEGER;
 import static esolutions.com.esdatabaselib.baseSqlite.anonation.TYPE.TEXT;

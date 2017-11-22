@@ -112,6 +112,63 @@ public abstract class TthtHnBaseActivity extends AppCompatActivity {
         }
     }
 
+    protected void showSnackBar(String message, @Nullable final ISnackbarIteractions actionOK) {
+        try {
+
+            //check
+            if (coordinatorLayout == null)
+                throw new RuntimeException("Be must set view CoordinatorLayout!");
+
+
+            snackbar = Snackbar
+                    .make(coordinatorLayout, message, Snackbar.LENGTH_INDEFINITE)
+                    .setActionTextColor(Color.WHITE)
+                    .setAction("OK", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            snackbar.dismiss();
+                        }
+                    });
+
+
+            // Hide the text and set width full screen
+            Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+            (snackbar.getView()).getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+            ((TextView) layout.findViewById(android.support.design.R.id.snackbar_text)).setVisibility(View.INVISIBLE);
+            ((Button) layout.findViewById(android.support.design.R.id.snackbar_action)).setVisibility(View.INVISIBLE);
+
+
+            // Inflate our custom view
+            View snackView = this.getLayoutInflater().inflate(R.layout.tththn_snackbar, null);
+            TextView tvMessage = (TextView) snackView.findViewById(R.id.tv_snackbar_message);
+            Button btnOk = (Button) snackView.findViewById(R.id.btn_snackbar_ok);
+            Button btnContent = (Button) snackView.findViewById(R.id.btn_snackbar_content);
+            btnContent.setVisibility(View.GONE);
+            final EditText etContent = (EditText) snackView.findViewById(R.id.et_snackbar_content);
+            etContent.setVisibility(View.GONE);
+
+
+            btnOk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (actionOK != null)
+                        actionOK.doIfPressOK();
+                    else
+                        snackbar.dismiss();
+                }
+            });
+
+
+            // Add the view to the Snackbar's layout and show
+            layout.addView(snackView, 0);
+            snackbar.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
     public void setCoordinatorLayout(CoordinatorLayout coordinatorLayout) {
         this.coordinatorLayout = coordinatorLayout;
     }

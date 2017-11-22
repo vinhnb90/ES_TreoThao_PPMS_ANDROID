@@ -1,12 +1,10 @@
 package es.vinhnb.ttht.view;
 
+import android.app.FragmentManager;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.NavigationView;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.view.GravityCompat;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -17,10 +15,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.es.tungnv.views.R;
@@ -30,10 +27,15 @@ import java.util.ArrayList;
 
 import es.vinhnb.ttht.adapter.NaviMenuAdapter;
 import es.vinhnb.ttht.common.Common;
+import es.vinhnb.ttht.view.TthtHnDownloadFragment.OnListenerTthtHnDownloadFragment;
 
 import static com.es.tungnv.views.R.layout.activity_ttht_hn_main;
+import static es.vinhnb.ttht.view.TthtHnMainFragment.*;
 
-public class TthtHnMainActivity extends TthtHnBaseActivity implements NaviMenuAdapter.INaviMenuAdapter {
+public class TthtHnMainActivity extends TthtHnBaseActivity implements
+        NaviMenuAdapter.INaviMenuAdapter,
+        OnListenerTthtHnMainFragment,
+        OnListenerTthtHnDownloadFragment {
 
     private LoginFragment.LoginData mLoginData;
     private DrawerLayout mDrawerLayout;
@@ -41,9 +43,72 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements NaviMenuAd
     private String mMaNVien;
     private GridView mGridView;
     private ImageButton mIbtnLogout;
+    private TthtHnMainFragment fragmentMain;
+    private TthtHnDownloadFragment fragmentDownload;
+
+
+    public enum TypeFragment {
+        TthtHnMainFragment(TthtHnMainFragment.class),
+        TthtHnDownloadFragment(TthtHnDownloadFragment.class),
+        TthtHnUploadFragment(TthtHnUploadFragment.class),
+        TthtHnHistoryFragment(TthtHnHistoryFragment.class);
+
+        public Class<?> typeFrag;
+
+        TypeFragment(Class<?> typeFrag) {
+            this.typeFrag = typeFrag;
+        }
+    }
+
+    public enum TypeViewMenu {
+        VIEW,
+        LINE,
+        EMPTY
+    }
+
+    public enum TagMenu {
+        BBAN_CTO("BBAN_CTO", TypeFragment.TthtHnMainFragment, "Biên bản công tơ", R.drawable.ic_tththn_bien_ban, TypeViewMenu.VIEW),
+        TRAM("TRAM", TypeFragment.TthtHnMainFragment, "Trạm", R.drawable.ic_tththn_tram, TypeViewMenu.VIEW),
+        CTO_TREO("CTO_TREO", TypeFragment.TthtHnMainFragment, "Công tơ treo", R.drawable.ic_tththn_cto_treo, TypeViewMenu.VIEW),
+        CTO_THAO("CTO_THAO", TypeFragment.TthtHnMainFragment, "Công tơ tháo", R.drawable.ic_tththn_cto_thao, TypeViewMenu.VIEW),
+        CHUNG_LOAI("CHUNG_LOAI", TypeFragment.TthtHnMainFragment, "Chủng loại", R.drawable.ic_tththn_chungloai, TypeViewMenu.VIEW),
+
+        EMPTY1("", null, "", 0, TypeViewMenu.EMPTY),
+        LINE1("", null, "", 0, TypeViewMenu.LINE),
+        LINE2("", null, "", 0, TypeViewMenu.LINE),
+
+        DOWNLOAD("DOWNLOAD", TypeFragment.TthtHnDownloadFragment, "Đồng bộ dữ liệu", R.drawable.ic_tththn_download_white, TypeViewMenu.VIEW),
+        UPLOAD("UPLOAD", TypeFragment.TthtHnUploadFragment, "Gửi dữ liệu", R.drawable.ic_tththn_upload, TypeViewMenu.VIEW),
+        HISTORY("HISTORY", TypeFragment.TthtHnHistoryFragment, "Lịch sử đồng bộ/Gửi", R.drawable.ic_tththn_history, TypeViewMenu.VIEW);
+
+        public String tagFrag;
+        public TypeFragment typeFrag;
+        public String title;
+        public int drawableIconID;
+        public TypeViewMenu typeViewMenu;
+
+        TagMenu(String tag, TypeFragment typeFrag, String title, int drawableIconID, TypeViewMenu typeViewMenu) {
+            this.tagFrag = tag;
+            this.typeFrag = typeFrag;
+            this.title = title;
+            this.drawableIconID = drawableIconID;
+            this.typeViewMenu = typeViewMenu;
+        }
+
+        public TagMenu findTagMenu(String tag) {
+            for (TagMenu tagMenu : TagMenu.values()) {
+                if (tagMenu.tagFrag.equals(tag))
+                    return tagMenu;
+            }
+            return null;
+        }
+    }
+
 
     private ArrayList<NaviMenuAdapter.NaviMenu> naviMenuList = new ArrayList<>();
     private ActionBarDrawerToggle mDrawerToggle;
+    private RelativeLayout mRlMain;
+    private FragmentTransaction mTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +133,23 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements NaviMenuAd
 
 
         //init nav menu
-        naviMenuList.add(new NaviMenuAdapter.NaviMenu(R.drawable.ic_tththn_bien_ban, "Biên bản treo tháo").setClicked(true));
-        naviMenuList.add(new NaviMenuAdapter.NaviMenu(R.drawable.ic_tththn_tram, "Trạm"));
-        naviMenuList.add(new NaviMenuAdapter.NaviMenu(R.drawable.ic_tththn_cto_treo, "Công tơ treo"));
-        naviMenuList.add(new NaviMenuAdapter.NaviMenu(R.drawable.ic_tththn_cto_thao, "Công tơ tháo"));
-        naviMenuList.add(new NaviMenuAdapter.NaviMenu(R.drawable.ic_tththn_chungloai, "Chủng loại công tơ"));
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenu.BBAN_CTO).setClicked(true));
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenu.TRAM));
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenu.CTO_TREO));
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenu.CTO_THAO));
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenu.CHUNG_LOAI));
+
+
+        //add line
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenu.EMPTY1));
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenu.LINE1));
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenu.LINE2));
+
+
+        //addLine
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenu.DOWNLOAD));
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenu.UPLOAD));
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenu.HISTORY));
 
 
         //init View
@@ -100,10 +177,16 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements NaviMenuAd
         };
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-
         NaviMenuAdapter adapterNavMenu = new NaviMenuAdapter(this, naviMenuList);
         mGridView.setAdapter(adapterNavMenu);
         mGridView.invalidate();
+
+        //replace fragment
+        //set fragment
+        mTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentMain = new TthtHnMainFragment().newInstance(mLoginData, mMaNVien);
+        mTransaction.addToBackStack(TagMenu.BBAN_CTO.tagFrag);
+        mTransaction.commit();
     }
 
 
@@ -143,22 +226,80 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements NaviMenuAd
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mIbtnLogout = (ImageButton) findViewById(R.id.ibtn_logout);
         mGridView = (GridView) findViewById(R.id.gv_nav_menu);
+        mRlMain = (RelativeLayout) findViewById(R.id.rl_content_main);
 
+
+        //set action bar
         findViewById(R.id.app_bar_tththn).bringToFront();
         setSupportActionBar(mToolbar);
-        this.setActionBarTittle(naviMenuList.get(0).text);
+        this.setActionBarTittle(TagMenu.BBAN_CTO.title);
     }
 
     //region NaviMenuAdapter.INaviMenuAdapter
     @Override
-    public void doClickNaviMenu(int pos) {
-        //set text action bar
-        setActionBarTittle(naviMenuList.get(pos).text);
+    public void doClickNaviMenu(int pos, TthtHnMainActivity.TagMenu tagOld, TthtHnMainActivity.TagMenu tagNew) {
+        try {
+            //set text action bar
+            setActionBarTittle(tagNew.title);
 
 
-        //refresh again
-        naviMenuList.get(pos).setClicked(true);
-        ((NaviMenuAdapter) mGridView.getAdapter()).refresh(naviMenuList, pos);
+            //refresh again
+            naviMenuList.get(pos).setClicked(true);
+            ((NaviMenuAdapter) mGridView.getAdapter()).refresh(naviMenuList, pos);
+
+
+            //check fragment
+            //trong trường hợp mRlMain.getId() được replace bởi nhiều loại fragment khác nhau trong enum TypeFragment
+            //kiểm tra click menu mới có phải là loại khác fragment của menu cũ không
+            boolean isSameTypeFragment = false;
+            if (tagOld.typeFrag == tagNew.typeFrag)
+                isSameTypeFragment = true;
+
+
+            //nếu cùng kiểu thì chỉ cần nhận biết và gọi thân fragment update
+            //ngược lại thì replace và add to backstack fragment mới
+            mTransaction = getSupportFragmentManager().beginTransaction();
+            android.support.v4.app.Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
+            if (isSameTypeFragment) {
+                if (fragmentVisible instanceof TthtHnMainFragment) {
+                    fragmentMain = (TthtHnMainFragment) fragmentVisible;
+                    fragmentMain.switchMenu(tagNew);
+                    mTransaction.detach(fragmentMain);
+                    mTransaction.attach(fragmentMain);
+                    mTransaction.commit();
+                }
+
+                if (fragmentVisible instanceof TthtHnDownloadFragment) {
+                    fragmentDownload = (TthtHnDownloadFragment) fragmentVisible;
+                    mTransaction.detach(fragmentDownload);
+                    mTransaction.attach(fragmentDownload);
+                    mTransaction.commit();
+                }
+            } else {
+                if (tagNew.typeFrag == TypeFragment.TthtHnMainFragment) {
+                    fragmentMain = new TthtHnMainFragment().newInstance(mLoginData, mMaNVien);
+                    mTransaction.replace(mRlMain.getId(), fragmentMain);
+                    mTransaction.addToBackStack(tagNew.tagFrag);
+                    mTransaction.commit();
+//                    android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+//                    fragmentManager.beginTransaction().replace(mRlMain.getId(), fragmentMain).commit();
+                }
+
+                if (tagNew.typeFrag == TypeFragment.TthtHnDownloadFragment) {
+                    fragmentDownload = new TthtHnDownloadFragment().newInstance(mLoginData, mMaNVien);
+                    mTransaction.replace(mRlMain.getId(), fragmentDownload);
+                    mTransaction.addToBackStack(tagNew.tagFrag);
+                    mTransaction.commit();
+//                    android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+//                    fragmentManager.beginTransaction().replace(mRlMain.getId(), fragmentDownload).commit();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showSnackBar(Common.MESSAGE.ex04.getContent(), e.getMessage(), null);
+        }
+
+
     }
 
     private void setActionBarTittle(String message) {

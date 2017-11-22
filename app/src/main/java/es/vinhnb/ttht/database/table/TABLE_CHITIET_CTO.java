@@ -1,4 +1,4 @@
-package es.vinhnb.ttht.entity.sqlite;
+package es.vinhnb.ttht.database.table;
 
 
 import esolutions.com.esdatabaselib.baseSqlite.anonation.AutoIncrement;

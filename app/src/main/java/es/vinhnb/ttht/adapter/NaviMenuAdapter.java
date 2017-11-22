@@ -9,11 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.es.tungnv.views.R;
 
 import java.util.ArrayList;
+
+import es.vinhnb.ttht.view.TthtHnMainActivity;
 
 /**
  * Created by VinhNB on 11/21/2017.
@@ -38,7 +41,7 @@ public class NaviMenuAdapter extends ArrayAdapter<NaviMenuAdapter.NaviMenu> {
 
     @NonNull
     @Override
-    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         //Save view
         // Get the data item for this position
         NaviMenuHolder naviMenuHolder;
@@ -53,11 +56,14 @@ public class NaviMenuAdapter extends ArrayAdapter<NaviMenuAdapter.NaviMenu> {
             naviMenuHolder = new NaviMenuHolder();
             naviMenuHolder.ibtnIcon = (ImageButton) convertView.findViewById(R.id.ibtn_nav_icon_menu);
             naviMenuHolder.tvText = (TextView) convertView.findViewById(R.id.tv_nav_menu);
+            naviMenuHolder.rlView = (RelativeLayout) convertView.findViewById(R.id.rl_nav);
+            naviMenuHolder.vLine = (View) convertView.findViewById(R.id.v_view_line);
 
+            final int positionFinal = position;
             naviMenuHolder.ibtnIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    iNaviMenuAdapter.doClickNaviMenu(position);
+                    iNaviMenuAdapter.doClickNaviMenu(positionFinal, menuArrayList.get(posOldClick).tagMenu, naviMenuData.tagMenu);
                 }
             });
 
@@ -67,17 +73,31 @@ public class NaviMenuAdapter extends ArrayAdapter<NaviMenuAdapter.NaviMenu> {
             naviMenuHolder = (NaviMenuHolder) convertView.getTag();
 
 
+        //if menuTag is line
+        if (naviMenuData.tagMenu.typeViewMenu == TthtHnMainActivity.TypeViewMenu.EMPTY)
+            naviMenuHolder.rlView.setVisibility(View.GONE);
+        if (naviMenuData.tagMenu.typeViewMenu == TthtHnMainActivity.TypeViewMenu.LINE){
+            naviMenuHolder.vLine.setVisibility(View.VISIBLE);
+            naviMenuHolder.ibtnIcon.setVisibility(View.GONE);
+            naviMenuHolder.tvText.setVisibility(View.GONE);
+        }
+        if (naviMenuData.tagMenu.typeViewMenu == TthtHnMainActivity.TypeViewMenu.VIEW) {
+            naviMenuHolder.rlView.setVisibility(View.VISIBLE);
+            naviMenuHolder.vLine.setVisibility(View.GONE);
+            naviMenuHolder.ibtnIcon.setVisibility(View.VISIBLE);
+            naviMenuHolder.tvText.setVisibility(View.VISIBLE);
+        }
+
+
         //set background
-        naviMenuHolder.tvText.setText(naviMenuData.text);
-        naviMenuHolder.ibtnIcon.setImageResource(naviMenuData.drawableIconID);
-        if (posOldClick != position)
-        {
+        naviMenuHolder.tvText.setText(naviMenuData.tagMenu.title);
+        naviMenuHolder.ibtnIcon.setImageResource(naviMenuData.tagMenu.drawableIconID);
+        if (posOldClick != position) {
             naviMenuHolder.tvText.setTextColor(getContext().getResources().getColor(R.color.tththn_navi_menu_icon_default));
             naviMenuHolder.ibtnIcon.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.xml_tththn_cricle));
-        }
-        else{
+        } else {
             naviMenuHolder.tvText.setTextColor(getContext().getResources().getColor(R.color.tththn_navi_menu_icon));
-            naviMenuHolder.ibtnIcon.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.xml_tththn_cricle_icon));
+            naviMenuHolder.ibtnIcon.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.xml_tththn_cricle_type2));
         }
 
 
@@ -95,17 +115,17 @@ public class NaviMenuAdapter extends ArrayAdapter<NaviMenuAdapter.NaviMenu> {
     public static class NaviMenuHolder {
         public ImageButton ibtnIcon;
         public TextView tvText;
-
+        public RelativeLayout rlView;
+        public View vLine;
     }
 
     public static class NaviMenu {
-        public int drawableIconID;
-        public String text;
+        public TthtHnMainActivity.TagMenu tagMenu;
         public boolean isClicked;
 
-        public NaviMenu(int drawableIconID, String text) {
-            this.drawableIconID = drawableIconID;
-            this.text = text;
+
+        public NaviMenu(TthtHnMainActivity.TagMenu tagMenu) {
+            this.tagMenu = tagMenu;
         }
 
         public NaviMenu setClicked(boolean clicked) {
@@ -115,6 +135,6 @@ public class NaviMenuAdapter extends ArrayAdapter<NaviMenuAdapter.NaviMenu> {
     }
 
     public interface INaviMenuAdapter {
-        void doClickNaviMenu(int pos);
+        void doClickNaviMenu(int pos, TthtHnMainActivity.TagMenu tagOld, TthtHnMainActivity.TagMenu tagNew);
     }
 }
