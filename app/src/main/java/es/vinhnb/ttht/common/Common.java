@@ -40,8 +40,7 @@ public class Common {
         ex03("Lỗi khởi tạo!"),
         ex04("Lỗi hiển thị!"),
         ex05("Gặp vấn đề đồng bộ!"),
-
-
+        ex06("Gặp vấn đề kết nối, vui lòng thử lại!"),
 
         ex0x("Xảy ra lỗi bất ngờ!")
         ;
@@ -117,6 +116,7 @@ public class Common {
         }
         return version;
     }
+
     //region date time
     public enum DATE_TIME_TYPE {
         HHmmss,

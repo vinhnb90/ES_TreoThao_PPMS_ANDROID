@@ -9,6 +9,7 @@ import java.util.List;
 import es.vinhnb.ttht.adapter.ChiTietCtoAdapter.DataChiTietCtoAdapter;
 import es.vinhnb.ttht.database.table.TABLE_BBAN_CTO;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_CTO;
+import es.vinhnb.ttht.view.TthtHnMainActivity;
 import esolutions.com.esdatabaselib.baseSqlite.ItemFactory;
 import esolutions.com.esdatabaselib.baseSqlite.SqlDAO;
 
@@ -32,10 +33,10 @@ public class TthtHnSQLDAO extends SqlDAO {
 
                 dataChiTietCtoAdapter.setMaCto(cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.declared.MA_CTO.name())));
                 dataChiTietCtoAdapter.setSoCto(cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.declared.SO_CTO.name())));
-                dataChiTietCtoAdapter.setMaTram(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.declared.MA_TRAM.name())));
-                dataChiTietCtoAdapter.setMaGCS(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.declared.MA_GCS_CTO.name())));
-                dataChiTietCtoAdapter.setTenKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.declared.TEN_KHANG.name())));
-                dataChiTietCtoAdapter.setDiachiKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.declared.DCHI_HDON.name())));
+                dataChiTietCtoAdapter.setMaTram(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_TRAM.name())));
+                dataChiTietCtoAdapter.setMaGCS(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_GCS_CTO.name())));
+                dataChiTietCtoAdapter.setTenKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TEN_KHANG.name())));
+                dataChiTietCtoAdapter.setDiachiKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.DCHI_HDON.name())));
                 dataChiTietCtoAdapter.setChiso(cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.declared.CHI_SO.name())));
 
                 return dataChiTietCtoAdapter;
@@ -54,13 +55,32 @@ public class TthtHnSQLDAO extends SqlDAO {
 
                 dataChiTietCtoAdapter.setMaCto(cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.declared.MA_CTO.name())));
                 dataChiTietCtoAdapter.setSoCto(cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.declared.SO_CTO.name())));
-                dataChiTietCtoAdapter.setMaTram(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.declared.MA_TRAM.name())));
-                dataChiTietCtoAdapter.setMaGCS(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.declared.MA_GCS_CTO.name())));
-                dataChiTietCtoAdapter.setTenKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.declared.TEN_KHANG.name())));
-                dataChiTietCtoAdapter.setDiachiKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.declared.DCHI_HDON.name())));
+                dataChiTietCtoAdapter.setMaTram(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_TRAM.name())));
+                dataChiTietCtoAdapter.setMaGCS(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_GCS_CTO.name())));
+                dataChiTietCtoAdapter.setTenKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TEN_KHANG.name())));
+                dataChiTietCtoAdapter.setDiachiKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.DCHI_HDON.name())));
                 dataChiTietCtoAdapter.setChiso(cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.declared.CHI_SO.name())));
 
                 return dataChiTietCtoAdapter;
+            }
+        });
+    }
+
+    public List<String> getTRANG_THAI_DU_LIEUofTABLE_BBAN_CTO(String[] valueCheck) {
+        String query = "SELECT " +
+                TABLE_BBAN_CTO.table.TRANG_THAI_DU_LIEU.name() +
+                " FROM " +
+                TABLE_BBAN_CTO.table.getName() +
+                " WHERE " +
+                TABLE_BBAN_CTO.table.ID_BBAN_TRTH.name() +
+                " = ?";
+
+        Cursor c = super.mDatabase.rawQuery(query, valueCheck);
+        return super.selectAllLazy(c, new ItemFactory(String.class) {
+            @Override
+            protected String create(Cursor cursor, int index) {
+                cursor.moveToPosition(index);
+                return cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TRANG_THAI_DU_LIEU.name()));
             }
         });
     }

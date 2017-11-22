@@ -1,6 +1,8 @@
 package es.vinhnb.ttht.database.table;
 
 
+import com.es.tungnv.utils.TthtCommon;
+
 import esolutions.com.esdatabaselib.baseSqlite.anonation.AutoIncrement;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Collumn;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.EnumNameCollumn;
@@ -15,8 +17,31 @@ import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
 
 @Table(name = "TABLE_BBAN_CTO")
 public class TABLE_BBAN_CTO {
+
+    //trạng thái dữ liệu
+    public enum TRANG_THAI_DU_LIEU {
+        CHUA_TON_TAI("Chưa tồn tại"),
+        CHUA_GHI("Chưa ghi"),
+        DA_GHI("Đã ghi"),
+        DA_GUI("Đã gửi");
+
+        public String content;
+
+        TRANG_THAI_DU_LIEU(String content) {
+            this.content = content;
+        }
+
+        public static TRANG_THAI_DU_LIEU findTRANG_THAI_DU_LIEU(String content) {
+            for (TRANG_THAI_DU_LIEU trangThaiDuLieu : values()) {
+                if (trangThaiDuLieu.content.equalsIgnoreCase(content))
+                    return trangThaiDuLieu;
+            }
+            return null;
+        }
+    }
+
     @EnumNameCollumn()
-    public enum declared {
+    public enum table {
         ID_TABLE_BBAN_CTO,
         MA_DVIQLY,
         ID_BBAN_TRTH,
@@ -42,7 +67,12 @@ public class TABLE_BBAN_CTO {
         MA_TRAM,
         MA_HDONG,
         MA_KHANG,
-        LY_DO_TREO_THAO;
+        LY_DO_TREO_THAO,
+        TRANG_THAI_DU_LIEU;
+
+        public static String getName() {
+            return "TABLE_BBAN_CTO";
+        }
     }
 
     @PrimaryKey
@@ -125,6 +155,8 @@ public class TABLE_BBAN_CTO {
     @Collumn(name = "LY_DO_TREO_THAO", type = TYPE.TEXT)
     private String LY_DO_TREO_THAO;
 
+    @Collumn(name = "TRANG_THAI_DU_LIEU", type = TYPE.TEXT)
+    private String TRANG_THAI_DU_LIEU;
 
     public TABLE_BBAN_CTO() {
     }
@@ -154,7 +186,9 @@ public class TABLE_BBAN_CTO {
                           @Params(name = "MA_TRAM") String MA_TRAM,
                           @Params(name = "MA_HDONG") String MA_HDONG,
                           @Params(name = "MA_KHANG") String MA_KHANG,
-                          @Params(name = "LY_DO_TREO_THAO") String LY_DO_TREO_THAO) {
+                          @Params(name = "LY_DO_TREO_THAO") String LY_DO_TREO_THAO,
+                          @Params(name = "LY_DO_TREO_THAO") String TRANG_THAI_DU_LIEU
+    ) {
         this.ID_TABLE_BBAN_CTO = ID_TABLE_BBAN_CTO;
         this.MA_DVIQLY = MA_DVIQLY;
         this.ID_BBAN_TRTH = ID_BBAN_TRTH;
@@ -181,6 +215,7 @@ public class TABLE_BBAN_CTO {
         this.MA_HDONG = MA_HDONG;
         this.MA_KHANG = MA_KHANG;
         this.LY_DO_TREO_THAO = LY_DO_TREO_THAO;
+        this.TRANG_THAI_DU_LIEU = TRANG_THAI_DU_LIEU;
     }
 
 
@@ -390,5 +425,13 @@ public class TABLE_BBAN_CTO {
 
     public void setLY_DO_TREO_THAO(String LY_DO_TREO_THAO) {
         this.LY_DO_TREO_THAO = LY_DO_TREO_THAO;
+    }
+
+    public String getTRANG_THAI_DU_LIEU() {
+        return TRANG_THAI_DU_LIEU;
+    }
+
+    public void setTRANG_THAI_DU_LIEU(String TRANG_THAI_DU_LIEU) {
+        this.TRANG_THAI_DU_LIEU = TRANG_THAI_DU_LIEU;
     }
 }

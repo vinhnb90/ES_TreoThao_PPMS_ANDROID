@@ -198,6 +198,8 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
             } else {
                 showSnackBar(Common.MESSAGE.ex02.getContent(), "Mã lỗi: " + statusCode + "\nNội dung:" + dviResponse.errorBody().string(), null);
             }
+        } else {
+            showSnackBar(Common.MESSAGE.ex06.getContent(), null, null);
         }
 
 
@@ -241,8 +243,10 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
                 showSnackBar(Common.MESSAGE.ex02.getContent(), "Mã lỗi: " + statusCode + "\nNội dung:" + userMtbResponse.errorBody().string(), null);
                 return false;
             }
-        } else
+        } else {
+            showSnackBar(Common.MESSAGE.ex06.getContent(), null, null);
             return false;
+        }
     }
 
     @Override

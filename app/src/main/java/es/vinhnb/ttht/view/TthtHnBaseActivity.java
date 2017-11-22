@@ -75,11 +75,16 @@ public abstract class TthtHnBaseActivity extends AppCompatActivity {
 
 
             //set value
-            etContent.setVisibility(View.GONE);
-            tvMessage.setText(message);
-            if (content == null) content = "";
-            etContent.setText(content);
 
+            tvMessage.setText(message);
+            if (TextUtils.isEmpty(content)) {
+                btnContent.setVisibility(View.GONE);
+                etContent.setVisibility(View.GONE);
+            } else {
+                etContent.setText(content);
+                btnContent.setVisibility(View.VISIBLE);
+                etContent.setVisibility(View.VISIBLE);
+            }
 
             //catch action
             btnContent.setOnClickListener(new View.OnClickListener() {

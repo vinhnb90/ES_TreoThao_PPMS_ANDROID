@@ -19,6 +19,7 @@ import java.io.File;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
 import esolutions.com.esdatabaselib.baseSqlite.anonation.AutoIncrement;
@@ -225,9 +226,40 @@ public class SqlHelper extends SQLiteOpenHelper {
                 elementEnumNameCollumn.add(s);
             }
 
-//            elementEnumNameCollumn;
-//            Field[] a = aClass.getDeclaredFields();
-//            Method[] b = aClass.getDeclaredMethods();
+
+            //kiểm tra việc ghi method static getName trả về tên bảng
+            Method[] methodsEnum = aClass.getDeclaredMethods();
+            Method getNameMethod = null;
+            boolean isHasMethodGetName = false;
+            for (Method method : methodsEnum
+                    ) {
+
+                //check public
+                //check static
+                //check type return
+                //check name
+                //not params
+                if (Modifier.isPublic(method.getModifiers())
+                        && Modifier.isStatic(method.getModifiers())
+                        && (String.class.isInstance(method.getReturnType())
+                        && method.getName().equalsIgnoreCase("getName"))) {
+                    isHasMethodGetName = true;
+                    getNameMethod = method;
+                    break;
+                }
+            }
+
+
+            //nếu không có method getName như yêu cầu thì thông báo
+            if (!isHasMethodGetName)
+                throw new Exception("Trong class " + classz.getSimpleName() + " ở enum có @EnumNameCollumn hãy khai báo một method \"public static String getName()\" và return tên bảng sql phục vụ việc lấy tên bảng!");
+
+
+            //lên giá trị table trả về và so sánh với annTable name
+            getNameMethod.setAccessible(true);
+            String nameTable = String.valueOf(getNameMethod.invoke(null, new Object[]{}));
+            if (!nameTable.equalsIgnoreCase(annTable.name()))
+                throw new Exception("Trong class " + classz.getSimpleName() + "giá trị return tên bảng trong method \"public static String getName()\" không trùng với name trong Annotations Table của bảng!");
         }
 
 

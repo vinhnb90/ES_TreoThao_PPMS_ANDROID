@@ -2,6 +2,7 @@ package es.vinhnb.ttht.view;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +14,22 @@ import android.widget.TextView;
 import com.es.tungnv.views.R;
 import com.esolutions.esloginlib.lib.LoginFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.database.dao.TthtHnSQLDAO;
+import es.vinhnb.ttht.database.table.TABLE_BBAN_CTO;
+import es.vinhnb.ttht.entity.api.MtbBbanModel;
+import es.vinhnb.ttht.entity.api.UpdateStatus;
+import es.vinhnb.ttht.server.TthtHnApi;
+import es.vinhnb.ttht.server.TthtHnApiInterface;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
+import retrofit2.Call;
+import retrofit2.Response;
 
+import static es.vinhnb.ttht.server.TthtHnApiInterface.IAsync.BUNDLE_DATA;
+import static es.vinhnb.ttht.server.TthtHnApiInterface.IAsync.STATUS_CODE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +43,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
     private LoginFragment.LoginData mLoginData;
     private String mMaNVien;
 
+    private TthtHnApiInterface apiInterface;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -124,11 +138,125 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
         btnDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //check internet
-                try {
-                    if (!Common.isNetworkConnected(getContext()))
-                        throw new Exception("Chưa có kết nối internet, vui lòng kiểm tra lại!");
 
+                try {
+                    //init data
+                    List<UpdateStatus> resultLayDuLieuCmis = null;
+                    List<MtbBbanModel> resultGeT_BBAN = null;
+
+                    //show Pbar
+                    pbarDownload.setVisibility(View.VISIBLE);
+                    btnDownload.setVisibility(View.GONE);
+
+
+                    //LayDuLieuCmis
+                    resultLayDuLieuCmis = callLayDuLieuCmis();
+                    if (resultLayDuLieuCmis.size() == 0) {
+                        ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex06.getContent(), "Web kết nối CMIS lỗi!", null);
+                        return;
+                    }
+
+
+                    //nếu OK thì đồng bộ biên bản
+                    if (resultLayDuLieuCmis.get(0).RESULT.equals("OK")) {
+                        //call GeT_BBAN
+                        resultGeT_BBAN = callGeT_BBAN();
+                    }
+
+
+                    //GeT_BBAN
+                    if (resultGeT_BBAN.size() == 0) {
+                        ((TthtHnBaseActivity) getContext()).showSnackBar("Hiện tại không còn biên bản trên máy chủ!", null, null);
+                        return;
+                    }
+
+                    //với mỗi biên bản thì đồng bộ chi tiết công tơ tương ứng biên bản đó
+                    for (int i = 0; i < resultGeT_BBAN.size(); i++) {
+                        MtbBbanModel bbanModel = resultGeT_BBAN.get(i);
+
+
+                        //kiểm tra trạng thái biên bản trong database, ngừng thực hiện update biên bản nếu nó đã gửi
+                        if (availableCanUpdateInfoBBan(bbanModel)) {
+
+                        }
+                    }
+
+
+                } catch (Exception e) {
+                    //hide Pbar
+                    pbarDownload.setVisibility(View.GONE);
+                    btnDownload.setVisibility(View.VISIBLE);
+
+
+                    e.printStackTrace();
+                    ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex05.getContent(), e.getMessage(), null);
+                } finally {
+                    //hide Pbar
+                    pbarDownload.setVisibility(View.GONE);
+                    btnDownload.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    private boolean availableCanUpdateInfoBBan(MtbBbanModel bbanModel) throws Exception {
+        boolean availableCanUpdateInfoBBan = false;
+
+
+        //Lấy dữ liệu TRANG_THAI_DU_LIEU của biên bản
+        String[] valueCheck = new String[]{String.valueOf(bbanModel.ID_BBAN_TRTH)};
+        List<String> TRANG_THAI_DU_LIEUList = mSqlDAO.getTRANG_THAI_DU_LIEUofTABLE_BBAN_CTO(valueCheck);
+
+
+        //check
+        switch (TABLE_BBAN_CTO.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(TRANG_THAI_DU_LIEUList.get(0)))
+        {
+            case CHUA_TON_TAI:
+                //insert
+
+                availableCanUpdateInfoBBan = true;
+                break;
+
+            case CHUA_GHI:
+                //update full
+
+                availableCanUpdateInfoBBan = true;
+                break;
+
+            case DA_GHI:
+                //update những giá trường không không ghi ngoài hiện trường
+
+                availableCanUpdateInfoBBan = true;
+                break;
+
+            case DA_GUI:
+                //not update or insert
+
+
+                break;
+
+        }
+
+//                mSqlDAO.isExistRows(TABLE_BBAN_CTO.class, collumnCheck, valueCheck);
+    }
+
+    private List<MtbBbanModel> callGeT_BBAN() throws Exception {
+        TthtHnApiInterface.IAsync iAsync = new TthtHnApiInterface.IAsync() {
+            @Override
+            public void onPreExecute() {
+                try {
+                    //init protocol server
+                    apiInterface = TthtHnApi.getClient().create(TthtHnApiInterface.class);
+
+
+                    //check internet
+                    if (!Common.isNetworkConnected(getContext())) {
+                        throw new Exception("Chưa có kết nối internet, vui lòng kiểm tra lại!");
+                    }
+
+
+                    //update
+                    updateInfoDownload("Đang đồng bộ biên bản treo tháo...", 0);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -136,8 +264,161 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                 }
 
             }
-        });
 
+            @Override
+            public Bundle doInBackground() {
+                //ghi vào buldle
+                Bundle result = new Bundle();
+                List<MtbBbanModel> dataServer = null;
+
+
+                try {
+                    //call check CMIS connect
+                    Call<List<MtbBbanModel>> GeT_BBANCall = apiInterface.GeT_BBAN(mLoginData.getmMaDvi(), mMaNVien);
+                    Response<List<MtbBbanModel>> GeT_BBANResponse = GeT_BBANCall.execute();
+
+
+                    //nếu có response về thì check code 200 (OK) hoặc code khác 200 (FAIL)
+                    int statusCode = GeT_BBANResponse.code();
+                    if (GeT_BBANResponse.isSuccessful() && statusCode == 200) {
+                        dataServer = GeT_BBANResponse.body();
+                    }
+
+
+                    result.putInt(STATUS_CODE, statusCode);
+                    result.putParcelableArrayList(BUNDLE_DATA, (ArrayList<? extends Parcelable>) dataServer);
+
+
+                    return result;
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+
+                    //return result
+                    result.putInt(STATUS_CODE, 0);
+                    result.putParcelableArrayList(BUNDLE_DATA, null);
+                    return result;
+                }
+            }
+        };
+
+
+        //call
+        TthtHnApiInterface.AsyncApi asyncApi = new TthtHnApiInterface.AsyncApi(iAsync);
+        asyncApi.execute();
+
+        Bundle resultGeT_BBAN = asyncApi.get();
+
+        int statusCode = resultGeT_BBAN.getInt(STATUS_CODE, 0);
+        List<MtbBbanModel> dataServer = null;
+
+
+        //check case
+        if (statusCode == 0) {
+            ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex06.getContent(), null, null);
+        } else if (statusCode == 200) {
+            //process to next async
+            dataServer = resultGeT_BBAN.getParcelableArrayList(BUNDLE_DATA);
+        } else {
+            ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex02.getContent(), "Mã lỗi: " + statusCode + "\nNội dung:" + LayDuLieuCmisCallResponse.errorBody().string(), null);
+        }
+
+
+        return dataServer;
+    }
+
+    private List<UpdateStatus> callLayDuLieuCmis() throws Exception {
+        TthtHnApiInterface.IAsync iAsync = new TthtHnApiInterface.IAsync() {
+            @Override
+            public void onPreExecute() {
+                try {
+                    //init protocol server
+                    apiInterface = TthtHnApi.getClient().create(TthtHnApiInterface.class);
+
+
+                    //check internet
+                    if (!Common.isNetworkConnected(getContext())) {
+                        throw new Exception("Chưa có kết nối internet, vui lòng kiểm tra lại!");
+                    }
+
+
+                    //update
+                    updateInfoDownload("Đang kiểm tra kết nối tới CMIS...", 0);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex05.getContent(), e.getMessage(), null);
+                }
+
+            }
+
+            @Override
+            public Bundle doInBackground() {
+                //ghi vào buldle
+                Bundle result = new Bundle();
+                List<UpdateStatus> dataServer = null;
+
+
+                try {
+                    //call check CMIS connect
+                    Call<List<UpdateStatus>> LayDuLieuCmisCall = apiInterface.LayDuLieuCmis(mLoginData.getmMaDvi(), mMaNVien);
+                    Response<List<UpdateStatus>> LayDuLieuCmisCallResponse = LayDuLieuCmisCall.execute();
+
+
+                    //nếu có response về thì check code 200 (OK) hoặc code khác 200 (FAIL)
+                    int statusCode = LayDuLieuCmisCallResponse.code();
+                    if (LayDuLieuCmisCallResponse.isSuccessful() && statusCode == 200) {
+                        dataServer = LayDuLieuCmisCallResponse.body();
+                    }
+
+
+                    result.putInt(STATUS_CODE, statusCode);
+                    result.putParcelableArrayList(BUNDLE_DATA, (ArrayList<? extends Parcelable>) dataServer);
+
+
+                    return result;
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+
+                    //return result
+                    result.putInt(STATUS_CODE, 0);
+                    result.putParcelableArrayList(BUNDLE_DATA, null);
+                    return result;
+                }
+            }
+        };
+
+
+        //call
+        TthtHnApiInterface.AsyncApi asyncApi = new TthtHnApiInterface.AsyncApi(iAsync);
+        asyncApi.execute();
+
+        Bundle resultLayDuLieuCmis = asyncApi.get();
+
+        int statusCode = resultLayDuLieuCmis.getInt(STATUS_CODE, 0);
+        List<UpdateStatus> dataServer = null;
+
+
+        //check case
+        if (statusCode == 0) {
+            ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex06.getContent(), null, null);
+        } else if (statusCode == 200) {
+            //process to next async
+            dataServer = resultLayDuLieuCmis.getParcelableArrayList(BUNDLE_DATA);
+        } else {
+            ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex02.getContent(), "Mã lỗi: " + statusCode + "\nNội dung:" + LayDuLieuCmisCallResponse.errorBody().string(), null);
+        }
+
+
+        return dataServer;
+    }
+
+    private void updateInfoDownload(String titleDownload, int pbarPercent) {
+        tvPercentDownload.setText(pbarPercent + "%");
+        tvDownload.setText(titleDownload);
     }
     //endregion
 
