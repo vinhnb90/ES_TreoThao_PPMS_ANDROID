@@ -29,7 +29,10 @@ import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 
 public class Common {
 
+    public static final long DELAY = 1000;
+    public static final long DELAY_PROGESS_PBAR = 20;
     public static String URLServer = "";
+
     public static void setURLServer(String andressServer) {
         URLServer = "http://" + andressServer + "/api/ServiceMTB/";
     }
@@ -41,9 +44,8 @@ public class Common {
         ex04("Lỗi hiển thị!"),
         ex05("Gặp vấn đề đồng bộ!"),
         ex06("Gặp vấn đề kết nối, vui lòng thử lại!"),
-
-        ex0x("Xảy ra lỗi bất ngờ!")
-        ;
+        ex07("Gặp vấn đề khi ghi dữ liệu!"),
+        ex0x("Xảy ra lỗi bất ngờ!");
 
         private String content;
 
@@ -57,6 +59,7 @@ public class Common {
     }
 
     public static final int REQUEST_CODE_PERMISSION = 100;
+
     public static boolean checkPermission(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(activity.getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
@@ -117,43 +120,148 @@ public class Common {
         return version;
     }
 
+
+    //region data table sql decraled
+    //IS_TU trong bảng TABLE_CHITIET_TUTI
+    public enum IS_TU {
+        TU(true, "TU"),
+        TI(false, "TI");
+
+        public boolean code;
+        public String content;
+
+        IS_TU(boolean code, String content) {
+            this.content = content;
+            this.code = code;
+        }
+
+        public static IS_TU findIS_TU(String content) {
+            for (IS_TU isTu : values()) {
+                if (isTu.content.equalsIgnoreCase(content))
+                    return isTu;
+            }
+            return null;
+        }
+    }
+
+    //Mã biến động
+    public enum MA_BDONG {
+        B("B", "Treo"),
+        E("E", "Tháo");
+
+        public String code;
+        public String content;
+
+        MA_BDONG(String code, String content) {
+            this.content = content;
+            this.code = code;
+        }
+
+        public static MA_BDONG findMA_BDONG(String content) {
+            for (MA_BDONG maBdong : values()) {
+                if (maBdong.content.equalsIgnoreCase(content))
+                    return maBdong;
+            }
+            return null;
+        }
+    }
+
+    //trạng thái dữ liệu
+    public enum TRANG_THAI_DU_LIEU {
+        CHUA_TON_TAI("Chưa tồn tại"),
+        CHUA_GHI("Chưa ghi"),
+        DA_GHI("Đã ghi"),
+        DA_GUI("Đã gửi");
+
+        public String content;
+
+        TRANG_THAI_DU_LIEU(String content) {
+            this.content = content;
+        }
+
+        public static TRANG_THAI_DU_LIEU findTRANG_THAI_DU_LIEU(String content) {
+            for (TRANG_THAI_DU_LIEU trangThaiDuLieu : values()) {
+                if (trangThaiDuLieu.content.equalsIgnoreCase(content))
+                    return trangThaiDuLieu;
+            }
+            return null;
+        }
+    }
+
+
+    //Kiểu gọi TYPE_CALL_API trong TABLE_HISTORY
+    public enum TYPE_CALL_API {
+        DOWNLOAD("DOWNLOAD"),
+        UPLOAD("UPLOAD");
+
+        public String content;
+
+        TYPE_CALL_API(String content) {
+            this.content = content;
+        }
+
+        public static TYPE_CALL_API findTYPE_CALL_API(String content) {
+            for (TYPE_CALL_API typeCallApi : values()) {
+                if (typeCallApi.content.equalsIgnoreCase(content))
+                    return typeCallApi;
+            }
+            return null;
+        }
+    }
+
+    //Kiểu gọi TYPE_RESULT trong TABLE_HISTORY
+    public enum TYPE_RESULT {
+        SUCCESS("THÀNH CÔNG"),
+        ERROR("CÓ LỖI");
+
+        public String content;
+
+        TYPE_RESULT(String content) {
+            this.content = content;
+        }
+
+        public static TYPE_RESULT findTYPE_RESULT(String content) {
+            for (TYPE_RESULT typeCallApi : values()) {
+                if (typeCallApi.content.equalsIgnoreCase(content))
+                    return typeCallApi;
+            }
+            return null;
+        }
+    }
+
+
+    //endregion
+
+
     //region date time
     public enum DATE_TIME_TYPE {
-        HHmmss,
-        yyyyMMdd,
-        yyyyMMddHHmmssSSS,
-        yyyyMMddHHmmssSSZ,
-        MMddyyyyHHmmssa,
-        MMyyyy,
-        ddMMyyyyHHmm,
-        ddMMyyyy,
-        ddMMyyyyHHmmss,
-        FULL;
+        type1("HHmmss"),
+        type2("yyyyMMdd"),
+        type3("yyyyMMddHHmmss"),
+        type4("yyyy-MM-dd'T'hh:mm:ssZ"),
+        type5("MM/yyyy"),
+        type6("dd/MM/yyyy"),
+        type7("dd/MM/yyyy HH:mm:ss"),
+        type8("dd/MM/yyyy HH:mm"),
+        type9("dd/MM/yyyy HH'h'mm"),
+        type10("MM/dd/yyyy HH:mm:ss a"),
+        type11("yyyy-MM-dd HH:mm:ss"),
 
-        @Override
-        public String toString() {
-            if (this == HHmmss)
-                return "HHmmss";
-            if (this == yyyyMMdd)
-                return "yyyyMMdd";
-            if (this == yyyyMMddHHmmssSSS)
-                return "yyyyMMddHHmmss";
-            if (this == yyyyMMddHHmmssSSZ)
-                return "yyyy-MM-dd'T'hh:mm:ssZ";
-            if (this == MMyyyy)
-                return "MM/yyyy";
-            if (this == ddMMyyyy)
-                return "dd/MM/yyyy";
-            if (this == ddMMyyyyHHmmss)
-                return "dd/MM/yyyy HH:mm:ss";
-            if (this == ddMMyyyyHHmm)
-                return "dd/MM/yyyy HH'h'mm";
-            if (this == MMddyyyyHHmmssa)
-                //2017-08-01T00:00:00+07:00
-                return "MM/dd/yyyy HH:mm:ss a";
-            if (this == FULL)
-                return "yyyy-MM-dd HH:mm:ss";
-            return super.toString();
+
+        typeEx("typeEx");
+
+        public String content;
+
+        DATE_TIME_TYPE(String content) {
+            this.content = content;
+        }
+
+        public static DATE_TIME_TYPE findDATE_TIME_TYPE(String content) {
+            for (DATE_TIME_TYPE dateTimeType : values()) {
+                if (dateTimeType.content.equalsIgnoreCase(content))
+                    return dateTimeType;
+            }
+            return null;
         }
     }
 

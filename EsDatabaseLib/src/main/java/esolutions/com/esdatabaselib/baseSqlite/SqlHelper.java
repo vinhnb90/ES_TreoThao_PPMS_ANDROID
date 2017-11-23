@@ -59,6 +59,9 @@ public class SqlHelper extends SQLiteOpenHelper {
     private static SQLiteDatabase mSqLiteDatabase;
     private static Class<?> sClassDBConfig;
     private static Class<?>[] sClassDBTable;
+    private int oldVer;
+    private int newVer;
+    private String message;
 
     private SqlHelper() throws Exception {
         super(sConfigData.getContext(), sConfigData.getNameDB() + ".s3db", null, sConfigData.getVersion());
@@ -66,17 +69,30 @@ public class SqlHelper extends SQLiteOpenHelper {
 
     private SqlHelper(String nameFolder) throws Exception {
 
-        super(sConfigData.getContext(), Environment.getExternalStorageDirectory() + File.separator + sConfigData.getNameFolder() + File.separator + sConfigData.getNameDB() + ".s3db", null, sConfigData.getVersion());
-        SQLiteDatabase.openOrCreateDatabase(Environment.getExternalStorageDirectory() + File.separator + sConfigData.getNameFolder() + File.separator + sConfigData.getNameDB() + ".s3db", null);
+        super(sConfigData.getContext(), Environment.getExternalStorageDirectory() + File.separator + nameFolder + File.separator + sConfigData.getNameDB() + ".s3db", null, sConfigData.getVersion());
+        SQLiteDatabase.openOrCreateDatabase(Environment.getExternalStorageDirectory() + File.separator + nameFolder + File.separator + sConfigData.getNameDB() + ".s3db", null);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVer, int newVer) {
+        this.oldVer = oldVer;
+        this.newVer = newVer;
         if (newVer > oldVer) {
             for (Class<?> classz : sClassDBTable) {
                 sqLiteDatabase.execSQL(getQueryDropTable(classz));
             }
             onCreate(sqLiteDatabase);
+        }
+    }
+
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        //overrider onDowgrare and throw message
+        try{
+            super.onDowngrade(db, oldVersion, newVersion);
+        }catch (Exception e)
+        {
+            throw new RuntimeException(message);
         }
     }
 
@@ -88,7 +104,11 @@ public class SqlHelper extends SQLiteOpenHelper {
                 sqLiteDatabase.execSQL(create);
             }
         } catch (Exception e) {
+            //reset version old
+            message = e.getMessage();
             Toast.makeText(sConfigData.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            this.onDowngrade(sqLiteDatabase, oldVer, newVer);
+            sqLiteDatabase.execSQL("pragma user_version = " + this.oldVer);
         }
     }
 
@@ -235,14 +255,20 @@ public class SqlHelper extends SQLiteOpenHelper {
                     ) {
 
                 //check public
+                boolean isPublic = Modifier.isPublic(method.getModifiers());
                 //check static
+                boolean isStatic = Modifier.isStatic(method.getModifiers());
                 //check type return
+                boolean isReturnString = method.getReturnType().newInstance() instanceof String;
                 //check name
+                boolean isGetName = method.getName().equalsIgnoreCase("getName");
                 //not params
-                if (Modifier.isPublic(method.getModifiers())
-                        && Modifier.isStatic(method.getModifiers())
-                        && (String.class.isInstance(method.getReturnType())
-                        && method.getName().equalsIgnoreCase("getName"))) {
+                boolean isNotParam = (method.getParameterTypes().length == 0);
+                if (isPublic
+                        && isStatic
+                        && isReturnString
+                        && isGetName
+                        && isNotParam) {
                     isHasMethodGetName = true;
                     getNameMethod = method;
                     break;

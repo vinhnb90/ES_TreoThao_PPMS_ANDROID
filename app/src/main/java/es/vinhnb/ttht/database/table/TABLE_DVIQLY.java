@@ -21,6 +21,10 @@ public class TABLE_DVIQLY {
         ID_TABLE_DVIQLY,
         MA_DVIQLY,
         TEN_DVIQLY;
+
+        public static String getName(){
+            return "TABLE_DVIQLY";
+        }
     }
 
     @PrimaryKey

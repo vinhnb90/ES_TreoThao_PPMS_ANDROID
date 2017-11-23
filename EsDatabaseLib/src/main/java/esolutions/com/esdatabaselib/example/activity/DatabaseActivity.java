@@ -106,7 +106,7 @@ public class DatabaseActivity extends AppCompatActivity {
                                 listDataDump.add(aStudent);
                             }
 
-                            Long[] indexs = sqlDAO.insert(listDataDump);
+                            Long[] indexs = sqlDAO.insert(Student.class, listDataDump);
 
                             DatabaseActivity.this.runOnUiThread(new Runnable() {
                                 @Override

@@ -27,6 +27,10 @@ public class TABLE_ANH_HIENTRUONG {
         ID_CHITIET_CTO,
         TYPE,
         CREATE_DAY;
+
+        public static String getName(){
+            return "TABLE_ANH_HIENTRUONG";
+        }
     }
 
     @PrimaryKey

@@ -18,28 +18,6 @@ import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
 @Table(name = "TABLE_BBAN_CTO")
 public class TABLE_BBAN_CTO {
 
-    //trạng thái dữ liệu
-    public enum TRANG_THAI_DU_LIEU {
-        CHUA_TON_TAI("Chưa tồn tại"),
-        CHUA_GHI("Chưa ghi"),
-        DA_GHI("Đã ghi"),
-        DA_GUI("Đã gửi");
-
-        public String content;
-
-        TRANG_THAI_DU_LIEU(String content) {
-            this.content = content;
-        }
-
-        public static TRANG_THAI_DU_LIEU findTRANG_THAI_DU_LIEU(String content) {
-            for (TRANG_THAI_DU_LIEU trangThaiDuLieu : values()) {
-                if (trangThaiDuLieu.content.equalsIgnoreCase(content))
-                    return trangThaiDuLieu;
-            }
-            return null;
-        }
-    }
-
     @EnumNameCollumn()
     public enum table {
         ID_TABLE_BBAN_CTO,

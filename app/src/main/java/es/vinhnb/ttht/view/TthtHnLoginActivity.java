@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.vinhnb.ttht.common.Common;
+import es.vinhnb.ttht.database.table.TABLE_HISTORY;
 import es.vinhnb.ttht.entity.api.D_DVIQLYModel;
 import es.vinhnb.ttht.entity.api.UserMtb;
 import es.vinhnb.ttht.entity.sharedpref.LoginSharePref;
@@ -255,7 +256,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         for (TABLE_DVIQLY dviqly : list) {
             String[] valueCheck = new String[]{dviqly.getMaDviqly()};
             if (!mSqlDAO.isExistRows(TABLE_DVIQLY.class, collumnCheck, valueCheck)) {
-                mSqlDAO.insert(list);
+                mSqlDAO.insert(TABLE_DVIQLY.class, list);
             }
         }
     }
@@ -314,12 +315,11 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
                         TABLE_BBAN_TUTI.class,
                         TABLE_CHITIET_CTO.class,
                         TABLE_CHITIET_TUTI.class,
-                        TABLE_CONGTO_TI.class,
-                        TABLE_CONGTO_TU.class,
                         TABLE_DVIQLY.class,
                         TABLE_LOAI_CONG_TO.class,
                         TABLE_SESSION.class,
                         TABLE_TRAM.class,
+                        TABLE_HISTORY.class
                 });
 
 
@@ -373,11 +373,11 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
                 dataCheck.setMA_DVIQLY(listDepart.get(dataLoginSession.getmPosDvi()).getMaDviqly());
                 dataCheck.setUSERNAME(dataLoginSession.getmUser());
                 dataCheck.setPASSWORD(dataLoginSession.getmPass());
-                dataCheck.setDATE_LOGIN(Common.getDateTimeNow(Common.DATE_TIME_TYPE.ddMMyyyyHHmmss));
+                dataCheck.setDATE_LOGIN(Common.getDateTimeNow(Common.DATE_TIME_TYPE.type7));
 
 
                 //save data
-                mSqlDAO.insert(dataCheck);
+                mSqlDAO.insert(TABLE_SESSION.class, dataCheck);
             }
         };
 

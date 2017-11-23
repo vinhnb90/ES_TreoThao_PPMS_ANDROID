@@ -181,6 +181,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
         mGridView.setAdapter(adapterNavMenu);
         mGridView.invalidate();
 
+
         //replace fragment
         //set fragment
         mTransaction = getSupportFragmentManager().beginTransaction();
@@ -281,8 +282,6 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
                     mTransaction.replace(mRlMain.getId(), fragmentMain);
                     mTransaction.addToBackStack(tagNew.tagFrag);
                     mTransaction.commit();
-//                    android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-//                    fragmentManager.beginTransaction().replace(mRlMain.getId(), fragmentMain).commit();
                 }
 
                 if (tagNew.typeFrag == TypeFragment.TthtHnDownloadFragment) {
@@ -290,8 +289,6 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
                     mTransaction.replace(mRlMain.getId(), fragmentDownload);
                     mTransaction.addToBackStack(tagNew.tagFrag);
                     mTransaction.commit();
-//                    android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-//                    fragmentManager.beginTransaction().replace(mRlMain.getId(), fragmentDownload).commit();
                 }
             }
         } catch (Exception e) {

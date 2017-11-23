@@ -2,7 +2,8 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@android:id/background">
         <shape>
-            <solid android:color="@color/tththn_button" />
+            <stroke android:color="@color/tththn_text_more_less_black" android:width="@dimen/_1sdp"/>
+            <solid android:color="@color/text_white" />
             <corners android:radius="@dimen/_5sdp" />
         </shape>
     </item>
@@ -18,7 +19,7 @@
                     android:right="@dimen/_3sdp"
                     android:bottom="@dimen/_3sdp">
                     <shape>
-                        <solid android:color="@color/text_white" />
+                        <solid android:color="@color/tththn_button" />
                         <corners android:radius="@dimen/_5sdp" />
                     </shape>
                 </item>

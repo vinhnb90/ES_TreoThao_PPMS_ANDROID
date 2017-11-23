@@ -16,7 +16,7 @@ import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
 @Table(name = "TABLE_CHITIET_TUTI")
 public class TABLE_CHITIET_TUTI {
     @EnumNameCollumn()
-    public enum declared {
+    public enum table {
         ID_TABLE_CHITIET_TUTI,
         MA_CLOAI,
         LOAI_TU_TI,
@@ -37,12 +37,18 @@ public class TABLE_CHITIET_TUTI {
         NGAY_KDINH,
         MA_CHI_KDINH,
 
-
         MA_CHI_HOP_DDAY,
         SO_VONG_THANH_CAI,
         TYSO_BIEN,
         MA_BDONG,
-        MA_DVIQLY;
+        MA_DVIQLY,
+
+        TRANG_THAI_DU_LIEU;
+
+        public static String getName()
+        {
+            return "TABLE_CHITIET_TUTI";
+        }
     }
 
 
@@ -67,14 +73,14 @@ public class TABLE_CHITIET_TUTI {
     @Collumn(name = "TYSO_DAU", type = TYPE.TEXT)
     private String TYSO_DAU;
 
-    @Collumn(name = "CAP_CXAC", type = TYPE.TEXT)
-    private String CAP_CXAC;
+    @Collumn(name = "CAP_CXAC", type = TYPE.INTEGER)
+    private int CAP_CXAC;
 
     @Collumn(name = "CAP_DAP", type = TYPE.INTEGER)
     private int CAP_DAP;
 
-    @Collumn(name = "MA_NUOC", type = TYPE.INTEGER)
-    private int MA_NUOC;
+    @Collumn(name = "MA_NUOC", type = TYPE.TEXT)
+    private String MA_NUOC;
 
     @Collumn(name = "MA_HANG", type = TYPE.TEXT)
     private String MA_HANG;
@@ -121,9 +127,11 @@ public class TABLE_CHITIET_TUTI {
     @Collumn(name = "MA_DVIQLY", type = TYPE.TEXT)
     private String MA_DVIQLY;
 
+    @Collumn(name = "TRANG_THAI_DU_LIEU", type = TYPE.TEXT)
+    private String TRANG_THAI_DU_LIEU;
+
     public TABLE_CHITIET_TUTI() {
     }
-
 
     public TABLE_CHITIET_TUTI(@Params(name = "ID_TABLE_CHITIET_TUTI") int ID_TABLE_CHITIET_TUTI,
                               @Params(name = "MA_CLOAI") String MA_CLOAI,
@@ -131,9 +139,9 @@ public class TABLE_CHITIET_TUTI {
                               @Params(name = "MO_TA") String MO_TA,
                               @Params(name = "SO_PHA") int SO_PHA,
                               @Params(name = "TYSO_DAU") String TYSO_DAU,
-                              @Params(name = "CAP_CXAC") String CAP_CXAC,
+                              @Params(name = "CAP_CXAC") int CAP_CXAC,
                               @Params(name = "CAP_DAP") int CAP_DAP,
-                              @Params(name = "MA_NUOC") int MA_NUOC,
+                              @Params(name = "MA_NUOC") String MA_NUOC,
                               @Params(name = "MA_HANG") String MA_HANG,
                               @Params(name = "TRANG_THAI") int TRANG_THAI,
                               @Params(name = "IS_TU") String IS_TU,
@@ -148,7 +156,9 @@ public class TABLE_CHITIET_TUTI {
                               @Params(name = "SO_VONG_THANH_CAI") int SO_VONG_THANH_CAI,
                               @Params(name = "TYSO_BIEN") String TYSO_BIEN,
                               @Params(name = "MA_BDONG") String MA_BDONG,
-                              @Params(name = "MA_DVIQLY") String MA_DVIQLY) {
+                              @Params(name = "MA_DVIQLY") String MA_DVIQLY,
+                              @Params(name = "TRANG_THAI_DU_LIEU") String TRANG_THAI_DU_LIEU
+                              ) {
         this.ID_TABLE_CHITIET_TUTI = ID_TABLE_CHITIET_TUTI;
         this.MA_CLOAI = MA_CLOAI;
         this.LOAI_TU_TI = LOAI_TU_TI;
@@ -173,6 +183,7 @@ public class TABLE_CHITIET_TUTI {
         this.TYSO_BIEN = TYSO_BIEN;
         this.MA_BDONG = MA_BDONG;
         this.MA_DVIQLY = MA_DVIQLY;
+        this.TRANG_THAI_DU_LIEU = TRANG_THAI_DU_LIEU;
     }
 
     public int getID_TABLE_CHITIET_TUTI() {
@@ -223,11 +234,11 @@ public class TABLE_CHITIET_TUTI {
         this.TYSO_DAU = TYSO_DAU;
     }
 
-    public String getCAP_CXAC() {
+    public int getCAP_CXAC() {
         return CAP_CXAC;
     }
 
-    public void setCAP_CXAC(String CAP_CXAC) {
+    public void setCAP_CXAC(int CAP_CXAC) {
         this.CAP_CXAC = CAP_CXAC;
     }
 
@@ -239,11 +250,11 @@ public class TABLE_CHITIET_TUTI {
         this.CAP_DAP = CAP_DAP;
     }
 
-    public int getMA_NUOC() {
+    public String getMA_NUOC() {
         return MA_NUOC;
     }
 
-    public void setMA_NUOC(int MA_NUOC) {
+    public void setMA_NUOC(String MA_NUOC) {
         this.MA_NUOC = MA_NUOC;
     }
 
@@ -365,5 +376,13 @@ public class TABLE_CHITIET_TUTI {
 
     public void setMA_DVIQLY(String MA_DVIQLY) {
         this.MA_DVIQLY = MA_DVIQLY;
+    }
+
+    public String getTRANG_THAI_DU_LIEU() {
+        return TRANG_THAI_DU_LIEU;
+    }
+
+    public void setTRANG_THAI_DU_LIEU(String TRANG_THAI_DU_LIEU) {
+        this.TRANG_THAI_DU_LIEU = TRANG_THAI_DU_LIEU;
     }
 }

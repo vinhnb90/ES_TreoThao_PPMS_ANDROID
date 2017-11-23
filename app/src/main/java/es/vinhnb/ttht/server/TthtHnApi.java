@@ -1,5 +1,7 @@
 package es.vinhnb.ttht.server;
 
+import java.util.concurrent.TimeUnit;
+
 import es.vinhnb.ttht.common.Common;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -15,6 +17,8 @@ public class TthtHnApi {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
+                .readTimeout(1, TimeUnit.MINUTES)
+                .connectTimeout(1, TimeUnit.MINUTES)
                 .addInterceptor(interceptor)
                 .build();
 

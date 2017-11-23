@@ -16,7 +16,7 @@ import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
 @Table(name = "TABLE_BBAN_TUTI")
 public class TABLE_BBAN_TUTI {
     @EnumNameCollumn()
-    public enum declared {
+    public enum table {
         ID_TABLE_BBAN_TUTI,
         MA_DVIQLY,
         ID_BBAN_TUTI,
@@ -33,7 +33,13 @@ public class TABLE_BBAN_TUTI {
         LY_DO_TREO_THAO,
         MA_KHANG,
         ID_BBAN_WEB_TUTI,
-        NVIEN_KCHI;
+        NVIEN_KCHI,
+        TRANG_THAI_DU_LIEU;
+
+        public static String getName()
+        {
+            return "TABLE_BBAN_TUTI";
+        }
     }
 
     @PrimaryKey
@@ -89,6 +95,10 @@ public class TABLE_BBAN_TUTI {
     @Collumn(name = "NVIEN_KCHI", type = TYPE.TEXT)
     private String NVIEN_KCHI;
 
+    @Collumn(name = "TRANG_THAI_DU_LIEU", type = TYPE.TEXT)
+    private String TRANG_THAI_DU_LIEU;
+
+
     public TABLE_BBAN_TUTI() {
     }
 
@@ -109,7 +119,9 @@ public class TABLE_BBAN_TUTI {
                            @Params(name = "LY_DO_TREO_THAO") String LY_DO_TREO_THAO,
                            @Params(name = "MA_KHANG") String MA_KHANG,
                            @Params(name = "ID_BBAN_WEB_TUTI") int ID_BBAN_WEB_TUTI,
-                           @Params(name = "NVIEN_KCHI") String NVIEN_KCHI) {
+                           @Params(name = "NVIEN_KCHI") String NVIEN_KCHI,
+                           @Params(name = "TRANG_THAI_DU_LIEU") String TRANG_THAI_DU_LIEU
+                           ) {
         this.ID_TABLE_BBAN_TUTI = ID_TABLE_BBAN_TUTI;
         this.MA_DVIQLY = MA_DVIQLY;
         this.ID_BBAN_TUTI = ID_BBAN_TUTI;
@@ -127,6 +139,7 @@ public class TABLE_BBAN_TUTI {
         this.MA_KHANG = MA_KHANG;
         this.ID_BBAN_WEB_TUTI = ID_BBAN_WEB_TUTI;
         this.NVIEN_KCHI = NVIEN_KCHI;
+        this.TRANG_THAI_DU_LIEU = TRANG_THAI_DU_LIEU;
     }
 
 
@@ -264,5 +277,13 @@ public class TABLE_BBAN_TUTI {
 
     public void setNVIEN_KCHI(String NVIEN_KCHI) {
         this.NVIEN_KCHI = NVIEN_KCHI;
+    }
+
+    public String getTRANG_THAI_DU_LIEU() {
+        return TRANG_THAI_DU_LIEU;
+    }
+
+    public void setTRANG_THAI_DU_LIEU(String TRANG_THAI_DU_LIEU) {
+        this.TRANG_THAI_DU_LIEU = TRANG_THAI_DU_LIEU;
     }
 }

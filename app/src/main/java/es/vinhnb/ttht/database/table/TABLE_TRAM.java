@@ -16,7 +16,7 @@ import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
 @Table(name = "TABLE_TRAM")
 public class TABLE_TRAM {
     @EnumNameCollumn()
-    public enum declared {
+    public enum table {
         ID_TABLE_TRAM,
         MA_TRAM,
         MA_DVIQLY,
@@ -26,6 +26,10 @@ public class TABLE_TRAM {
         MA_CAP_DA,
         MA_CAP_DA_RA,
         DINH_DANH;
+
+        public static String getName(){
+            return "TABLE_TRAM";
+        }
     }
 
 

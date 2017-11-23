@@ -23,6 +23,9 @@ public class DatabaseParams {
         public String whereClause;
         public String[] whereArgs;
 
+        public Delete() {
+        }
+
         public Delete(String table, String whereClause, String[] whereArgs) {
             this.table = table;
             this.whereClause = whereClause;

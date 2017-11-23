@@ -16,7 +16,7 @@ import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
 @Table(name = "TABLE_LOAI_CONG_TO")
 public class TABLE_LOAI_CONG_TO {
     @EnumNameCollumn()
-    public enum declared {
+    public enum table {
         ID_TABLE_LOAI_CONG_TO,
         MA_CLOAI,
         TEN_LOAI_CTO,
@@ -35,6 +35,10 @@ public class TABLE_LOAI_CONG_TO {
         HANGSO_K,
         PTHUC_DOXA,
         TEN_NUOC;
+
+        public static String getName(){
+            return "TABLE_LOAI_CONG_TO";
+        }
     }
 
     @PrimaryKey

@@ -22,6 +22,10 @@ public class TABLE_SESSION {
         USERNAME,
         PASSWORD,
         DATE_LOGIN;
+
+        public static String getName(){
+            return "TABLE_SESSION";
+        }
     }
 
 

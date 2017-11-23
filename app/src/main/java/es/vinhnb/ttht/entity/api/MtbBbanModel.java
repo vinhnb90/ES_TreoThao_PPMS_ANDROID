@@ -16,7 +16,6 @@ public class MtbBbanModel implements Parcelable{
     @SerializedName("MA_DVIQLY")
     public String MA_DVIQLY;
     
-    
     @SerializedName("ID_BBAN_TRTH")
     public int ID_BBAN_TRTH;
     

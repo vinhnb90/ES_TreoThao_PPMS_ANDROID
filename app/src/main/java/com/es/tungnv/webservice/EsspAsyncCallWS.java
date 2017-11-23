@@ -885,12 +885,12 @@ public class EsspAsyncCallWS {
 //                        }
 //                        try {
 //                            if (tableRow.getProperty("NGAY_TAO") != null)
-//                                ent_ks.setNGAY_TAO(tableRow.getProperty("NGAY_TAO").toString().equals("anyType{}")?"":tableRow.getProperty("NGAY_TAO").toString());
+//                                ent_ks.setSO_CTO_THAO_API(tableRow.getProperty("NGAY_TAO").toString().equals("anyType{}")?"":tableRow.getProperty("NGAY_TAO").toString());
 //                        } catch (Exception e) {
 //                        }
 //                        try {
 //                            if (tableRow.getProperty("NGAY_SUA") != null)
-//                                ent_ks.setNGAY_SUA(tableRow.getProperty("NGAY_SUA").toString().equals("anyType{}")?"":tableRow.getProperty("NGAY_SUA").toString());
+//                                ent_ks.setSO_BBAN_TUTI_API(tableRow.getProperty("NGAY_SUA").toString().equals("anyType{}")?"":tableRow.getProperty("NGAY_SUA").toString());
 //                        } catch (Exception e) {
 //                        }
 //                        try {

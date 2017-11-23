@@ -139,7 +139,7 @@
     </style>
 
     <style name="textStyle3">
-        <item name="android:textSize" >@dimen/_12sdp</item>
+        <item name="android:textSize" >@dimen/_10sdp</item>
         <item name="android:textColor" >@color/text_black</item>
     </style>
 
@@ -149,7 +149,7 @@
     </style>
 
     <style name="buttonStyle1">
-        <item name="android:textSize" >@dimen/_12sdp</item>
+        <item name="android:textSize" >@dimen/_10sdp</item>
         <item name="android:background" >@color/tththn_button</item>
         <item name="android:textColor" >@color/text_white</item>
         <item name="android:paddingBottom" >@dimen/_2sdp</item>

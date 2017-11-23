@@ -16,7 +16,7 @@ import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
 @Table(name = "TABLE_CHITIET_CTO")
 public class TABLE_CHITIET_CTO {
     @EnumNameCollumn()
-    public enum declared {
+    public enum table {
         ID_TABLE_CHITIET_CTO,
         MA_DVIQLY,
         MA_NVIEN,
@@ -77,6 +77,10 @@ public class TABLE_CHITIET_CTO {
 
         CAP_CX_SAULAP_TUTI,
         TRANG_THAI_DU_LIEU;
+
+        public static String getName() {
+            return "TABLE_CHITIET_CTO";
+        }
     }
 
 
@@ -100,8 +104,8 @@ public class TABLE_CHITIET_CTO {
     @Collumn(name = "SO_CTO", type = TYPE.TEXT)
     private String SO_CTO;
 
-    @Collumn(name = "LAN", type = TYPE.TEXT)
-    private String LAN;
+    @Collumn(name = "LAN", type = TYPE.INTEGER)
+    private int LAN;
 
     @Collumn(name = "MA_BDONG", type = TYPE.TEXT)
     private String MA_BDONG;
@@ -197,7 +201,7 @@ public class TABLE_CHITIET_CTO {
     private String HANGSO_K;
 
     @Collumn(name = "MA_NUOC", type = TYPE.TEXT)
-    private int MA_NUOC;
+    private String MA_NUOC;
 
     @Collumn(name = "TEN_NUOC", type = TYPE.TEXT)
     private String TEN_NUOC;
@@ -247,68 +251,69 @@ public class TABLE_CHITIET_CTO {
     @Collumn(name = "CAP_CX_SAULAP_TUTI", type = TYPE.INTEGER)
     private int CAP_CX_SAULAP_TUTI;
 
-    @Collumn(name = "TRANG_THAI_DU_LIEU", type = TYPE.INTEGER)
-    private int TRANG_THAI_DU_LIEU;
+    @Collumn(name = "TRANG_THAI_DU_LIEU", type = TYPE.TEXT)
+    private String TRANG_THAI_DU_LIEU;
 
     public TABLE_CHITIET_CTO() {
     }
 
-    public TABLE_CHITIET_CTO(@Params(name = "ID_TABLE_CHITIET_CTO") int ID_TABLE_CHITIET_CTO,
-                             @Params(name = "MA_DVIQLY") String MA_DVIQLY,
-                             @Params(name = "MA_NVIEN") String MA_NVIEN,
-                             @Params(name = "ID_BBAN_TRTH") int ID_BBAN_TRTH,
-                             @Params(name = "MA_CTO") String MA_CTO,
-                             @Params(name = "SO_CTO") String SO_CTO,
-                             @Params(name = "LAN") String LAN,
-                             @Params(name = "MA_BDONG") String MA_BDONG,
-                             @Params(name = "NGAY_BDONG") String NGAY_BDONG,
-                             @Params(name = "MA_CLOAI") String MA_CLOAI,
-                             @Params(name = "LOAI_CTO") String LOAI_CTO,
-                             @Params(name = "VTRI_TREO") int VTRI_TREO,
-                             @Params(name = "MO_TA_VTRI_TREO") String MO_TA_VTRI_TREO,
-                             @Params(name = "MA_SOCBOOC") String MA_SOCBOOC,
-                             @Params(name = "SO_VIENCBOOC") int SO_VIENCBOOC,
-                             @Params(name = "LOAI_HOM") int LOAI_HOM,
-                             @Params(name = "MA_SOCHOM") String MA_SOCHOM,
-                             @Params(name = "SO_VIENCHOM") int SO_VIENCHOM,
-                             @Params(name = "HS_NHAN") int HS_NHAN,
-                             @Params(name = "NGAY_TAO") String NGAY_TAO,
-                             @Params(name = "NGUOI_TAO") String NGUOI_TAO,
-                             @Params(name = "NGAY_SUA") String NGAY_SUA,
-                             @Params(name = "NGUOI_SUA") String NGUOI_SUA,
-                             @Params(name = "MA_CNANG") String MA_CNANG,
-                             @Params(name = "SO_TU") String SO_TU,
-                             @Params(name = "SO_TI") String SO_TI,
-                             @Params(name = "SO_COT") String SO_COT,
-                             @Params(name = "SO_HOM") String SO_HOM,
-                             @Params(name = "CHI_SO") String CHI_SO,
-                             @Params(name = "NGAY_KDINH") String NGAY_KDINH,
-                             @Params(name = "NAM_SX") String NAM_SX,
-                             @Params(name = "TEM_CQUANG") String TEM_CQUANG,
-                             @Params(name = "MA_CHIKDINH") String MA_CHIKDINH,
-                             @Params(name = "MA_TEM") String MA_TEM,
-                             @Params(name = "SOVIEN_CHIKDINH") int SOVIEN_CHIKDINH,
-                             @Params(name = "DIEN_AP") String DIEN_AP,
-                             @Params(name = "DONG_DIEN") String DONG_DIEN,
-                             @Params(name = "HANGSO_K") String HANGSO_K,
-                             @Params(name = "MA_NUOC") int MA_NUOC,
-                             @Params(name = "TEN_NUOC") String TEN_NUOC,
-                             @Params(name = "ID_CHITIET_CTO") int ID_CHITIET_CTO,
-                             @Params(name = "SO_KIM_NIEM_CHI") String SO_KIM_NIEM_CHI,
-                             @Params(name = "TTRANG_NPHONG") String TTRANG_NPHONG,
-                             @Params(name = "TEN_LOAI_CTO") String TEN_LOAI_CTO,
-                             @Params(name = "PHUONG_THUC_DO_XA") String PHUONG_THUC_DO_XA,
-                             @Params(name = "GHI_CHU") String GHI_CHU,
-                             @Params(name = "ID_BBAN_TUTI") int ID_BBAN_TUTI,
-                             @Params(name = "HS_NHAN_SAULAP_TUTI") int HS_NHAN_SAULAP_TUTI,
-                             @Params(name = "SO_TU_SAULAP_TUTI") String SO_TU_SAULAP_TUTI,
-                             @Params(name = "SO_TI_SAULAP_TUTI") String SO_TI_SAULAP_TUTI,
-                             @Params(name = "CHI_SO_SAULAP_TUTI") String CHI_SO_SAULAP_TUTI,
-                             @Params(name = "DIEN_AP_SAULAP_TUTI") String DIEN_AP_SAULAP_TUTI,
-                             @Params(name = "DONG_DIEN_SAULAP_TUTI") String DONG_DIEN_SAULAP_TUTI,
-                             @Params(name = "HANGSO_K_SAULAP_TUTI") String HANGSO_K_SAULAP_TUTI,
-                             @Params(name = "CAP_CX_SAULAP_TUTI") int CAP_CX_SAULAP_TUTI,
-                             @Params(name = "TRANG_THAI_DU_LIEU") int TRANG_THAI_DU_LIEU) {
+    public TABLE_CHITIET_CTO(
+            @Params(name = "ID_TABLE_CHITIET_CTO") int ID_TABLE_CHITIET_CTO,
+            @Params(name = "MA_DVIQLY") String MA_DVIQLY,
+            @Params(name = "MA_NVIEN") String MA_NVIEN,
+            @Params(name = "ID_BBAN_TRTH") int ID_BBAN_TRTH,
+            @Params(name = "MA_CTO") String MA_CTO,
+            @Params(name = "SO_CTO") String SO_CTO,
+            @Params(name = "LAN") int LAN,
+            @Params(name = "MA_BDONG") String MA_BDONG,
+            @Params(name = "NGAY_BDONG") String NGAY_BDONG,
+            @Params(name = "MA_CLOAI") String MA_CLOAI,
+            @Params(name = "LOAI_CTO") String LOAI_CTO,
+            @Params(name = "VTRI_TREO") int VTRI_TREO,
+            @Params(name = "MO_TA_VTRI_TREO") String MO_TA_VTRI_TREO,
+            @Params(name = "MA_SOCBOOC") String MA_SOCBOOC,
+            @Params(name = "SO_VIENCBOOC") int SO_VIENCBOOC,
+            @Params(name = "LOAI_HOM") int LOAI_HOM,
+            @Params(name = "MA_SOCHOM") String MA_SOCHOM,
+            @Params(name = "SO_VIENCHOM") int SO_VIENCHOM,
+            @Params(name = "HS_NHAN") int HS_NHAN,
+            @Params(name = "NGAY_TAO") String NGAY_TAO,
+            @Params(name = "NGUOI_TAO") String NGUOI_TAO,
+            @Params(name = "NGAY_SUA") String NGAY_SUA,
+            @Params(name = "NGUOI_SUA") String NGUOI_SUA,
+            @Params(name = "MA_CNANG") String MA_CNANG,
+            @Params(name = "SO_TU") String SO_TU,
+            @Params(name = "SO_TI") String SO_TI,
+            @Params(name = "SO_COT") String SO_COT,
+            @Params(name = "SO_HOM") String SO_HOM,
+            @Params(name = "CHI_SO") String CHI_SO,
+            @Params(name = "NGAY_KDINH") String NGAY_KDINH,
+            @Params(name = "NAM_SX") String NAM_SX,
+            @Params(name = "TEM_CQUANG") String TEM_CQUANG,
+            @Params(name = "MA_CHIKDINH") String MA_CHIKDINH,
+            @Params(name = "MA_TEM") String MA_TEM,
+            @Params(name = "SOVIEN_CHIKDINH") int SOVIEN_CHIKDINH,
+            @Params(name = "DIEN_AP") String DIEN_AP,
+            @Params(name = "DONG_DIEN") String DONG_DIEN,
+            @Params(name = "HANGSO_K") String HANGSO_K,
+            @Params(name = "MA_NUOC") String MA_NUOC,
+            @Params(name = "TEN_NUOC") String TEN_NUOC,
+            @Params(name = "ID_CHITIET_CTO") int ID_CHITIET_CTO,
+            @Params(name = "SO_KIM_NIEM_CHI") String SO_KIM_NIEM_CHI,
+            @Params(name = "TTRANG_NPHONG") String TTRANG_NPHONG,
+            @Params(name = "TEN_LOAI_CTO") String TEN_LOAI_CTO,
+            @Params(name = "PHUONG_THUC_DO_XA") String PHUONG_THUC_DO_XA,
+            @Params(name = "GHI_CHU") String GHI_CHU,
+            @Params(name = "ID_BBAN_TUTI") int ID_BBAN_TUTI,
+            @Params(name = "HS_NHAN_SAULAP_TUTI") int HS_NHAN_SAULAP_TUTI,
+            @Params(name = "SO_TU_SAULAP_TUTI") String SO_TU_SAULAP_TUTI,
+            @Params(name = "SO_TI_SAULAP_TUTI") String SO_TI_SAULAP_TUTI,
+            @Params(name = "CHI_SO_SAULAP_TUTI") String CHI_SO_SAULAP_TUTI,
+            @Params(name = "DIEN_AP_SAULAP_TUTI") String DIEN_AP_SAULAP_TUTI,
+            @Params(name = "DONG_DIEN_SAULAP_TUTI") String DONG_DIEN_SAULAP_TUTI,
+            @Params(name = "HANGSO_K_SAULAP_TUTI") String HANGSO_K_SAULAP_TUTI,
+            @Params(name = "CAP_CX_SAULAP_TUTI") int CAP_CX_SAULAP_TUTI,
+            @Params(name = "TRANG_THAI_DU_LIEU") String TRANG_THAI_DU_LIEU) {
         this.ID_TABLE_CHITIET_CTO = ID_TABLE_CHITIET_CTO;
         this.MA_DVIQLY = MA_DVIQLY;
         this.MA_NVIEN = MA_NVIEN;
@@ -415,11 +420,11 @@ public class TABLE_CHITIET_CTO {
         this.SO_CTO = SO_CTO;
     }
 
-    public String getLAN() {
+    public int getLAN() {
         return LAN;
     }
 
-    public void setLAN(String LAN) {
+    public void setLAN(int LAN) {
         this.LAN = LAN;
     }
 
@@ -671,11 +676,11 @@ public class TABLE_CHITIET_CTO {
         this.HANGSO_K = HANGSO_K;
     }
 
-    public int getMA_NUOC() {
+    public String getMA_NUOC() {
         return MA_NUOC;
     }
 
-    public void setMA_NUOC(int MA_NUOC) {
+    public void setMA_NUOC(String MA_NUOC) {
         this.MA_NUOC = MA_NUOC;
     }
 
@@ -807,11 +812,11 @@ public class TABLE_CHITIET_CTO {
         this.CAP_CX_SAULAP_TUTI = CAP_CX_SAULAP_TUTI;
     }
 
-    public int getTRANG_THAI_DU_LIEU() {
+    public String getTRANG_THAI_DU_LIEU() {
         return TRANG_THAI_DU_LIEU;
     }
 
-    public void setTRANG_THAI_DU_LIEU(int TRANG_THAI_DU_LIEU) {
+    public void setTRANG_THAI_DU_LIEU(String TRANG_THAI_DU_LIEU) {
         this.TRANG_THAI_DU_LIEU = TRANG_THAI_DU_LIEU;
     }
 }
