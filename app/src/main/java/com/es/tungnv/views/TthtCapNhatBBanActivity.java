@@ -33,7 +33,7 @@ public class TthtCapNhatBBanActivity extends AppCompatActivity implements DatePi
         etNgayChon = (EditText) findViewById(R.id.et_ngay);
 
         if(TthtCommon.getTthtDateChon().equals("")) {
-            //TODO get date now and set date
+            //TODO get tvDate now and set tvDate
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Calendar cal = Calendar.getInstance();
             String dateNow = sdf.format(cal.getTime());

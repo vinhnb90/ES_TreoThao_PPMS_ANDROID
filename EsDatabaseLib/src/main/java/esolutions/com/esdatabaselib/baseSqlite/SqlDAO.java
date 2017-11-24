@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -81,12 +82,12 @@ public class SqlDAO {
                     for (Field field : fields) {
                         String fieldName = field.getName();
                         if (fieldName.equals("$change") || fieldName.equals("serialVersionUID"))
-                            break;
+                            continue;
 
                         //get name column by check annotation
                         boolean isCollumn = field.isAnnotationPresent(Collumn.class);
                         if (!isCollumn)
-                            break;
+                            continue;
                         Collumn collumn = field.getAnnotation(Collumn.class);
 
                         //set value reflection
@@ -167,6 +168,7 @@ public class SqlDAO {
                     if (classResult == null && messsageThrow.length() != 0) {
                         messsageThrow.append("\n").append("Class " + classz.getSimpleName() + " must be has constructor with full param and annotation!");
                         Log.e(TAG, messsageThrow.toString());
+                        Toast.makeText(mContext,messsageThrow.toString() , Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -219,12 +221,12 @@ public class SqlDAO {
         for (Field field : fields) {
             String fieldName = field.getName();
             if (fieldName.equals("$change") || fieldName.equals("serialVersionUID"))
-                break;
+                continue;
 
             //check annotation collumn
             boolean isCollumn = field.isAnnotationPresent(Collumn.class);
             if (!isCollumn)
-                break;
+                continue;
             Collumn collumn = field.getAnnotation(Collumn.class);
             boolean isPrimaryKey = field.isAnnotationPresent(PrimaryKey.class);
             boolean isAutoIncrement = field.isAnnotationPresent(AutoIncrement.class);

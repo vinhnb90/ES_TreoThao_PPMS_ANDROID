@@ -24,6 +24,7 @@ import java.util.List;
 public class DepartUpdateFragment<T> extends ModuleFragment {
     private List<T> mListDepart = new ArrayList<>();
     private DepartViewEntity viewEntity;
+
     private boolean isShowModule = false;
 
     public DepartUpdateFragment() {
@@ -68,6 +69,7 @@ public class DepartUpdateFragment<T> extends ModuleFragment {
         return this;
     }
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,3 +110,4 @@ public class DepartUpdateFragment<T> extends ModuleFragment {
         return mListDepart;
     }
 }
+

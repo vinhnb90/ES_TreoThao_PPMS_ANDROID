@@ -14,7 +14,7 @@ package com.es.tungnv.printer;
  * 
  * Originally developed: Commands.Wu
  *
- * Create date :         2006-10-23
+ * Create tvDate :         2006-10-23
  * 
  * Description:          This Number convert process.
  * 

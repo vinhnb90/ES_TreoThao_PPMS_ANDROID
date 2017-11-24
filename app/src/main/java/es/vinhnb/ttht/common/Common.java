@@ -2,6 +2,8 @@ package es.vinhnb.ttht.common;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -35,6 +37,12 @@ public class Common {
 
     public static void setURLServer(String andressServer) {
         URLServer = "http://" + andressServer + "/api/ServiceMTB/";
+    }
+
+    public static void copyTextClipBoard(Context context, String message) {
+        ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("label", message);
+        clipboard.setPrimaryClip(clip);
     }
 
     public enum MESSAGE {
@@ -233,7 +241,7 @@ public class Common {
     //endregion
 
 
-    //region date time
+    //region tvDate time
     public enum DATE_TIME_TYPE {
         type1("HHmmss"),
         type2("yyyyMMdd"),
@@ -246,6 +254,9 @@ public class Common {
         type9("dd/MM/yyyy HH'h'mm"),
         type10("MM/dd/yyyy HH:mm:ss a"),
         type11("yyyy-MM-dd HH:mm:ss"),
+        //2017-11-23T22:18
+        sqlite1("yyyy-MM-dd'T'HH:mm"),
+        sqlite2("yyyy-MM-dd'T'HH:mm:ss"),
 
 
         typeEx("typeEx");
@@ -266,12 +277,12 @@ public class Common {
     }
 
     public static String getDateTimeNow(DATE_TIME_TYPE formatDate) {
-        SimpleDateFormat df = new SimpleDateFormat(formatDate.toString());
+        SimpleDateFormat df = new SimpleDateFormat(formatDate.content);
         return df.format(Calendar.getInstance().getTime());
     }
 
     public static long convertDateToLong(String date, DATE_TIME_TYPE typeDefault) {
-        SimpleDateFormat formatter = new SimpleDateFormat(typeDefault.toString());
+        SimpleDateFormat formatter = new SimpleDateFormat(typeDefault.content);
 //        formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
         Date dateParse;
         try {
@@ -290,11 +301,20 @@ public class Common {
         if (format == null)
             return null;
 
-        SimpleDateFormat df2 = new SimpleDateFormat(format.toString());
+        SimpleDateFormat df2 = new SimpleDateFormat(format.content);
 //        df2.setTimeZone(TimeZone.getTimeZone("GMT"));
         Date date = new Date(time);
         return df2.format(date);
     }
+
+    public static String convertDateToDate(String time, DATE_TIME_TYPE typeDefault, DATE_TIME_TYPE typeConvert) {
+        if (time == null || time.trim().isEmpty())
+            return "";
+        long longDate = Common.convertDateToLong(time, typeDefault);
+        String dateByDefaultType = Common.convertLongToDate(longDate, typeConvert);
+        return dateByDefaultType;
+    }
     //endregion
+
 
 }

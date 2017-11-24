@@ -30,14 +30,14 @@ public class TABLE_HISTORY {
         MESSAGE_RESULT, //nội dung thông báo
 
         //thông tin
-        SO_BBAN,
-        SO_CTO_THAO,
-        SO_CTO_TREO,
-        SO_BBAN_TUTI,
-        SO_TU,
-        SO_TI,
-        SO_TRAM,
-        SO_CHUNGLOAI;
+        SO_BBAN_API,
+        SO_CTO_THAO_API,
+        SO_CTO_TREO_API,
+        SO_BBAN_TUTI_API,
+        SO_TU_API,
+        SO_TI_API,
+        SO_TRAM_API,
+        SO_CHUNGLOAI_API;
 
 
         public static String getName() {

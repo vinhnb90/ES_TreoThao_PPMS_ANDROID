@@ -984,7 +984,7 @@ public class PpmsTaskActivity extends FragmentActivity implements ITasksChoose, 
                                     //TODO search by TenKhachHang or DiaChiDungDien
                                     for (PpmsEntityTask entity : sListTask) {
 
-                                        //TODO convert date 2016-07-11T01:01:01 to 11/07/2016
+                                        //TODO convert tvDate 2016-07-11T01:01:01 to 11/07/2016
                                         String NgayPhanCong = "", NgayPhucTra = "";
                                         if (!entity.getNgayPhanCong().equals(""))
                                             NgayPhanCong = PpmsCommon.convertDateTimeType(entity.getNgayPhanCong(), 1);

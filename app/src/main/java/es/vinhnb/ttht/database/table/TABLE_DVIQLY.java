@@ -47,28 +47,28 @@ public class TABLE_DVIQLY {
         this.TEN_DVIQLY = TEN_DVIQLY;
     }
 
-    public int getIdTableDviqly() {
+    public int getID_TABLE_DVIQLY() {
         return ID_TABLE_DVIQLY;
     }
 
-    public void setIdTableDviqly(int idTableDviqly) {
-        ID_TABLE_DVIQLY = idTableDviqly;
+    public void setID_TABLE_DVIQLY(int ID_TABLE_DVIQLY) {
+        this.ID_TABLE_DVIQLY = ID_TABLE_DVIQLY;
     }
 
-    public String getMaDviqly() {
+    public String getMA_DVIQLY() {
         return MA_DVIQLY;
     }
 
-    public void setMaDviqly(String maDviqly) {
-        MA_DVIQLY = maDviqly;
+    public void setMA_DVIQLY(String MA_DVIQLY) {
+        this.MA_DVIQLY = MA_DVIQLY;
     }
 
-    public String getTenDviqly() {
+    public String getTEN_DVIQLY() {
         return TEN_DVIQLY;
     }
 
-    public void setTenDviqly(String tenDviqly) {
-        TEN_DVIQLY = tenDviqly;
+    public void setTEN_DVIQLY(String TEN_DVIQLY) {
+        this.TEN_DVIQLY = TEN_DVIQLY;
     }
 
     @Override

@@ -68,6 +68,7 @@ public class LoginFragment extends Fragment {
     private LoginData mLoginData;
     private String mDepart;
 
+
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -322,7 +323,7 @@ public class LoginFragment extends Fragment {
                             //check validate
                             if (mDepartModule != null && mDepartModule.isShowModule()) {
                                 if (mDepartModule.getmListDepart().size() != 0)
-                                    mDepart = mDepartModule.getmListDepart().get(mDepartModule.getViewEntity().getSpDvi().getSelectedItemPosition()).toString();
+                                    mDepart = mILoginOffline.getCodeDepart(mPosDvi);
 
 
                                 if (TextUtils.isEmpty(mDepart))
@@ -426,7 +427,10 @@ public class LoginFragment extends Fragment {
                                         }
                                     } catch (Exception e) {
                                         e.printStackTrace();
-                                        showSnackBar("Lỗi đăng nhập", e.getMessage(), null);
+                                        if (TextUtils.isEmpty(e.getMessage()))
+                                            showSnackBar("Lỗi đăng nhập", "Time out", null);
+                                        else
+                                            showSnackBar("Lỗi đăng nhập", e.getMessage(), null);
                                     } finally {
                                         mLoginViewEntity.getViewLayout().post(new Runnable() {
                                             @Override
@@ -615,6 +619,7 @@ public class LoginFragment extends Fragment {
         this.mDepartModule = mDepartModule;
         return this;
     }
+
 
     public String getmTitleAppName() {
         return mTitleAppName;
@@ -886,10 +891,12 @@ public class LoginFragment extends Fragment {
     }
 
 
-    public abstract static interface ILoginOffline {
-        public abstract boolean checkSessionLogin(LoginData loginData) throws Exception;
+    public interface ILoginOffline {
+        boolean checkSessionLogin(LoginData loginData) throws Exception;
 
-        public abstract void saveSessionDatabaseLogin(LoginData dataLoginSession) throws Exception;
+        void saveSessionDatabaseLogin(LoginData dataLoginSession) throws Exception;
+
+        String getCodeDepart(int pos);
     }
 
 }

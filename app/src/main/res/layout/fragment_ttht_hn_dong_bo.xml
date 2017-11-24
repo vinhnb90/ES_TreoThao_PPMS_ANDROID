@@ -258,8 +258,8 @@
         android:layout_height="1dp"
         android:layout_below="@+id/rl_bt_download"
         android:layout_marginBottom="@dimen/_10sdp"
-        android:layout_marginLeft="@dimen/_25sdp"
-        android:layout_marginRight="@dimen/_25sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@color/tththn_text_more_less_black" />
 

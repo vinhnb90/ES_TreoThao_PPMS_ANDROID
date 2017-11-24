@@ -80,6 +80,11 @@ public class LoginActivity extends AppCompatActivity implements LoginInteface<De
                 public void saveSessionDatabaseLogin(LoginFragment.LoginData dataLoginSession) {
 
                 }
+
+                @Override
+                public String getCodeDepart(int pos) {
+                    return null;
+                }
             };
 
             //setup View

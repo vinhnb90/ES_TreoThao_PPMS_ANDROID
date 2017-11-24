@@ -158,6 +158,37 @@
         <item name="android:paddingRight" >@dimen/_5sdp</item>
     </style>
 
+    <style name="buttonStyle2Left">
+        <item name="android:textSize" >@dimen/_10sdp</item>
+        <item name="android:background" >@drawable/xml_tththn_retangle_left</item>
+        <item name="android:textColor" >@color/text_white</item>
+        <item name="android:paddingBottom" >@dimen/_2sdp</item>
+        <item name="android:paddingTop" >@dimen/_2sdp</item>
+        <item name="android:paddingLeft" >@dimen/_5sdp</item>
+        <item name="android:paddingRight" >@dimen/_5sdp</item>
+    </style>
+
+
+    <style name="buttonStyle2Right">
+        <item name="android:textSize" >@dimen/_10sdp</item>
+        <item name="android:background" >@drawable/xml_tththn_retangle_right</item>
+        <item name="android:textColor" >@color/text_white</item>
+        <item name="android:paddingBottom" >@dimen/_2sdp</item>
+        <item name="android:paddingTop" >@dimen/_2sdp</item>
+        <item name="android:paddingLeft" >@dimen/_5sdp</item>
+        <item name="android:paddingRight" >@dimen/_5sdp</item>
+    </style>
+
+    <style name="buttonStyle3">
+        <item name="android:textSize" >@dimen/_10sdp</item>
+        <item name="android:background" >@color/text_white</item>
+        <item name="android:textColor" >@color/tththn_text_less_black</item>
+        <item name="android:paddingBottom" >@dimen/_2sdp</item>
+        <item name="android:paddingTop" >@dimen/_2sdp</item>
+        <item name="android:paddingLeft" >@dimen/_5sdp</item>
+        <item name="android:paddingRight" >@dimen/_5sdp</item>
+    </style>
+
 
     <style name="MyProgressBar" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
         <item name="android:progressBackgroundTint" tools:targetApi="lollipop">#69f0ae</item>

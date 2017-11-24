@@ -270,7 +270,7 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setAction(final View rootView) {
-        //TODO get date now and set date
+        //TODO get tvDate now and set tvDate
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Calendar cal = Calendar.getInstance();
         String dateNow = sdf.format(cal.getTime());

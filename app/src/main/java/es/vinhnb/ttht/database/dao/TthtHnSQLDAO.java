@@ -7,10 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.List;
 
 import es.vinhnb.ttht.adapter.ChiTietCtoAdapter.DataChiTietCtoAdapter;
+import es.vinhnb.ttht.adapter.HistoryAdapter;
 import es.vinhnb.ttht.database.table.TABLE_BBAN_CTO;
 import es.vinhnb.ttht.database.table.TABLE_BBAN_TUTI;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_CTO;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_TUTI;
+import es.vinhnb.ttht.database.table.TABLE_HISTORY;
 import esolutions.com.esdatabaselib.baseSqlite.ItemFactory;
 import esolutions.com.esdatabaselib.baseSqlite.SqlDAO;
 
@@ -145,6 +147,43 @@ public class TthtHnSQLDAO extends SqlDAO {
             protected String create(Cursor cursor, int index) {
                 cursor.moveToPosition(index);
                 return cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_TUTI.table.TRANG_THAI_DU_LIEU.name()));
+            }
+        });
+    }
+
+
+    public List<HistoryAdapter.DataHistoryAdapter> getTABLE_HISTORYinNDay(int nDay) {
+        String query = "SELECT * FROM " +
+                TABLE_HISTORY.table.getName() +
+                " WHERE " +
+                TABLE_HISTORY.table.DATE_CALL_API.name() +
+                " > (SELECT DATETIME('now', '-" +
+                nDay +
+                " day')) ORDER BY " +
+                TABLE_HISTORY.table.ID_TABLE_HISTORY.name() +
+                " DESC";
+
+
+        Cursor c = super.mDatabase.rawQuery(query, null);
+        return super.selectAllLazy(c, new ItemFactory<HistoryAdapter.DataHistoryAdapter>(HistoryAdapter.DataHistoryAdapter.class) {
+            @Override
+            protected HistoryAdapter.DataHistoryAdapter create(Cursor cursor, int index) {
+                cursor.moveToPosition(index);
+
+                HistoryAdapter.DataHistoryAdapter tableHistory = new HistoryAdapter.DataHistoryAdapter();
+                tableHistory.date = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.DATE_CALL_API.name()));
+                tableHistory.notify = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.TYPE_RESULT.name()));
+                tableHistory.message = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.MESSAGE_RESULT.name()));
+                tableHistory.soBB = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_BBAN_API.name()));
+                tableHistory.soThao = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_CTO_THAO_API.name()));
+                tableHistory.soTreo = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_CTO_TREO_API.name()));
+                tableHistory.soBBTuTi = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_BBAN_TUTI_API.name()));
+                tableHistory.soTu = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_TU_API.name()));
+                tableHistory.soTi = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_TI_API.name()));
+                tableHistory.soTram = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_TRAM_API.name()));
+                tableHistory.soChungLoai = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_CHUNGLOAI_API.name()));
+
+                return tableHistory;
             }
         });
     }

@@ -132,7 +132,7 @@ public class PpmsReportFragment extends Fragment implements DatePickerDialog.OnD
 
 
     private void initDataChart() {
-        //TODO get all date in month
+        //TODO get all tvDate in month
         sDateInMonth = null;
         sDateInMonth = getDateInMonth();
 
@@ -249,14 +249,14 @@ public class PpmsReportFragment extends Fragment implements DatePickerDialog.OnD
 
     private int getCountTotalPhanCongPhucTraInDate(String date, boolean isCountPhanCong) {
         if (date.equals("")) {
-            PpmsCommon.showTitleByDialog(getActivity(), "Lỗi", "getCountTotalPhanCongPhucTraInDate(): " + "date null!", false, 3000);
+            PpmsCommon.showTitleByDialog(getActivity(), "Lỗi", "getCountTotalPhanCongPhucTraInDate(): " + "tvDate null!", false, 3000);
             return 0;
         }
 
         String query = "";
         int count = 0;
         if (isCountPhanCong) {
-            //TODO get all task with NGAY_PHAN_CONG = date
+            //TODO get all task with NGAY_PHAN_CONG = tvDate
             query = connection.getsQueryGetCountTaskWithDate(sEmp.getNhanVienId(), date, "NGAY_PHAN_CONG");
         } else {
             query = connection.getsQueryGetCountTaskWithDate(sEmp.getNhanVienId(), date, "NGAY_PHUC_TRA");

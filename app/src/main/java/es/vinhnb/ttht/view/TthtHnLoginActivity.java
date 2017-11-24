@@ -22,22 +22,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.vinhnb.ttht.common.Common;
-import es.vinhnb.ttht.database.table.TABLE_HISTORY;
-import es.vinhnb.ttht.entity.api.D_DVIQLYModel;
-import es.vinhnb.ttht.entity.api.UserMtb;
-import es.vinhnb.ttht.entity.sharedpref.LoginSharePref;
+import es.vinhnb.ttht.database.config.TTHT_HN_DB_CONFIG;
 import es.vinhnb.ttht.database.table.TABLE_ANH_HIENTRUONG;
 import es.vinhnb.ttht.database.table.TABLE_BBAN_CTO;
 import es.vinhnb.ttht.database.table.TABLE_BBAN_TUTI;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_CTO;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_TUTI;
-import es.vinhnb.ttht.database.table.TABLE_CONGTO_TI;
-import es.vinhnb.ttht.database.table.TABLE_CONGTO_TU;
 import es.vinhnb.ttht.database.table.TABLE_DVIQLY;
+import es.vinhnb.ttht.database.table.TABLE_HISTORY;
 import es.vinhnb.ttht.database.table.TABLE_LOAI_CONG_TO;
 import es.vinhnb.ttht.database.table.TABLE_SESSION;
 import es.vinhnb.ttht.database.table.TABLE_TRAM;
-import es.vinhnb.ttht.database.config.TTHT_HN_DB_CONFIG;
+import es.vinhnb.ttht.entity.api.D_DVIQLYModel;
+import es.vinhnb.ttht.entity.api.UserMtb;
+import es.vinhnb.ttht.entity.sharedpref.LoginSharePref;
 import es.vinhnb.ttht.server.TthtHnApi;
 import es.vinhnb.ttht.server.TthtHnApiInterface;
 import esolutions.com.esdatabaselib.baseSharedPref.SharePrefManager;
@@ -220,7 +218,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         String imei = Common.getImei(this);
         Call<UserMtb> Get_LoginMTB = apiInterface
                 .Get_LoginMTB(
-                        listDepart.get(data.getmPosDvi()).getMaDviqly(),
+                        listDepart.get(data.getmPosDvi()).getMA_DVIQLY(),
                         data.getmUser(),
                         data.getmPass(),
                         imei
@@ -254,7 +252,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
     public void saveDBDepart(List<TABLE_DVIQLY> list) throws Exception {
         String[] collumnCheck = new String[]{TABLE_DVIQLY.decrale.MA_DVIQLY.name()};
         for (TABLE_DVIQLY dviqly : list) {
-            String[] valueCheck = new String[]{dviqly.getMaDviqly()};
+            String[] valueCheck = new String[]{dviqly.getMA_DVIQLY()};
             if (!mSqlDAO.isExistRows(TABLE_DVIQLY.class, collumnCheck, valueCheck)) {
                 mSqlDAO.insert(TABLE_DVIQLY.class, list);
             }
@@ -345,7 +343,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
             public boolean checkSessionLogin(LoginFragment.LoginData loginData) throws Exception {
                 //create data check
                 TABLE_SESSION dataCheck = new TABLE_SESSION();
-                dataCheck.setMA_DVIQLY(listDepart.get(loginData.getmPosDvi()).getMaDviqly());
+                dataCheck.setMA_DVIQLY(listDepart.get(loginData.getmPosDvi()).getMA_DVIQLY());
                 dataCheck.setUSERNAME(loginData.getmUser());
                 dataCheck.setPASSWORD(loginData.getmPass());
 
@@ -370,14 +368,19 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
             public void saveSessionDatabaseLogin(LoginFragment.LoginData dataLoginSession) throws
                     Exception {
                 TABLE_SESSION dataCheck = new TABLE_SESSION();
-                dataCheck.setMA_DVIQLY(listDepart.get(dataLoginSession.getmPosDvi()).getMaDviqly());
+                dataCheck.setMA_DVIQLY(listDepart.get(dataLoginSession.getmPosDvi()).getMA_DVIQLY());
                 dataCheck.setUSERNAME(dataLoginSession.getmUser());
                 dataCheck.setPASSWORD(dataLoginSession.getmPass());
-                dataCheck.setDATE_LOGIN(Common.getDateTimeNow(Common.DATE_TIME_TYPE.type7));
+                dataCheck.setDATE_LOGIN(Common.getDateTimeNow(Common.DATE_TIME_TYPE.sqlite2));
 
 
                 //save data
                 mSqlDAO.insert(TABLE_SESSION.class, dataCheck);
+            }
+
+            @Override
+            public String getCodeDepart(int pos) {
+                return listDepart.get(pos).getMA_DVIQLY();
             }
         };
 
@@ -405,25 +408,13 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
 
         //setup module login
         loginFragment = LoginFragment.newInstance(null)
-                .
-
-                        setmLoginViewEntity(loginViewEntity)
-                .
-
-                        setmDepartModule(departmentModule)
-                .
-
-                        setmILoginOffline(loginOfflineModeConfig)
-                .
-
-                        setmTitleAppName("TREO THÁO HIỆN TRƯỜNG \nHÀ NỘI")
+                .setmLoginViewEntity(loginViewEntity)
+                .setmDepartModule(departmentModule)
+                .setmILoginOffline(loginOfflineModeConfig)
+                .setmTitleAppName("TREO THÁO HIỆN TRƯỜNG \nHÀ NỘI")
 //                    .setmIconLogin(R.mipmap.ic_home, (int) getResources().getDimension(R.dimen._50sdp), (int) getResources().getDimension(R.dimen._50sdp))
-                .
-
-                        setmColorBackground(R.color.colorPrimary)
-                .
-
-                        setmLoginSharedPref(mPrefManager.getSharePref(LoginSharePref.class));
+                .setmColorBackground(R.color.colorPrimary)
+                .setmLoginSharedPref(mPrefManager.getSharePref(LoginSharePref.class));
     }
 
     @Override

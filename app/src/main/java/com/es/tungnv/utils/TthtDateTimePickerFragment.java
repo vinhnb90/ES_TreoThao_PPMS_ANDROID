@@ -58,7 +58,7 @@ public class TthtDateTimePickerFragment extends DialogFragment implements DatePi
 
     @Override
     public DatePickerDialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the current date as the default date in the picker
+        // Use the current tvDate as the default tvDate in the picker
 
         Calendar c = Calendar.getInstance();
 

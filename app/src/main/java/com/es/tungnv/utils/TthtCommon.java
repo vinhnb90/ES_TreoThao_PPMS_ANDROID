@@ -461,7 +461,7 @@ public class TthtCommon {
         return result;
     }
 
-    // convert date from type 2016-08-15T15:45:01 to type 24/08/2016 and type 14:45-24/08/2016
+    // convert tvDate from type 2016-08-15T15:45:01 to type 24/08/2016 and type 14:45-24/08/2016
     public static String convertDateTime(String dateTime, int type) {
         if (dateTime.equals(""))
             return dateTime;
@@ -471,11 +471,11 @@ public class TthtCommon {
             String time = _dateTime[1];
             String[] _date = date.split("-");
             String[] _time = time.split(":");
-            // to type date
+            // to type tvDate
             if (type == 1) {
                 return _date[2] + "/" + _date[1] + "/" + _date[0];
             }
-            // to type date time
+            // to type tvDate time
             else if (type == 2) {
                 return _time[0] + ":" + _time[1] + "-" + _date[2] + "/" + _date[1]
                         + "/" + _date[0];
@@ -492,12 +492,12 @@ public class TthtCommon {
 
         if (dateTime.equals(""))
             return dateTime;
-            // convert from type date 24/08/2016 to 2016-08-15T00:00:00
+            // convert from type tvDate 24/08/2016 to 2016-08-15T00:00:00
         else if (type == 1) {
             String[] _reDate = dateTime.split("/");
             return _reDate[2] + "-" + _reDate[1] + "-" + _reDate[0] + "T00:00:00";
         }
-        // convert from type date time 14:45-24/08/2016 to 2016-08-15T00:00:00
+        // convert from type tvDate time 14:45-24/08/2016 to 2016-08-15T00:00:00
         else if (type == 2) {
             String[] _reDateTime = dateTime.split("-");
             String[] _reDate = _reDateTime[1].split("/");

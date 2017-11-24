@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:padding="@dimen/_20sdp"
+    tools:background="@android:color/holo_blue_bright">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/xml_tththn_rectangle5">
+
+        <RelativeLayout
+            android:id="@+id/rl_11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_15sdp">
+
+            <TextView
+                android:id="@+id/tv_title_dialog"
+                style="@style/textStyle1"
+                android:textSize="@dimen/_12sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nội dung" />
+
+            <View
+                android:id="@+id/v_l_2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/tv_title_dialog"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/tththn_text_less_black" />
+
+            <TextView
+                android:id="@+id/tv_message"
+                style="@style/textStyle2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/v_l_2"
+                android:maxLines="10"
+                android:scrollHorizontally="false"
+                android:scrollbars="vertical"
+                android:text="......."
+                tools:text="đâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđđâsdsdsdasdasdasdádđ" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_11">
+
+            <View
+                android:id="@+id/v_l_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/tththn_text_less_black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_below="@+id/v_l_1"
+                android:background="@drawable/xml_tththn_retangle_top"
+
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/btn_huy"
+                    style="@style/buttonStyle3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="HỦY THAO TÁC"
+                    android:textColor="@color/tththn_text_less_black" />
+
+                <View
+                    android:layout_width="@dimen/_1sdp"
+                    android:layout_height="match_parent"
+                    android:background="@color/tththn_text_less_black" />
+
+                <Button
+                    android:id="@+id/btn_tieptuc"
+                    style="@style/buttonStyle3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="TIẾP TỤC"
+                    android:textColor="@color/tththn_button" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</RelativeLayout>

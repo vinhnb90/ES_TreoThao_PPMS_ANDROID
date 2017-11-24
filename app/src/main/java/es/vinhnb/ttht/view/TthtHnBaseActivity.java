@@ -61,7 +61,6 @@ public abstract class TthtHnBaseActivity extends AppCompatActivity {
         try {
             getSupportActionBar().hide();
         } catch (Exception e) {
-            e.printStackTrace();
             Log.e("TthtHnBaseActivity", "setupFullScreen: " + e.getMessage());
         }
     }
