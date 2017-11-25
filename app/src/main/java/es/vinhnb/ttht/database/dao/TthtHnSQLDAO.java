@@ -3,6 +3,7 @@ package es.vinhnb.ttht.database.dao;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.List;
 
@@ -15,6 +16,9 @@ import es.vinhnb.ttht.database.table.TABLE_CHITIET_TUTI;
 import es.vinhnb.ttht.database.table.TABLE_HISTORY;
 import esolutions.com.esdatabaselib.baseSqlite.ItemFactory;
 import esolutions.com.esdatabaselib.baseSqlite.SqlDAO;
+import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by VinhNB on 11/22/2017.
@@ -26,9 +30,39 @@ public class TthtHnSQLDAO extends SqlDAO {
     }
 
     public List<DataChiTietCtoAdapter> getTreoDataChiTietCtoAdapter(String[] agrs) {
-        String query = "SELECT * FROM A JOION B";
-        Cursor c = super.mDatabase.rawQuery(query, agrs);
-        return super.selectAllLazy(c, new ItemFactory(DataChiTietCtoAdapter.class) {
+        String query = "SELECT * FROM (SELECT " +
+                TABLE_BBAN_CTO.table.ID_BBAN_TRTH.name() +
+                " AS ID_BBAN_TRTH_BB, " +
+                TABLE_BBAN_CTO.table.TEN_KHANG.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.DCHI_HDON.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.MA_GCS_CTO.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.MA_TRAM.name() +
+                " FROM " +
+                TABLE_BBAN_CTO.table.getName() +
+                ") AS BBAN JOIN " +
+                "(SELECT " +
+                TABLE_CHITIET_CTO.table.ID_BBAN_TRTH.name() +
+                " AS ID_BBAN_TRTH_CTO, " +
+                TABLE_CHITIET_CTO.table.MA_CTO.name() +
+                ", " +
+                TABLE_CHITIET_CTO.table.SO_CTO.name() +
+                ", " +
+                TABLE_CHITIET_CTO.table.CHI_SO.name() +
+                " FROM " +
+                TABLE_CHITIET_CTO.table.getName() +
+                " WHERE " +
+                TABLE_CHITIET_CTO.table.MA_BDONG.name() +
+                " = " +
+                "?" +
+                " )AS CONGTO ON " +
+                "BBAN.ID_BBAN_TRTH_BB = CONGTO.ID_BBAN_TRTH_CTO";
+
+        Cursor cursor = super.mDatabase.rawQuery(query, agrs);
+
+        return super.selectAllLazy(cursor, new ItemFactory(DataChiTietCtoAdapter.class) {
             @Override
             protected DataChiTietCtoAdapter create(Cursor cursor, int index) {
                 DataChiTietCtoAdapter dataChiTietCtoAdapter = new DataChiTietCtoAdapter();
@@ -141,6 +175,7 @@ public class TthtHnSQLDAO extends SqlDAO {
                 TABLE_CHITIET_TUTI.table.ID_CHITIET_TUTI.name() +
                 " = ?";
 
+
         Cursor c = super.mDatabase.rawQuery(query, valueCheck);
         return super.selectAllLazy(c, new ItemFactory(String.class) {
             @Override
@@ -165,6 +200,8 @@ public class TthtHnSQLDAO extends SqlDAO {
 
 
         Cursor c = super.mDatabase.rawQuery(query, null);
+
+
         return super.selectAllLazy(c, new ItemFactory<HistoryAdapter.DataHistoryAdapter>(HistoryAdapter.DataHistoryAdapter.class) {
             @Override
             protected HistoryAdapter.DataHistoryAdapter create(Cursor cursor, int index) {

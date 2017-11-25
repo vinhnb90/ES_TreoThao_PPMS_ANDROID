@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.es.tungnv.views.R;
 
@@ -34,8 +35,15 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
-
+        DataChiTietCtoAdapter data = listData.get(position);
+        holder.tvstt.setText(String.valueOf(position));
+        holder.tvmaCto.setText(data.maCto);
+        holder.tvsoCto.setText(data.soCto);
+        holder.tvtenKH.setText(data.tenKH);
+        holder.tvdiachiKH.setText(data.diachiKH);
+        holder.tvmaGCS.setText(data.maGCS);
+        holder.tvmaTram.setText(data.maTram);
+        holder.tvchiso.setText(data.chiso);
     }
 
     @Override
@@ -51,9 +59,25 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView tvstt;
+        public TextView tvmaCto;
+        public TextView tvsoCto;
+        public TextView tvtenKH;
+        public TextView tvdiachiKH;
+        public TextView tvmaGCS;
+        public TextView tvmaTram;
+        public TextView tvchiso;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            tvstt = itemView.findViewById(R.id.tv_stt);
+            tvmaCto = itemView.findViewById(R.id.tv_ma_cto);
+            tvsoCto = itemView.findViewById(R.id.tv_so_no_cto);
+            tvtenKH = itemView.findViewById(R.id.tv_tenKH);
+            tvdiachiKH = itemView.findViewById(R.id.tv_diachi);
+            tvmaGCS = itemView.findViewById(R.id.tv_magcs);
+            tvmaTram = itemView.findViewById(R.id.tv_matram);
+            tvchiso = itemView.findViewById(R.id.tv_chiso);
         }
     }
 

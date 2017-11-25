@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.es.tungnv.views.R;
 import com.esolutions.esloginlib.lib.LoginFragment;
@@ -16,12 +17,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.vinhnb.ttht.adapter.ChiTietCtoAdapter;
+import es.vinhnb.ttht.adapter.HistoryAdapter;
+import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.database.table.TABLE_BBAN_CTO;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_CTO;
 import es.vinhnb.ttht.database.table.TABLE_LOAI_CONG_TO;
 import es.vinhnb.ttht.database.table.TABLE_TRAM;
 import es.vinhnb.ttht.database.dao.TthtHnSQLDAO;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
+
+import static es.vinhnb.ttht.view.TthtHnMainActivity.*;
+import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenu.*;
+import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenu.CTO_TREO;
 
 
 /**
@@ -36,6 +43,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
 
     private LoginFragment.LoginData mLoginData;
     private String mMaNVien;
+    private TagMenu tagMenu;
 
     private List<TABLE_BBAN_CTO> listTABLE_BBAN_CTO = new ArrayList<>();
     private List<TABLE_TRAM> listTABLE_TRAM = new ArrayList<>();
@@ -47,16 +55,19 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     private TthtHnSQLDAO mSqlDAO;
 
     private RecyclerView mRvMain;
+    private ChiTietCtoAdapter treoCtoAdapter;
 
     public TthtHnMainFragment() {
         // Required empty public constructor
     }
 
-    public static TthtHnMainFragment newInstance(LoginFragment.LoginData param1, String param2) {
+    public static TthtHnMainFragment newInstance(LoginFragment.LoginData param1, String param2, TagMenu tagNew) {
         TthtHnMainFragment fragment = new TthtHnMainFragment();
         Bundle args = new Bundle();
         args.putParcelable(TthtHnLoginActivity.BUNDLE_LOGIN, param1);
         args.putString(TthtHnLoginActivity.MA_NVIEN, param2);
+        args.putSerializable(TthtHnLoginActivity.TAG_MENU, tagNew);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,6 +79,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
             //getBundle
             mLoginData = (LoginFragment.LoginData) getArguments().getParcelable(TthtHnLoginActivity.BUNDLE_LOGIN);
             mMaNVien = getArguments().getString(TthtHnLoginActivity.MA_NVIEN);
+            tagMenu = (TagMenu) getArguments().getSerializable(TthtHnLoginActivity.TAG_MENU);
         }
     }
 
@@ -99,7 +111,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
         }
 
 
-        //call Database access object
+        //call Database access objectS
         try {
             mSqlDAO = new TthtHnSQLDAO(SqlHelper.getIntance().openDB(), context);
         } catch (Exception e) {
@@ -114,39 +126,9 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
         mListener = null;
     }
 
-    public TthtHnMainFragment switchMenu(TthtHnMainActivity.TagMenu tagMenu) throws Exception {
-        //check tag
-        if (!tagMenu.typeFrag.equals(this))
-            throw new ClassCastException("TagMenu must be type TthtHnMainFragment class!");
-
-
-        //if tag
-        if (tagMenu == TthtHnMainActivity.TagMenu.BBAN_CTO) {
-            fillDataBBanCto();
-            return this;
-        }
-
-        if (tagMenu == TthtHnMainActivity.TagMenu.TRAM) {
-            fillDataTram();
-            return this;
-        }
-
-        if (tagMenu == TthtHnMainActivity.TagMenu.CTO_TREO) {
-            fillDataCtoTreo();
-            return this;
-        }
-
-        if (tagMenu == TthtHnMainActivity.TagMenu.CTO_THAO) {
-            fillDataCtoThao();
-            return this;
-        }
-
-        if (tagMenu == TthtHnMainActivity.TagMenu.CHUNG_LOAI) {
-            fillDataChungLoai();
-            return this;
-        }
-
-        throw new Exception("tagMenu params not catched in body function!");
+    public TthtHnMainFragment switchMenu(TagMenu tagMenu) {
+        this.tagMenu = tagMenu;
+        return this;
     }
 
     private void fillDataChungLoai() {
@@ -177,19 +159,15 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
 
 
     private void fillDataCtoTreo() {
-//        listTreoTABLE_CHITIET_CTO = mSqlDAO.selectAllLazy(TABLE_CHITIET_CTO.class);
         //get Data and apdater
-        String[] agrs = new String[]{};
+        String[] agrs = new String[]{Common.MA_BDONG.B.code};
         List<ChiTietCtoAdapter.DataChiTietCtoAdapter> dataTreoChiTietCtoAdapters = mSqlDAO.getTreoDataChiTietCtoAdapter(agrs);
 
 
-        //check apdater and refresh or swap
         if (mRvMain.getAdapter() instanceof ChiTietCtoAdapter) {
             ((ChiTietCtoAdapter) mRvMain.getAdapter()).refresh(dataTreoChiTietCtoAdapters);
         } else {
             ChiTietCtoAdapter treoCtoAdapter = new ChiTietCtoAdapter(getContext(), dataTreoChiTietCtoAdapters);
-
-
             mRvMain.removeAllViews();
             mRvMain.invalidate();
             mRvMain.swapAdapter(treoCtoAdapter, true);
@@ -219,7 +197,30 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
 
     @Override
     void setAction(Bundle savedInstanceState) throws Exception {
+        //fill data recycler
+        switch (tagMenu) {
+            case BBAN_CTO:
 
+                break;
+
+            case CTO_TREO:
+
+                fillDataCtoTreo();
+                break;
+
+            case CTO_THAO:
+
+                break;
+
+            case CHUNG_LOAI:
+
+                break;
+
+            case TRAM:
+
+                break;
+
+        }
     }
     //endregion
 

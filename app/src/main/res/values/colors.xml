@@ -74,4 +74,8 @@
 
     <color name="tththn_button">@color/tththn_submited_row_recyler</color>
 
+    <color name="tththn_background_lv1">#DDDDDD</color>
+    <color name="tththn_background_lv2">#EEEEEE</color>
+    <color name="tththn_background_lv3">#FFFFFF</color>
+
 </resources>

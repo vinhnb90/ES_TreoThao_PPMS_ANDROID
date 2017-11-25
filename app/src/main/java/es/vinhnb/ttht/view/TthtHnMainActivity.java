@@ -184,8 +184,9 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
 
         //replace fragment
         //set fragment
+        fragmentMain = new TthtHnMainFragment().newInstance(mLoginData, mMaNVien, TagMenu.BBAN_CTO);
         mTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentMain = new TthtHnMainFragment().newInstance(mLoginData, mMaNVien);
+        mTransaction.replace(mRlMain.getId(), fragmentMain);
         mTransaction.addToBackStack(TagMenu.BBAN_CTO.tagFrag);
         mTransaction.commit();
     }
@@ -244,7 +245,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
             setActionBarTittle(tagNew.title);
 
 
-            //refresh again
+            //refresh againrơ
             naviMenuList.get(pos).setClicked(true);
             ((NaviMenuAdapter) mGridView.getAdapter()).refresh(naviMenuList, pos);
 
@@ -263,9 +264,9 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
             android.support.v4.app.Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
             if (isSameTypeFragment) {
                 if (fragmentVisible instanceof TthtHnMainFragment) {
-                    fragmentMain = (TthtHnMainFragment) fragmentVisible;
                     fragmentMain.switchMenu(tagNew);
                     mTransaction.detach(fragmentMain);
+//                    fragmentMain = (TthtHnMainFragment) fragmentVisible;
                     mTransaction.attach(fragmentMain);
                     mTransaction.commit();
                 }
@@ -278,7 +279,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
                 }
             } else {
                 if (tagNew.typeFrag == TypeFragment.TthtHnMainFragment) {
-                    fragmentMain = new TthtHnMainFragment().newInstance(mLoginData, mMaNVien);
+                    fragmentMain = new TthtHnMainFragment().newInstance(mLoginData, mMaNVien, tagNew);
                     mTransaction.replace(mRlMain.getId(), fragmentMain);
                     mTransaction.addToBackStack(tagNew.tagFrag);
                     mTransaction.commit();

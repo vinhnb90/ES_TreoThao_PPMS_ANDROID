@@ -2,9 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/transparent"
     tools:context="es.vinhnb.ttht.view.TthtHnMainFragment">
 
     <android.support.v7.widget.RecyclerView
+        android:background="@android:color/transparent"
         android:id="@+id/rv_tththn_main"
         android:layout_marginLeft="@dimen/_3sdp"
         android:layout_marginRight="@dimen/_3sdp"

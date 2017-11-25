@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
+        android:background="@color/tththn_background_lv1"
         tools:context="es.vinhnb.ttht.view.TthtHnMainActivity">
 
         <RelativeLayout
@@ -44,7 +45,7 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_40sdp"
-                android:background="@android:color/white"
+                android:background="@color/tththn_background_lv2"
                 android:elevation="@dimen/_5sdp"
                 android:orientation="vertical">
 

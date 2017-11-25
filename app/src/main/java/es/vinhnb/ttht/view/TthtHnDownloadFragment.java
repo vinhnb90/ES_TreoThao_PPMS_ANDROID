@@ -1,25 +1,17 @@
 package es.vinhnb.ttht.view;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,6 +66,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
     private TthtHnApiInterface apiInterface;
 
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -103,6 +96,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
         Bundle args = new Bundle();
         args.putParcelable(TthtHnLoginActivity.BUNDLE_LOGIN, param1);
         args.putString(TthtHnLoginActivity.MA_NVIEN, param2);
+
         fragment.setArguments(args);
         return fragment;
     }

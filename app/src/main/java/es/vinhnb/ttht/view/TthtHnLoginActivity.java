@@ -48,6 +48,7 @@ import retrofit2.Response;
 public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInteface<TABLE_DVIQLY> {
     public static final String BUNDLE_LOGIN = "BUNDLE_LOGIN";
     public static final String MA_NVIEN = "MA_NVIEN";
+    public static final String TAG_MENU = "TAG_MENU";
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
     private List<TABLE_DVIQLY> listDepart = new ArrayList<>();
     private SharePrefManager mPrefManager;
