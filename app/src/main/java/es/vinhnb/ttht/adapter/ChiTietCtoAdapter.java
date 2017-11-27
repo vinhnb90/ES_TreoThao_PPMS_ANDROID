@@ -12,18 +12,27 @@ import com.es.tungnv.views.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.vinhnb.ttht.common.Common;
+
 /**
  * Created by VinhNB on 11/22/2017.
  */
 
 public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.ViewHolder> {
 
+    private static OnIChiTietCtoAdapter onIChiTietCtoAdapter;
+    private static Common.MA_BDONG maBdong;
     private Context context;
-    private List<DataChiTietCtoAdapter> listData = new ArrayList<>();
+    private static List<DataChiTietCtoAdapter> listData = new ArrayList<>();
 
-    public ChiTietCtoAdapter(Context context, List<DataChiTietCtoAdapter> listData) {
+    public ChiTietCtoAdapter(Context context, Common.MA_BDONG maBdong, List<DataChiTietCtoAdapter> listData) {
         this.context = context;
         this.listData = listData;
+        this.maBdong = maBdong;
+        if (context instanceof OnIChiTietCtoAdapter)
+            this.onIChiTietCtoAdapter = (OnIChiTietCtoAdapter) context;
+        else
+            throw new ClassCastException("context must be implemnet OnIChiTietCtoAdapter!");
     }
 
     @Override
@@ -36,7 +45,7 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         DataChiTietCtoAdapter data = listData.get(position);
-        holder.tvstt.setText(String.valueOf(position));
+        holder.tvstt.setText(String.valueOf(position + 1));
         holder.tvmaCto.setText(data.maCto);
         holder.tvsoCto.setText(data.soCto);
         holder.tvtenKH.setText(data.tenKH);
@@ -52,7 +61,7 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
     }
 
 
-    public void refresh(List<DataChiTietCtoAdapter> listData ){
+    public void refresh(List<DataChiTietCtoAdapter> listData) {
         listData.clear();
         this.listData = listData;
         notifyDataSetChanged();
@@ -78,7 +87,22 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
             tvmaGCS = itemView.findViewById(R.id.tv_magcs);
             tvmaTram = itemView.findViewById(R.id.tv_matram);
             tvchiso = itemView.findViewById(R.id.tv_chiso);
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int pos = getAdapterPosition();
+
+
+                    onIChiTietCtoAdapter.clickRowChiTietCtoAdapter(pos, maBdong, listData.get(pos));
+                }
+            });
         }
+    }
+
+    public interface OnIChiTietCtoAdapter {
+        void clickRowChiTietCtoAdapter(int post, Common.MA_BDONG maBdong, DataChiTietCtoAdapter ctoAdapter);
     }
 
     public static class DataChiTietCtoAdapter {

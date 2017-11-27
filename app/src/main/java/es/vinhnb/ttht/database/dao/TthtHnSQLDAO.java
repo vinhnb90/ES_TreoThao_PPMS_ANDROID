@@ -7,13 +7,18 @@ import android.util.Log;
 
 import java.util.List;
 
+import es.vinhnb.ttht.adapter.BBanAdapter;
 import es.vinhnb.ttht.adapter.ChiTietCtoAdapter.DataChiTietCtoAdapter;
+import es.vinhnb.ttht.adapter.ChungLoaiAdapter;
 import es.vinhnb.ttht.adapter.HistoryAdapter;
+import es.vinhnb.ttht.adapter.TramAdapter;
 import es.vinhnb.ttht.database.table.TABLE_BBAN_CTO;
 import es.vinhnb.ttht.database.table.TABLE_BBAN_TUTI;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_CTO;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_TUTI;
 import es.vinhnb.ttht.database.table.TABLE_HISTORY;
+import es.vinhnb.ttht.database.table.TABLE_LOAI_CONG_TO;
+import es.vinhnb.ttht.database.table.TABLE_TRAM;
 import esolutions.com.esdatabaselib.baseSqlite.ItemFactory;
 import esolutions.com.esdatabaselib.baseSqlite.SqlDAO;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
@@ -81,24 +86,116 @@ public class TthtHnSQLDAO extends SqlDAO {
         });
     }
 
-    public List<DataChiTietCtoAdapter> getThaoDataChiTietCtoAdapter(String[] agrs) {
-        String query = "SELECT * FROM THAO JOION B";
-        Cursor c = super.mDatabase.rawQuery(query, agrs);
-        return super.selectAllLazy(c, new ItemFactory(DataChiTietCtoAdapter.class) {
+    public List<TramAdapter.DataTramAdapter> getTramAdapter(String[] agrs) {
+        String query = "SELECT " +
+                TABLE_TRAM.table.TEN_TRAM.name() +
+                ", " +
+                TABLE_TRAM.table.DINH_DANH.name() +
+                ", " +
+                TABLE_TRAM.table.MA_DVIQLY.name() +
+                ", " +
+                TABLE_TRAM.table.MA_TRAM.name() +
+                ", " +
+                TABLE_TRAM.table.CSUAT_TRAM.name() +
+                " FROM " +
+                TABLE_TRAM.table.getName() +
+                "";
+
+        Cursor cursor = super.mDatabase.rawQuery(query, agrs);
+
+        return super.selectAllLazy(cursor, new ItemFactory(TramAdapter.DataTramAdapter.class) {
             @Override
-            protected DataChiTietCtoAdapter create(Cursor cursor, int index) {
-                DataChiTietCtoAdapter dataChiTietCtoAdapter = new DataChiTietCtoAdapter();
+            protected TramAdapter.DataTramAdapter create(Cursor cursor, int index) {
+                TramAdapter.DataTramAdapter dataTramAdapter = new TramAdapter.DataTramAdapter();
                 cursor.moveToPosition(index);
 
-                dataChiTietCtoAdapter.setMaCto(cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.MA_CTO.name())));
-                dataChiTietCtoAdapter.setSoCto(cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.SO_CTO.name())));
-                dataChiTietCtoAdapter.setMaTram(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_TRAM.name())));
-                dataChiTietCtoAdapter.setMaGCS(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_GCS_CTO.name())));
-                dataChiTietCtoAdapter.setTenKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TEN_KHANG.name())));
-                dataChiTietCtoAdapter.setDiachiKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.DCHI_HDON.name())));
-                dataChiTietCtoAdapter.setChiso(cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.CHI_SO.name())));
+                dataTramAdapter.setTenTram(cursor.getString(cursor.getColumnIndex(TABLE_TRAM.table.TEN_TRAM.name())));
+                dataTramAdapter.setCongsuat(cursor.getString(cursor.getColumnIndex(TABLE_TRAM.table.CSUAT_TRAM.name())));
+                dataTramAdapter.setDinhDanh(cursor.getString(cursor.getColumnIndex(TABLE_TRAM.table.DINH_DANH.name())));
+                dataTramAdapter.setMaDviQly(cursor.getString(cursor.getColumnIndex(TABLE_TRAM.table.MA_DVIQLY.name())));
+                dataTramAdapter.setMaTram(cursor.getString(cursor.getColumnIndex(TABLE_TRAM.table.MA_TRAM.name())));
 
-                return dataChiTietCtoAdapter;
+                return dataTramAdapter;
+            }
+        });
+    }
+
+    public List<ChungLoaiAdapter.DataChungLoaiAdapter> getCloaiAdapter(String[] agrs) {
+        String query = "SELECT " +
+                TABLE_LOAI_CONG_TO.table.MO_TA.name() +
+                " ," +
+                TABLE_LOAI_CONG_TO.table.TEN_LOAI_CTO.name() +
+                ", " +
+                TABLE_LOAI_CONG_TO.table.MA_HANG.name() +
+                ", " +
+                TABLE_LOAI_CONG_TO.table.TEN_NUOC.name() +
+                ", " +
+                TABLE_LOAI_CONG_TO.table.DIEN_AP.name() +
+                ", " +
+                TABLE_LOAI_CONG_TO.table.VH_CONG.name() +
+                ", " +
+                TABLE_LOAI_CONG_TO.table.PTHUC_DOXA.name() +
+                " FROM " +
+                TABLE_LOAI_CONG_TO.table.getName() +
+                "";
+
+        Cursor cursor = super.mDatabase.rawQuery(query, agrs);
+
+        return super.selectAllLazy(cursor, new ItemFactory(ChungLoaiAdapter.DataChungLoaiAdapter.class) {
+            @Override
+            protected ChungLoaiAdapter.DataChungLoaiAdapter create(Cursor cursor, int index) {
+                ChungLoaiAdapter.DataChungLoaiAdapter dataCloaiAdapter = new ChungLoaiAdapter.DataChungLoaiAdapter();
+                cursor.moveToPosition(index);
+
+                dataCloaiAdapter.setDienAp(cursor.getString(cursor.getColumnIndex(TABLE_LOAI_CONG_TO.table.DIEN_AP.name())));
+                dataCloaiAdapter.setMaHang(cursor.getString(cursor.getColumnIndex(TABLE_LOAI_CONG_TO.table.MA_HANG.name())));
+                dataCloaiAdapter.setMota(cursor.getString(cursor.getColumnIndex(TABLE_LOAI_CONG_TO.table.MO_TA.name())));
+                dataCloaiAdapter.setPhuongthucdoxa(cursor.getString(cursor.getColumnIndex(TABLE_LOAI_CONG_TO.table.PTHUC_DOXA.name())));
+                dataCloaiAdapter.setTenLoaiCto(cursor.getString(cursor.getColumnIndex(TABLE_LOAI_CONG_TO.table.TEN_LOAI_CTO.name())));
+                dataCloaiAdapter.setTenNuoc(cursor.getString(cursor.getColumnIndex(TABLE_LOAI_CONG_TO.table.TEN_NUOC.name())));
+                dataCloaiAdapter.setVhCong(cursor.getString(cursor.getColumnIndex(TABLE_LOAI_CONG_TO.table.VH_CONG.name())));
+
+                return dataCloaiAdapter;
+            }
+        });
+    }
+
+    public List<BBanAdapter.DataBBanAdapter> getBBanAdapter(String[] agrs) {
+        String query = "SELECT " +
+                TABLE_BBAN_CTO.table.DCHI_HDON.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.LY_DO_TREO_THAO.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.MA_KHANG.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.MA_HDONG.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.MA_GCS_CTO.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.TEN_KHANG.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.MA_TRAM.name() +
+                " FROM " +
+                TABLE_BBAN_CTO.table.getName() +
+                "";
+
+        Cursor cursor = super.mDatabase.rawQuery(query, agrs);
+
+        return super.selectAllLazy(cursor, new ItemFactory(BBanAdapter.DataBBanAdapter.class) {
+            @Override
+            protected BBanAdapter.DataBBanAdapter create(Cursor cursor, int index) {
+                BBanAdapter.DataBBanAdapter dataBBanAdapter = new BBanAdapter.DataBBanAdapter();
+                cursor.moveToPosition(index);
+
+                dataBBanAdapter.setDiachiKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.DCHI_HDON.name())));
+                dataBBanAdapter.setLydo(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.LY_DO_TREO_THAO.name())));
+                dataBBanAdapter.setMaGCS(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_GCS_CTO.name())));
+                dataBBanAdapter.setMaHopDong(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_HDONG.name())));
+                dataBBanAdapter.setTenKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TEN_KHANG.name())));
+                dataBBanAdapter.setMaTramcapdien(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_TRAM.name())));
+                dataBBanAdapter.setMaKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_KHANG.name())));
+
+                return dataBBanAdapter;
             }
         });
     }

@@ -1,6 +1,5 @@
 package es.vinhnb.ttht.view;
 
-import android.app.FragmentManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -25,6 +24,7 @@ import com.esolutions.esloginlib.lib.LoginFragment;
 
 import java.util.ArrayList;
 
+import es.vinhnb.ttht.adapter.ChiTietCtoAdapter;
 import es.vinhnb.ttht.adapter.NaviMenuAdapter;
 import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.view.TthtHnDownloadFragment.OnListenerTthtHnDownloadFragment;
@@ -35,7 +35,8 @@ import static es.vinhnb.ttht.view.TthtHnMainFragment.*;
 public class TthtHnMainActivity extends TthtHnBaseActivity implements
         NaviMenuAdapter.INaviMenuAdapter,
         OnListenerTthtHnMainFragment,
-        OnListenerTthtHnDownloadFragment {
+        OnListenerTthtHnDownloadFragment,
+        ChiTietCtoAdapter.OnIChiTietCtoAdapter {
 
     private LoginFragment.LoginData mLoginData;
     private DrawerLayout mDrawerLayout;
@@ -45,13 +46,16 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
     private ImageButton mIbtnLogout;
     private TthtHnMainFragment fragmentMain;
     private TthtHnDownloadFragment fragmentDownload;
+    private TthtHnChiTietCtoFragment fragmentChitietCto;
+    private TthtHnMainActivity.TagMenu tagOld;
 
 
     public enum TypeFragment {
         TthtHnMainFragment(TthtHnMainFragment.class),
         TthtHnDownloadFragment(TthtHnDownloadFragment.class),
         TthtHnUploadFragment(TthtHnUploadFragment.class),
-        TthtHnHistoryFragment(TthtHnHistoryFragment.class);
+        TthtHnHistoryFragment(TthtHnHistoryFragment.class),
+        TthtHnChiTietCtoFragment(TthtHnChiTietCtoFragment.class);
 
         public Class<?> typeFrag;
 
@@ -72,6 +76,9 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
         CTO_TREO("CTO_TREO", TypeFragment.TthtHnMainFragment, "Công tơ treo", R.drawable.ic_tththn_cto_treo, TypeViewMenu.VIEW),
         CTO_THAO("CTO_THAO", TypeFragment.TthtHnMainFragment, "Công tơ tháo", R.drawable.ic_tththn_cto_thao, TypeViewMenu.VIEW),
         CHUNG_LOAI("CHUNG_LOAI", TypeFragment.TthtHnMainFragment, "Chủng loại", R.drawable.ic_tththn_chungloai, TypeViewMenu.VIEW),
+
+        CHITIET_CTO_TREO("CHITIET_CTO_TREO", TypeFragment.TthtHnChiTietCtoFragment, "Chi tiết công tơ treo", R.drawable.ic_tththn_cto_treo, TypeViewMenu.VIEW),
+        CHITIET_CTO_THAO("CHITIET_CTO_THAO", TypeFragment.TthtHnChiTietCtoFragment, "Chi tiết công tơ tháo", R.drawable.ic_tththn_cto_thao, TypeViewMenu.VIEW),
 
         EMPTY1("", null, "", 0, TypeViewMenu.EMPTY),
         LINE1("", null, "", 0, TypeViewMenu.LINE),
@@ -188,6 +195,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
         mTransaction = getSupportFragmentManager().beginTransaction();
         mTransaction.replace(mRlMain.getId(), fragmentMain);
         mTransaction.addToBackStack(TagMenu.BBAN_CTO.tagFrag);
+        tagOld = TagMenu.BBAN_CTO;
         mTransaction.commit();
     }
 
@@ -239,7 +247,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
 
     //region NaviMenuAdapter.INaviMenuAdapter
     @Override
-    public void doClickNaviMenu(int pos, TthtHnMainActivity.TagMenu tagOld, TthtHnMainActivity.TagMenu tagNew) {
+    public void doClickNaviMenu(int pos, TthtHnMainActivity.TagMenu tagNew) {
         try {
             //set text action bar
             setActionBarTittle(tagNew.title);
@@ -250,48 +258,52 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
             ((NaviMenuAdapter) mGridView.getAdapter()).refresh(naviMenuList, pos);
 
 
-            //check fragment
-            //trong trường hợp mRlMain.getId() được replace bởi nhiều loại fragment khác nhau trong enum TypeFragment
-            //kiểm tra click menu mới có phải là loại khác fragment của menu cũ không
-            boolean isSameTypeFragment = false;
-            if (tagOld.typeFrag == tagNew.typeFrag)
-                isSameTypeFragment = true;
+            callFragment(tagNew);
 
 
-            //nếu cùng kiểu thì chỉ cần nhận biết và gọi thân fragment update
-            //ngược lại thì replace và add to backstack fragment mới
-            mTransaction = getSupportFragmentManager().beginTransaction();
-            android.support.v4.app.Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
-            if (isSameTypeFragment) {
-                if (fragmentVisible instanceof TthtHnMainFragment) {
-                    fragmentMain.switchMenu(tagNew);
-                    mTransaction.detach(fragmentMain);
-//                    fragmentMain = (TthtHnMainFragment) fragmentVisible;
-                    mTransaction.attach(fragmentMain);
-                    mTransaction.commit();
-                }
+//
+//            //check fragment
+//            //trong trường hợp mRlMain.getId() được replace bởi nhiều loại fragment khác nhau trong enum TypeFragment
+//            //kiểm tra click menu mới có phải là loại khác fragment của menu cũ không
+//            boolean isSameTypeFragment = false;
+//            if (tagOld.typeFrag == tagNew.typeFrag)
+//                isSameTypeFragment = true;
 
-                if (fragmentVisible instanceof TthtHnDownloadFragment) {
-                    fragmentDownload = (TthtHnDownloadFragment) fragmentVisible;
-                    mTransaction.detach(fragmentDownload);
-                    mTransaction.attach(fragmentDownload);
-                    mTransaction.commit();
-                }
-            } else {
-                if (tagNew.typeFrag == TypeFragment.TthtHnMainFragment) {
-                    fragmentMain = new TthtHnMainFragment().newInstance(mLoginData, mMaNVien, tagNew);
-                    mTransaction.replace(mRlMain.getId(), fragmentMain);
-                    mTransaction.addToBackStack(tagNew.tagFrag);
-                    mTransaction.commit();
-                }
 
-                if (tagNew.typeFrag == TypeFragment.TthtHnDownloadFragment) {
-                    fragmentDownload = new TthtHnDownloadFragment().newInstance(mLoginData, mMaNVien);
-                    mTransaction.replace(mRlMain.getId(), fragmentDownload);
-                    mTransaction.addToBackStack(tagNew.tagFrag);
-                    mTransaction.commit();
-                }
-            }
+//            //nếu cùng kiểu thì chỉ cần nhận biết và gọi thân fragment update
+//            //ngược lại thì replace và add to backstack fragment mới
+//            mTransaction = getSupportFragmentManager().beginTransaction();
+//            android.support.v4.app.Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
+//            if (isSameTypeFragment) {
+//                if (fragmentVisible instanceof TthtHnMainFragment) {
+//                    fragmentMain.switchMenu(tagNew);
+//                    mTransaction.detach(fragmentMain);
+////                    fragmentMain = (TthtHnMainFragment) fragmentVisible;
+//                    mTransaction.attach(fragmentMain);
+//                    mTransaction.commit();
+//                }
+//
+//                if (fragmentVisible instanceof TthtHnDownloadFragment) {
+//                    fragmentDownload = (TthtHnDownloadFragment) fragmentVisible;
+//                    mTransaction.detach(fragmentDownload);
+//                    mTransaction.attach(fragmentDownload);
+//                    mTransaction.commit();
+//                }
+//            } else {
+//                if (tagNew.typeFrag == TypeFragment.TthtHnMainFragment) {
+//                    fragmentMain = new TthtHnMainFragment().newInstance(mLoginData, mMaNVien, tagNew);
+//                    mTransaction.replace(mRlMain.getId(), fragmentMain);
+//                    mTransaction.addToBackStack(tagNew.tagFrag);
+//                    mTransaction.commit();
+//                }
+//
+//                if (tagNew.typeFrag == TypeFragment.TthtHnDownloadFragment) {
+//                    fragmentDownload = new TthtHnDownloadFragment().newInstance(mLoginData, mMaNVien);
+//                    mTransaction.replace(mRlMain.getId(), fragmentDownload);
+//                    mTransaction.addToBackStack(tagNew.tagFrag);
+//                    mTransaction.commit();
+//                }
+//            }
         } catch (Exception e) {
             e.printStackTrace();
             showSnackBar(Common.MESSAGE.ex04.getContent(), e.getMessage(), null);
@@ -307,4 +319,80 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
         getSupportActionBar().setElevation(0);
     }
     //endregion
+
+
+    //region ChiTietCtoAdapter.OnIChiTietCtoAdapter
+    @Override
+    public void clickRowChiTietCtoAdapter(int post, Common.MA_BDONG maBdong, ChiTietCtoAdapter.DataChiTietCtoAdapter ctoAdapter) {
+        if (maBdong == Common.MA_BDONG.B) {
+            callFragment(TagMenu.CHITIET_CTO_TREO);
+        }else {
+            callFragment(TagMenu.CHITIET_CTO_THAO);
+        }
+    }
+
+    //endregion
+    private void callFragment(TthtHnMainActivity.TagMenu tagNew) {
+        try {
+            //check fragment
+            //trong trường hợp mRlMain.getId() được replace bởi nhiều loại fragment khác nhau trong enum TypeFragment
+            //kiểm tra click menu mới có phải là loại khác fragment của menu cũ không
+            boolean isSameTypeFragment = false;
+            if (tagOld.typeFrag == tagNew.typeFrag)
+                isSameTypeFragment = true;
+            tagOld = tagNew;
+
+
+            //nếu cùng kiểu thì chỉ cần nhận biết và gọi thân fragment update
+            //ngược lại thì replace và add to backstack fragment mới
+            mTransaction = getSupportFragmentManager().beginTransaction();
+            android.support.v4.app.Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
+            if (isSameTypeFragment) {
+                if (fragmentVisible instanceof TthtHnMainFragment) {
+                    fragmentMain.switchMenu(tagNew);
+                    mTransaction.detach(fragmentMain);
+                    mTransaction.attach(fragmentMain);
+                    mTransaction.commit();
+                }
+
+                if (fragmentVisible instanceof TthtHnDownloadFragment) {
+                    mTransaction.detach(fragmentDownload);
+                    mTransaction.attach(fragmentDownload);
+                    mTransaction.commit();
+                }
+
+                if (fragmentVisible instanceof TthtHnChiTietCtoFragment) {
+                    fragmentChitietCto.switchMA_BDONG(tagNew);
+                    mTransaction.detach(fragmentChitietCto);
+                    mTransaction.attach(fragmentChitietCto);
+                    mTransaction.commit();
+                }
+
+            } else {
+                if (tagNew.typeFrag == TypeFragment.TthtHnMainFragment) {
+                    fragmentMain = new TthtHnMainFragment().newInstance(mLoginData, mMaNVien, tagNew);
+                    mTransaction.replace(mRlMain.getId(), fragmentMain);
+                    mTransaction.addToBackStack(tagNew.tagFrag);
+                    mTransaction.commit();
+                }
+
+                if (tagNew.typeFrag == TypeFragment.TthtHnDownloadFragment) {
+                    fragmentDownload = new TthtHnDownloadFragment().newInstance(mLoginData, mMaNVien);
+                    mTransaction.replace(mRlMain.getId(), fragmentDownload);
+                    mTransaction.addToBackStack(tagNew.tagFrag);
+                    mTransaction.commit();
+                }
+
+                if (tagNew.typeFrag == TypeFragment.TthtHnChiTietCtoFragment) {
+                    fragmentChitietCto = new TthtHnChiTietCtoFragment().newInstance(mLoginData, mMaNVien, tagNew);
+                    mTransaction.replace(mRlMain.getId(), fragmentDownload);
+                    mTransaction.addToBackStack(tagNew.tagFrag);
+                    mTransaction.commit();
+                }
+            }
+        } catch (Exception e) {
+
+        }
+
+    }
 }

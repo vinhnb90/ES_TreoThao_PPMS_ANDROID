@@ -45,7 +45,7 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_40sdp"
-                android:background="@color/tththn_background_lv2"
+                android:background="@color/text_white"
                 android:elevation="@dimen/_5sdp"
                 android:orientation="vertical">
 

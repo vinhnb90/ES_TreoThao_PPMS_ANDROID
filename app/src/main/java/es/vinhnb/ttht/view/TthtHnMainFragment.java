@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.es.tungnv.views.R;
 import com.esolutions.esloginlib.lib.LoginFragment;
@@ -16,8 +15,11 @@ import com.esolutions.esloginlib.lib.LoginFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.vinhnb.ttht.adapter.BBanAdapter;
+import es.vinhnb.ttht.adapter.BBanAdapter.DataBBanAdapter;
 import es.vinhnb.ttht.adapter.ChiTietCtoAdapter;
-import es.vinhnb.ttht.adapter.HistoryAdapter;
+import es.vinhnb.ttht.adapter.ChungLoaiAdapter;
+import es.vinhnb.ttht.adapter.TramAdapter;
 import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.database.table.TABLE_BBAN_CTO;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_CTO;
@@ -27,8 +29,6 @@ import es.vinhnb.ttht.database.dao.TthtHnSQLDAO;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 
 import static es.vinhnb.ttht.view.TthtHnMainActivity.*;
-import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenu.*;
-import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenu.CTO_TREO;
 
 
 /**
@@ -132,25 +132,18 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     }
 
     private void fillDataChungLoai() {
-    }
-
-    private void fillDataCtoThao() {
-        //        listTreoTABLE_CHITIET_CTO = mSqlDAO.selectAllLazy(TABLE_CHITIET_CTO.class);
         //get Data and apdater
         String[] agrs = new String[]{};
-        List<ChiTietCtoAdapter.DataChiTietCtoAdapter> dataThaoChiTietCtoAdapters = mSqlDAO.getThaoDataChiTietCtoAdapter(agrs);
+        List<ChungLoaiAdapter.DataChungLoaiAdapter> dataCloaiAdapterList = mSqlDAO.getCloaiAdapter(agrs);
 
 
-        //check apdater and refresh or swap
-        if (mRvMain.getAdapter() instanceof ChiTietCtoAdapter) {
-            ((ChiTietCtoAdapter) mRvMain.getAdapter()).refresh(dataThaoChiTietCtoAdapters);
+        if (mRvMain.getAdapter() instanceof ChungLoaiAdapter) {
+            ((ChungLoaiAdapter) mRvMain.getAdapter()).refresh(dataCloaiAdapterList);
         } else {
-            ChiTietCtoAdapter thaoCtoAdapter = new ChiTietCtoAdapter(getContext(), dataThaoChiTietCtoAdapters);
-
-
+            ChungLoaiAdapter chungLoaiAdapter = new ChungLoaiAdapter(getContext(), dataCloaiAdapterList);
             mRvMain.removeAllViews();
             mRvMain.invalidate();
-            mRvMain.swapAdapter(thaoCtoAdapter, true);
+            mRvMain.swapAdapter(chungLoaiAdapter, true);
         }
 
 
@@ -158,16 +151,16 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     }
 
 
-    private void fillDataCtoTreo() {
+    private void fillDataCto(Common.MA_BDONG maBdong) {
         //get Data and apdater
-        String[] agrs = new String[]{Common.MA_BDONG.B.code};
+        String[] agrs = new String[]{maBdong.code};
         List<ChiTietCtoAdapter.DataChiTietCtoAdapter> dataTreoChiTietCtoAdapters = mSqlDAO.getTreoDataChiTietCtoAdapter(agrs);
 
 
         if (mRvMain.getAdapter() instanceof ChiTietCtoAdapter) {
             ((ChiTietCtoAdapter) mRvMain.getAdapter()).refresh(dataTreoChiTietCtoAdapters);
         } else {
-            ChiTietCtoAdapter treoCtoAdapter = new ChiTietCtoAdapter(getContext(), dataTreoChiTietCtoAdapters);
+            ChiTietCtoAdapter treoCtoAdapter = new ChiTietCtoAdapter(getContext(), maBdong, dataTreoChiTietCtoAdapters);
             mRvMain.removeAllViews();
             mRvMain.invalidate();
             mRvMain.swapAdapter(treoCtoAdapter, true);
@@ -178,10 +171,41 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     }
 
     private void fillDataTram() {
+        //get Data and apdater
+        String[] agrs = new String[]{};
+        List<TramAdapter.DataTramAdapter> dataTramAdapterList = mSqlDAO.getTramAdapter(agrs);
+
+
+        if (mRvMain.getAdapter() instanceof TramAdapter) {
+            ((TramAdapter) mRvMain.getAdapter()).refresh(dataTramAdapterList);
+        } else {
+            TramAdapter tramAdapter = new TramAdapter(getContext(), dataTramAdapterList);
+            mRvMain.removeAllViews();
+            mRvMain.invalidate();
+            mRvMain.swapAdapter(tramAdapter, true);
+        }
+
+
+        mRvMain.invalidate();
     }
 
     private void fillDataBBanCto() {
+        //get Data and apdater
+        String[] agrs = new String[]{};
+        List<DataBBanAdapter> dataBBanAdapters = mSqlDAO.getBBanAdapter(agrs);
 
+
+        if (mRvMain.getAdapter() instanceof BBanAdapter) {
+            ((BBanAdapter) mRvMain.getAdapter()).refresh(dataBBanAdapters);
+        } else {
+            BBanAdapter bBanAdapter = new BBanAdapter(getContext(), dataBBanAdapters);
+            mRvMain.removeAllViews();
+            mRvMain.invalidate();
+            mRvMain.swapAdapter(bBanAdapter, true);
+        }
+
+
+        mRvMain.invalidate();
     }
 
     //region TthtHnBaseFragment
@@ -200,24 +224,24 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
         //fill data recycler
         switch (tagMenu) {
             case BBAN_CTO:
-
+                fillDataBBanCto();
                 break;
 
             case CTO_TREO:
 
-                fillDataCtoTreo();
+                fillDataCto(Common.MA_BDONG.B);
                 break;
 
             case CTO_THAO:
-
+                fillDataCto(Common.MA_BDONG.E);
                 break;
 
             case CHUNG_LOAI:
-
+                fillDataChungLoai();
                 break;
 
             case TRAM:
-
+                fillDataTram();
                 break;
 
         }

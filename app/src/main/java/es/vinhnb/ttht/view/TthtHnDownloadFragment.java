@@ -82,7 +82,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
     private TABLE_HISTORY infoSessionDownload = new TABLE_HISTORY();
     //tạo 1 string messageServer để lưu trữ thông báo của từng thời điểm phục vụ history infoSessionDownload
-    private String messageServer = "";
+    private StringBuilder messageServer = new StringBuilder();
     private HistoryAdapter historyAdapter;
     private HistoryAdapter.OnIDataHistoryAdapter iDataHistoryAdapter;
 
@@ -254,7 +254,8 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                             }
                             //nếu rỗng hoặc !OK (từ server trả về) thì lh quản trị
                             if (!resultLayDuLieuCmis.get(0).RESULT.equals("OK")) {
-                                messageServer.concat("-Máy chủ kết nối CMIS thất bại!-");
+                                infoSessionDownload.setTYPE_RESULT(Common.TYPE_RESULT.ERROR.content);
+                                messageServer.append("-Máy chủ kết nối CMIS thất bại!-");
                                 throw new Exception("Kết nối CMIS thất bại. Liên hệ với quản trị viên");
                             }
 
@@ -271,11 +272,11 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                 resultGeT_BBAN = new ArrayList<>();
                             } else if (resultGeT_BBAN.size() == 0) {
                                 //nếu rỗng thì đã hết biên bản, vẫn cho tiếp tục thực hiện call các api khác
-                                messageServer.concat("-Hết biên bản trên máy chủ!-");
+                                messageServer.append("-Hết biên bản trên máy chủ!-");
                                 infoSessionDownload.setSO_BBAN_API(0);
                             } else {
                                 //nếu có dữ liệu thì set
-                                messageServer.concat("-Gửi yêu cầu đồng bộ công tơ-..");
+                                messageServer.append("-Gửi yêu cầu đồng bộ công tơ-..");
                             }
 
 
@@ -309,7 +310,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                         resultGet_cto = new ArrayList<>();
                                     } else if (resultGet_cto.size() == 0) {
                                         //nếu rỗng thì hiện tại có biên bản nhưng không có công tơ, vẫn cho tiếp tục thực hiện call các api khác
-                                        messageServer.concat("-ID_BBAN_TRTH [" + bbanModel.ID_BBAN_TRTH + "] hiện không có công tơ!-");
+                                        messageServer.append("-ID_BBAN_TRTH [" + bbanModel.ID_BBAN_TRTH + "] hiện không có công tơ!-");
                                     }
 
 
@@ -361,11 +362,11 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                 resultGet_bban_TUTI = new ArrayList<>();
                             } else if (resultGet_bban_TUTI.size() == 0) {
                                 //nếu rỗng thì đã hết biên bản tu ti, vẫn cho tiếp tục thực hiện call các api khác
-                                messageServer.concat("-Hết biên bản TU TI trên máy chủ!-");
+                                messageServer.append("-Hết biên bản TU TI trên máy chủ!-");
                                 infoSessionDownload.setSO_BBAN_TUTI_API(0);
                             } else {
                                 //nếu có dữ liệu thì set
-                                messageServer.concat("-Gửi yêu cầu đồng bộ biên bản TU TI...-");
+                                messageServer.append("-Gửi yêu cầu đồng bộ biên bản TU TI...-");
                             }
 
 
@@ -398,7 +399,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                         resultGet_TUTI = new ArrayList<>();
                                     } else if (resultGet_TUTI.size() == 0) {
                                         //nếu rỗng thì hiện tại có biên bản TU TI nhưng không có TU TI, vẫn cho tiếp tục thực hiện call các api khác
-                                        messageServer.concat("-ID_BBAN_TUTI [" + bbanTutiModel.ID_BBAN_TUTI + "] hiện không có TU TI nào!-");
+                                        messageServer.append("-ID_BBAN_TUTI [" + bbanTutiModel.ID_BBAN_TUTI + "] hiện không có TU TI nào!-");
                                     }
 
 
@@ -447,7 +448,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                 resultGetTram = new ArrayList<>();
                             } else if (resultGetTram.size() == 0) {
                                 //nếu rỗng thì hiện tại có biên bản nhưng không có công tơ, vẫn cho tiếp tục thực hiện call các api khác
-                                messageServer.concat("-Danh mục Trạm hiện không có dữ liệu trên máy chủ!-");
+                                messageServer.append("-Danh mục Trạm hiện không có dữ liệu trên máy chủ!-");
                             }
 
 
@@ -505,7 +506,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                 resultLayDuLieuLoaiCongTo = new ArrayList<>();
                             } else if (resultLayDuLieuLoaiCongTo.size() == 0) {
                                 //nếu rỗng thì hiện tại có biên bản nhưng không có công tơ, vẫn cho tiếp tục thực hiện call các api khác
-                                messageServer.concat("-Danh mục chủng loại hiện không có loại nào!-");
+                                messageServer.append("-Danh mục chủng loại hiện không có loại nào!-");
                             }
 
 
@@ -597,6 +598,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
                             //ghi history phiên download
                             try {
+                                infoSessionDownload.setMESSAGE_RESULT(messageServer.toString());
                                 mSqlDAO.insert(TABLE_HISTORY.class, infoSessionDownload);
                             } catch (final Exception e) {
                                 getView().post(new Runnable() {
@@ -1192,7 +1194,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
             dataServer = resultGetTram.getParcelableArrayList(BUNDLE_DATA);
         } else {
             //vẫn cho thực hiện tiếp tục với các ID_BBAN_TUTI nên chỉ lưu history lỗi khi đồng bộ các công tơ trong ID_BBAN_TUTI này.
-            messageServer.concat("- Lỗi đồng bộ dữ liệu trạm " + statusCode + " " + errorBody + "-");
+            messageServer.append("- Lỗi đồng bộ dữ liệu trạm " + statusCode + " " + errorBody + "-");
         }
 
 
@@ -1287,7 +1289,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
             dataServer = resultGet_TUTI.getParcelableArrayList(BUNDLE_DATA);
         } else {
             //vẫn cho thực hiện tiếp tục với các ID_BBAN_TUTI nên chỉ lưu history lỗi khi đồng bộ các công tơ trong ID_BBAN_TUTI này.
-            messageServer.concat("-ID_BBAN_TUTI[" + ID_BBAN_TUTI + "] lỗi đồng bộ các công tơ " + statusCode + " " + errorBody + "-");
+            messageServer.append("-ID_BBAN_TUTI[" + ID_BBAN_TUTI + "] lỗi đồng bộ các công tơ " + statusCode + " " + errorBody + "-");
         }
 
 
@@ -1382,7 +1384,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
             dataServer = resultGet_bban_TUTI.getParcelableArrayList(BUNDLE_DATA);
         } else {
             //không show thông báo để đồng bộ các danh mục tiếp theo, chỉ ghi lịch sử
-            messageServer.concat("-Gặp lỗi khi đồng bộ biên bản TU TI" + statusCode + " " + errorBody + "-");
+            messageServer.append("-Gặp lỗi khi đồng bộ biên bản TU TI" + statusCode + " " + errorBody + "-");
             infoSessionDownload.setTYPE_RESULT(Common.TYPE_RESULT.ERROR.content);
         }
 
@@ -1400,8 +1402,8 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
                     //check internet
                     if (!Common.isNetworkConnected(getContext())) {
-                        messageServer.concat("-Chưa có kết nối internet, vui lòng kiểm tra lại!-");
-                        throw new Exception(messageServer);
+                        messageServer.append("-Chưa có kết nối internet, vui lòng kiểm tra lại!-");
+                        throw new Exception(messageServer.toString());
                     }
 
 
@@ -1484,7 +1486,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
             dataServer = resultGet_cto.getParcelableArrayList(BUNDLE_DATA);
         } else {
             //vẫn cho thực hiện tiếp tục với các ID_BBAN_TRTH nên chỉ lưu history lỗi khi đồng bộ các công tơ trong ID_BBAN_TRTH này.
-            messageServer.concat("-ID_BBAN_TRTH[" + ID_BBAN_TRTH + "] lỗi đồng bộ " + statusCode + " " + errorBody + "-");
+            messageServer.append("-ID_BBAN_TRTH[" + ID_BBAN_TRTH + "] lỗi đồng bộ " + statusCode + " " + errorBody + "-");
         }
 
 
@@ -1504,15 +1506,15 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                     getView().post(new Runnable() {
                         @Override
                         public void run() {
-                            messageServer = "-Đang kiểm tra kết nối tới CMIS...-";
-                            updateInfoDownload("Đang kiểm tra kết nối tới CMIS", 0);
+                            messageServer.append("-Đang kiểm tra kết nối tới CMIS...-");
+                            updateInfoDownload("Đang kiểm tra kết nối tới CMIS...", 0);
                         }
                     });
 
 
                     //check internet
                     if (!Common.isNetworkConnected(getContext())) {
-                        messageServer.concat("-Chưa có kết nối internet, vui lòng kiểm tra lại!-");
+                        messageServer.append("-Chưa có kết nối internet, vui lòng kiểm tra lại!-");
                         throw new Exception("Chưa có kết nối internet, vui lòng kiểm tra lại!");
                     }
                 } catch (final Exception e) {
@@ -1605,7 +1607,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
 
             // ghi lịch sử
-            messageServer.concat("-Gặp lỗi khi kết nối CMIS [e" + statusCode + "] " + errorBody + "-");
+            messageServer.append("-Gặp lỗi khi kết nối CMIS [e" + statusCode + "] " + errorBody + "-");
             infoSessionDownload.setTYPE_RESULT(Common.TYPE_RESULT.ERROR.content);
         }
 
@@ -1626,7 +1628,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                     getView().post(new Runnable() {
                         @Override
                         public void run() {
-                            messageServer = "-Đang gửi yêu cầu đồng bộ biên bản treo tháo...-";
+                            messageServer.append("-Đang gửi yêu cầu đồng bộ biên bản treo tháo...-");
                             updateInfoDownload("Đang gửi yêu cầu đồng bộ biên bản treo tháo...", 0);
                         }
                     });
@@ -1634,8 +1636,8 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
                     //check internet
                     if (!Common.isNetworkConnected(getContext())) {
-                        messageServer.concat("-Chưa có kết nối internet, vui lòng kiểm tra lại!-");
-                        throw new Exception(messageServer);
+                        messageServer.append("-Chưa có kết nối internet, vui lòng kiểm tra lại!-");
+                        throw new Exception(messageServer.toString());
                     }
 
                 } catch (final Exception e) {
@@ -1717,7 +1719,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
             dataServer = resultGeT_BBAN.getParcelableArrayList(BUNDLE_DATA);
         } else {
             //không show thông báo để đồng bộ các danh mục tiếp theo, chỉ ghi lịch sử
-            messageServer.concat("-Gặp lỗi khi đồng bộ biên bản " + statusCode + " " + errorBody + "-");
+            messageServer.append("-Gặp lỗi khi đồng bộ biên bản " + statusCode + " " + errorBody + "-");
             infoSessionDownload.setTYPE_RESULT(Common.TYPE_RESULT.ERROR.content);
         }
 

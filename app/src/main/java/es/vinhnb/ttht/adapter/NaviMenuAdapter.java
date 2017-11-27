@@ -63,7 +63,7 @@ public class NaviMenuAdapter extends ArrayAdapter<NaviMenuAdapter.NaviMenu> {
             naviMenuHolder.ibtnIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    iNaviMenuAdapter.doClickNaviMenu(positionFinal, menuArrayList.get(posOldClick).tagMenu, naviMenuData.tagMenu);
+                    iNaviMenuAdapter.doClickNaviMenu(positionFinal, naviMenuData.tagMenu);
                 }
             });
 
@@ -135,6 +135,6 @@ public class NaviMenuAdapter extends ArrayAdapter<NaviMenuAdapter.NaviMenu> {
     }
 
     public interface INaviMenuAdapter {
-        void doClickNaviMenu(int pos, TthtHnMainActivity.TagMenu tagOld, TthtHnMainActivity.TagMenu tagNew);
+        void doClickNaviMenu(int pos, TthtHnMainActivity.TagMenu tagNew);
     }
 }

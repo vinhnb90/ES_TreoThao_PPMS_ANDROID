@@ -88,8 +88,7 @@
     <!--slide navigations-->
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
-    </style>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"></style>
 
 
     <!--app them ttht hn-->
@@ -128,65 +127,99 @@
     </style>
 
     <style name="textStyle1">
-        <item name="android:textSize" >@dimen/_10sdp</item>
-        <item name="android:textColor" >@color/tththn_text_more_less_black</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
+        <item name="android:textColor">@color/tththn_text_more_less_black</item>
     </style>
 
     <style name="textStyle2">
-        <item name="android:textSize" >@dimen/_10sdp</item>
-        <item name="android:textStyle" >bold</item>
-        <item name="android:textColor" >@color/tththn_text_less_black</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="textStyle3">
-        <item name="android:textSize" >@dimen/_10sdp</item>
-        <item name="android:textColor" >@color/text_black</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
+        <item name="android:textColor">@color/text_black</item>
     </style>
 
     <style name="textStyle4">
-        <item name="android:textSize" >@dimen/_12sdp</item>
-        <item name="android:textColor" >@color/tththn_row_recyler</item>
+        <item name="android:textSize">@dimen/_12sdp</item>
+        <item name="android:textColor">@color/tththn_row_recyler</item>
+    </style>
+
+    <style name="textStyle5">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/_14sdp</item>
+        <item name="android:textColor">@color/tththn_text_less_black</item>
+    </style>
+
+
+    <style name="edittextStyle1">
+        <item name="android:textSize">@dimen/_12sdp</item>
+        <item name="android:paddingTop">@dimen/_2sdp</item>
+        <item name="android:paddingBottom">@dimen/_2sdp</item>
+        <item name="android:paddingRight">@dimen/_5sdp</item>
+        <item name="android:paddingLeft">@dimen/_5sdp</item>
+        <item name="android:textColor">@color/tththn_text_less_black</item>
+        <item name="android:background">@drawable/xml_tththn_rectangle</item>
+
+    </style>
+
+
+    <style name="edittextStyle2" parent="@style/edittextStyle1">
+        <item name="android:textSize">@dimen/_14sdp</item>
+        <item name="android:textColor">@color/tththn_button</item>
+        <item name="android:background">@drawable/xml_tththn_edittext</item>
+        <item name="android:paddingLeft">@dimen/_15sdp</item>
+    </style>
+
+    <style name="edittextStyle3" parent="@style/edittextStyle2">
+        <item name="android:textSize">@dimen/_12sdp</item>
+        <item name="android:textColor">@color/tththn_button</item>
+        <item name="android:background">@drawable/xml_tththn_edittext</item>
+        <item name="android:paddingLeft">@dimen/_5sdp</item>
+        <item name="android:paddingRight">0dp</item>
+
     </style>
 
     <style name="buttonStyle1">
-        <item name="android:textSize" >@dimen/_10sdp</item>
-        <item name="android:background" >@color/tththn_button</item>
-        <item name="android:textColor" >@color/text_white</item>
-        <item name="android:paddingBottom" >@dimen/_2sdp</item>
-        <item name="android:paddingTop" >@dimen/_2sdp</item>
-        <item name="android:paddingLeft" >@dimen/_5sdp</item>
-        <item name="android:paddingRight" >@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
+        <item name="android:background">@color/tththn_button</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:paddingBottom">@dimen/_2sdp</item>
+        <item name="android:paddingTop">@dimen/_2sdp</item>
+        <item name="android:paddingLeft">@dimen/_5sdp</item>
+        <item name="android:paddingRight">@dimen/_5sdp</item>
     </style>
 
     <style name="buttonStyle2Left">
-        <item name="android:textSize" >@dimen/_10sdp</item>
-        <item name="android:background" >@drawable/xml_tththn_retangle_left</item>
-        <item name="android:textColor" >@color/text_white</item>
-        <item name="android:paddingBottom" >@dimen/_2sdp</item>
-        <item name="android:paddingTop" >@dimen/_2sdp</item>
-        <item name="android:paddingLeft" >@dimen/_5sdp</item>
-        <item name="android:paddingRight" >@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
+        <item name="android:background">@drawable/xml_tththn_retangle_left</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:paddingBottom">@dimen/_2sdp</item>
+        <item name="android:paddingTop">@dimen/_2sdp</item>
+        <item name="android:paddingLeft">@dimen/_5sdp</item>
+        <item name="android:paddingRight">@dimen/_5sdp</item>
     </style>
 
 
     <style name="buttonStyle2Right">
-        <item name="android:textSize" >@dimen/_10sdp</item>
-        <item name="android:background" >@drawable/xml_tththn_retangle_right</item>
-        <item name="android:textColor" >@color/text_white</item>
-        <item name="android:paddingBottom" >@dimen/_2sdp</item>
-        <item name="android:paddingTop" >@dimen/_2sdp</item>
-        <item name="android:paddingLeft" >@dimen/_5sdp</item>
-        <item name="android:paddingRight" >@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
+        <item name="android:background">@drawable/xml_tththn_retangle_right</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:paddingBottom">@dimen/_2sdp</item>
+        <item name="android:paddingTop">@dimen/_2sdp</item>
+        <item name="android:paddingLeft">@dimen/_5sdp</item>
+        <item name="android:paddingRight">@dimen/_5sdp</item>
     </style>
 
     <style name="buttonStyle3">
-        <item name="android:textSize" >@dimen/_10sdp</item>
-        <item name="android:background" >@color/text_white</item>
-        <item name="android:textColor" >@color/tththn_text_less_black</item>
-        <item name="android:paddingBottom" >@dimen/_2sdp</item>
-        <item name="android:paddingTop" >@dimen/_2sdp</item>
-        <item name="android:paddingLeft" >@dimen/_5sdp</item>
-        <item name="android:paddingRight" >@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
+        <item name="android:background">@color/text_white</item>
+        <item name="android:textColor">@color/tththn_text_less_black</item>
+        <item name="android:paddingBottom">@dimen/_2sdp</item>
+        <item name="android:paddingTop">@dimen/_2sdp</item>
+        <item name="android:paddingLeft">@dimen/_5sdp</item>
+        <item name="android:paddingRight">@dimen/_5sdp</item>
     </style>
 
 
