@@ -38,7 +38,7 @@ public class TthtConstantVariables {
     public static final String TABLE_NAME_BBAN_CONGTO = "BBAN_CONGTO";
     public static final String CREATE_TABLE_BBAN_CONGTO = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_BBAN_CONGTO
             + "(MA_DVIQLY TEXT NOT NULL, " + "ID_BBAN_TRTH INTEGER NOT NULL, " + "MA_DDO TEXT, " + "SO_BBAN TEXT, "
-            + "NGAY_TRTH TEXT, " + "MA_NVIEN TEXT, " + "MA_LDO TEXT, " + "NGAY_TAO TEXT, " + "NGUOI_TAO TEXT, "
+            + "NGAY_TRTH TEXT, " + "BUNDLE_MA_NVIEN TEXT, " + "MA_LDO TEXT, " + "NGAY_TAO TEXT, " + "NGUOI_TAO TEXT, "
             + "NGAY_SUA TEXT, " + "NGUOI_SUA TEXT, " + "MA_CNANG TEXT, " + "MA_YCAU_KNAI TEXT, " + "TRANG_THAI INTEGER, "
             + "GHI_CHU TEXT, " + "ID_BBAN_CONGTO INTEGER, " + "LOAI_BBAN TEXT, " + "TEN_KHANG TEXT, " + "DCHI_HDON TEXT, "
             + "DTHOAI TEXT, " + "MA_GCS_CTO TEXT, " + "MA_TRAM TEXT, " + "MA_HDONG TEXT, " + "MA_KHANG TEXT, " + "LY_DO_TREO_THAO TEXT)";
@@ -47,7 +47,7 @@ public class TthtConstantVariables {
     public static final String CREATE_TABLE_DETAIL_CONGTO = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_DETAIL_CONGTO
             + "("
             + "MA_DVIQLY TEXT NOT NULL, "
-            + "MA_NVIEN TEXT NOT NULL, "
+            + "BUNDLE_MA_NVIEN TEXT NOT NULL, "
             + "ID_BBAN_TRTH INTEGER NOT NULL, "
             + "MA_CTO TEXT, "
             + "SO_CTO TEXT, "
@@ -159,7 +159,7 @@ public class TthtConstantVariables {
                     + "MA_DDO TEXT, "
                     + "SO_BBAN TEXT, "
                     + "NGAY_TRTH TEXT, "
-                    + "MA_NVIEN TEXT, "
+                    + "BUNDLE_MA_NVIEN TEXT, "
                     + "TRANG_THAI INTEGER, "
                     + "TEN_KHANG TEXT, "
                     + "DCHI_HDON TEXT, "

@@ -46,9 +46,7 @@ import retrofit2.Response;
 
 
 public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInteface<TABLE_DVIQLY> {
-    public static final String BUNDLE_LOGIN = "BUNDLE_LOGIN";
-    public static final String MA_NVIEN = "MA_NVIEN";
-    public static final String TAG_MENU = "TAG_MENU";
+
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
     private List<TABLE_DVIQLY> listDepart = new ArrayList<>();
     private SharePrefManager mPrefManager;
@@ -88,7 +86,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         super.onResume();
         try {
             //lấy dữ liệu và fill Data dvi
-            listDepart = mSqlDAO.selectAllLazy(TABLE_DVIQLY.class);
+            listDepart = mSqlDAO.selectAllLazy(TABLE_DVIQLY.class, null);
             ((DepartUpdateFragment) loginFragment.getmDepartModule()).setmListDepart(listDepart);
 
 
@@ -164,7 +162,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         Bundle bundle = new Bundle();
         LoginFragment.LoginData loginData = loginFragment.getmLoginData();
         bundle.putParcelable(BUNDLE_LOGIN, loginData);
-        bundle.putString(MA_NVIEN, mMaNVien);
+        bundle.putString(BUNDLE_MA_NVIEN, mMaNVien);
         startActivity(new Intent(TthtHnLoginActivity.this, TthtHnMainActivity.class).putExtras(bundle));
     }
 
@@ -262,7 +260,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
 
     @Override
     public List<TABLE_DVIQLY> selectDBDepart() {
-        return mSqlDAO.selectAllLazy(TABLE_DVIQLY.class);
+        return mSqlDAO.selectAllLazy(TABLE_DVIQLY.class, null);
     }
 
     @Override

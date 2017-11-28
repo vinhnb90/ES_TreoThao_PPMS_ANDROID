@@ -91,7 +91,7 @@ public class PpmsSqliteConnection extends SQLiteOpenHelper {
             + "MA_CTO TEXT, "
             + "NGAY_PHAN_CONG TEXT, "
             + "THANG_KIEM_TRA TEXT, "
-            + "MA_NVIEN INTEGER NOT NULL, "
+            + "BUNDLE_MA_NVIEN INTEGER NOT NULL, "
             + "TY_LE_CHENH_LECH FLOAT, "
             + "SAN_LUONG_TB FLOAT, "
             + "TEN_TRAM TEXT, "
@@ -121,58 +121,58 @@ public class PpmsSqliteConnection extends SQLiteOpenHelper {
 
     //TODO get all task by nhanVien
     public static String getQueryGetTask(String MA_NVIEN) {
-        return "SELECT * FROM " + TABLE_TASK + " WHERE MA_NVIEN = '" + MA_NVIEN + "'";
+        return "SELECT * FROM " + TABLE_TASK + " WHERE BUNDLE_MA_NVIEN = '" + MA_NVIEN + "'";
     }
 
     //TODO get task with MA_PHAN_CONG
     public static String getsQueryGetRowsTaskWith(int MA_NVIEN, int MA_PHAN_CONG) {
-        return "SELECT * FROM " + TABLE_TASK + " WHERE MA_NVIEN =" + MA_NVIEN + " AND MA_PHAN_CONG = " + MA_PHAN_CONG;
+        return "SELECT * FROM " + TABLE_TASK + " WHERE BUNDLE_MA_NVIEN =" + MA_NVIEN + " AND MA_PHAN_CONG = " + MA_PHAN_CONG;
     }
 
     //TODO get count task with TRANG_THAI != 2 and NGAY_PHAN_CONG
     public static String getsQueryGetCountTaskNotCommitWithDate(int MA_NVIEN, String NGAY_PHAN_CONG) {
-        return "SELECT ID_TASK, COUNT(ID_TASK) AS COUNT FROM " + TABLE_TASK + " WHERE MA_NVIEN = " + MA_NVIEN + " AND NGAY_PHAN_CONG = '" + NGAY_PHAN_CONG + "' AND TRANG_THAI <> 2";
+        return "SELECT ID_TASK, COUNT(ID_TASK) AS COUNT FROM " + TABLE_TASK + " WHERE BUNDLE_MA_NVIEN = " + MA_NVIEN + " AND NGAY_PHAN_CONG = '" + NGAY_PHAN_CONG + "' AND TRANG_THAI <> 2";
     }
 
     //TODO get count total task with TRANG_THAI = ? and NGAY_PHAN_CONG
     public static String getsQueryGetCountTaskWithDateAndTRANG_THAI(int MA_NVIEN, String NGAY_PHAN_CONG, int TRANG_THAI) {
-        return "SELECT ID_TASK, COUNT(ID_TASK) AS COUNT FROM " + TABLE_TASK + " WHERE MA_NVIEN = " + MA_NVIEN + " AND NGAY_PHAN_CONG = '" + NGAY_PHAN_CONG + "' AND TRANG_THAI =" + TRANG_THAI;
+        return "SELECT ID_TASK, COUNT(ID_TASK) AS COUNT FROM " + TABLE_TASK + " WHERE BUNDLE_MA_NVIEN = " + MA_NVIEN + " AND NGAY_PHAN_CONG = '" + NGAY_PHAN_CONG + "' AND TRANG_THAI =" + TRANG_THAI;
     }
 
     //TODO get count task with TRANG_THAI != 2 and NGAY_PHAN_CONG
     public static String getsQueryGetCountTaskCommitWithDate(int MA_NVIEN, String NGAY_PHAN_CONG) {
-        return "SELECT ID_TASK, COUNT(ID_TASK) AS COUNT FROM " + TABLE_TASK + " WHERE MA_NVIEN = " + MA_NVIEN + " AND NGAY_PHAN_CONG = '" + NGAY_PHAN_CONG + "' AND TRANG_THAI = 2";
+        return "SELECT ID_TASK, COUNT(ID_TASK) AS COUNT FROM " + TABLE_TASK + " WHERE BUNDLE_MA_NVIEN = " + MA_NVIEN + " AND NGAY_PHAN_CONG = '" + NGAY_PHAN_CONG + "' AND TRANG_THAI = 2";
     }
 
     //TODO get count task with NGAY_PHAN_CONG
     public static String getsQueryGetCountTaskWithDate(int MA_NVIEN, String dateOfColumn, String column) {
-        return "SELECT COUNT(ID_TASK) AS COUNT FROM " + TABLE_TASK + " WHERE MA_NVIEN = " + MA_NVIEN + " AND " + column + " LIKE '" + dateOfColumn + "%'";
+        return "SELECT COUNT(ID_TASK) AS COUNT FROM " + TABLE_TASK + " WHERE BUNDLE_MA_NVIEN = " + MA_NVIEN + " AND " + column + " LIKE '" + dateOfColumn + "%'";
     }
 
     /**
-     * //TODO get all TASK with MA_NVIEN and TRANG_THAI
+     * //TODO get all TASK with BUNDLE_MA_NVIEN and TRANG_THAI
      *
      * @param MA_NVIEN
      * @param TRANG_THAI =0 is not write data, = 1 is wrote data, = 2 is uploaded
      * @return
      */
     public static String getsQueryGetAllRowsTaskWith(int MA_NVIEN, int TRANG_THAI) {
-        return "SELECT * FROM " + TABLE_TASK + " WHERE MA_NVIEN = " + MA_NVIEN + " AND TRANG_THAI = " + TRANG_THAI;
+        return "SELECT * FROM " + TABLE_TASK + " WHERE BUNDLE_MA_NVIEN = " + MA_NVIEN + " AND TRANG_THAI = " + TRANG_THAI;
     }
 
-    //TODO get TRANG_THAI with MA_NVIEN and MA_PHANCONG
+    //TODO get TRANG_THAI with BUNDLE_MA_NVIEN and MA_PHANCONG
     public static String getsQueryGetTRANG_THAIWith(int MA_NVIEN, int MA_PHAN_CONG) {
-        return "SELECT * FROM " + TABLE_TASK + " WHERE MA_NVIEN = " + MA_NVIEN + " AND MA_PHAN_CONG = " + MA_PHAN_CONG;
+        return "SELECT * FROM " + TABLE_TASK + " WHERE BUNDLE_MA_NVIEN = " + MA_NVIEN + " AND MA_PHAN_CONG = " + MA_PHAN_CONG;
     }
 
-    //TODO get TASK with MA_NVIEN and TRANG_THAI
+    //TODO get TASK with BUNDLE_MA_NVIEN and TRANG_THAI
     public static String getsQueryGetAllRowsTaskDoiSoatWithTRANG_THAI(int MA_NVIEN, int TRANG_THAI) {
-        return "SELECT * FROM " + TABLE_TASK + " WHERE MA_NVIEN = " + MA_NVIEN + " AND TRANG_THAI == " + TRANG_THAI;
+        return "SELECT * FROM " + TABLE_TASK + " WHERE BUNDLE_MA_NVIEN = " + MA_NVIEN + " AND TRANG_THAI == " + TRANG_THAI;
     }
 
-    //TODO get TASK with MA_NVIEN and TRANG_THAI != 2
+    //TODO get TASK with BUNDLE_MA_NVIEN and TRANG_THAI != 2
     public static String getsQueryGetAllRowsTaskNotCommit(int MA_NVIEN) {
-        return "SELECT * FROM " + TABLE_TASK + " WHERE MA_NVIEN = " + MA_NVIEN + " AND TRANG_THAI <> 2";
+        return "SELECT * FROM " + TABLE_TASK + " WHERE BUNDLE_MA_NVIEN = " + MA_NVIEN + " AND TRANG_THAI <> 2";
     }
 
 
@@ -196,7 +196,7 @@ public class PpmsSqliteConnection extends SQLiteOpenHelper {
 
     //TODO update TRANG_THAI when upload successfully
     public String getQueryUpdateTRANG_THAIWhenUploadSuccess(int MA_NVIEN, int MA_PHAN_CONG) {
-        return "UPDATE " + TABLE_TASK + " SET TRANG_THAI = 2 WHERE MA_NVIEN = " + MA_NVIEN + " AND MA_PHAN_CONG = " + MA_PHAN_CONG;
+        return "UPDATE " + TABLE_TASK + " SET TRANG_THAI = 2 WHERE BUNDLE_MA_NVIEN = " + MA_NVIEN + " AND MA_PHAN_CONG = " + MA_PHAN_CONG;
     }
 
     //TODO insert task
@@ -250,7 +250,7 @@ public class PpmsSqliteConnection extends SQLiteOpenHelper {
                 + " MA_CTO,"
                 + " NGAY_PHAN_CONG,"
                 + " THANG_KIEM_TRA,"
-                + " MA_NVIEN,"
+                + " BUNDLE_MA_NVIEN,"
                 + " TY_LE_CHENH_LECH,"
                 + " SAN_LUONG_TB,"
                 + " TEN_TRAM,"
@@ -365,7 +365,7 @@ public class PpmsSqliteConnection extends SQLiteOpenHelper {
         query.append(" MA_CTO = '" + MA_CTO + "',");
         query.append(" NGAY_PHAN_CONG = '" + NGAY_PHAN_CONG + "',");
         query.append(" THANG_KIEM_TRA = '" + THANG_KIEM_TRA + "',");
-        query.append(" MA_NVIEN = '" + MA_NVIEN + "',");
+        query.append(" BUNDLE_MA_NVIEN = '" + MA_NVIEN + "',");
         if (isClient) {
             query.append(" TY_LE_CHENH_LECH = '" + TY_LE_CHENH_LECH + "',");
         }
@@ -498,7 +498,7 @@ public class PpmsSqliteConnection extends SQLiteOpenHelper {
             + "CODE_DEPART INTEGER NOT NULL,"
             + "USER_SESSION TEXT, "
             + "PASS_SESSION TEXT, "
-            + "MA_NVIEN TEXT"
+            + "BUNDLE_MA_NVIEN TEXT"
             + ")";
 
     //TODO drop table session
@@ -519,13 +519,13 @@ public class PpmsSqliteConnection extends SQLiteOpenHelper {
 
     public static final String TABLE_EMPLOYEE = "EMPLOYEE";
 
-    public static final String MA_NVIEN = "MA_NVIEN";
+    public static final String MA_NVIEN = "BUNDLE_MA_NVIEN";
 
     private static final String QUERY_CREATE_EMPLOYEE = "CREATE TABLE "
             + TABLE_EMPLOYEE
             + "("
             + "ID_EMP INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
-            + "MA_NVIEN TEXT NOT NULL,"
+            + "BUNDLE_MA_NVIEN TEXT NOT NULL,"
             + "NAME_EMP TEXT,"
             + "PHONE_EMP TEXT, "
             + "ADRESS_EMP TEXT, "

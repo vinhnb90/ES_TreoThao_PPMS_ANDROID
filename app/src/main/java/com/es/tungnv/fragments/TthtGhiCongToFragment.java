@@ -198,7 +198,7 @@ public class TthtGhiCongToFragment extends Fragment implements View.OnClickListe
             tthtBBanEntity.setMA_DDO(cBBan.getString(cBBan.getColumnIndex("MA_DDO")));
             tthtBBanEntity.setMA_DVIQLY(cBBan.getString(cBBan.getColumnIndex("MA_DVIQLY")));
             tthtBBanEntity.setMA_LDO(cBBan.getString(cBBan.getColumnIndex("MA_LDO")));
-            tthtBBanEntity.setMA_NVIEN(cBBan.getString(cBBan.getColumnIndex("MA_NVIEN")));
+            tthtBBanEntity.setMA_NVIEN(cBBan.getString(cBBan.getColumnIndex("BUNDLE_MA_NVIEN")));
             tthtBBanEntity.setMA_YCAU_KNAI(cBBan.getString(cBBan.getColumnIndex("MA_YCAU_KNAI")));
             tthtBBanEntity.setNGAY_SUA(cBBan.getString(cBBan.getColumnIndex("NGAY_SUA")));
             tthtBBanEntity.setNGAY_TAO(cBBan.getString(cBBan.getColumnIndex("NGAY_TAO")));

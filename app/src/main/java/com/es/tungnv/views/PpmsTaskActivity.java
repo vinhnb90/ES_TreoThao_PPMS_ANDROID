@@ -678,7 +678,7 @@ public class PpmsTaskActivity extends FragmentActivity implements ITasksChoose, 
                         contentValuesUpdate.put("MA_CTO", task.getMaCongTo());
                         contentValuesUpdate.put("NGAY_PHAN_CONG", task.getNgayPhanCong());
                         contentValuesUpdate.put("THANG_KIEM_TRA", task.getThangKiemTra());
-                        contentValuesUpdate.put("MA_NVIEN", task.getNhanVienId());
+                        contentValuesUpdate.put("BUNDLE_MA_NVIEN", task.getNhanVienId());
                         contentValuesUpdate.put("TY_LE_CHENH_LECH", task.getTyLeChenhLech());
                         contentValuesUpdate.put("SAN_LUONG_TB", task.getSanLuongTB());
                         contentValuesUpdate.put("TEN_TRAM", task.getTenTram());
@@ -716,7 +716,7 @@ public class PpmsTaskActivity extends FragmentActivity implements ITasksChoose, 
                         contentValuesInsert.put("MA_CTO", task.getMaCongTo());
                         contentValuesInsert.put("NGAY_PHAN_CONG", task.getNgayPhanCong());
                         contentValuesInsert.put("THANG_KIEM_TRA", task.getThangKiemTra());
-                        contentValuesInsert.put("MA_NVIEN", task.getNhanVienId());
+                        contentValuesInsert.put("BUNDLE_MA_NVIEN", task.getNhanVienId());
                         contentValuesInsert.put("TY_LE_CHENH_LECH", task.getTyLeChenhLech());
                         contentValuesInsert.put("SAN_LUONG_TB", task.getSanLuongTB());
                         contentValuesInsert.put("TEN_TRAM", task.getTenTram());
@@ -1073,7 +1073,7 @@ public class PpmsTaskActivity extends FragmentActivity implements ITasksChoose, 
             if (cursorEmp == null) {
                 throw new Exception("Không có dữ liệu nhân viên.");
             }
-            int idEmp = cursorEmp.getInt(cursorEmp.getColumnIndex("MA_NVIEN"));
+            int idEmp = cursorEmp.getInt(cursorEmp.getColumnIndex("BUNDLE_MA_NVIEN"));
             String nameEmp = cursorEmp.getString(cursorEmp.getColumnIndex("NAME_EMP"));
             String phoneEmp = cursorEmp.getString(cursorEmp.getColumnIndex("PHONE_EMP"));
             String adressEmp = cursorEmp.getString(cursorEmp.getColumnIndex("ADRESS_EMP"));

@@ -91,13 +91,10 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
         // Required empty public constructor
     }
 
-    public static TthtHnDownloadFragment newInstance(LoginFragment.LoginData param1, String param2) {
+    public static TthtHnDownloadFragment newInstance(Bundle bundle) {
         TthtHnDownloadFragment fragment = new TthtHnDownloadFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(TthtHnLoginActivity.BUNDLE_LOGIN, param1);
-        args.putString(TthtHnLoginActivity.MA_NVIEN, param2);
 
-        fragment.setArguments(args);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -107,7 +104,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
         if (getArguments() != null) {
             //getBundle
             mLoginData = (LoginFragment.LoginData) getArguments().getParcelable(TthtHnLoginActivity.BUNDLE_LOGIN);
-            mMaNVien = getArguments().getString(TthtHnLoginActivity.MA_NVIEN);
+            mMaNVien = getArguments().getString(TthtHnLoginActivity.BUNDLE_MA_NVIEN);
         }
     }
 

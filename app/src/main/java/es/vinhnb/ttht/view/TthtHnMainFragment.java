@@ -26,9 +26,8 @@ import es.vinhnb.ttht.database.table.TABLE_CHITIET_CTO;
 import es.vinhnb.ttht.database.table.TABLE_LOAI_CONG_TO;
 import es.vinhnb.ttht.database.table.TABLE_TRAM;
 import es.vinhnb.ttht.database.dao.TthtHnSQLDAO;
+import es.vinhnb.ttht.view.TthtHnMainActivity.TagMenu;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
-
-import static es.vinhnb.ttht.view.TthtHnMainActivity.*;
 
 
 /**
@@ -61,14 +60,9 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
         // Required empty public constructor
     }
 
-    public static TthtHnMainFragment newInstance(LoginFragment.LoginData param1, String param2, TagMenu tagNew) {
+    public static TthtHnMainFragment newInstance(Bundle bundle) {
         TthtHnMainFragment fragment = new TthtHnMainFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(TthtHnLoginActivity.BUNDLE_LOGIN, param1);
-        args.putString(TthtHnLoginActivity.MA_NVIEN, param2);
-        args.putSerializable(TthtHnLoginActivity.TAG_MENU, tagNew);
-
-        fragment.setArguments(args);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -77,9 +71,10 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             //getBundle
-            mLoginData = (LoginFragment.LoginData) getArguments().getParcelable(TthtHnLoginActivity.BUNDLE_LOGIN);
-            mMaNVien = getArguments().getString(TthtHnLoginActivity.MA_NVIEN);
-            tagMenu = (TagMenu) getArguments().getSerializable(TthtHnLoginActivity.TAG_MENU);
+            Bundle bundle = getArguments();
+            mLoginData = (LoginFragment.LoginData) bundle.getParcelable(TthtHnLoginActivity.BUNDLE_LOGIN);
+            mMaNVien = bundle.getString(TthtHnLoginActivity.BUNDLE_MA_NVIEN);
+            tagMenu = (TagMenu) bundle.getSerializable(TthtHnLoginActivity.BUNDLE_TAG_MENU);
         }
     }
 

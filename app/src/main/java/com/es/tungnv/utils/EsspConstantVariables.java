@@ -184,7 +184,7 @@ public class EsspConstantVariables {
 
     public static final String TABLE_NAME_NVIEN = "D_NVIEN";
     public static final String CREATE_TABLE_NVIEN = "CREATE TABLE " + TABLE_NAME_NVIEN + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "MA_NVIEN TEXT, " + "USERNAME TEXT)";
+            "BUNDLE_MA_NVIEN TEXT, " + "USERNAME TEXT)";
 
     public static final String TABLE_NAME_PA = "KS_PHUONG_AN";
     public static final String CREATE_TABLE_PA = "CREATE TABLE " + TABLE_NAME_PA + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " +

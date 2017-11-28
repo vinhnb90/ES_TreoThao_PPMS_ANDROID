@@ -53,7 +53,7 @@ public class TABLE_HISTORY {
     @Collumn(name = "MA_DVIQLY", type = TYPE.TEXT, other = "NOT NULL")
     private String MA_DVIQLY;
 
-    @Collumn(name = "MA_NVIEN", type = TYPE.TEXT)
+    @Collumn(name = "BUNDLE_MA_NVIEN", type = TYPE.TEXT)
     private String MA_NVIEN;
 
     @Collumn(name = "DATE_CALL_API", type = TYPE.TEXT)
@@ -98,7 +98,7 @@ public class TABLE_HISTORY {
 
     public TABLE_HISTORY(@Params(name = "ID_TABLE_HISTORY") int ID_TABLE_HISTORY,
                          @Params(name = "MA_DVIQLY") String MA_DVIQLY,
-                         @Params(name = "MA_NVIEN") String MA_NVIEN,
+                         @Params(name = "BUNDLE_MA_NVIEN") String MA_NVIEN,
 
                          @Params(name = "DATE_CALL_API") String DATE_CALL_API,
                          @Params(name = "TYPE_CALL_API") String TYPE_CALL_API,

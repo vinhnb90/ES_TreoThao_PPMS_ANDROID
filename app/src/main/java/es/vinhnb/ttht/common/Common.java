@@ -174,6 +174,60 @@ public class Common {
         }
     }
 
+    //Loai công tơ
+    public enum LOAI_CTO {
+
+        D1("D1", "Điện tử 5 biểu giá", new BO_CHISO[]{BO_CHISO.BT, BO_CHISO.CD, BO_CHISO.TD, BO_CHISO.SG, BO_CHISO.VC}),
+
+        DT("DT", "Điện tử 2 biểu giá", new BO_CHISO[]{BO_CHISO.KT, BO_CHISO.VC}),
+
+        VC("VC", "Hữu công", new BO_CHISO[]{BO_CHISO.KT, BO_CHISO.VC}),
+
+        HC("HC", "Vô công", new BO_CHISO[]{BO_CHISO.KT, BO_CHISO.VC});
+
+        public String code;
+        public String content;
+        public BO_CHISO[] bochiso;
+
+        LOAI_CTO(String code, String content, BO_CHISO[] bochiso) {
+            this.code = code;
+            this.content = content;
+            this.bochiso = bochiso;
+        }
+
+        public static LOAI_CTO findLOAI_CTO(String code) {
+            for (LOAI_CTO loaiCto : values()) {
+                if (loaiCto.code.equalsIgnoreCase(code))
+                    return loaiCto;
+            }
+            return null;
+        }
+    }
+
+    //bộ chỉ số
+    public enum BO_CHISO {
+        BT("BT"),
+        CD("CD"),
+        TD("TD"),
+        SG("SG"),
+        VC("VC"),
+        KT("KT"),;
+
+        public String code;
+
+        BO_CHISO(String code) {
+            this.code = code;
+        }
+
+        public static BO_CHISO findBO_CHISO(String code) {
+            for (BO_CHISO boChiso : values()) {
+                if (boChiso.code.equalsIgnoreCase(code))
+                    return boChiso;
+            }
+            return null;
+        }
+    }
+
     //trạng thái dữ liệu
     public enum TRANG_THAI_DU_LIEU {
         CHUA_TON_TAI("Chưa tồn tại"),

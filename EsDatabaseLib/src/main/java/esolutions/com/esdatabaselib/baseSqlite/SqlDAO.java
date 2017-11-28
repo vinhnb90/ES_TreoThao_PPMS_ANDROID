@@ -45,7 +45,7 @@ public class SqlDAO {
      * @param <T>:    Name Class model
      * @return
      */
-    public <T> LazyList<T> selectAllLazy(Class<T> tClass) {
+    public <T> LazyList<T> selectAllLazy(Class<T> tClass, @Nullable Cursor cursor) {
         //check annotation table class
         final Class<?> classz = tClass;
         boolean isTableSQL = classz.isAnnotationPresent(Table.class);
@@ -53,8 +53,10 @@ public class SqlDAO {
             throw new RuntimeException("Class not description is table!");
         Table annTable = classz.getAnnotation(Table.class);
 
-        String querySelectAll = "Select * from " + annTable.name();
-        Cursor cursor = mDatabase.rawQuery(querySelectAll, null);
+        if (cursor == null) {
+            String querySelectAll = "Select * from " + annTable.name();
+            cursor = mDatabase.rawQuery(querySelectAll, null);
+        }
 
 
         ItemFactory<T> item = new ItemFactory<T>(tClass) {
@@ -168,7 +170,7 @@ public class SqlDAO {
                     if (classResult == null && messsageThrow.length() != 0) {
                         messsageThrow.append("\n").append("Class " + classz.getSimpleName() + " must be has constructor with full param and annotation!");
                         Log.e(TAG, messsageThrow.toString());
-                        Toast.makeText(mContext,messsageThrow.toString() , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, messsageThrow.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -180,7 +182,7 @@ public class SqlDAO {
         return result;
     }
 
-    public <T> LazyList<T> selectAllLazy(Cursor cursor, ItemFactory<T> itemFactory) {
+    public <T> LazyList<T> selectCustomLazy(Cursor cursor, ItemFactory<T> itemFactory) {
         return new LazyList<>(cursor, itemFactory);
     }
     //endregion

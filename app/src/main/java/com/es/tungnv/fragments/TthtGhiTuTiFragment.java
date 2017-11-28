@@ -728,7 +728,7 @@ public class TthtGhiTuTiFragment extends Fragment implements View.OnClickListene
         bban.setMA_DDO(cBban.getString(cBban.getColumnIndex("MA_DDO")));
         bban.setMA_DVIQLY(cBban.getString(cBban.getColumnIndex("MA_DVIQLY")));
         bban.setMA_LDO(cBban.getString(cBban.getColumnIndex("MA_LDO")));
-        bban.setMA_NVIEN(cBban.getString(cBban.getColumnIndex("MA_NVIEN")));
+        bban.setMA_NVIEN(cBban.getString(cBban.getColumnIndex("BUNDLE_MA_NVIEN")));
         bban.setMA_YCAU_KNAI(cBban.getString(cBban.getColumnIndex("MA_YCAU_KNAI")));
         bban.setNGAY_SUA(cBban.getString(cBban.getColumnIndex("NGAY_SUA")));
         bban.setNGAY_TAO(cBban.getString(cBban.getColumnIndex("NGAY_TAO")));

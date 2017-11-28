@@ -3,7 +3,6 @@ package es.vinhnb.ttht.database.dao;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.List;
 
@@ -21,9 +20,6 @@ import es.vinhnb.ttht.database.table.TABLE_LOAI_CONG_TO;
 import es.vinhnb.ttht.database.table.TABLE_TRAM;
 import esolutions.com.esdatabaselib.baseSqlite.ItemFactory;
 import esolutions.com.esdatabaselib.baseSqlite.SqlDAO;
-import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by VinhNB on 11/22/2017.
@@ -67,7 +63,7 @@ public class TthtHnSQLDAO extends SqlDAO {
 
         Cursor cursor = super.mDatabase.rawQuery(query, agrs);
 
-        return super.selectAllLazy(cursor, new ItemFactory(DataChiTietCtoAdapter.class) {
+        return super.selectCustomLazy(cursor, new ItemFactory(DataChiTietCtoAdapter.class) {
             @Override
             protected DataChiTietCtoAdapter create(Cursor cursor, int index) {
                 DataChiTietCtoAdapter dataChiTietCtoAdapter = new DataChiTietCtoAdapter();
@@ -80,6 +76,7 @@ public class TthtHnSQLDAO extends SqlDAO {
                 dataChiTietCtoAdapter.setTenKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TEN_KHANG.name())));
                 dataChiTietCtoAdapter.setDiachiKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.DCHI_HDON.name())));
                 dataChiTietCtoAdapter.setChiso(cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.CHI_SO.name())));
+                dataChiTietCtoAdapter.setIdbbantrth(cursor.getInt(cursor.getColumnIndex("ID_BBAN_TRTH_BB")));
 
                 return dataChiTietCtoAdapter;
             }
@@ -103,7 +100,7 @@ public class TthtHnSQLDAO extends SqlDAO {
 
         Cursor cursor = super.mDatabase.rawQuery(query, agrs);
 
-        return super.selectAllLazy(cursor, new ItemFactory(TramAdapter.DataTramAdapter.class) {
+        return super.selectCustomLazy(cursor, new ItemFactory(TramAdapter.DataTramAdapter.class) {
             @Override
             protected TramAdapter.DataTramAdapter create(Cursor cursor, int index) {
                 TramAdapter.DataTramAdapter dataTramAdapter = new TramAdapter.DataTramAdapter();
@@ -141,7 +138,7 @@ public class TthtHnSQLDAO extends SqlDAO {
 
         Cursor cursor = super.mDatabase.rawQuery(query, agrs);
 
-        return super.selectAllLazy(cursor, new ItemFactory(ChungLoaiAdapter.DataChungLoaiAdapter.class) {
+        return super.selectCustomLazy(cursor, new ItemFactory(ChungLoaiAdapter.DataChungLoaiAdapter.class) {
             @Override
             protected ChungLoaiAdapter.DataChungLoaiAdapter create(Cursor cursor, int index) {
                 ChungLoaiAdapter.DataChungLoaiAdapter dataCloaiAdapter = new ChungLoaiAdapter.DataChungLoaiAdapter();
@@ -181,7 +178,7 @@ public class TthtHnSQLDAO extends SqlDAO {
 
         Cursor cursor = super.mDatabase.rawQuery(query, agrs);
 
-        return super.selectAllLazy(cursor, new ItemFactory(BBanAdapter.DataBBanAdapter.class) {
+        return super.selectCustomLazy(cursor, new ItemFactory(BBanAdapter.DataBBanAdapter.class) {
             @Override
             protected BBanAdapter.DataBBanAdapter create(Cursor cursor, int index) {
                 BBanAdapter.DataBBanAdapter dataBBanAdapter = new BBanAdapter.DataBBanAdapter();
@@ -210,7 +207,7 @@ public class TthtHnSQLDAO extends SqlDAO {
                 " = ?";
 
         Cursor c = super.mDatabase.rawQuery(query, valueCheck);
-        return super.selectAllLazy(c, new ItemFactory(String.class) {
+        return super.selectCustomLazy(c, new ItemFactory(String.class) {
             @Override
             protected String create(Cursor cursor, int index) {
                 cursor.moveToPosition(index);
@@ -235,7 +232,7 @@ public class TthtHnSQLDAO extends SqlDAO {
                 " = ? ";
 
         Cursor c = super.mDatabase.rawQuery(query, valueCheck);
-        return super.selectAllLazy(c, new ItemFactory(String.class) {
+        return super.selectCustomLazy(c, new ItemFactory(String.class) {
             @Override
             protected String create(Cursor cursor, int index) {
                 cursor.moveToPosition(index);
@@ -254,7 +251,7 @@ public class TthtHnSQLDAO extends SqlDAO {
                 " = ?";
 
         Cursor c = super.mDatabase.rawQuery(query, valueCheck);
-        return super.selectAllLazy(c, new ItemFactory(String.class) {
+        return super.selectCustomLazy(c, new ItemFactory(String.class) {
             @Override
             protected String create(Cursor cursor, int index) {
                 cursor.moveToPosition(index);
@@ -274,7 +271,7 @@ public class TthtHnSQLDAO extends SqlDAO {
 
 
         Cursor c = super.mDatabase.rawQuery(query, valueCheck);
-        return super.selectAllLazy(c, new ItemFactory(String.class) {
+        return super.selectCustomLazy(c, new ItemFactory(String.class) {
             @Override
             protected String create(Cursor cursor, int index) {
                 cursor.moveToPosition(index);
@@ -299,7 +296,7 @@ public class TthtHnSQLDAO extends SqlDAO {
         Cursor c = super.mDatabase.rawQuery(query, null);
 
 
-        return super.selectAllLazy(c, new ItemFactory<HistoryAdapter.DataHistoryAdapter>(HistoryAdapter.DataHistoryAdapter.class) {
+        return super.selectCustomLazy(c, new ItemFactory<HistoryAdapter.DataHistoryAdapter>(HistoryAdapter.DataHistoryAdapter.class) {
             @Override
             protected HistoryAdapter.DataHistoryAdapter create(Cursor cursor, int index) {
                 cursor.moveToPosition(index);
@@ -320,5 +317,71 @@ public class TthtHnSQLDAO extends SqlDAO {
                 return tableHistory;
             }
         });
+    }
+
+
+    public List<TABLE_CHITIET_CTO> getChiTietCongto(String[] agrs) {
+        String query = "SELECT  * " +
+                " FROM " +
+                TABLE_CHITIET_CTO.table.getName() +
+                " WHERE " +
+                TABLE_CHITIET_CTO.table.ID_BBAN_TRTH +
+                " = ?" +
+                " AND " +
+                TABLE_CHITIET_CTO.table.MA_BDONG +
+                " = ?" +
+                " AND " +
+                TABLE_CHITIET_CTO.table.MA_NVIEN +
+                " = ?" +
+                "";
+
+        Cursor cursor = super.mDatabase.rawQuery(query, agrs);
+
+        return super.selectAllLazy(TABLE_CHITIET_CTO.class, cursor);
+    }
+
+    public List<TABLE_BBAN_CTO> getBBan(String[] agrs) {
+        String query = "SELECT  * " +
+                " FROM " +
+                TABLE_BBAN_CTO.table.getName() +
+                " WHERE " +
+                TABLE_BBAN_CTO.table.ID_BBAN_TRTH +
+                " = ?" +
+                " AND " +
+                TABLE_BBAN_CTO.table.MA_NVIEN +
+                " = ?" +
+                "";
+
+        Cursor cursor = super.mDatabase.rawQuery(query, agrs);
+
+        return super.selectAllLazy(TABLE_BBAN_CTO.class, cursor);
+    }
+
+    public List<TABLE_LOAI_CONG_TO> getLoaiCongto(String[] argsCloai) {
+        String query = "SELECT  * " +
+                " FROM " +
+                TABLE_LOAI_CONG_TO.table.getName() +
+                " WHERE " +
+                TABLE_LOAI_CONG_TO.table.MA_CLOAI +
+                " = ?" +
+                "";
+
+        Cursor cursor = super.mDatabase.rawQuery(query, argsCloai);
+
+        return super.selectAllLazy(TABLE_LOAI_CONG_TO.class, cursor);
+    }
+
+    public List<TABLE_TRAM> getTRAM(String[] argsTram) {
+        String query = "SELECT  * " +
+                " FROM " +
+                TABLE_TRAM.table.getName() +
+                " WHERE " +
+                TABLE_TRAM.table.MA_TRAM +
+                " = ?" +
+                "";
+
+        Cursor cursor = super.mDatabase.rawQuery(query, argsTram);
+
+        return super.selectAllLazy(TABLE_TRAM.class, cursor);
     }
 }

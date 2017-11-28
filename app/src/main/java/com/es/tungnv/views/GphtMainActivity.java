@@ -94,7 +94,7 @@ public class GphtMainActivity extends Activity implements View.OnClickListener{
         try {
             super.onResume();
             String MA_NVIEN = sSharePrefManager.getSharePref("shareRefMaNhanVien", MODE_PRIVATE)
-                    .getString("MA_NVIEN", "");
+                    .getString("BUNDLE_MA_NVIEN", "");
             TthtCommon.setMaNvien(MA_NVIEN);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -419,7 +419,7 @@ public class GphtMainActivity extends Activity implements View.OnClickListener{
                                         //VinhNB
                                         sSharePrefManager.getSharePref("shareRefMaNhanVien", MODE_PRIVATE)
                                                 .edit()
-                                                .putString("MA_NVIEN", MA_NVIEN)
+                                                .putString("BUNDLE_MA_NVIEN", MA_NVIEN)
                                                 .commit();
                                         //end VinhNB
                                         TthtCommon.setMaNvien(MA_NVIEN);
@@ -477,7 +477,7 @@ public class GphtMainActivity extends Activity implements View.OnClickListener{
             } else {
                 if (!MA_DVIQLY.isEmpty()) {
                     //VinhNB
-                    String MA_NVIEN = sSharePrefManager.getSharePref("shareRefMaNhanVien", MODE_PRIVATE).getString("MA_NVIEN", "");
+                    String MA_NVIEN = sSharePrefManager.getSharePref("shareRefMaNhanVien", MODE_PRIVATE).getString("BUNDLE_MA_NVIEN", "");
 
                     if (MA_NVIEN.equals("")) {
                         Common.showAlertDialogGreen(this, "Thông báo", Color.WHITE, "Đăng nhập thất bại.\n" +

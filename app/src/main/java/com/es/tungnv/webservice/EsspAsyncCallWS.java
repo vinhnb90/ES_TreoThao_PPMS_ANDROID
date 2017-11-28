@@ -923,7 +923,7 @@ public class EsspAsyncCallWS {
 //                        try {
 //                            if (tableRow.getProperty("MA_NVIEN") != null
 //                                    && tableRow.getProperty("MA_NVIEN").toString().trim().length() > 0)
-//                                map.put("MA_NVIEN", tableRow.getProperty("MA_NVIEN").toString().equals("anyType{}")?"":tableRow.getProperty("MA_NVIEN").toString());
+//                                map.put("BUNDLE_MA_NVIEN", tableRow.getProperty("BUNDLE_MA_NVIEN").toString().equals("anyType{}")?"":tableRow.getProperty("BUNDLE_MA_NVIEN").toString());
 //                        } catch (Exception e) {
 //                        }
 //                        ListViewData.add(map);

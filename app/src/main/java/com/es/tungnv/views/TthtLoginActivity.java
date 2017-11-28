@@ -112,7 +112,7 @@ public class TthtLoginActivity extends AppCompatActivity implements View.OnClick
             }
             //VinhNB
             String MA_NVIEN = sSharePrefManager.getSharePref("shareRefMaNhanVien", MODE_PRIVATE)
-                    .getString("MA_NVIEN", "");
+                    .getString("BUNDLE_MA_NVIEN", "");
             TthtCommon.setMaNvien(MA_NVIEN);
             //end VinhNB
             TthtCommon.LoadFolder(TthtLoginActivity.this);
@@ -325,7 +325,7 @@ public class TthtLoginActivity extends AppCompatActivity implements View.OnClick
                                                 //VinhNB
                                                 sSharePrefManager.getSharePref("shareRefMaNhanVien", MODE_PRIVATE)
                                                         .edit()
-                                                        .putString("MA_NVIEN", MA_NVIEN)
+                                                        .putString("BUNDLE_MA_NVIEN", MA_NVIEN)
                                                         .commit();
                                                 //end VinhNB
                                                 TthtCommon.setMaNvien(MA_NVIEN);
@@ -366,7 +366,7 @@ public class TthtLoginActivity extends AppCompatActivity implements View.OnClick
                                                                     try {
                                                                         MA_DVIQLY = connection.getListIDMaDviQly().get(spDviQly.getSelectedItemPosition());
                                                                         String MA_NVIEN = sSharePrefManager.getSharePref("shareRefMaNhanVien", MODE_PRIVATE)
-                                                                                .getString("MA_NVIEN", "");
+                                                                                .getString("BUNDLE_MA_NVIEN", "");
 
                                                                         boolean checkInputOffline = connection.checkInfoInputCompairWithRememberTable(MA_DVIQLY, etUser.getText().toString(), etPass.getText().toString());
                                                                         if (!checkInputOffline) {
@@ -414,7 +414,7 @@ public class TthtLoginActivity extends AppCompatActivity implements View.OnClick
                             MA_DVIQLY = connection.getListIDMaDviQly().get(spDviQly.getSelectedItemPosition());
 
                             String MA_NVIEN = sSharePrefManager.getSharePref("shareRefMaNhanVien", MODE_PRIVATE)
-                                    .getString("MA_NVIEN", "");
+                                    .getString("BUNDLE_MA_NVIEN", "");
 
                             if (MA_NVIEN.equals("")) {
                                 return;

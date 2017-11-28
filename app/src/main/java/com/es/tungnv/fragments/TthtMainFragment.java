@@ -503,7 +503,7 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
                                         if (checkUpload == 1) {
                                             long rowUpdate = connection.updateDataBBanByMaDviAndID(map.getString("MA_DVIQLY"), map.getInt("ID_BBAN_TRTH"),
                                                     map.getString("MA_DDO"), map.getString("SO_BBAN"), map.getString("NGAY_TRTH"),
-                                                    map.getString("MA_NVIEN"), map.getString("MA_LDO"), map.getString("NGAY_TAO"),
+                                                    map.getString("BUNDLE_MA_NVIEN"), map.getString("MA_LDO"), map.getString("NGAY_TAO"),
                                                     map.getString("NGUOI_TAO"), map.getString("NGAY_SUA"), map.getString("NGUOI_SUA"),
                                                     map.getString("MA_CNANG"), map.getString("MA_YCAU_KNAI"), map.getInt("TRANG_THAI"),
                                                     map.getString("GHI_CHU"), map.getInt("ID_BBAN_CONGTO"), map.getString("LOAI_BBAN"),
@@ -560,7 +560,7 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
                                         if (checkUpload == 0) {
                                             long rowInsert = connection.insertDataBBanCto(map.getString("MA_DVIQLY"), map.getInt("ID_BBAN_TRTH"),
                                                     map.getString("MA_DDO"), map.getString("SO_BBAN"), map.getString("NGAY_TRTH"),
-                                                    map.getString("MA_NVIEN"), map.getString("MA_LDO"), map.getString("NGAY_TAO"),
+                                                    map.getString("BUNDLE_MA_NVIEN"), map.getString("MA_LDO"), map.getString("NGAY_TAO"),
                                                     map.getString("NGUOI_TAO"), map.getString("NGAY_SUA"), map.getString("NGUOI_SUA"),
                                                     map.getString("MA_CNANG"), map.getString("MA_YCAU_KNAI"), map.getInt("TRANG_THAI"),
                                                     map.getString("GHI_CHU"), map.getInt("ID_BBAN_CONGTO"), map.getString("LOAI_BBAN"),
@@ -775,7 +775,7 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
                                             bbTuTi.getString("MA_DDO"),
                                             bbTuTi.getString("SO_BBAN"),
                                             bbTuTi.getString("NGAY_TRTH"),
-                                            bbTuTi.getString("MA_NVIEN"),
+                                            bbTuTi.getString("BUNDLE_MA_NVIEN"),
                                             bbTuTi.getInt("TRANG_THAI"),
                                             bbTuTi.getString("TEN_KHANG"),
                                             bbTuTi.getString("DCHI_HDON"),
@@ -794,7 +794,7 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
                                             bbTuTi.getString("MA_DDO"),
                                             bbTuTi.getString("SO_BBAN"),
                                             bbTuTi.getString("NGAY_TRTH"),
-                                            bbTuTi.getString("MA_NVIEN"),
+                                            bbTuTi.getString("BUNDLE_MA_NVIEN"),
                                             bbTuTi.getInt("TRANG_THAI"),
                                             bbTuTi.getString("TEN_KHANG"),
                                             bbTuTi.getString("DCHI_HDON"),
@@ -1285,7 +1285,7 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
                         tthtBBanEntity.setDATE_CALL_API(cKHangTreoThao.getString(cKHangTreoThao.getColumnIndex("MA_DDO")));
                         tthtBBanEntity.setMA_DVIQLY(cKHangTreoThao.getString(cKHangTreoThao.getColumnIndex("MA_DVIQLY")));
                         tthtBBanEntity.setSO_BBAN_API(cKHangTreoThao.getString(cKHangTreoThao.getColumnIndex("MA_LDO")));
-                        tthtBBanEntity.setMA_NVIEN(cKHangTreoThao.getString(cKHangTreoThao.getColumnIndex("MA_NVIEN")));
+                        tthtBBanEntity.setMA_NVIEN(cKHangTreoThao.getString(cKHangTreoThao.getColumnIndex("BUNDLE_MA_NVIEN")));
                         tthtBBanEntity.setSO_TRAM_API(cKHangTreoThao.getString(cKHangTreoThao.getColumnIndex("MA_YCAU_KNAI")));
                         tthtBBanEntity.setSO_BBAN_TUTI_API(cKHangTreoThao.getString(cKHangTreoThao.getColumnIndex("NGAY_SUA")));
                         tthtBBanEntity.setSO_CTO_THAO_API(cKHangTreoThao.getString(cKHangTreoThao.getColumnIndex("NGAY_TAO")));
@@ -1402,7 +1402,7 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
                                 tthtBBanTuTiEntity.setDATE_CALL_API(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("MA_DDO")));
                                 tthtBBanTuTiEntity.setTYPE_CALL_API(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("SO_BBAN")));
                                 tthtBBanTuTiEntity.setTYPE_RESULT(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("NGAY_TRTH")));
-                                tthtBBanTuTiEntity.setMA_NVIEN(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("MA_NVIEN")));
+                                tthtBBanTuTiEntity.setMA_NVIEN(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("BUNDLE_MA_NVIEN")));
                                 tthtBBanTuTiEntity.setSO_CHUNGLOAI_API(cBBanTuTi.getInt(cBBanTuTi.getColumnIndex("TRANG_THAI")));
                                 tthtBBanTuTiEntity.setTEN_KHANG(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("TEN_KHANG")));
                                 tthtBBanTuTiEntity.setDCHI_HDON(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("DCHI_HDON")));
@@ -1525,7 +1525,7 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
                             tthtBBanEntity.setDATE_CALL_API(cKHangThao.getString(cKHangThao.getColumnIndex("MA_DDO")));
                             tthtBBanEntity.setMA_DVIQLY(cKHangThao.getString(cKHangThao.getColumnIndex("MA_DVIQLY")));
                             tthtBBanEntity.setSO_BBAN_API(cKHangThao.getString(cKHangThao.getColumnIndex("MA_LDO")));
-                            tthtBBanEntity.setMA_NVIEN(cKHangThao.getString(cKHangThao.getColumnIndex("MA_NVIEN")));
+                            tthtBBanEntity.setMA_NVIEN(cKHangThao.getString(cKHangThao.getColumnIndex("BUNDLE_MA_NVIEN")));
                             tthtBBanEntity.setSO_TRAM_API(cKHangThao.getString(cKHangThao.getColumnIndex("MA_YCAU_KNAI")));
                             tthtBBanEntity.setSO_BBAN_TUTI_API(cKHangThao.getString(cKHangThao.getColumnIndex("NGAY_SUA")));
                             tthtBBanEntity.setSO_CTO_THAO_API(cKHangThao.getString(cKHangThao.getColumnIndex("NGAY_TAO")));
@@ -1640,7 +1640,7 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
                                     tthtBBanTuTiEntity.setDATE_CALL_API(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("MA_DDO")));
                                     tthtBBanTuTiEntity.setTYPE_CALL_API(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("SO_BBAN")));
                                     tthtBBanTuTiEntity.setTYPE_RESULT(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("NGAY_TRTH")));
-                                    tthtBBanTuTiEntity.setMA_NVIEN(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("MA_NVIEN")));
+                                    tthtBBanTuTiEntity.setMA_NVIEN(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("BUNDLE_MA_NVIEN")));
                                     tthtBBanTuTiEntity.setSO_CHUNGLOAI_API(cBBanTuTi.getInt(cBBanTuTi.getColumnIndex("TRANG_THAI")));
                                     tthtBBanTuTiEntity.setTEN_KHANG(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("TEN_KHANG")));
                                     tthtBBanTuTiEntity.setDCHI_HDON(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("DCHI_HDON")));
@@ -5571,7 +5571,7 @@ public String UploadFileHA(String fFileName,int CONGTO_ID,String GHI_CHU,String 
 //                        tthtBBanEntity.setMA_DVIQLY(cKHangTreoThao.getString(cKHangTreoThao.getColumnIndex("MA_DVIQLY")));
 ////                        tthtBBanEntity.setSO_BBAN_API(cKHangTreoThao.getString(cKHangTreoThao.getColumnIndex("MA_LDO")));
 //                        tthtBBanEntity.setSO_BBAN_API("");
-//                        tthtBBanEntity.setMA_NVIEN(cKHangTreoThao.getString(cKHangTreoThao.getColumnIndex("MA_NVIEN")));
+//                        tthtBBanEntity.setMA_NVIEN(cKHangTreoThao.getString(cKHangTreoThao.getColumnIndex("BUNDLE_MA_NVIEN")));
 ////                        tthtBBanEntity.setSO_TRAM_API(cKHangTreoThao.getString(cKHangTreoThao.getColumnIndex("MA_YCAU_KNAI")));
 //                        tthtBBanEntity.setSO_TRAM_API("");
 //                        tthtBBanEntity.setSO_BBAN_TUTI_API(cKHangTreoThao.getString(cKHangTreoThao.getColumnIndex("NGAY_SUA")));
@@ -5692,7 +5692,7 @@ public String UploadFileHA(String fFileName,int CONGTO_ID,String GHI_CHU,String 
 //                                tthtBBanTuTiEntity.setDATE_CALL_API(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("MA_DDO")));
 //                                tthtBBanTuTiEntity.setTYPE_CALL_API(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("SO_BBAN")));
 //                                tthtBBanTuTiEntity.setTYPE_RESULT(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("NGAY_TRTH")));
-//                                tthtBBanTuTiEntity.setMA_NVIEN(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("MA_NVIEN")));
+//                                tthtBBanTuTiEntity.setMA_NVIEN(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("BUNDLE_MA_NVIEN")));
 //                                tthtBBanTuTiEntity.setSO_CHUNGLOAI_API(cBBanTuTi.getInt(cBBanTuTi.getColumnIndex("TRANG_THAI")));
 //                                tthtBBanTuTiEntity.setTEN_KHANG(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("TEN_KHANG")));
 //                                tthtBBanTuTiEntity.setDCHI_HDON(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("DCHI_HDON")));
@@ -5815,7 +5815,7 @@ public String UploadFileHA(String fFileName,int CONGTO_ID,String GHI_CHU,String 
 //                            tthtBBanEntity.setDATE_CALL_API(cKHangThao.getString(cKHangThao.getColumnIndex("MA_DDO")));
 //                            tthtBBanEntity.setMA_DVIQLY(cKHangThao.getString(cKHangThao.getColumnIndex("MA_DVIQLY")));
 //                            tthtBBanEntity.setSO_BBAN_API(cKHangThao.getString(cKHangThao.getColumnIndex("MA_LDO")));
-//                            tthtBBanEntity.setMA_NVIEN(cKHangThao.getString(cKHangThao.getColumnIndex("MA_NVIEN")));
+//                            tthtBBanEntity.setMA_NVIEN(cKHangThao.getString(cKHangThao.getColumnIndex("BUNDLE_MA_NVIEN")));
 //                            tthtBBanEntity.setSO_TRAM_API(cKHangThao.getString(cKHangThao.getColumnIndex("MA_YCAU_KNAI")));
 //                            tthtBBanEntity.setSO_BBAN_TUTI_API(cKHangThao.getString(cKHangThao.getColumnIndex("NGAY_SUA")));
 //                            tthtBBanEntity.setSO_CTO_THAO_API(cKHangThao.getString(cKHangThao.getColumnIndex("NGAY_TAO")));
@@ -5930,7 +5930,7 @@ public String UploadFileHA(String fFileName,int CONGTO_ID,String GHI_CHU,String 
 //                                    tthtBBanTuTiEntity.setDATE_CALL_API(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("MA_DDO")));
 //                                    tthtBBanTuTiEntity.setTYPE_CALL_API(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("SO_BBAN")));
 //                                    tthtBBanTuTiEntity.setTYPE_RESULT(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("NGAY_TRTH")));
-//                                    tthtBBanTuTiEntity.setMA_NVIEN(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("MA_NVIEN")));
+//                                    tthtBBanTuTiEntity.setMA_NVIEN(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("BUNDLE_MA_NVIEN")));
 //                                    tthtBBanTuTiEntity.setSO_CHUNGLOAI_API(cBBanTuTi.getInt(cBBanTuTi.getColumnIndex("TRANG_THAI")));
 //                                    tthtBBanTuTiEntity.setTEN_KHANG(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("TEN_KHANG")));
 //                                    tthtBBanTuTiEntity.setDCHI_HDON(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("DCHI_HDON")));
@@ -6070,7 +6070,7 @@ public String UploadFileHA(String fFileName,int CONGTO_ID,String GHI_CHU,String 
                             tthtBBanEntity.setMA_DDO(cKHangTreo.getString(cKHangTreo.getColumnIndex("MA_DDO")));
                             tthtBBanEntity.setMA_DVIQLY(cKHangTreo.getString(cKHangTreo.getColumnIndex("MA_DVIQLY")));
                             tthtBBanEntity.setMA_LDO(cKHangTreo.getString(cKHangTreo.getColumnIndex("MA_LDO")));
-                            tthtBBanEntity.setMA_NVIEN(cKHangTreo.getString(cKHangTreo.getColumnIndex("MA_NVIEN")));
+                            tthtBBanEntity.setMA_NVIEN(cKHangTreo.getString(cKHangTreo.getColumnIndex("BUNDLE_MA_NVIEN")));
                             tthtBBanEntity.setMA_YCAU_KNAI(cKHangTreo.getString(cKHangTreo.getColumnIndex("MA_YCAU_KNAI")));
                             tthtBBanEntity.setNGAY_SUA(cKHangTreo.getString(cKHangTreo.getColumnIndex("NGAY_SUA")));
                             tthtBBanEntity.setNGAY_TAO(cKHangTreo.getString(cKHangTreo.getColumnIndex("NGAY_TAO")));
@@ -6187,7 +6187,7 @@ public String UploadFileHA(String fFileName,int CONGTO_ID,String GHI_CHU,String 
                                     tthtBBanTuTiEntity.setMA_DDO(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("MA_DDO")));
                                     tthtBBanTuTiEntity.setSO_BBAN(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("SO_BBAN")));
                                     tthtBBanTuTiEntity.setNGAY_TRTH(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("NGAY_TRTH")));
-                                    tthtBBanTuTiEntity.setMA_NVIEN(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("MA_NVIEN")));
+                                    tthtBBanTuTiEntity.setMA_NVIEN(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("BUNDLE_MA_NVIEN")));
                                     tthtBBanTuTiEntity.setTRANG_THAI(cBBanTuTi.getInt(cBBanTuTi.getColumnIndex("TRANG_THAI")));
                                     tthtBBanTuTiEntity.setTEN_KHANG(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("TEN_KHANG")));
                                     tthtBBanTuTiEntity.setDCHI_HDON(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("DCHI_HDON")));
@@ -6311,7 +6311,7 @@ public String UploadFileHA(String fFileName,int CONGTO_ID,String GHI_CHU,String 
                             tthtBBanEntity.setMA_DDO(cKHangThao.getString(cKHangThao.getColumnIndex("MA_DDO")));
                             tthtBBanEntity.setMA_DVIQLY(cKHangThao.getString(cKHangThao.getColumnIndex("MA_DVIQLY")));
                             tthtBBanEntity.setMA_LDO(cKHangThao.getString(cKHangThao.getColumnIndex("MA_LDO")));
-                            tthtBBanEntity.setMA_NVIEN(cKHangThao.getString(cKHangThao.getColumnIndex("MA_NVIEN")));
+                            tthtBBanEntity.setMA_NVIEN(cKHangThao.getString(cKHangThao.getColumnIndex("BUNDLE_MA_NVIEN")));
                             tthtBBanEntity.setMA_YCAU_KNAI(cKHangThao.getString(cKHangThao.getColumnIndex("MA_YCAU_KNAI")));
                             tthtBBanEntity.setNGAY_SUA(cKHangThao.getString(cKHangThao.getColumnIndex("NGAY_SUA")));
                             tthtBBanEntity.setNGAY_TAO(cKHangThao.getString(cKHangThao.getColumnIndex("NGAY_TAO")));
@@ -6426,7 +6426,7 @@ public String UploadFileHA(String fFileName,int CONGTO_ID,String GHI_CHU,String 
                                     tthtBBanTuTiEntity.setMA_DDO(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("MA_DDO")));
                                     tthtBBanTuTiEntity.setSO_BBAN(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("SO_BBAN")));
                                     tthtBBanTuTiEntity.setNGAY_TRTH(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("NGAY_TRTH")));
-                                    tthtBBanTuTiEntity.setMA_NVIEN(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("MA_NVIEN")));
+                                    tthtBBanTuTiEntity.setMA_NVIEN(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("BUNDLE_MA_NVIEN")));
                                     tthtBBanTuTiEntity.setTRANG_THAI(cBBanTuTi.getInt(cBBanTuTi.getColumnIndex("TRANG_THAI")));
                                     tthtBBanTuTiEntity.setTEN_KHANG(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("TEN_KHANG")));
                                     tthtBBanTuTiEntity.setDCHI_HDON(cBBanTuTi.getString(cBBanTuTi.getColumnIndex("DCHI_HDON")));

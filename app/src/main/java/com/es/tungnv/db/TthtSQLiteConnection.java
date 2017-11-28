@@ -135,7 +135,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         strQuery.append(NGAY_TRTH);
         strQuery.append("'");
         strQuery.append(" AND TRANG_THAI_DU_LIEU = 2");
-        strQuery.append(" AND MA_NVIEN = '");
+        strQuery.append(" AND BUNDLE_MA_NVIEN = '");
         strQuery.append(TthtCommon.getMaNvien());
         strQuery.append("'");
         strQuery.append(" AND ID_BBAN_TRTH = '");
@@ -335,7 +335,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         values.put("MA_DDO", MA_DDO);
         values.put("SO_BBAN", SO_BBAN);
         values.put("NGAY_TRTH", NGAY_TRTH);
-        values.put("MA_NVIEN", MA_NVIEN);
+        values.put("BUNDLE_MA_NVIEN", MA_NVIEN);
         values.put("MA_LDO", MA_LDO);
         values.put("NGAY_TAO", NGAY_TAO);
         values.put("NGUOI_TAO", NGUOI_TAO);
@@ -400,7 +400,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
 
     public Cursor getAllMaTramBBanTThao(String MA_DVIQLY, String MA_NVIEN) {
         database = this.getReadableDatabase();
-        String strQuery = "SELECT DISTINCT MA_TRAM FROM " + TthtConstantVariables.TABLE_NAME_BBAN_CONGTO + " WHERE MA_DVIQLY = '" + MA_DVIQLY + "' AND MA_NVIEN = '" + MA_NVIEN + "' GROUP BY MA_TRAM";
+        String strQuery = "SELECT DISTINCT MA_TRAM FROM " + TthtConstantVariables.TABLE_NAME_BBAN_CONGTO + " WHERE MA_DVIQLY = '" + MA_DVIQLY + "' AND BUNDLE_MA_NVIEN = '" + MA_NVIEN + "' GROUP BY MA_TRAM";
         Cursor c = database.rawQuery(strQuery, null);
         if (c != null && c.moveToFirst()) {
             return c;
@@ -421,7 +421,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
 
     public int countBBanWithDateSelected(String NGAY_TRTH, String MA_NVIEN, String MA_TRAM) {
         database = this.getReadableDatabase();
-        String strQuery = "SELECT count(ID_BBAN_TRTH) FROM " + TthtConstantVariables.TABLE_NAME_BBAN_CONGTO + " where NGAY_TRTH = '" + NGAY_TRTH + "' and MA_NVIEN = '" + MA_NVIEN + "' and MA_TRAM = '" + MA_TRAM + "'";
+        String strQuery = "SELECT count(ID_BBAN_TRTH) FROM " + TthtConstantVariables.TABLE_NAME_BBAN_CONGTO + " where NGAY_TRTH = '" + NGAY_TRTH + "' and BUNDLE_MA_NVIEN = '" + MA_NVIEN + "' and MA_TRAM = '" + MA_TRAM + "'";
         Cursor c = database.rawQuery(strQuery, null);
         if (c.moveToFirst()) {
             return c.getInt(0);
@@ -432,7 +432,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
 
     public int countBBanWithDateSelectedFULLMA_TRAM(String NGAY_TRTH, String MA_NVIEN, String MA_DVIQLY) {
         database = this.getReadableDatabase();
-        String strQuery = "SELECT count(ID_BBAN_TRTH) FROM " + TthtConstantVariables.TABLE_NAME_BBAN_CONGTO + " where NGAY_TRTH = '" + NGAY_TRTH + "' and MA_NVIEN = '" + MA_NVIEN + "' and MA_DVIQLY = '" + MA_DVIQLY + "'";
+        String strQuery = "SELECT count(ID_BBAN_TRTH) FROM " + TthtConstantVariables.TABLE_NAME_BBAN_CONGTO + " where NGAY_TRTH = '" + NGAY_TRTH + "' and BUNDLE_MA_NVIEN = '" + MA_NVIEN + "' and MA_DVIQLY = '" + MA_DVIQLY + "'";
         Cursor c = database.rawQuery(strQuery, null);
         int count = 0;
         if (c.moveToFirst()) {
@@ -472,7 +472,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         values.put("MA_DDO", MA_DDO);
         values.put("SO_BBAN", SO_BBAN);
         values.put("NGAY_TRTH", NGAY_TRTH);
-        values.put("MA_NVIEN", MA_NVIEN);
+        values.put("BUNDLE_MA_NVIEN", MA_NVIEN);
         values.put("MA_LDO", MA_LDO);
         values.put("NGAY_TAO", NGAY_TAO);
         values.put("NGUOI_TAO", NGUOI_TAO);
@@ -493,7 +493,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         values.put("MA_KHANG", MA_KHANG);
         values.put("LY_DO_TREO_THAO", LY_DO_TREO_THAO);
         long ins = database.update(TthtConstantVariables.TABLE_NAME_BBAN_CONGTO, values,
-                "MA_DVIQLY=? and ID_BBAN_CONGTO=? and MA_NVIEN =?", new String[]{MA_DVIQLY, String.valueOf(Id_BBAN_CONGTO), TthtCommon.getMaNvien()});
+                "MA_DVIQLY=? and ID_BBAN_CONGTO=? and BUNDLE_MA_NVIEN =?", new String[]{MA_DVIQLY, String.valueOf(Id_BBAN_CONGTO), TthtCommon.getMaNvien()});
         database.close();
         return ins;
     }
@@ -533,7 +533,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("MA_DVIQLY", MA_DVIQLY);
-        values.put("MA_NVIEN", TthtCommon.getMaNvien());
+        values.put("BUNDLE_MA_NVIEN", TthtCommon.getMaNvien());
         values.put("ID_BBAN_TRTH", ID_BBAN_TRTH);
         values.put("MA_CTO", MA_CTO);
         values.put("SO_CTO", SO_CTO);
@@ -666,7 +666,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         values.put("ID_BBAN_TUTI", ID_BBAN_TUTI);
 
         long ins = database.update(TthtConstantVariables.TABLE_NAME_DETAIL_CONGTO, values,
-                "MA_DVIQLY=? and ID_BBAN_TRTH=? and MA_NVIEN=? and MA_BDONG=?", new String[]{MA_DVIQLY, String.valueOf(ID_BBAN_TRTH), TthtCommon.getMaNvien(), MA_BDONG});
+                "MA_DVIQLY=? and ID_BBAN_TRTH=? and BUNDLE_MA_NVIEN=? and MA_BDONG=?", new String[]{MA_DVIQLY, String.valueOf(ID_BBAN_TRTH), TthtCommon.getMaNvien(), MA_BDONG});
         database.close();
         return ins;
     }
@@ -758,7 +758,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         strQuery.append("' AND NGAY_TRTH = '");
         strQuery.append(NGAY_TRTH);
         strQuery.append("'");
-        strQuery.append(" AND MA_NVIEN = '");
+        strQuery.append(" AND BUNDLE_MA_NVIEN = '");
         strQuery.append(TthtCommon.getMaNvien());
         strQuery.append("'");
         strQuery.append(" AND MA_TRAM LIKE '%");
@@ -783,7 +783,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         strQuery.append("' AND NGAY_TRTH = '");
         strQuery.append(NGAY_TRTH);
         strQuery.append("'");
-        strQuery.append(" AND MA_NVIEN = '");
+        strQuery.append(" AND BUNDLE_MA_NVIEN = '");
         strQuery.append(TthtCommon.getMaNvien());
         strQuery.append("'");
 
@@ -807,7 +807,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         strQuery.append("' AND NGAY_TRTH = '");
         strQuery.append(NGAY_TRTH);
         strQuery.append("'");
-        strQuery.append(" AND MA_NVIEN = '");
+        strQuery.append(" AND BUNDLE_MA_NVIEN = '");
         strQuery.append(MA_NVIEN);
         strQuery.append("' AND TRANG_THAI_DU_LIEU = 1 AND MA_BDONG = '");
         strQuery.append(MA_BDONG).append("'");
@@ -848,7 +848,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
             strQuery.append("' AND NGAY_TRTH = '");
             strQuery.append(NGAY_TRTH);
             strQuery.append("'");
-            strQuery.append(" AND MA_NVIEN = '");
+            strQuery.append(" AND BUNDLE_MA_NVIEN = '");
             strQuery.append(TthtCommon.getMaNvien());
             strQuery.append("' AND TRANG_THAI_DU_LIEU = 1 AND MA_BDONG = '");
             strQuery.append(MA_BDONG).append("'");
@@ -875,7 +875,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         strQuery.append("' AND NGAY_TRTH = '");
         strQuery.append(NGAY_TRTH);
         strQuery.append("'");
-        strQuery.append(" AND MA_NVIEN = '");
+        strQuery.append(" AND BUNDLE_MA_NVIEN = '");
         strQuery.append(MA_NVIEN);
         strQuery.append("' AND TRANG_THAI_DU_LIEU = 2 AND MA_BDONG = '");
         strQuery.append(MA_BDONG).append("'");
@@ -901,7 +901,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
             strQuery.append("' AND NGAY_TRTH = '");
             strQuery.append(NGAY_TRTH);
             strQuery.append("'");
-            strQuery.append(" AND MA_NVIEN = '");
+            strQuery.append(" AND BUNDLE_MA_NVIEN = '");
             strQuery.append(MA_NVIEN);
             strQuery.append("' AND TRANG_THAI_DU_LIEU = 2 AND MA_BDONG = '");
             strQuery.append(MA_BDONG).append("'");
@@ -1232,7 +1232,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         values.put("MA_DDO", MA_DDO);
         values.put("SO_BBAN", SO_BBAN);
         values.put("NGAY_TRTH", NGAY_TRTH);
-        values.put("MA_NVIEN", MA_NVIEN);
+        values.put("BUNDLE_MA_NVIEN", MA_NVIEN);
         values.put("TRANG_THAI", TRANG_THAI);
         values.put("TEN_KHANG", TEN_KHANG);
         values.put("DCHI_HDON", DCHI_HDON);
@@ -1273,7 +1273,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         values.put("MA_DDO", MA_DDO);
         values.put("SO_BBAN", SO_BBAN);
         values.put("NGAY_TRTH", NGAY_TRTH);
-        values.put("MA_NVIEN", MA_NVIEN);
+        values.put("BUNDLE_MA_NVIEN", MA_NVIEN);
         values.put("TRANG_THAI", TRANG_THAI);
         values.put("TEN_KHANG", TEN_KHANG);
         values.put("DCHI_HDON", DCHI_HDON);
@@ -1314,7 +1314,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
 
     public long deleteBBanTuTiWithDviAndMaNVien(String MA_DVIQLY, String MA_NVIEN) {
         database = this.getWritableDatabase();
-        return database.delete(TthtConstantVariables.TABLE_NAME_BBAN_TU_TI, "MA_DVIQLY=? and MA_NVIEN=?",
+        return database.delete(TthtConstantVariables.TABLE_NAME_BBAN_TU_TI, "MA_DVIQLY=? and BUNDLE_MA_NVIEN=?",
                 new String[]{String.valueOf(MA_DVIQLY), String.valueOf(MA_NVIEN)});
     }
     //endregion
@@ -1418,7 +1418,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
 
     public long deleteChiTietTuTiWithDviAndMaNVien(String MA_DVIQLY, String MA_NVIEN) {
         database = this.getWritableDatabase();
-        return database.delete(TthtConstantVariables.TABLE_NAME_CHITIET_TU_TI, "MA_DVIQLY=? and MA_NVIEN=?",
+        return database.delete(TthtConstantVariables.TABLE_NAME_CHITIET_TU_TI, "MA_DVIQLY=? and BUNDLE_MA_NVIEN=?",
                 new String[]{String.valueOf(MA_DVIQLY), String.valueOf(MA_NVIEN)});
     }
 
@@ -1441,7 +1441,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
 //            strQuery.append("' AND NGAY_TRTH = '");
 //            strQuery.append(NGAY_TRTH);
             strQuery.append("'");
-            strQuery.append(" AND MA_NVIEN = '");
+            strQuery.append(" AND BUNDLE_MA_NVIEN = '");
             strQuery.append(MA_NVIEN);
             strQuery.append("'");
             query = strQuery.toString();
@@ -1454,7 +1454,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
                     "(" +
                     " SELECT ID_BBAN_TRTH FROM" +
                     "(" +
-                    " SELECT ID_BBAN_TRTH, NGAY_TRTH FROM BBAN_CONGTO WHERE MA_DVIQLY = '" + MA_DVIQLY + "' AND NGAY_TRTH <= '" + NGAY_TRTH + "' AND MA_NVIEN = '" + MA_NVIEN + "' AND TRANG_THAI = '1'" +
+                    " SELECT ID_BBAN_TRTH, NGAY_TRTH FROM BBAN_CONGTO WHERE MA_DVIQLY = '" + MA_DVIQLY + "' AND NGAY_TRTH <= '" + NGAY_TRTH + "' AND BUNDLE_MA_NVIEN = '" + MA_NVIEN + "' AND TRANG_THAI = '1'" +
                     ")" +
                     " ORDER BY NGAY_TRTH DESC" +
                     ")" +
@@ -1469,8 +1469,8 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
 //            strQuery.append("' AND NGAY_TRTH = '");
 //            strQuery.append(NGAY_TRTH);
 //            strQuery.append("'");
-//            strQuery.append(" AND MA_NVIEN = '");
-//            strQuery.append(MA_NVIEN);
+//            strQuery.append(" AND BUNDLE_MA_NVIEN = '");
+//            strQuery.append(BUNDLE_MA_NVIEN);
 //            strQuery.append("'");
         }
 
@@ -1491,7 +1491,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
                     "   AND NGAY_TRTH < '" +
                     NGAY_TRTH +
                     "'  " +
-                    "   AND MA_NVIEN = '" +
+                    "   AND BUNDLE_MA_NVIEN = '" +
                     MA_NVIEN +
                     "'  " +
                     "   AND TRANG_THAI = '1' " +
@@ -1508,7 +1508,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
                     MA_DVIQLY +
                     "' AND NGAY_TRTH < '" +
                     NGAY_TRTH +
-                    "' AND MA_NVIEN = '" +
+                    "' AND BUNDLE_MA_NVIEN = '" +
                     MA_NVIEN +
                     "' AND TRANG_THAI = '1') BBAN " +
                     "  " +
@@ -1532,7 +1532,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
                             "      AND NGAY_TRTH = '" +
                             NGAY_TRTH +
                             "'  " +
-                            "      AND MA_NVIEN = '" +
+                            "      AND BUNDLE_MA_NVIEN = '" +
                             MA_NVIEN +
                             "' " +
                             "  )  " +
@@ -1550,7 +1550,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
                             "      AND NGAY_TRTH = '" +
                             NGAY_TRTH +
                             "'  " +
-                            "      AND MA_NVIEN = '" +
+                            "      AND BUNDLE_MA_NVIEN = '" +
                             MA_NVIEN +
                             "')  " +
                             "    BBAN  " +

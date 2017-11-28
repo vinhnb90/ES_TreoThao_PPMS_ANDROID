@@ -35,6 +35,11 @@ import static android.support.design.widget.BaseTransientBottomBar.BaseCallback.
  */
 
 public abstract class TthtHnBaseActivity extends AppCompatActivity {
+    public static final String BUNDLE_LOGIN = "BUNDLE_LOGIN";
+    public static final String BUNDLE_MA_NVIEN = "BUNDLE_MA_NVIEN";
+    public static final String BUNDLE_TAG_MENU = "BUNDLE_TAG_MENU";
+    public static final String ID_BBAN_TRTH = "ID_BBAN_TRTH";
+
     protected Snackbar snackbar;
     protected CoordinatorLayout coordinatorLayout;
     protected Bundle savedInstanceState;

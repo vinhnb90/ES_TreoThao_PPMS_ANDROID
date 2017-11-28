@@ -113,6 +113,15 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
         private String maGCS;
         private String maTram;
         private String chiso;
+        private int idbbantrth;
+
+        public int getIdbbantrth() {
+            return idbbantrth;
+        }
+
+        public void setIdbbantrth(int idbbantrth) {
+            this.idbbantrth = idbbantrth;
+        }
 
         public String getMaCto() {
             return maCto;

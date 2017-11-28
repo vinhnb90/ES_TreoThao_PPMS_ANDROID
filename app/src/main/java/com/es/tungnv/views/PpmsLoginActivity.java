@@ -458,7 +458,7 @@ public class PpmsLoginActivity extends AppCompatActivity implements View.OnClick
 
             //TODO save data employee
             ContentValues contentValuesEmp = new ContentValues();
-            contentValuesEmp.put("MA_NVIEN", emp.getNhanVienId());
+            contentValuesEmp.put("BUNDLE_MA_NVIEN", emp.getNhanVienId());
             contentValuesEmp.put("NAME_EMP", emp.getHoTen());
             contentValuesEmp.put("PHONE_EMP", emp.getSDT());
             contentValuesEmp.put("ADRESS_EMP", emp.getDiaChi());
@@ -489,7 +489,7 @@ public class PpmsLoginActivity extends AppCompatActivity implements View.OnClick
             contentValuesSession.put("CODE_DEPART", departCode);
             contentValuesSession.put("USER_SESSION", user);
             contentValuesSession.put("PASS_SESSION", passDecryptionMD5);
-            contentValuesSession.put("MA_NVIEN", idEmp);
+            contentValuesSession.put("BUNDLE_MA_NVIEN", idEmp);
 
             //TODO check exist data to insert or update
             String checkExistRow = connection.getsQueryGetRowSessionWithUsername(user);

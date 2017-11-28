@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list android:paddingLeft="@dimen/_5sdp" xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingLeft="@dimen/_5sdp">
     <item
         android:bottom="0dp"
-        android:gravity="center_horizontal"
-        >
+        android:gravity="center_horizontal">
         <shape android:shape="rectangle">
             <solid android:color="@color/button_dark_orange" />
 
         </shape>
     </item>
     <item
-        android:bottom="2dp"
+        android:bottom="1dp"
         android:left="-5dp"
         android:right="-5dp"
-        android:top="0dp"
-
-        >
+        android:top="0dp">
         <shape android:shape="rectangle">
             <corners
                 android:bottomRightRadius="8dp"
@@ -26,7 +24,9 @@
 
     <item>
         <shape android:shape="rectangle">
-            <stroke android:width="1dp" android:color="@color/tththn_text_more_less_black"/>
+            <stroke
+                android:width="1dp"
+                android:color="@color/tththn_text_more_less_black" />
             <solid android:color="@android:color/transparent" />
         </shape>
     </item>

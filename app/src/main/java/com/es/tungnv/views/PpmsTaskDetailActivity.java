@@ -1181,7 +1181,7 @@ public class PpmsTaskDetailActivity extends AppCompatActivity implements IVideoS
             contentValues.put("MA_CTO", task.getMaCongTo());
             contentValues.put("NGAY_PHAN_CONG", task.getNgayPhanCong());
             contentValues.put("THANG_KIEM_TRA", task.getThangKiemTra());
-            contentValues.put("MA_NVIEN", task.getNhanVienId());
+            contentValues.put("BUNDLE_MA_NVIEN", task.getNhanVienId());
             contentValues.put("TY_LE_CHENH_LECH", task.getTyLeChenhLech());
             contentValues.put("SAN_LUONG_TB", task.getSanLuongTB());
             contentValues.put("TEN_TRAM", task.getTenTram());

@@ -28,7 +28,7 @@ public class MtbBbanModel implements Parcelable{
     @SerializedName("NGAY_TRTH")
     public String NGAY_TRTH;
     
-    @SerializedName("MA_NVIEN")
+    @SerializedName("BUNDLE_MA_NVIEN")
     public String MA_NVIEN;
     
     @SerializedName("TEN_NVIEN_TREO_THAO")

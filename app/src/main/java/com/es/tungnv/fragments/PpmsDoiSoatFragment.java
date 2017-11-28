@@ -120,7 +120,7 @@ public class PpmsDoiSoatFragment extends Fragment {
                 String MA_CTO = cursorTask.getString(cursorTask.getColumnIndex("MA_CTO"));
                 String NGAY_PHAN_CONG = cursorTask.getString(cursorTask.getColumnIndex("NGAY_PHAN_CONG"));
                 String THANG_KIEM_TRA = cursorTask.getString(cursorTask.getColumnIndex("THANG_KIEM_TRA"));
-                int MA_NVIEN = cursorTask.getInt(cursorTask.getColumnIndex("MA_NVIEN"));
+                int MA_NVIEN = cursorTask.getInt(cursorTask.getColumnIndex("BUNDLE_MA_NVIEN"));
                 float TY_LE_CHENH_LECH = cursorTask.getFloat(cursorTask.getColumnIndex("TY_LE_CHENH_LECH"));
                 float SAN_LUONG_TB = cursorTask.getFloat(cursorTask.getColumnIndex("SAN_LUONG_TB"));
                 String TEN_TRAM = cursorTask.getString(cursorTask.getColumnIndex("TEN_TRAM"));
