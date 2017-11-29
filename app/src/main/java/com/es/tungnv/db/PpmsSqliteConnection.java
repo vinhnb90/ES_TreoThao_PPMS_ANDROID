@@ -80,7 +80,7 @@ public class PpmsSqliteConnection extends SQLiteOpenHelper {
             + "("
             + "ID_TASK INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
             + "MA_PHAN_CONG INTEGER NOT NULL,"
-            + "MA_DVIQLY TEXT, "
+            + "MA_NVIEN TEXT, "
             + "MA_DDO TEXT, "
             + "MA_SO_GCS TEXT, "
             + "MA_KH TEXT, "
@@ -354,7 +354,7 @@ public class PpmsSqliteConnection extends SQLiteOpenHelper {
         StringBuilder query = new StringBuilder();
         query.append("UPDATE INTO " + TABLE_TASK + " SET ");
         query.append(" MA_PHAN_CONG = '" + MA_PHAN_CONG + "',");
-        query.append(" MA_DVIQLY = '" + MA_DVIQLY + "',");
+        query.append(" MA_NVIEN = '" + MA_DVIQLY + "',");
         query.append(" MA_DDO = '" + MA_DDO + "',");
         query.append(" MA_SO_GCS = '" + MA_SO_GCS + "',");
         query.append(" MA_KH = '" + MA_KH + "',");

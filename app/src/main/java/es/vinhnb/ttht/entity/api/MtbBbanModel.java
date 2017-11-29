@@ -13,7 +13,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class MtbBbanModel implements Parcelable{
-    @SerializedName("MA_DVIQLY")
+    @SerializedName("MA_NVIEN")
     public String MA_DVIQLY;
     
     @SerializedName("ID_BBAN_TRTH")

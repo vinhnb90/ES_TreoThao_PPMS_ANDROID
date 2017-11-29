@@ -1,18 +1,31 @@
 package es.vinhnb.ttht.common;
 
 import android.Manifest;
+import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
 import android.telephony.TelephonyManager;
+import android.view.Window;
+
+import com.es.tungnv.utils.TthtCommon;
+import com.es.tungnv.utils.TthtConstantVariables;
+import com.es.tungnv.views.R;
+import com.es.tungnv.zoomImage.ImageViewTouch;
 
 import java.io.File;
 import java.text.ParseException;
@@ -33,7 +46,10 @@ public class Common {
 
     public static final long DELAY = 1000;
     public static final long DELAY_PROGESS_PBAR = 20;
+    public static final String PROGRAM_PHOTOS_PATH = "/TTHT/PHOTOS/";
     public static String URLServer = "";
+    public static String[] arrSoVien = {"0", "1", "2", "3", "4", "5"};
+    public static String[] arrLoaiHom = {"0", "2", "4", "8"};
 
     public static void setURLServer(String andressServer) {
         URLServer = "http://" + andressServer + "/api/ServiceMTB/";
@@ -45,6 +61,75 @@ public class Common {
         clipboard.setPrimaryClip(clip);
     }
 
+    public static String getRecordDirectoryFolder(String folderName) {
+        String path = Environment.getExternalStorageDirectory().getPath() + Common.PROGRAM_PHOTOS_PATH + "/" + folderName;
+        File f = new File(path);
+        if (!f.exists()) {
+            f.mkdir();
+        }
+        return path;
+    }
+
+    public static void zoomImage(Context context, Bitmap bmImage) throws Exception {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.essp_dialog_viewimage);
+        dialog.getWindow().setLayout(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setCanceledOnTouchOutside(false);
+
+        final ImageViewTouch ivtImage = (ImageViewTouch) dialog.findViewById(R.id.essp_dialog_viewimage_ivt_image);
+
+        ivtImage.setImageBitmapReset(bmImage, 0, true);
+
+        dialog.show();
+    }
+
+    public static void renameFile(String pathOld, String pathNew) {
+        File from = new File(pathOld);
+        File to = new File(pathNew);
+        if (from.exists())
+            from.renameTo(to);
+    }
+
+    public enum FOLDER_NAME {
+        FOLDER_ANH_CONG_TO, FOLDER_ANH_TU, FOLDER_ANH_TI
+    }
+
+    public static String getStringChiSo(String etCS1Text, String etCS2Text, String etCS3Text, String etCS4Text, String etCS5Text, LOAI_CTO loaiCongTo) {
+        StringBuilder CHI_SO = new StringBuilder();
+        switch (loaiCongTo) {
+            case D1:
+            case DT:
+                return CHI_SO.append("BT:").append(etCS1Text.isEmpty() ? "0" : etCS1Text).append(";").
+                        append("CD:").append(etCS2Text.isEmpty() ? "0" : etCS2Text).append(";").
+                        append("TD:").append(etCS3Text.isEmpty() ? "0" : etCS3Text).append(";").
+                        append("SG:").append(etCS4Text.isEmpty() ? "0" : etCS4Text).append(";").
+                        append("VC:").append(etCS5Text.isEmpty() ? "0" : etCS5Text).toString();
+
+            case HC:
+            case VC:
+                return CHI_SO.append("KT:").append(etCS1Text.isEmpty() ? "0" : etCS1Text).append(";").
+                        append("VC:").append(etCS2Text.isEmpty() ? "0" : etCS2Text).append(";").toString();
+
+            default:
+                return CHI_SO.toString();
+        }
+    }
+
+    public static String getImageName(String TYPE_IMAGE, String DATETIME, String MA_DVIQLY, String MA_TRAM, int ID_BBAN_TRTH, String MA_CTO) {
+        //Image name: {TYPE_IMAGE}_{DATETIME}_{MA_NVIEN}_{MA_TRAM}_{ID_BBAN_TRTH}_{MA_CTO}
+        StringBuilder name = new StringBuilder()
+                .append(TYPE_IMAGE).append("_")
+                .append(DATETIME).append("_")
+                .append(MA_DVIQLY).append("_")
+                .append(MA_TRAM).append("_")
+                .append(ID_BBAN_TRTH).append("_")
+                .append(MA_CTO).append(".jpg");
+        return name.toString();
+    }
+
+
     public enum MESSAGE {
         ex01("Gặp vấn đề với việc lấy dữ liệu share pref đăng nhập của phiên trước!"),
         ex02("Không có dữ liệu trả về!"),
@@ -53,6 +138,7 @@ public class Common {
         ex05("Gặp vấn đề đồng bộ!"),
         ex06("Gặp vấn đề kết nối, vui lòng thử lại!"),
         ex07("Gặp vấn đề khi ghi dữ liệu!"),
+        ex08("Gặp vấn đề khi chụp ảnh!"),
         ex0x("Xảy ra lỗi bất ngờ!");
 
         private String content;
@@ -290,7 +376,11 @@ public class Common {
             return null;
         }
     }
-
+    public static Bitmap getBitmapFromUri(String uri) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        return BitmapFactory.decodeFile(uri, options);
+    }
 
     //endregion
 
@@ -308,6 +398,7 @@ public class Common {
         type9("dd/MM/yyyy HH'h'mm"),
         type10("MM/dd/yyyy HH:mm:ss a"),
         type11("yyyy-MM-dd HH:mm:ss"),
+        type12("yyyyMMddHHmm"),
         //2017-11-23T22:18
         sqlite1("yyyy-MM-dd'T'HH:mm"),
         sqlite2("yyyy-MM-dd'T'HH:mm:ss"),
@@ -367,6 +458,32 @@ public class Common {
         long longDate = Common.convertDateToLong(time, typeDefault);
         String dateByDefaultType = Common.convertLongToDate(longDate, typeConvert);
         return dateByDefaultType;
+    }
+
+    public enum TYPE_IMAGE {
+        IMAGE_CONG_TO("IMAGE_CONG_TO"),
+        IMAGE_CONG_TO_NIEM_PHONG("IMAGE_CONG_TO_NIEM_PHONG"),
+        IMAGE_TU("IMAGE_TU"),
+        IMAGE_TI("IMAGE_TI"),
+        IMAGE_MACH_NHI_THU_TU("IMAGE_MACH_NHI_THU_TU"),
+        IMAGE_MACH_NHI_THU_TI("IMAGE_MACH_NHI_THU_TI"),
+        IMAGE_NIEM_PHONG_TU("IMAGE_NIEM_PHONG_TU"),
+        IMAGE_NIEM_PHONG_TI("IMAGE_NIEM_PHONG_TI");
+
+        public String code;
+
+        TYPE_IMAGE(String code) {
+            this.code = code;
+        }
+
+        public static TYPE_IMAGE findTYPE_IMAGE(String code) {
+            for (TYPE_IMAGE typeImage : values()) {
+                if (typeImage.code.equalsIgnoreCase(code))
+                    return typeImage;
+            }
+            return null;
+        }
+
     }
     //endregion
 

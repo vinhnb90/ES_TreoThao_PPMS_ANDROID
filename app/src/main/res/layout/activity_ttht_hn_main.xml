@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start">
+    tools:openDrawer="start"
+    tools:override="true">
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/cl_ac_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
         android:background="@color/tththn_background_lv1"
+        android:fitsSystemWindows="true"
         tools:context="es.vinhnb.ttht.view.TthtHnMainActivity">
 
         <RelativeLayout
@@ -23,7 +25,7 @@
             <android.support.design.widget.AppBarLayout
                 android:id="@+id/app_bar_tththn"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_72sdp"
+                android:layout_height="@dimen/_64sdp"
                 android:layout_alignParentTop="true"
                 android:background="?attr/colorPrimary"
                 android:stateListAnimator="@null"
@@ -39,7 +41,7 @@
 
             </android.support.design.widget.AppBarLayout>
 
-            <LinearLayout
+            <android.support.design.widget.CoordinatorLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/_10sdp"
@@ -51,43 +53,22 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    >
+                    android:layout_height="match_parent">
 
-                    <ImageButton
-                        android:layout_centerVertical="true"
-                        android:id="@+id/ibtn_clearsearch"
-                        android:layout_width="@dimen/_32sdp"
-                        android:layout_height="@dimen/_32sdp"
-                        android:layout_alignParentRight="true"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/ic_tththn_clear" />
-
-                    <EditText
-                        android:layout_centerVertical="true"
-                        android:id="@+id/et_search"
+                    <RelativeLayout
+                        android:id="@+id/menu"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@+id/ibtn_clearsearch"
-                        android:hint="Tìm..."
-                        android:lines="1"
-                        android:maxLines="1"
-                        android:scrollHorizontally="true"
-                        android:scrollbars="horizontal"
-                        android:textSize="@dimen/_10sdp"
-                        android:singleLine="true"
-                        />
+                        android:layout_height="@dimen/_50sdp"
+                        android:background="@color/tththn_button"></RelativeLayout>
 
-
+                    <RelativeLayout
+                        android:id="@+id/rl_content_main"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </RelativeLayout>
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/rl_content_main"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"></RelativeLayout>
-
-            </LinearLayout>
+            </android.support.design.widget.CoordinatorLayout>
 
         </RelativeLayout>
 
@@ -97,6 +78,7 @@
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"
         android:layout_width="wrap_content"
+        tools:visibility="gone"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/tththn_navi_menu">
@@ -125,9 +107,9 @@
                 android:layout_height="match_parent"
                 android:layout_above="@+id/rl_logout"
                 android:layout_alignParentTop="true"
-                android:gravity="center"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"
+                android:gravity="center"
                 android:numColumns="auto_fit"
 
                 android:stretchMode="columnWidth"

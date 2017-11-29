@@ -202,7 +202,7 @@ public class TthtCommon {
     }
 
     public static String getImageName(String TYPE_IMAGE, String DATETIME, String MA_DVIQLY, String MA_TRAM, int ID_BBAN_TRTH, String MA_CTO) {
-        //Image name: {TYPE_IMAGE}_{DATETIME}_{MA_DVIQLY}_{MA_TRAM}_{ID_BBAN_TRTH}_{MA_CTO}
+        //Image name: {TYPE_IMAGE}_{DATETIME}_{MA_NVIEN}_{MA_TRAM}_{ID_BBAN_TRTH}_{MA_CTO}
         StringBuilder name = new StringBuilder()
                 .append(TYPE_IMAGE).append("_")
                 .append(DATETIME).append("_")

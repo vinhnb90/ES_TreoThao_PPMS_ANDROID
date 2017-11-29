@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageButton
+        android:layout_centerVertical="true"
+        android:id="@+id/ibtn_clearsearch"
+        android:layout_width="@dimen/_32sdp"
+        android:layout_height="@dimen/_32sdp"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_tththn_clear" />
+
+    <EditText
+        android:layout_centerVertical="true"
+        android:id="@+id/et_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/ibtn_clearsearch"
+        android:hint="Tìm..."
+        android:lines="1"
+        android:maxLines="1"
+        android:scrollHorizontally="true"
+        android:scrollbars="horizontal"
+        android:textSize="@dimen/_10sdp"
+        android:singleLine="true"
+        />
+
+</RelativeLayout>

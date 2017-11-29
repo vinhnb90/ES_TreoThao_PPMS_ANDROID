@@ -170,7 +170,7 @@ public class GphtMainActivity extends Activity implements View.OnClickListener{
         try {
             SharedPreferences pre = getSharedPreferences(prefname, MODE_PRIVATE);
             SharedPreferences.Editor editor = pre.edit();
-            editor.putString("MA_DVIQLY", MA_DVIQLY);
+            editor.putString("MA_NVIEN", MA_DVIQLY);
             editor.putInt("TRANG_THAI", TRANG_THAI);
             editor.putString("KEY", KEY);
             editor.commit();
@@ -192,7 +192,7 @@ public class GphtMainActivity extends Activity implements View.OnClickListener{
 
     public void restoringPreferences() {
         SharedPreferences pre = getSharedPreferences(prefname, MODE_PRIVATE);
-        String MA_DVIQLY = pre.getString("MA_DVIQLY", "");
+        String MA_DVIQLY = pre.getString("MA_NVIEN", "");
         String KEY = pre.getString("KEY", "");
         int TRANG_THAI = pre.getInt("TRANG_THAI", 0);
     }
@@ -284,13 +284,13 @@ public class GphtMainActivity extends Activity implements View.OnClickListener{
 //                if (cHT.moveToFirst()) {
 //                    EsspCommon.setIP_SERVER_1(cHT.getString(cHT.getColumnIndex("Address")));
 //                    acJsonCD = EsspAsyncCallWSJson.getInstance();
-//                    String MA_DVIQLY = connection.getMaSelectDVIQLY(cHT.getInt(cHT.getColumnIndex("ID_DonVi")));
+//                    String MA_NVIEN = connection.getMaSelectDVIQLY(cHT.getInt(cHT.getColumnIndex("ID_DonVi")));
 //                    Cursor cUser = connection.getUser(cHT.getInt(cHT.getColumnIndex("ID_User")),
 //                            cHT.getInt(cHT.getColumnIndex("ID_HeThong")));
 //                    if(cUser.moveToFirst()) {
 //                        String usernameCD = cUser.getString(cUser.getColumnIndex("Ten_DangNhap"));
 //                        String passwordCD = Common.decryptPassword(cUser.getString(cUser.getColumnIndex("Mat_Khau")));
-//                        loginCD(usernameCD, passwordCD, MA_DVIQLY, Common.isNetworkOnline(GphtMainActivity.this));
+//                        loginCD(usernameCD, passwordCD, MA_NVIEN, Common.isNetworkOnline(GphtMainActivity.this));
 //                    }
 //                }
                 //endregion
@@ -311,13 +311,13 @@ public class GphtMainActivity extends Activity implements View.OnClickListener{
 //                if (cHT2.moveToFirst()) {
 //                    TthtCommon.setIP_SERVER_1(cHT2.getString(cHT2.getColumnIndex("Address")));
 //                    asyncCallWSApi = TthtAsyncCallWSApi.getInstance();
-//                    String MA_DVIQLY = connection.getMaSelectDVIQLY(cHT2.getInt(cHT2.getColumnIndex("ID_DonVi")));
+//                    String MA_NVIEN = connection.getMaSelectDVIQLY(cHT2.getInt(cHT2.getColumnIndex("ID_DonVi")));
 //                    Cursor cUser = connection.getUser(cHT2.getInt(cHT2.getColumnIndex("ID_User")),
 //                            cHT2.getInt(cHT2.getColumnIndex("ID_HeThong")));
 //                    if(cUser.moveToFirst()) {
 //                        String usernameCD = cUser.getString(cUser.getColumnIndex("Ten_DangNhap"));
 //                        String passwordCD = Common.decryptPassword(cUser.getString(cUser.getColumnIndex("Mat_Khau")));
-//                        loginTTHT(usernameCD, passwordCD, MA_DVIQLY, Common.isNetworkOnline(GphtMainActivity.this));
+//                        loginTTHT(usernameCD, passwordCD, MA_NVIEN, Common.isNetworkOnline(GphtMainActivity.this));
 //                    }
 //                }
                 //endregion
@@ -344,7 +344,7 @@ public class GphtMainActivity extends Activity implements View.OnClickListener{
                             Bundle b = new Bundle();
                             b.putString("user", user);
                             b.putString("pass", pass);
-                            b.putString("MA_DVIQLY", MA_DVIQLY);
+                            b.putString("MA_NVIEN", MA_DVIQLY);
                             msgObj.setData(b);
 
                             handlerLoginCD.sendMessage(msgObj);
@@ -376,13 +376,13 @@ public class GphtMainActivity extends Activity implements View.OnClickListener{
                 if (!checkLogin) {
                     Common.showAlertDialogGreen(GphtMainActivity.this, "Lỗi", Color.RED, "Sai thông tin đăng nhập hoặc máy chưa được đăng ký sử dụng", Color.WHITE, "OK", Color.RED);
                 } else {
-                    String MA_DVIQLY = msg.getData().getString("MA_DVIQLY");
+                    String MA_DVIQLY = msg.getData().getString("MA_NVIEN");
                     String user = msg.getData().getString("user");
                     EsspCommon.setMaDviqly(MA_DVIQLY);
                     EsspCommon.setUSERNAME(user);
                     startActivity(new Intent(GphtMainActivity.this, EsspMainActivity.class));
                     if (connectionEssp.deleteAllDataRemember() != -1)
-                        connectionEssp.insertDataRememger(msg.getData().getString("MA_DVIQLY"),
+                        connectionEssp.insertDataRememger(msg.getData().getString("MA_NVIEN"),
                                 msg.getData().getString("user"), msg.getData().getString("pass"));
                 }
             } catch (Exception ex) {
@@ -428,7 +428,7 @@ public class GphtMainActivity extends Activity implements View.OnClickListener{
                                         Bundle b = new Bundle();
                                         b.putString("user", user);
                                         b.putString("pass", pass);
-                                        b.putString("MA_DVIQLY", MA_DVIQLY);
+                                        b.putString("MA_NVIEN", MA_DVIQLY);
                                         msgObj.setData(b);
 
                                         handlerLoginTtht.sendMessage(msgObj);
@@ -532,7 +532,7 @@ public class GphtMainActivity extends Activity implements View.OnClickListener{
 
             } else {
                 String user = msg.getData().getString("user");
-                String MA_DVIQLY = msg.getData().getString("MA_DVIQLY");
+                String MA_DVIQLY = msg.getData().getString("MA_NVIEN");
                 TthtCommon.setMaDviqly(MA_DVIQLY);
                 TthtCommon.setUSERNAME(user);
                 startActivity(new Intent(GphtMainActivity.this, TthtMainActivity.class));

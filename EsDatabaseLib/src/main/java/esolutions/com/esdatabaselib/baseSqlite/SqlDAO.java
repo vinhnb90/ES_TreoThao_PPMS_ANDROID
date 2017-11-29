@@ -369,6 +369,80 @@ public class SqlDAO {
     }
 
 
+    public <T> int updateRows(Class<T> tClass, T dataOld, T dataNew) throws Exception {
+        //check validate
+        //check annotation table class
+        Class<?> classz = tClass;
+        boolean isTableSQL = classz.isAnnotationPresent(Table.class);
+        if (!isTableSQL)
+            throw new RuntimeException("Class not description is table!");
+        Table annTable = classz.getAnnotation(Table.class);
+
+
+        //lấy tất cả field ngoài $change and serialVersionUID
+        //kiểm tra collumn annotations và lấy dữ liệu tạo DatabaseParams.Select và chuỗi điều kiện whereClause và whereArgs
+        //nếu giá trị của trường dataCheck = null thì khi isExistRows sẽ bỏ qua trường đó
+        Field[] fields = classz.getDeclaredFields();
+        DatabaseParams.Update param = new DatabaseParams.Update();
+        StringBuilder whereClause = new StringBuilder();
+        HashMap<String, Collumn> listCollumn = new HashMap<>();
+        ArrayList<String> valuesCheck = new ArrayList<>();
+        ContentValues contentValues = new ContentValues();
+
+        int index = 0;
+        for (Field field : fields) {
+            String fieldName = field.getName();
+            if (fieldName.equals("$change") || fieldName.equals("serialVersionUID"))
+                continue;
+
+
+            //check annotation collumn
+            boolean isCollumn = field.isAnnotationPresent(Collumn.class);
+            if (!isCollumn)
+                continue;
+            Collumn collumn = field.getAnnotation(Collumn.class);
+            boolean isPrimaryKey = field.isAnnotationPresent(PrimaryKey.class);
+            boolean isAutoIncrement = field.isAnnotationPresent(AutoIncrement.class);
+
+
+            //thêm vào Map cột và tên field cột đó
+            //tăng index để loại bỏ "and" nếu index > 0
+            listCollumn.put(fieldName, collumn);
+
+            //set valueCheck
+            field.setAccessible(true);
+            valuesCheck.add((field.get(dataOld) == null) ? "" : field.get(dataOld).toString());
+            contentValues.put(collumn.name(), (field.get(dataNew) == null) ? "" : field.get(dataNew).toString());
+            index++;
+        }
+
+
+        //tăng index để loại bỏ "and" nếu index > 0
+        if (index == 0)
+            throw new RuntimeException("Kiểm tra lại class " + annTable.name() + "!");
+
+
+        //create param
+        for (int i = 0; i < listCollumn.size(); i++) {
+            Collumn collumn = listCollumn.get(i);
+            whereClause.append(collumn.name() + " = ? ").append(" and ");
+        }
+
+        //tinh chỉnh câu query
+        whereClause.delete(whereClause.length() - (" and ").length(), whereClause.length());
+
+
+        //select database
+        param.table = annTable.name();
+        param.values = contentValues;
+        param.whereClause = whereClause.toString();
+        param.whereArgs = valuesCheck.toArray(new String[valuesCheck.size()]);
+
+        //get Cursor and close db
+        int rowUpdate = mDatabase.update(mDatabase.mDatabase, param);
+        return rowUpdate;
+    }
+
     public <T> int deleteRows(Class<T> tClass, String[] nameCollumnCheck, String[] valuesCheck) throws Exception {
         //check validate
         if (nameCollumnCheck.length != valuesCheck.length)

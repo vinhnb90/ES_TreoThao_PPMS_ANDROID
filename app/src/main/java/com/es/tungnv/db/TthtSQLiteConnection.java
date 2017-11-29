@@ -85,7 +85,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
     public long insertDataDVIQLY(String MA_DVIQLY, String TEN_DVIQLY) {
         database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
         values.put("TEN_DVIQLY", TEN_DVIQLY);
         return database.insert(TthtConstantVariables.TABLE_NAME_DVIQLY, null, values);
     }
@@ -153,7 +153,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
     public List<String> getListIDMaDviQly() {
         List<String> rowid = new ArrayList<String>();
         database = this.getReadableDatabase();
-        String strQuery = new StringBuilder("SELECT MA_DVIQLY FROM ").append(TthtConstantVariables.TABLE_NAME_DVIQLY).toString();
+        String strQuery = new StringBuilder("SELECT MA_NVIEN FROM ").append(TthtConstantVariables.TABLE_NAME_DVIQLY).toString();
         Cursor c = database.rawQuery(strQuery, null);
         if (c.moveToFirst()) {
             do {
@@ -166,7 +166,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
     public int getPosDviQly(String MA_DVIQLY) {
         int pos = 0;
         database = this.getReadableDatabase();
-        String strQuery = "SELECT MA_DVIQLY FROM " + TthtConstantVariables.TABLE_NAME_DVIQLY;
+        String strQuery = "SELECT MA_NVIEN FROM " + TthtConstantVariables.TABLE_NAME_DVIQLY;
         Cursor c = database.rawQuery(strQuery, null);
         int i = 0;
         if (c.moveToFirst()) {
@@ -182,7 +182,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
 
     public String getMaDviByID(int ID_DVIQLY) {
         database = this.getReadableDatabase();
-        String strQuery = "SELECT MA_DVIQLY FROM " + TthtConstantVariables.TABLE_NAME_DVIQLY + " WHERE ID = " + ID_DVIQLY;
+        String strQuery = "SELECT MA_NVIEN FROM " + TthtConstantVariables.TABLE_NAME_DVIQLY + " WHERE ID = " + ID_DVIQLY;
         Cursor c = database.rawQuery(strQuery, null);
         if (c.moveToFirst()) {
             return c.getString(0);
@@ -192,7 +192,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
 
     public String getTenDviByMa(String MA_DVIQLY) {
         database = this.getReadableDatabase();
-        String strQuery = "SELECT TEN_DVIQLY FROM " + TthtConstantVariables.TABLE_NAME_DVIQLY + " WHERE MA_DVIQLY = '" + MA_DVIQLY + "'";
+        String strQuery = "SELECT TEN_DVIQLY FROM " + TthtConstantVariables.TABLE_NAME_DVIQLY + " WHERE MA_NVIEN = '" + MA_DVIQLY + "'";
         Cursor c = database.rawQuery(strQuery, null);
         if (c.moveToFirst()) {
             return c.getString(0);
@@ -206,7 +206,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("MA_TRAM", MA_TRAM);
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
         values.put("TEN_TRAM", TEN_TRAM);
         values.put("LOAI_TRAM", LOAI_TRAM);
         values.put("CSUAT_TRAM", CSUAT_TRAM);
@@ -223,7 +223,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
 
     public long deleteDataTRAMWithMA_DVIQLY(String MA_DVIQLY) {
         database = this.getWritableDatabase();
-        return database.delete(TthtConstantVariables.TABLE_NAME_TRAM, "MA_DVIQLY=?",
+        return database.delete(TthtConstantVariables.TABLE_NAME_TRAM, "MA_NVIEN=?",
                 new String[]{MA_DVIQLY});
     }
 
@@ -251,7 +251,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("MA_TRAM", MA_TRAM);
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
         values.put("TEN_TRAM", TEN_TRAM);
         values.put("LOAI_TRAM", LOAI_TRAM);
         values.put("CSUAT_TRAM", CSUAT_TRAM);
@@ -259,7 +259,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         values.put("MA_CAP_DA_RA", MA_CAP_DA_RA);
         values.put("DINH_DANH", DINH_DANH);
         long ins = database.update(TthtConstantVariables.TABLE_NAME_TRAM, values,
-                "MA_TRAM=? AND MA_DVIQLY=?", new String[]{MA_TRAM, MA_DVIQLY});
+                "MA_TRAM=? AND MA_NVIEN=?", new String[]{MA_TRAM, MA_DVIQLY});
         database.close();
         return ins;
     }
@@ -270,7 +270,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
     public long insertDataRememger(String MA_DVIQLY, String USERNAME, String PASSWORD) {
         database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
         values.put("USERNAME", USERNAME);
         values.put("PASSWORD", PASSWORD);
         return database.insert(TthtConstantVariables.TABLE_NAME_REMEMBER, null, values);
@@ -306,7 +306,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         String queryCheck = "Select * From "
                 + TthtConstantVariables.TABLE_NAME_REMEMBER
                 + " Where "
-                + " MA_DVIQLY ='"
+                + " MA_NVIEN ='"
                 + maDonViQuanLyChoose
                 + "' AND USERNAME = '"
                 + userInput
@@ -330,7 +330,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
                                   String MA_KHANG, String LY_DO_TREO_THAO) {
         database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
         values.put("ID_BBAN_TRTH", ID_BBAN_TRTH);
         values.put("MA_DDO", MA_DDO);
         values.put("SO_BBAN", SO_BBAN);
@@ -400,7 +400,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
 
     public Cursor getAllMaTramBBanTThao(String MA_DVIQLY, String MA_NVIEN) {
         database = this.getReadableDatabase();
-        String strQuery = "SELECT DISTINCT MA_TRAM FROM " + TthtConstantVariables.TABLE_NAME_BBAN_CONGTO + " WHERE MA_DVIQLY = '" + MA_DVIQLY + "' AND BUNDLE_MA_NVIEN = '" + MA_NVIEN + "' GROUP BY MA_TRAM";
+        String strQuery = "SELECT DISTINCT MA_TRAM FROM " + TthtConstantVariables.TABLE_NAME_BBAN_CONGTO + " WHERE MA_NVIEN = '" + MA_DVIQLY + "' AND BUNDLE_MA_NVIEN = '" + MA_NVIEN + "' GROUP BY MA_TRAM";
         Cursor c = database.rawQuery(strQuery, null);
         if (c != null && c.moveToFirst()) {
             return c;
@@ -432,7 +432,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
 
     public int countBBanWithDateSelectedFULLMA_TRAM(String NGAY_TRTH, String MA_NVIEN, String MA_DVIQLY) {
         database = this.getReadableDatabase();
-        String strQuery = "SELECT count(ID_BBAN_TRTH) FROM " + TthtConstantVariables.TABLE_NAME_BBAN_CONGTO + " where NGAY_TRTH = '" + NGAY_TRTH + "' and BUNDLE_MA_NVIEN = '" + MA_NVIEN + "' and MA_DVIQLY = '" + MA_DVIQLY + "'";
+        String strQuery = "SELECT count(ID_BBAN_TRTH) FROM " + TthtConstantVariables.TABLE_NAME_BBAN_CONGTO + " where NGAY_TRTH = '" + NGAY_TRTH + "' and BUNDLE_MA_NVIEN = '" + MA_NVIEN + "' and MA_NVIEN = '" + MA_DVIQLY + "'";
         Cursor c = database.rawQuery(strQuery, null);
         int count = 0;
         if (c.moveToFirst()) {
@@ -456,7 +456,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
 
     public long deleteDataBBanByMaDviAndID(String MA_DVIQLY, int ID_BBAN_TRTH) {
         database = this.getWritableDatabase();
-        return database.delete(TthtConstantVariables.TABLE_NAME_BBAN_CONGTO, "MA_DVIQLY=? and ID_BBAN_TRTH=?",
+        return database.delete(TthtConstantVariables.TABLE_NAME_BBAN_CONGTO, "MA_NVIEN=? and ID_BBAN_TRTH=?",
                 new String[]{MA_DVIQLY, String.valueOf(ID_BBAN_TRTH)});
     }
 
@@ -467,7 +467,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
                                            String MA_KHANG, String LY_DO_TREO_THAO) {
         database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
         values.put("ID_BBAN_TRTH", ID_BBAN_TRTH);
         values.put("MA_DDO", MA_DDO);
         values.put("SO_BBAN", SO_BBAN);
@@ -493,7 +493,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         values.put("MA_KHANG", MA_KHANG);
         values.put("LY_DO_TREO_THAO", LY_DO_TREO_THAO);
         long ins = database.update(TthtConstantVariables.TABLE_NAME_BBAN_CONGTO, values,
-                "MA_DVIQLY=? and ID_BBAN_CONGTO=? and BUNDLE_MA_NVIEN =?", new String[]{MA_DVIQLY, String.valueOf(Id_BBAN_CONGTO), TthtCommon.getMaNvien()});
+                "MA_NVIEN=? and ID_BBAN_CONGTO=? and BUNDLE_MA_NVIEN =?", new String[]{MA_DVIQLY, String.valueOf(Id_BBAN_CONGTO), TthtCommon.getMaNvien()});
         database.close();
         return ins;
     }
@@ -503,7 +503,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         database = this.getReadableDatabase();
         StringBuilder strQuery = new StringBuilder("SELECT COUNT(*) FROM ");
         strQuery.append(TthtConstantVariables.TABLE_NAME_BBAN_CONGTO);
-        strQuery.append(" WHERE MA_DVIQLY = '");
+        strQuery.append(" WHERE MA_NVIEN = '");
         strQuery.append(MA_DVIQLY);
         strQuery.append("'");
         Cursor c = database.rawQuery(strQuery.toString(), null);
@@ -532,7 +532,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
                                   String SO_KIM_NIEM_CHI, String TTRANG_NPHONG, String TEN_LOAI_CTO, String PHUONG_THUC_DO_XA, String GHI_CHU, int TRANG_THAI_DU_LIEU, int ID_BBAN_TUTI) {
         database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
         values.put("BUNDLE_MA_NVIEN", TthtCommon.getMaNvien());
         values.put("ID_BBAN_TRTH", ID_BBAN_TRTH);
         values.put("MA_CTO", MA_CTO);
@@ -666,7 +666,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         values.put("ID_BBAN_TUTI", ID_BBAN_TUTI);
 
         long ins = database.update(TthtConstantVariables.TABLE_NAME_DETAIL_CONGTO, values,
-                "MA_DVIQLY=? and ID_BBAN_TRTH=? and BUNDLE_MA_NVIEN=? and MA_BDONG=?", new String[]{MA_DVIQLY, String.valueOf(ID_BBAN_TRTH), TthtCommon.getMaNvien(), MA_BDONG});
+                "MA_NVIEN=? and ID_BBAN_TRTH=? and BUNDLE_MA_NVIEN=? and MA_BDONG=?", new String[]{MA_DVIQLY, String.valueOf(ID_BBAN_TRTH), TthtCommon.getMaNvien(), MA_BDONG});
         database.close();
         return ins;
     }
@@ -717,7 +717,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
 
     public long deleteDataCToByMaDviAndID(String MA_DVIQLY, int ID_BBAN_TRTH) {
         database = this.getWritableDatabase();
-        return database.delete(TthtConstantVariables.TABLE_NAME_DETAIL_CONGTO, "MA_DVIQLY=? and ID_BBAN_TRTH=?",
+        return database.delete(TthtConstantVariables.TABLE_NAME_DETAIL_CONGTO, "MA_NVIEN=? and ID_BBAN_TRTH=?",
                 new String[]{MA_DVIQLY, String.valueOf(ID_BBAN_TRTH)});
     }
 
@@ -732,7 +732,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         database = this.getReadableDatabase();
         StringBuilder strQuery = new StringBuilder("SELECT COUNT(*) FROM ");
         strQuery.append(TthtConstantVariables.TABLE_NAME_DETAIL_CONGTO);
-        strQuery.append(" WHERE MA_DVIQLY = '");
+        strQuery.append(" WHERE MA_NVIEN = '");
         strQuery.append(MA_DVIQLY);
         strQuery.append("' AND MA_BDONG = '");
         strQuery.append(MA_BDONG);
@@ -750,7 +750,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
 
         strQuery.append("SELECT DISTINCT * FROM (SELECT * FROM (SELECT * FROM ");
         strQuery.append(TthtConstantVariables.TABLE_NAME_DETAIL_CONGTO);
-        strQuery.append(" WHERE MA_DVIQLY = '").append(MA_DVIQLY).append("')");
+        strQuery.append(" WHERE MA_NVIEN = '").append(MA_DVIQLY).append("')");
         strQuery.append(" D INNER JOIN ");
         strQuery.append(TthtConstantVariables.TABLE_NAME_BBAN_CONGTO);
         strQuery.append(" B ON D.ID_BBAN_TRTH = B.ID_BBAN_TRTH) WHERE MA_BDONG = '");
@@ -775,7 +775,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
 
         strQuery.append("SELECT DISTINCT * FROM (SELECT * FROM (SELECT * FROM ");
         strQuery.append(TthtConstantVariables.TABLE_NAME_DETAIL_CONGTO);
-        strQuery.append(" WHERE MA_DVIQLY = '").append(MA_DVIQLY).append("')");
+        strQuery.append(" WHERE MA_NVIEN = '").append(MA_DVIQLY).append("')");
         strQuery.append(" D INNER JOIN ");
         strQuery.append(TthtConstantVariables.TABLE_NAME_BBAN_CONGTO);
         strQuery.append(" B ON D.ID_BBAN_TRTH = B.ID_BBAN_TRTH) WHERE MA_BDONG = '");
@@ -799,7 +799,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         StringBuilder strQuery = new StringBuilder();
         strQuery.append("SELECT DISTINCT * FROM (SELECT * FROM (SELECT * FROM ");
         strQuery.append(TthtConstantVariables.TABLE_NAME_DETAIL_CONGTO);
-        strQuery.append(" WHERE MA_DVIQLY = '").append(MA_DVIQLY).append("')");
+        strQuery.append(" WHERE MA_NVIEN = '").append(MA_DVIQLY).append("')");
         strQuery.append(" D INNER JOIN ");
         strQuery.append(TthtConstantVariables.TABLE_NAME_BBAN_CONGTO);
         strQuery.append(" B ON D.ID_BBAN_TRTH = B.ID_BBAN_TRTH) WHERE MA_BDONG = '");
@@ -825,7 +825,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         if (typeDataSet == 1) {
             strQuery = new StringBuilder("SELECT COUNT(*) FROM ");
             strQuery.append(TthtConstantVariables.TABLE_NAME_DETAIL_CONGTO);
-            strQuery.append(" WHERE MA_DVIQLY = '");
+            strQuery.append(" WHERE MA_NVIEN = '");
             strQuery.append(MA_DVIQLY);
             strQuery.append("' AND MA_BDONG = '");
             strQuery.append(MA_BDONG);
@@ -834,13 +834,13 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         if (typeDataSet == 2) {
             strQuery.append("select count(bb.ID_BBAN_TRTH) as SO_CTO_DA_GHI from( select * from bban_congto where ma_nvien = '");
             strQuery.append(MA_NVIEN);
-            strQuery.append("') bb inner join ( select ID_BBAN_TRTH,MA_DVIQLY , count(ID_BBAN_TRTH) from ( select * from detail_congto where trang_thai_du_lieu = '1' ) group by ID_BBAN_TRTH, MA_DVIQLY having count(ID_BBAN_TRTH) = 2 ) temp on bb.MA_DVIQLY = temp.MA_DVIQLY and bb.ID_BBAN_TRTH = temp.ID_BBAN_TRTH");
+            strQuery.append("') bb inner join ( select ID_BBAN_TRTH,MA_NVIEN , count(ID_BBAN_TRTH) from ( select * from detail_congto where trang_thai_du_lieu = '1' ) group by ID_BBAN_TRTH, MA_NVIEN having count(ID_BBAN_TRTH) = 2 ) temp on bb.MA_NVIEN = temp.MA_NVIEN and bb.ID_BBAN_TRTH = temp.ID_BBAN_TRTH");
         }
         if (typeDataSet == 3) {
 
             strQuery.append("SELECT DISTINCT * FROM (SELECT * FROM (SELECT * FROM ");
             strQuery.append(TthtConstantVariables.TABLE_NAME_DETAIL_CONGTO);
-            strQuery.append(" WHERE MA_DVIQLY = '").append(MA_DVIQLY).append("')");
+            strQuery.append(" WHERE MA_NVIEN = '").append(MA_DVIQLY).append("')");
             strQuery.append(" D INNER JOIN ");
             strQuery.append(TthtConstantVariables.TABLE_NAME_BBAN_CONGTO);
             strQuery.append(" B ON D.ID_BBAN_TRTH = B.ID_BBAN_TRTH) WHERE MA_BDONG = '");
@@ -867,7 +867,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         StringBuilder strQuery = new StringBuilder();
         strQuery.append("SELECT DISTINCT * FROM (SELECT * FROM (SELECT * FROM ");
         strQuery.append(TthtConstantVariables.TABLE_NAME_DETAIL_CONGTO);
-        strQuery.append(" WHERE MA_DVIQLY = '").append(MA_DVIQLY).append("')");
+        strQuery.append(" WHERE MA_NVIEN = '").append(MA_DVIQLY).append("')");
         strQuery.append(" D INNER JOIN ");
         strQuery.append(TthtConstantVariables.TABLE_NAME_BBAN_CONGTO);
         strQuery.append(" B ON D.ID_BBAN_TRTH = B.ID_BBAN_TRTH) WHERE MA_BDONG = '");
@@ -893,7 +893,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         if (typeDataSet == 3) {
             strQuery.append("SELECT DISTINCT * FROM (SELECT * FROM (SELECT * FROM ");
             strQuery.append(TthtConstantVariables.TABLE_NAME_DETAIL_CONGTO);
-            strQuery.append(" WHERE MA_DVIQLY = '").append(MA_DVIQLY).append("')");
+            strQuery.append(" WHERE MA_NVIEN = '").append(MA_DVIQLY).append("')");
             strQuery.append(" D INNER JOIN ");
             strQuery.append(TthtConstantVariables.TABLE_NAME_BBAN_CONGTO);
             strQuery.append(" B ON D.ID_BBAN_TRTH = B.ID_BBAN_TRTH) WHERE MA_BDONG = '");
@@ -909,7 +909,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
 
             strQuery.append("SELECT * FROM ");
             strQuery.append(TthtConstantVariables.TABLE_NAME_BBAN_CONGTO);
-            strQuery.append(" WHERE MA_DVIQLY = '");
+            strQuery.append(" WHERE MA_NVIEN = '");
             strQuery.append(MA_DVIQLY);
             strQuery.append("' AND TRANG_THAI = ");
             strQuery.append(String.valueOf(2));
@@ -930,7 +930,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
                              String MA_CNANG, int ID_CONGTO_TI) {
         database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
         values.put("ID_BBAN_TRTH", ID_BBAN_TRTH);
         values.put("MA_TI", MA_TI);
         values.put("SO_TI", SO_TI);
@@ -958,7 +958,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
 
     public long deleteDataTIByMaDviAndID(String MA_DVIQLY, int ID_BBAN_TRTH) {
         database = this.getWritableDatabase();
-        return database.delete(TthtConstantVariables.TABLE_NAME_CONGTO_TI, "MA_DVIQLY=? and ID_BBAN_TRTH=?",
+        return database.delete(TthtConstantVariables.TABLE_NAME_CONGTO_TI, "MA_NVIEN=? and ID_BBAN_TRTH=?",
                 new String[]{MA_DVIQLY, String.valueOf(ID_BBAN_TRTH)});
     }
 
@@ -966,7 +966,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         database = this.getReadableDatabase();
         StringBuilder strQuery = new StringBuilder("SELECT COUNT(*) FROM ");
         strQuery.append(TthtConstantVariables.TABLE_NAME_CONGTO_TI);
-        strQuery.append(" WHERE MA_DVIQLY = '");
+        strQuery.append(" WHERE MA_NVIEN = '");
         strQuery.append(MA_DVIQLY);
         strQuery.append("'");
         Cursor c = database.rawQuery(strQuery.toString(), null);
@@ -983,7 +983,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
                              String MA_CNANG, int ID_CONGTO_TU) {
         database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
         values.put("ID_BBAN_TRTH", ID_BBAN_TRTH);
         values.put("MA_TU", MA_TU);
         values.put("SO_TU", SO_TU);
@@ -1011,7 +1011,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
 
     public long deleteDataTUByMaDviAndID(String MA_DVIQLY, int ID_BBAN_TRTH) {
         database = this.getWritableDatabase();
-        return database.delete(TthtConstantVariables.TABLE_NAME_CONGTO_TU, "MA_DVIQLY=? and ID_BBAN_TRTH=?",
+        return database.delete(TthtConstantVariables.TABLE_NAME_CONGTO_TU, "MA_NVIEN=? and ID_BBAN_TRTH=?",
                 new String[]{MA_DVIQLY, String.valueOf(ID_BBAN_TRTH)});
     }
 
@@ -1019,7 +1019,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         database = this.getReadableDatabase();
         StringBuilder strQuery = new StringBuilder("SELECT COUNT(*) FROM ");
         strQuery.append(TthtConstantVariables.TABLE_NAME_CONGTO_TU);
-        strQuery.append(" WHERE MA_DVIQLY = '");
+        strQuery.append(" WHERE MA_NVIEN = '");
         strQuery.append(MA_DVIQLY);
         strQuery.append("'");
         Cursor c = database.rawQuery(strQuery.toString(), null);
@@ -1038,7 +1038,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
                 .append(" ID_CHITIET_TUTI = ")
                 .append(ID_CHITIET_TUTI)
                 .append(" AND")
-                .append(" MA_DVIQLY = ")
+                .append(" MA_NVIEN = ")
                 .append("'").append(MA_DVIQLY).append("'")
                 .append(" AND")
                 .append(" ID_BBAN_TUTI = ")
@@ -1058,7 +1058,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
     public long insertDataAnh(int ID_CHITIET_TUTI, String TEN_ANH, String MA_DVIQLY, int ID_BBAN_TUTI, int ID_CHITIET_CTO, TthtCommon.TYPE_IMAGE TYPE_IMAGE, String CREATE_DAY) {
         database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
         values.put("TEN_ANH", TEN_ANH);
         values.put("TYPE", TYPE_IMAGE.toString());
         values.put("CREATE_DAY", CREATE_DAY);
@@ -1076,7 +1076,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("ID_CHITIET_TUTI", ID_CHITIET_TUTI);
         values.put("TEN_ANH", TEN_ANH);
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
         values.put("ID_BBAN_TUTI", ID_BBAN_TUTI);
         values.put("ID_CHITIET_CTO", TYPE);
         values.put("TYPE", ID_CHITIET_CTO);
@@ -1112,7 +1112,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         database = this.getWritableDatabase();
         return database.delete(
                 TthtConstantVariables.TABLE_NAME_ANH,
-                "ID_CHITIET_TUTI=? and MA_DVIQLY=? and ID_BBAN_TUTI=? and ID_CHITIET_CTO=? and TYPE=?",
+                "ID_CHITIET_TUTI=? and MA_NVIEN=? and ID_BBAN_TUTI=? and ID_CHITIET_CTO=? and TYPE=?",
                 new String[]{String.valueOf(ID_CHITIET_TUTI), MA_DVIQLY, String.valueOf(ID_BBAN_TUTI), String.valueOf(ID_CHITIET_CTO), TYPE_IMAGE.toString()});
     }
     //endregion
@@ -1227,7 +1227,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
     ) {
         database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
         values.put("ID_BBAN_TUTI", ID_BBAN_TUTI);
         values.put("MA_DDO", MA_DDO);
         values.put("SO_BBAN", SO_BBAN);
@@ -1268,7 +1268,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
                                String MA_KHANG, int ID_BBAN_WEB_TUTI, String NVIEN_KCHI) {
         database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
         values.put("ID_BBAN_TUTI", ID_BBAN_TUTI);
         values.put("MA_DDO", MA_DDO);
         values.put("SO_BBAN", SO_BBAN);
@@ -1314,7 +1314,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
 
     public long deleteBBanTuTiWithDviAndMaNVien(String MA_DVIQLY, String MA_NVIEN) {
         database = this.getWritableDatabase();
-        return database.delete(TthtConstantVariables.TABLE_NAME_BBAN_TU_TI, "MA_DVIQLY=? and BUNDLE_MA_NVIEN=?",
+        return database.delete(TthtConstantVariables.TABLE_NAME_BBAN_TU_TI, "MA_NVIEN=? and BUNDLE_MA_NVIEN=?",
                 new String[]{String.valueOf(MA_DVIQLY), String.valueOf(MA_NVIEN)});
     }
     //endregion
@@ -1345,7 +1345,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         values.put("SO_VONG_THANH_CAI", SO_VONG_THANH_CAI);
         values.put("TYSO_BIEN", TYSO_BIEN);
         values.put("MA_BDONG", MA_BDONG);
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
 
         long ins = database.insert(TthtConstantVariables.TABLE_NAME_CHITIET_TU_TI, null, values);
         database.close();
@@ -1376,7 +1376,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         values.put("SO_VONG_THANH_CAI", SO_VONG_THANH_CAI);
         values.put("TYSO_BIEN", TYSO_BIEN);
         values.put("MA_BDONG", MA_BDONG);
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
         long ins = database.update(TthtConstantVariables.TABLE_NAME_CHITIET_TU_TI, values,
                 "ID_CHITIET_TUTI=?", new String[]{String.valueOf(ID_CHITIET_TUTI)});
         database.close();
@@ -1418,7 +1418,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
 
     public long deleteChiTietTuTiWithDviAndMaNVien(String MA_DVIQLY, String MA_NVIEN) {
         database = this.getWritableDatabase();
-        return database.delete(TthtConstantVariables.TABLE_NAME_CHITIET_TU_TI, "MA_DVIQLY=? and BUNDLE_MA_NVIEN=?",
+        return database.delete(TthtConstantVariables.TABLE_NAME_CHITIET_TU_TI, "MA_NVIEN=? and BUNDLE_MA_NVIEN=?",
                 new String[]{String.valueOf(MA_DVIQLY), String.valueOf(MA_NVIEN)});
     }
 
@@ -1433,7 +1433,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
         if (FILTER_DATA_FILL == TthtCommon.FILTER_DATA_FILL.ALL) {
             strQuery.append("SELECT DISTINCT * FROM (SELECT * FROM (SELECT * FROM ");
             strQuery.append(TthtConstantVariables.TABLE_NAME_DETAIL_CONGTO);
-            strQuery.append(" WHERE MA_DVIQLY = '").append(MA_DVIQLY).append("')");
+            strQuery.append(" WHERE MA_NVIEN = '").append(MA_DVIQLY).append("')");
             strQuery.append(" D INNER JOIN ");
             strQuery.append(TthtConstantVariables.TABLE_NAME_BBAN_CONGTO);
             strQuery.append(" B ON D.ID_BBAN_TRTH = B.ID_BBAN_TRTH) WHERE MA_BDONG = '");
@@ -1454,14 +1454,14 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
                     "(" +
                     " SELECT ID_BBAN_TRTH FROM" +
                     "(" +
-                    " SELECT ID_BBAN_TRTH, NGAY_TRTH FROM BBAN_CONGTO WHERE MA_DVIQLY = '" + MA_DVIQLY + "' AND NGAY_TRTH <= '" + NGAY_TRTH + "' AND BUNDLE_MA_NVIEN = '" + MA_NVIEN + "' AND TRANG_THAI = '1'" +
+                    " SELECT ID_BBAN_TRTH, NGAY_TRTH FROM BBAN_CONGTO WHERE MA_NVIEN = '" + MA_DVIQLY + "' AND NGAY_TRTH <= '" + NGAY_TRTH + "' AND BUNDLE_MA_NVIEN = '" + MA_NVIEN + "' AND TRANG_THAI = '1'" +
                     ")" +
                     " ORDER BY NGAY_TRTH DESC" +
                     ")" +
                     " AND MA_BDONG = '" + FILTER_DATA_FILL.toString() + "'";
 //            strQuery.append("SELECT DISTINCT * FROM (SELECT * FROM (SELECT * FROM ");
 //            strQuery.append(TthtConstantVariables.TABLE_NAME_DETAIL_CONGTO);
-//            strQuery.append(" WHERE MA_DVIQLY = '").append(MA_DVIQLY).append("')");
+//            strQuery.append(" WHERE MA_NVIEN = '").append(MA_NVIEN).append("')");
 //            strQuery.append(" D INNER JOIN ");
 //            strQuery.append(TthtConstantVariables.TABLE_NAME_BBAN_CONGTO);
 //            strQuery.append(" B ON D.ID_BBAN_TRTH = B.ID_BBAN_TRTH) WHERE MA_BDONG = '");
@@ -1485,7 +1485,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
                     "   SELECT ID_BBAN_TRTH " +
                     "   FROM BBAN_CONGTO  " +
                     "   WHERE  " +
-                    "   MA_DVIQLY = '" +
+                    "   MA_NVIEN = '" +
                     MA_DVIQLY +
                     "'  " +
                     "   AND NGAY_TRTH < '" +
@@ -1504,7 +1504,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
                     "DETAIL JOIN  " +
                     " (SELECT ID_BBAN_TRTH, TEN_KHANG, DCHI_HDON, SO_BBAN,MA_GCS_CTO, MA_TRAM " +
                     " FROM BBAN_CONGTO  " +
-                    " WHERE MA_DVIQLY = '" +
+                    " WHERE MA_NVIEN = '" +
                     MA_DVIQLY +
                     "' AND NGAY_TRTH < '" +
                     NGAY_TRTH +
@@ -1526,7 +1526,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
                             "  (    " +
                             "      SELECT ID_BBAN_TRTH  " +
                             "      FROM BBAN_CONGTO  " +
-                            "      WHERE MA_DVIQLY = '" +
+                            "      WHERE MA_NVIEN = '" +
                             MA_DVIQLY +
                             "'  " +
                             "      AND NGAY_TRTH = '" +
@@ -1544,7 +1544,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
                             "      (SELECT  " +
                             "      ID_BBAN_TRTH, TEN_KHANG, DCHI_HDON, SO_BBAN,MA_GCS_CTO, MA_TRAM  " +
                             "      FROM BBAN_CONGTO  " +
-                            "      WHERE MA_DVIQLY = '" +
+                            "      WHERE MA_NVIEN = '" +
                             MA_DVIQLY +
                             "'  " +
                             "      AND NGAY_TRTH = '" +
@@ -1640,7 +1640,7 @@ public class TthtSQLiteConnection extends SQLiteOpenHelper {
 //        database = this.getReadableDatabase();
 //        StringBuilder strQuery = new StringBuilder("SELECT * FROM ").append(TthtConstantVariables.TABLE_NAME_BBAN_CONGTO)
 //                .append(" B INNER JOIN ").append(TthtConstantVariables.TABLE_NAME_DETAIL_CONGTO)
-//                .append(" D ON B.MA_DVIQLY = D.MA_DVIQLY AND MA_CTO = '")
+//                .append(" D ON B.MA_NVIEN = D.MA_NVIEN AND MA_CTO = '")
 //                .append(MA_CTO)
 //                .append("'");
 //        return database.rawQuery(strQuery.toString(), null);

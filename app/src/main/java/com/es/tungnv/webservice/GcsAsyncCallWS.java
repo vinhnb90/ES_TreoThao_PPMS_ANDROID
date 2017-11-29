@@ -325,7 +325,7 @@ public class GcsAsyncCallWS {
 			throw new Exception( "Không có sổ để cập nhật");
 
 		SoapObject request = new SoapObject(GcsConstantVariables.NAMESPACE, METHOD_NAME);
-		request.addProperty("MA_DVIQLY", GcsCommon.getMaDviqly());
+		request.addProperty("MA_NVIEN", GcsCommon.getMaDviqly());
 		request.addProperty("MA_NVGCS", GcsCommon.getMaNvgcs());
 		request.addProperty("IMEI", GcsCommon.getIMEI());
 		request.addProperty("lstFileName", lstFileName);

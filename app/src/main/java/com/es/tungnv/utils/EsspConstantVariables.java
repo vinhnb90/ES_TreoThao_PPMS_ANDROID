@@ -134,7 +134,7 @@ public class EsspConstantVariables {
 
     public static final String TABLE_NAME_TRAM = "D_TRAM";
     public static final String CREATE_TABLE_TRAM = "CREATE TABLE " + TABLE_NAME_TRAM + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "MA_DVIQLY TEXT, " + "MA_TRAM TEXT, " + "TEN_TRAM TEXT, " + "LOAI_TRAM TEXT, " + "CSUAT_TRAM TEXT, " + "MA_CAPDA TEXT, " +
+            "MA_NVIEN TEXT, " + "MA_TRAM TEXT, " + "TEN_TRAM TEXT, " + "LOAI_TRAM TEXT, " + "CSUAT_TRAM TEXT, " + "MA_CAPDA TEXT, " +
             "MA_CAPDA_RA TEXT, " + "D_TRAM_ID INTEGER, " + "DINH_DANH TEXT)";
 
     public static final String TABLE_NAME_NGAN_HANG = "D_NGAN_HANG";
@@ -143,13 +143,13 @@ public class EsspConstantVariables {
 
     public static final String TABLE_NAME_VTU = "D_VTU";
     public static final String CREATE_TABLE_VTU = "CREATE TABLE " + TABLE_NAME_VTU + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "MA_DVIQLY TEXT, " + "MA_VTU TEXT, " + "TEN_VTU TEXT, " + "MA_LOAI_CPHI TEXT, " + "DON_GIA TEXT, " + "DVI_TINH TEXT, " +
+            "MA_NVIEN TEXT, " + "MA_VTU TEXT, " + "TEN_VTU TEXT, " + "MA_LOAI_CPHI TEXT, " + "DON_GIA TEXT, " + "DVI_TINH TEXT, " +
             "DON_GIA_KH TEXT, " + "LOAI INTTEGER, " + "CHUNG_LOAI INTEGER, " + "DG_TRONGOI TEXT, " + "DG_NCONG TEXT, " +
             "DG_VTU TEXT, " + "DG_MTCONG TEXT)";//0 - VT khác, 1 - Dây cáp, 2 - Công tơ, 3 - Hòm
 
     public static final String TABLE_NAME_DTOAN = "KS_DTOAN";
     public static final String CREATE_TABLE_DTOAN = "CREATE TABLE " + TABLE_NAME_DTOAN + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "MA_DVIQLY TEXT, " + "HOSO_ID INTEGER, " + "MA_VTU TEXT, " + "MA_LOAI_CPHI TEXT, " + "SO_LUONG TEXT, " +
+            "MA_NVIEN TEXT, " + "HOSO_ID INTEGER, " + "MA_VTU TEXT, " + "MA_LOAI_CPHI TEXT, " + "SO_LUONG TEXT, " +
             "DON_GIA TEXT, " + "SO_HUU TEXT, " + "STT TEXT, " + "THANH_TIEN TEXT, " + "TT_DON_GIA TEXT, " + "TT_TU_TUC INTEGER, " +
             "TT_THU_HOI INTEGER, " + "TINH_TRANG TEXT," + "HSDC_K1NC TEXT, " + "HSDC_K2NC TEXT, " + "HSDC_MTC TEXT)";
 
@@ -245,7 +245,7 @@ public class EsspConstantVariables {
             "HS_NHAN_LUOI TEXT, " + "P_MAX TEXT, " + "TD_P_MAX TEXT, " + "H1_P_MAX TEXT, " + "TD_H1_P_MAX TEXT, " + "TTRANG_CHI_NIEMPHONG TEXT, " +
             "MASO_CHI_KDINH TEXT, " + "SOVIEN_CHIKDINH TEXT, " + "MASO_CHICONGQUANG TEXT, " + "SOVIEN_CHICONGQUANG TEXT, " +
             "MASO_CHIHOM TEXT, " + "SOVIEN_CHIHOM TEXT, " + "MASO_TEMKDINH TEXT, " + "NGAY_LAP TEXT, " + "NGUOI_LAP TEXT, " +
-            "MA_DVIQLY TEXT, " + "CMIS_MA_YCAU_KNAI TEXT, " + "NGAY_KDINH_FORMAT TEXT, " + "TEN_NHAN_VIEN TEXT, " + "SO_BIEN_BAN TEXT, " +
+            "MA_NVIEN TEXT, " + "CMIS_MA_YCAU_KNAI TEXT, " + "NGAY_KDINH_FORMAT TEXT, " + "TEN_NHAN_VIEN TEXT, " + "SO_BIEN_BAN TEXT, " +
             "CHI_SO_TREO TEXT, " + "USER_NAME TEXT, " + "TINH_TRANG INTEGER)";
 
     public static final String TABLE_NAME_DUTOAN_NTHU = "D_DUTOAN_NTHU";

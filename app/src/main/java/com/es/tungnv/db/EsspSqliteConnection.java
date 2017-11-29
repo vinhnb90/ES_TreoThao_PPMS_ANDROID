@@ -263,7 +263,7 @@ public class EsspSqliteConnection extends SQLiteOpenHelper {
     public int getPosDviQly(String MA_DVIQLY) {
         int pos = 0;
         database = this.getReadableDatabase();
-        String strQuery = "SELECT MA_DVIQLY FROM " + EsspConstantVariables.TABLE_NAME_DVIQLY;
+        String strQuery = "SELECT MA_NVIEN FROM " + EsspConstantVariables.TABLE_NAME_DVIQLY;
         Cursor c = database.rawQuery(strQuery, null);
         int i = 0;
         if (c.moveToFirst()) {
@@ -289,7 +289,7 @@ public class EsspSqliteConnection extends SQLiteOpenHelper {
 
     public String getTenDviByMa(String MA_DVIQLY) {
         database = this.getReadableDatabase();
-        String strQuery = "SELECT TEN_DVIQLY FROM " + EsspConstantVariables.TABLE_NAME_DVIQLY + " WHERE MA_DVIQLY = '" + MA_DVIQLY + "'";
+        String strQuery = "SELECT TEN_DVIQLY FROM " + EsspConstantVariables.TABLE_NAME_DVIQLY + " WHERE MA_NVIEN = '" + MA_DVIQLY + "'";
         Cursor c = database.rawQuery(strQuery, null);
         if (c.moveToFirst()) {
             return c.getString(0);
@@ -302,7 +302,7 @@ public class EsspSqliteConnection extends SQLiteOpenHelper {
     public long insertDataRememger(String MA_DVIQLY, String USERNAME, String PASSWORD) {
         database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
         values.put("USERNAME", USERNAME);
         values.put("PASSWORD", PASSWORD);
         return database.insert(EsspConstantVariables.TABLE_NAME_REMEMBER, null, values);
@@ -383,7 +383,7 @@ public class EsspSqliteConnection extends SQLiteOpenHelper {
                              String DG_TRONGOI, String DG_NCONG, String DG_VTU, String DG_MTCONG) {
         database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
         values.put("MA_VTU", MA_VTU);
         values.put("TEN_VTU", TEN_VTU);
         values.put("MA_LOAI_CPHI", MA_LOAI_CPHI);
@@ -560,7 +560,7 @@ public class EsspSqliteConnection extends SQLiteOpenHelper {
                                 String MA_CVIEC, String NGAY_HLUC) {
         database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
         values.put("MA_TNGAI", MA_TNGAI);
         values.put("TEN_TNGAI", TEN_TNGAI);
         values.put("TCHAT_KPHUC", TCHAT_KPHUC);
@@ -643,7 +643,7 @@ public class EsspSqliteConnection extends SQLiteOpenHelper {
 
     public int countTram(String MA_DVIQLY) {
         database = this.getReadableDatabase();
-        String strQuery = "SELECT COUNT(*) FROM " + EsspConstantVariables.TABLE_NAME_TRAM + " WHERE MA_DVIQLY = '" + MA_DVIQLY + "'";
+        String strQuery = "SELECT COUNT(*) FROM " + EsspConstantVariables.TABLE_NAME_TRAM + " WHERE MA_NVIEN = '" + MA_DVIQLY + "'";
         Cursor c = database.rawQuery(strQuery, null);
         if (c.moveToFirst()) {
             return Integer.parseInt(c.getString(0));
@@ -791,7 +791,7 @@ public class EsspSqliteConnection extends SQLiteOpenHelper {
     public Cursor getAllDataQuyen(String MA_DVIQLY) {
         database = this.getReadableDatabase();
         String strQuery = "";
-        strQuery = "SELECT * FROM " + EsspConstantVariables.TABLE_NAME_SO_GCS + " WHERE MA_DVIQLY = '" + MA_DVIQLY + "'";
+        strQuery = "SELECT * FROM " + EsspConstantVariables.TABLE_NAME_SO_GCS + " WHERE MA_NVIEN = '" + MA_DVIQLY + "'";
         return database.rawQuery(strQuery, null);
     }
 
@@ -824,7 +824,7 @@ public class EsspSqliteConnection extends SQLiteOpenHelper {
         database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("HOSO_ID", HOSO_ID);
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
         values.put("TEN_KHANG", TEN_KHANG);
         values.put("SO_NHA", SO_NHA);
         values.put("DUONG_PHO", DUONG_PHO);
@@ -1047,7 +1047,7 @@ public class EsspSqliteConnection extends SQLiteOpenHelper {
         }
         EsspEntityHoSo entity = new EsspEntityHoSo();
 
-        entity.setMA_DVIQLY(c.getString(c.getColumnIndex("MA_DVIQLY")) == null ? "" : c.getString(c.getColumnIndex("MA_DVIQLY")));
+        entity.setMA_DVIQLY(c.getString(c.getColumnIndex("MA_NVIEN")) == null ? "" : c.getString(c.getColumnIndex("MA_NVIEN")));
         entity.setTEN_KHANG(c.getString(c.getColumnIndex("TEN_KHANG")) == null ? "" : c.getString(c.getColumnIndex("TEN_KHANG")));
         entity.setSO_NHA(c.getString(c.getColumnIndex("SO_NHA")) == null ? "" : c.getString(c.getColumnIndex("SO_NHA")));
         entity.setDUONG_PHO(c.getString(c.getColumnIndex("DUONG_PHO")) == null ? "" : c.getString(c.getColumnIndex("DUONG_PHO")));
@@ -1499,7 +1499,7 @@ public class EsspSqliteConnection extends SQLiteOpenHelper {
                                  String HSDC_K1NC, String HSDC_K2NC, String HSDC_MTC) {
         database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
         values.put("MA_LOAI_CPHI", MA_LOAI_CPHI);
         values.put("SO_LUONG", SO_LUONG);
         values.put("DON_GIA", DON_GIA);
@@ -2593,7 +2593,7 @@ public class EsspSqliteConnection extends SQLiteOpenHelper {
         values.put("MASO_TEMKDINH", MASO_TEMKDINH);
         values.put("NGAY_LAP", NGAY_LAP);
         values.put("NGUOI_LAP", NGUOI_LAP);
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
         values.put("CMIS_MA_YCAU_KNAI", CMIS_MA_YCAU_KNAI);
         values.put("NGAY_KDINH_FORMAT", NGAY_KDINH_FORMAT);
         values.put("TEN_NHAN_VIEN", TEN_NHAN_VIEN);
@@ -2606,7 +2606,7 @@ public class EsspSqliteConnection extends SQLiteOpenHelper {
 
     public Cursor getDataHosoNThu(String MA_DVIQLY, String USER_NAME) {
         database = this.getReadableDatabase();
-        String strQuery = "SELECT * FROM " + EsspConstantVariables.TABLE_NAME_HOSO_NTHU + " WHERE MA_DVIQLY = '" + MA_DVIQLY +
+        String strQuery = "SELECT * FROM " + EsspConstantVariables.TABLE_NAME_HOSO_NTHU + " WHERE MA_NVIEN = '" + MA_DVIQLY +
                 "' AND USER_NAME = '" + USER_NAME + "'";
         return database.rawQuery(strQuery, null);
     }
@@ -2658,7 +2658,7 @@ public class EsspSqliteConnection extends SQLiteOpenHelper {
             entity.setMASO_TEMKDINH(c.getString(c.getColumnIndex("MASO_TEMKDINH")) == null ? "" : c.getString(c.getColumnIndex("MASO_TEMKDINH")));
             entity.setNGAY_LAP(c.getString(c.getColumnIndex("NGAY_LAP")) == null ? "" : c.getString(c.getColumnIndex("NGAY_LAP")));
             entity.setNGUOI_LAP(c.getString(c.getColumnIndex("NGUOI_LAP")) == null ? "" : c.getString(c.getColumnIndex("NGUOI_LAP")));
-            entity.setMA_DVIQLY(c.getString(c.getColumnIndex("MA_DVIQLY")) == null ? "" : c.getString(c.getColumnIndex("MA_DVIQLY")));
+            entity.setMA_DVIQLY(c.getString(c.getColumnIndex("MA_DVIQLY")) == null ? "" : c.getString(c.getColumnIndex("MA_NVIEN")));
             entity.setCMIS_MA_YCAU_KNAI(c.getString(c.getColumnIndex("CMIS_MA_YCAU_KNAI")) == null ? "" : c.getString(c.getColumnIndex("CMIS_MA_YCAU_KNAI")));
             entity.setNGAY_KDINH_FORMAT(c.getString(c.getColumnIndex("NGAY_KDINH_FORMAT")) == null ? "" : c.getString(c.getColumnIndex("NGAY_KDINH_FORMAT")));
             entity.setTEN_NHAN_VIEN(c.getString(c.getColumnIndex("TEN_NHAN_VIEN")) == null ? "" : c.getString(c.getColumnIndex("TEN_NHAN_VIEN")));
@@ -2699,7 +2699,7 @@ public class EsspSqliteConnection extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("DUTOAN_ID", DUTOAN_ID);
         values.put("HOSO_ID", HOSO_ID);
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
         values.put("MA_VTU", MA_VTU);
         values.put("SO_LUONG", SO_LUONG);
         values.put("SO_HUU", SO_HUU);

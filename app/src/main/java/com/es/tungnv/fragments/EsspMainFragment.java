@@ -398,7 +398,7 @@ public class EsspMainFragment extends Fragment implements View.OnClickListener {
                     int count = 0;
                     for (JSONObject map : lstHoSo) {
                         int HOSO_ID = Integer.parseInt(map.getString("HOSO_ID").equals("null") ? "0" : map.getString("HOSO_ID"));
-                        String MA_DVIQLY = map.getString("MA_DVIQLY").equals("null") ? "" : map.getString("MA_DVIQLY");
+                        String MA_DVIQLY = map.getString("MA_NVIEN").equals("null") ? "" : map.getString("MA_NVIEN");
                         String MA_YCAU_KNAI = map.getString("CMIS_MA_YCAU_KNAI").equals("null") ? "" : map.getString("CMIS_MA_YCAU_KNAI");
                         if (!connection.checkMaHS(HOSO_ID)) {
                             connection.updateTinhTrang(HOSO_ID, EsspCommon.TINH_TRANG);
@@ -593,7 +593,7 @@ public class EsspMainFragment extends Fragment implements View.OnClickListener {
                     } catch (Exception ex) {
                     }
                     entity.setSTT("" + stt);
-                    entity.setMA_DVIQLY(c.getString(c.getColumnIndex("MA_DVIQLY")) == null ? "" : c.getString(c.getColumnIndex("MA_DVIQLY")));
+                    entity.setMA_DVIQLY(c.getString(c.getColumnIndex("MA_NVIEN")) == null ? "" : c.getString(c.getColumnIndex("MA_NVIEN")));
                     entity.setTEN_KHANG(c.getString(c.getColumnIndex("TEN_KHANG")) == null ? "" : c.getString(c.getColumnIndex("TEN_KHANG")));
                     entity.setSO_NHA(c.getString(c.getColumnIndex("SO_NHA")) == null ? "" : c.getString(c.getColumnIndex("SO_NHA")));
                     entity.setDUONG_PHO(c.getString(c.getColumnIndex("DUONG_PHO")) == null ? "" : c.getString(c.getColumnIndex("DUONG_PHO")));
@@ -4962,7 +4962,7 @@ public class EsspMainFragment extends Fragment implements View.OnClickListener {
                                      String MA_SOTHUE, String CHUC_VU, int GenderId, String MA_DVIDCHINHC2, String MA_DVIDCHINHC3,
                                      int KQ_KHSAT_ID, String MA_TNGAI, String MA_QUYEN, int HINHTHUC_LAPDAT, int LOAI_CAP, int NKY_KSAT) {
         String sHOSO_ID = "HOSO_ID";
-        String sMA_DVIQLY = "MA_DVIQLY";
+        String sMA_DVIQLY = "MA_NVIEN";
         String sMA_TRACUU = "MA_TRACUU";
         String sCMIS_MA_YCAU_KNAI = "CMIS_MA_YCAU_KNAI";
         String sMKHAU_TRACUU = "MKHAU_TRACUU";
@@ -5140,7 +5140,7 @@ public class EsspMainFragment extends Fragment implements View.OnClickListener {
                                        int TT_TUTUC, int TT_THUHOI, float HSDC_K1NC, float HSDC_K2NC, float HSDC_MTC) {
         String sDUTOAN_ID = "DUTOAN_ID";
         String sHOSO_ID = "HOSO_ID";
-        String sMA_DVIQLY = "MA_DVIQLY";
+        String sMA_DVIQLY = "MA_NVIEN";
         String sMA_VTU = "MA_VTU";
         String sSO_LUONG = "SO_LUONG";
         String sSO_HUU = "SO_HUU";
@@ -5178,7 +5178,7 @@ public class EsspMainFragment extends Fragment implements View.OnClickListener {
                                        int TT_TUTUC, int TT_THUHOI) {
         String sDUTOAN_ID = "DUTOAN_ID";
         String sHOSO_ID = "HOSO_ID";
-        String sMA_DVIQLY = "MA_DVIQLY";
+        String sMA_DVIQLY = "MA_NVIEN";
         String sMA_VTU = "MA_VTU";
         String sSO_LUONG = "SO_LUONG";
         String sSO_HUU = "SO_HUU";

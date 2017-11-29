@@ -659,7 +659,7 @@ public class GphtLoginActivity extends Activity implements View.OnClickListener 
                             Bundle b = new Bundle();
                             b.putString("user", user);
                             b.putString("pass", pass);
-                            b.putString("MA_DVIQLY", MA_DVIQLY);
+                            b.putString("MA_NVIEN", MA_DVIQLY);
                             msgObj.setData(b);
 
                             handlerLogin.sendMessage(msgObj);
@@ -719,7 +719,7 @@ public class GphtLoginActivity extends Activity implements View.OnClickListener 
                                     Bundle b = new Bundle();
                                     b.putString("user", user);
                                     b.putString("pass", pass);
-                                    b.putString("MA_DVIQLY", MA_DVIQLY);
+                                    b.putString("MA_NVIEN", MA_DVIQLY);
                                     msgObj.setData(b);
 
                                     handlerLoginTtht.sendMessage(msgObj);
@@ -799,13 +799,13 @@ public class GphtLoginActivity extends Activity implements View.OnClickListener 
                 if (!checkLogin) {
                     Common.showAlertDialogGreen(GphtLoginActivity.this, "Lỗi", Color.RED, "Sai thông tin đăng nhập hoặc máy chưa được đăng ký sử dụng", Color.WHITE, "OK", Color.RED);
                 } else {
-                    String MA_DVIQLY = msg.getData().getString("MA_DVIQLY");
+                    String MA_DVIQLY = msg.getData().getString("MA_NVIEN");
                     String user = msg.getData().getString("user");
                     EsspCommon.setMaDviqly(MA_DVIQLY);
                     EsspCommon.setUSERNAME(user);
                     startActivity(new Intent(GphtLoginActivity.this, EsspMainActivity.class));
                     if (connectionEssp.deleteAllDataRemember() != -1)
-                        connectionEssp.insertDataRememger(msg.getData().getString("MA_DVIQLY"),
+                        connectionEssp.insertDataRememger(msg.getData().getString("MA_NVIEN"),
                                 msg.getData().getString("user"), msg.getData().getString("pass"));
                 }
             } catch (Exception ex) {
@@ -843,7 +843,7 @@ public class GphtLoginActivity extends Activity implements View.OnClickListener 
 
             } else {
                 String user = msg.getData().getString("user");
-                String MA_DVIQLY = msg.getData().getString("MA_DVIQLY");
+                String MA_DVIQLY = msg.getData().getString("MA_NVIEN");
                 TthtCommon.setMaDviqly(MA_DVIQLY);
                 TthtCommon.setUSERNAME(user);
                 startActivity(new Intent(GphtLoginActivity.this, TthtMainActivity.class));

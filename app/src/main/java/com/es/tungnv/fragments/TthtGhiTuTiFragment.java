@@ -128,7 +128,7 @@ public class TthtGhiTuTiFragment extends Fragment implements View.OnClickListene
                 Cursor c = connection.getBBanByIDBBanTRTH(ID_BBAN_TRTH);
                 if (c != null) {
                     c.moveToFirst();
-                    MA_DVIQLY = c.getString(c.getColumnIndex("MA_DVIQLY"));
+                    MA_DVIQLY = c.getString(c.getColumnIndex("MA_NVIEN"));
                     MA_TRAM = c.getString(c.getColumnIndex("MA_TRAM"));
                 }
 
@@ -638,7 +638,7 @@ public class TthtGhiTuTiFragment extends Fragment implements View.OnClickListene
         if (tthtCtoEntity == null || cCto == null)
             return;
 
-        tthtCtoEntity.setMA_DVIQLY(cCto.getString(cCto.getColumnIndex("MA_DVIQLY")));
+        tthtCtoEntity.setMA_DVIQLY(cCto.getString(cCto.getColumnIndex("MA_NVIEN")));
         tthtCtoEntity.setID_BBAN_TRTH(cCto.getString(cCto.getColumnIndex("ID_BBAN_TRTH")) != null
                 && !cCto.getString(cCto.getColumnIndex("ID_BBAN_TRTH")).isEmpty()
                 ? cCto.getInt(cCto.getColumnIndex("ID_BBAN_TRTH")) : 0);
@@ -726,7 +726,7 @@ public class TthtGhiTuTiFragment extends Fragment implements View.OnClickListene
         bban.setID_BBAN_TRTH(cBban.getInt(cBban.getColumnIndex("ID_BBAN_TRTH")));
         bban.setMA_CNANG(cBban.getString(cBban.getColumnIndex("MA_CNANG")));
         bban.setMA_DDO(cBban.getString(cBban.getColumnIndex("MA_DDO")));
-        bban.setMA_DVIQLY(cBban.getString(cBban.getColumnIndex("MA_DVIQLY")));
+        bban.setMA_DVIQLY(cBban.getString(cBban.getColumnIndex("MA_NVIEN")));
         bban.setMA_LDO(cBban.getString(cBban.getColumnIndex("MA_LDO")));
         bban.setMA_NVIEN(cBban.getString(cBban.getColumnIndex("BUNDLE_MA_NVIEN")));
         bban.setMA_YCAU_KNAI(cBban.getString(cBban.getColumnIndex("MA_YCAU_KNAI")));
@@ -797,7 +797,7 @@ public class TthtGhiTuTiFragment extends Fragment implements View.OnClickListene
         tuti.setSO_VONG_THANH_CAI(cursorGetDataTUTI.getInt(cursorGetDataTUTI.getColumnIndex("SO_VONG_THANH_CAI")));
         tuti.setTYSO_BIEN(cursorGetDataTUTI.getString(cursorGetDataTUTI.getColumnIndex("TYSO_BIEN")));
         tuti.setMA_BDONG(MA_BDONG_TUTI);
-        tuti.setMA_DVIQLY(cursorGetDataTUTI.getString(cursorGetDataTUTI.getColumnIndex("MA_DVIQLY")));
+        tuti.setMA_DVIQLY(cursorGetDataTUTI.getString(cursorGetDataTUTI.getColumnIndex("MA_NVIEN")));
     }
 
     private void initView(View view) {
@@ -1094,7 +1094,7 @@ public class TthtGhiTuTiFragment extends Fragment implements View.OnClickListene
 
             Cursor c = connection.getBBanByIDBBanTRTH(ID_BBAN_TRTH);
             if (c != null) {
-                MA_DVIQLY = c.getString(c.getColumnIndex("MA_DVIQLY"));
+                MA_DVIQLY = c.getString(c.getColumnIndex("MA_NVIEN"));
                 MA_TRAM = c.getString(c.getColumnIndex("MA_TRAM"));
             }
 
@@ -1302,7 +1302,7 @@ public class TthtGhiTuTiFragment extends Fragment implements View.OnClickListene
             Cursor c = connection.getBBanByIDBBanTRTH(ID_BBAN_TRTH);
             if (c != null) {
                 c.moveToFirst();
-                MA_DVIQLY = c.getString(c.getColumnIndex("MA_DVIQLY"));
+                MA_DVIQLY = c.getString(c.getColumnIndex("MA_NVIEN"));
                 MA_TRAM = c.getString(c.getColumnIndex("MA_TRAM"));
                 TEN_KHANG = c.getString(c.getColumnIndex("TEN_KHANG"));
                 MA_DDO = c.getString(c.getColumnIndex("MA_DDO"));

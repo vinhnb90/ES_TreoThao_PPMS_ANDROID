@@ -67,7 +67,7 @@ public class InvoiceSQLiteConnection extends SQLiteOpenHelper{
                                  String MA_MAY,String DU_PHONG_1, String DU_PHONG_2){
         database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("MA_DVIQLY", MA_DVIQLY);
+        values.put("MA_NVIEN", MA_DVIQLY);
         values.put("TEN_DVIQLY", TEN_DVIQLY);
         values.put("DCHI_DVIQLY", DCHI_DVIQLY);
         values.put("MA_STHUE", MA_STHUE);

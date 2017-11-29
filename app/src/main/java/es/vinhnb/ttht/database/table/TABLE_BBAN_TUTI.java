@@ -62,7 +62,7 @@ public class TABLE_BBAN_TUTI {
     @Collumn(name = "NGAY_TRTH", type = TYPE.TEXT)
     private String NGAY_TRTH;
 
-    @Collumn(name = "BUNDLE_MA_NVIEN", type = TYPE.TEXT)
+    @Collumn(name = "MA_NVIEN", type = TYPE.TEXT)
     private String MA_NVIEN;
 
     @Collumn(name = "TRANG_THAI", type = TYPE.INTEGER)
@@ -109,7 +109,7 @@ public class TABLE_BBAN_TUTI {
                            @Params(name = "MA_DDO") String MA_DDO,
                            @Params(name = "SO_BBAN") String SO_BBAN,
                            @Params(name = "NGAY_TRTH") String NGAY_TRTH,
-                           @Params(name = "BUNDLE_MA_NVIEN") String MA_NVIEN,
+                           @Params(name = "MA_NVIEN") String MA_NVIEN,
                            @Params(name = "TRANG_THAI") int TRANG_THAI,
                            @Params(name = "TEN_KHANG") String TEN_KHANG,
                            @Params(name = "DCHI_HDON") String DCHI_HDON,

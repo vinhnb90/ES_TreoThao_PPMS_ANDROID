@@ -368,7 +368,7 @@ public class EsspNghiemThuFragment extends Fragment implements View.OnClickListe
     public JSONObject DATAtoJSONHoSoThiCong(int HOSO_ID, String MA_DVIQLY, JSONArray List_DuToanVatTU, String CHI_SO_TREO,
                                             String KIM_NIEM_CHI_SO) {
         String sHOSO_ID = "HOSO_ID";
-        String sMA_DVIQLY = "MA_DVIQLY";
+        String sMA_DVIQLY = "MA_NVIEN";
         String sList_DuToanVatTU = "List_DuToanVatTU";
         String sCHI_SO_TREO = "CHI_SO_TREO";
         String sKIM_NIEM_CHI_SO = "KIM_NIEM_CHI_SO";
@@ -398,7 +398,7 @@ public class EsspNghiemThuFragment extends Fragment implements View.OnClickListe
                     int count = 0;
                     for (JSONObject map : lstHoSo) {
                         int HoSoId = map.getString("HoSoId").equals("null") ? 0 : map.getInt("HoSoId");
-                        String MA_DVIQLY = map.getString("MA_DVIQLY").equals("null") ? "" : map.getString("MA_DVIQLY");
+                        String MA_DVIQLY = map.getString("MA_NVIEN").equals("null") ? "" : map.getString("MA_NVIEN");
                         String CMIS_MA_YCAU_KNAI = map.getString("CMIS_MA_YCAU_KNAI").equals("null") ? "" : map.getString("CMIS_MA_YCAU_KNAI");
                         int isNHIEUBIEUGIA = map.getString("isNHIEUBIEUGIA").equals("true") ? 1 : 0;
                         String KIMNIEMCHISO = map.getString("KIMNIEMCHISO").equals("null") ? "" : map.getString("KIMNIEMCHISO");
@@ -463,7 +463,7 @@ public class EsspNghiemThuFragment extends Fragment implements View.OnClickListe
                                 for (int i = 0; i < jaDuToan.length(); i++) {
                                     JSONObject joDuToan = jaDuToan.getJSONObject(i);
                                     if (connection.insertDataDutoanNThu(joDuToan.getInt("DUTOAN_ID"), joDuToan.getInt("HOSO_ID"),
-                                            joDuToan.getString("MA_DVIQLY"), joDuToan.getString("MA_VTU"),
+                                            joDuToan.getString("MA_NVIEN"), joDuToan.getString("MA_VTU"),
                                             Float.parseFloat(joDuToan.getString("SO_LUONG").equals("null") ? "0" : joDuToan.getString("SO_LUONG")),
                                             joDuToan.getInt("SO_HUU"), joDuToan.getInt("STT"), joDuToan.getString("GHI_CHU"),
                                             joDuToan.getInt("TT_TUTUC"), joDuToan.getInt("TT_THUHOI"),
@@ -570,7 +570,7 @@ public class EsspNghiemThuFragment extends Fragment implements View.OnClickListe
                     entity.setMASO_TEMKDINH(c.getString(c.getColumnIndex("MASO_TEMKDINH")) == null ? "" : c.getString(c.getColumnIndex("MASO_TEMKDINH")));
                     entity.setNGAY_LAP(c.getString(c.getColumnIndex("NGAY_LAP")) == null ? "" : c.getString(c.getColumnIndex("NGAY_LAP")));
                     entity.setNGUOI_LAP(c.getString(c.getColumnIndex("NGUOI_LAP")) == null ? "" : c.getString(c.getColumnIndex("NGUOI_LAP")));
-                    entity.setMA_DVIQLY(c.getString(c.getColumnIndex("MA_DVIQLY")) == null ? "" : c.getString(c.getColumnIndex("MA_DVIQLY")));
+                    entity.setMA_DVIQLY(c.getString(c.getColumnIndex("MA_NVIEN")) == null ? "" : c.getString(c.getColumnIndex("MA_NVIEN")));
                     entity.setCMIS_MA_YCAU_KNAI(c.getString(c.getColumnIndex("CMIS_MA_YCAU_KNAI")) == null ? "" : c.getString(c.getColumnIndex("CMIS_MA_YCAU_KNAI")));
                     entity.setNGAY_KDINH_FORMAT(c.getString(c.getColumnIndex("NGAY_KDINH_FORMAT")) == null ? "" : c.getString(c.getColumnIndex("NGAY_KDINH_FORMAT")));
                     entity.setTEN_NHAN_VIEN(c.getString(c.getColumnIndex("TEN_NHAN_VIEN")) == null ? "" : c.getString(c.getColumnIndex("TEN_NHAN_VIEN")));
@@ -597,7 +597,7 @@ public class EsspNghiemThuFragment extends Fragment implements View.OnClickListe
                 EsspEntityDuToanThiCong entity = new EsspEntityDuToanThiCong();
                 entity.setDUTOAN_ID(c.getInt(c.getColumnIndex("DUTOAN_ID")));
                 entity.setHOSO_ID(c.getInt(c.getColumnIndex("HOSO_ID")));
-                entity.setMA_DVIQLY(c.getString(c.getColumnIndex("MA_DVIQLY")));
+                entity.setMA_DVIQLY(c.getString(c.getColumnIndex("MA_NVIEN")));
                 entity.setMA_VTU(c.getString(c.getColumnIndex("MA_VTU")));
                 entity.setSO_LUONG(c.getFloat(c.getColumnIndex("SO_LUONG")));
                 entity.setSO_HUU(c.getInt(c.getColumnIndex("SO_HUU")));

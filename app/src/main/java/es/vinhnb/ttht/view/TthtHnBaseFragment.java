@@ -19,6 +19,9 @@ import com.es.tungnv.views.R;
  */
 
 public abstract class TthtHnBaseFragment extends Fragment {
+    public static final int CAMERA_REQUEST_CONGTO = 1111;
+    public static final int CAMERA_REQUEST_CONGTO_NIEMPHONG = 1112;
+
     abstract void initDataAndView(View viewRoot) throws Exception;
 
     abstract void setAction(Bundle savedInstanceState) throws Exception;

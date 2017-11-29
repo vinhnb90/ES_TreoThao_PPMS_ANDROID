@@ -667,7 +667,7 @@ public class PpmsTaskActivity extends FragmentActivity implements ITasksChoose, 
                         //TODO not update collumn  ANH_CTO, SAI_CHI_SO, NGAY_PHUC_TRA, NHAN_XET_PHUC_TRA, CHI_SO_PHUC_TRA, TINH_TRANG_NIEM_PHONG
                         ContentValues contentValuesUpdate = new ContentValues();
                         contentValuesUpdate.put("MA_PHAN_CONG", task.getPhanCongId());
-                        contentValuesUpdate.put("MA_DVIQLY", task.getMaDonViQLy());
+                        contentValuesUpdate.put("MA_NVIEN", task.getMaDonViQLy());
                         contentValuesUpdate.put("MA_DDO", task.getMaDiemDo());
                         contentValuesUpdate.put("MA_SO_GCS", task.getMaSoGcs());
                         contentValuesUpdate.put("MA_KH", task.getMaKhachHang());
@@ -705,7 +705,7 @@ public class PpmsTaskActivity extends FragmentActivity implements ITasksChoose, 
 
                         ContentValues contentValuesInsert = new ContentValues();
                         contentValuesInsert.put("MA_PHAN_CONG", task.getPhanCongId());
-                        contentValuesInsert.put("MA_DVIQLY", task.getMaDonViQLy());
+                        contentValuesInsert.put("MA_NVIEN", task.getMaDonViQLy());
                         contentValuesInsert.put("MA_DDO", task.getMaDiemDo());
                         contentValuesInsert.put("MA_SO_GCS", task.getMaSoGcs());
                         contentValuesInsert.put("MA_KH", task.getMaKhachHang());

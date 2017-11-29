@@ -165,8 +165,8 @@ public class EsspAsyncCallWS {
                         } catch (Exception e) {
                         }
                         try {
-                            if (tableRow.getProperty("MA_DVIQLY") != null)
-                                ent_ma_dviqly.MA_DVIQLY = tableRow.getProperty("MA_DVIQLY").toString();
+                            if (tableRow.getProperty("MA_NVIEN") != null)
+                                ent_ma_dviqly.MA_DVIQLY = tableRow.getProperty("MA_NVIEN").toString();
                         } catch (Exception e) {
                         }
                         try {
@@ -661,9 +661,9 @@ public class EsspAsyncCallWS {
 //                        } catch (Exception e) {
 //                        }
 //                        try {
-//                            if (tableRow.getProperty("MA_DVIQLY") != null)
+//                            if (tableRow.getProperty("MA_NVIEN") != null)
 //                                ent_ks.setMA_DVIQLY(tableRow.getProperty(
-//                                        "MA_DVIQLY").toString());
+//                                        "MA_NVIEN").toString());
 //                        } catch (Exception e) {
 //                        }
 //                        try {

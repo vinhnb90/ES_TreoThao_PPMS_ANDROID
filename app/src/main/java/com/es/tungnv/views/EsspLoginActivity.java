@@ -252,7 +252,7 @@ public class EsspLoginActivity extends AppCompatActivity implements View.OnClick
                                 if(lstJsonDviQly != null){
                                     if(connection.deleteAllDataDVIQLY() != -1){
                                         for (JSONObject m : lstJsonDviQly) {
-                                            if(connection.insertDataDVIQLY(m.getString("MA_DVIQLY"), m.getString("TEN_DVIQLY")) != -1){
+                                            if(connection.insertDataDVIQLY(m.getString("MA_NVIEN"), m.getString("TEN_DVIQLY")) != -1){
                                                 countDvi++;
                                             }
                                         }
@@ -464,7 +464,7 @@ public class EsspLoginActivity extends AppCompatActivity implements View.OnClick
         if(connection.checkRemember()){
             Cursor c = connection.getDataRemember();
             if (c.moveToFirst()) {
-                int pos = connection.getPosDviQly(c.getString(c.getColumnIndex("MA_DVIQLY")));
+                int pos = connection.getPosDviQly(c.getString(c.getColumnIndex("MA_NVIEN")));
                 spDvi.setSelection(pos);
                 etUserName.setText(c.getString(c.getColumnIndex("USERNAME")));
                 etPassWord.setText(c.getString(c.getColumnIndex("PASSWORD")));

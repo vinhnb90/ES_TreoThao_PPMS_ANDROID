@@ -138,7 +138,7 @@ public class InvoiceAsyncCallWS {
             SoapSerializationEnvelope envelope=new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.dotNet=true;
             SoapObject request=new SoapObject(InvoiceConstantVariables.NAMESPACE, METHOD);
-            request.addProperty("MA_DVIQLY", MA_DVIQLY);
+            request.addProperty("MA_NVIEN", MA_DVIQLY);
             request.addProperty("MA_MAY", MA_MAY);
             request.addProperty("MA_TNGAN", MA_TNGAN);
             request.addProperty("TEN_TNGAN", TEN_TNGAN);
@@ -191,7 +191,7 @@ public class InvoiceAsyncCallWS {
             SoapSerializationEnvelope envelope=new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.dotNet=true;
             SoapObject request=new SoapObject(InvoiceConstantVariables.NAMESPACE, METHOD);
-            request.addProperty("MA_DVIQLY", MA_DVIQLY);
+            request.addProperty("MA_NVIEN", MA_DVIQLY);
             request.addProperty("MA_MAY", MA_MAY);
             request.addProperty("MA_TNGAN", MA_TNGAN);
             envelope.setOutputSoapObject(request);
@@ -244,7 +244,7 @@ public class InvoiceAsyncCallWS {
             SoapSerializationEnvelope envelope=new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.dotNet=true;
             SoapObject request=new SoapObject(InvoiceConstantVariables.NAMESPACE, METHOD);
-            request.addProperty("MA_DVIQLY", MA_DVIQLY);
+            request.addProperty("MA_NVIEN", MA_DVIQLY);
             request.addProperty("MA_TNGAN", MA_TNGAN);
             request.addProperty("TONG_HDON", TONG_HDON);
             envelope.setOutputSoapObject(request);
@@ -291,7 +291,7 @@ public class InvoiceAsyncCallWS {
             SoapSerializationEnvelope envelope=new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.dotNet=true;
             SoapObject request=new SoapObject(InvoiceConstantVariables.NAMESPACE, METHOD);
-            request.addProperty("MA_DVIQLY", MA_DVIQLY);
+            request.addProperty("MA_NVIEN", MA_DVIQLY);
             request.addProperty("MA_TNGAN", MA_TNGAN);
             request.addProperty("TT_HDON", TT_HDON);
             envelope.setOutputSoapObject(request);
@@ -338,7 +338,7 @@ public class InvoiceAsyncCallWS {
             SoapSerializationEnvelope envelope=new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.dotNet=true;
             SoapObject request=new SoapObject(InvoiceConstantVariables.NAMESPACE, METHOD);
-            request.addProperty("MA_DVIQLY", MA_DVIQLY);
+            request.addProperty("MA_NVIEN", MA_DVIQLY);
             request.addProperty("MA_TNGAN", MA_TNGAN);
             request.addProperty("TT_HDON", TT_HDON);
             envelope.setOutputSoapObject(request);
@@ -385,7 +385,7 @@ public class InvoiceAsyncCallWS {
             SoapSerializationEnvelope envelope=new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.dotNet=true;
             SoapObject request=new SoapObject(InvoiceConstantVariables.NAMESPACE, METHOD);
-            request.addProperty("MA_DVIQLY", MA_DVIQLY);
+            request.addProperty("MA_NVIEN", MA_DVIQLY);
             request.addProperty("MA_TNGAN", MA_TNGAN);
             request.addProperty("TT_BBGIAO", TT_BBGIAO);
             envelope.setOutputSoapObject(request);

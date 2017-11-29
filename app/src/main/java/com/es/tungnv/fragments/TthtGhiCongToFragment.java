@@ -196,7 +196,7 @@ public class TthtGhiCongToFragment extends Fragment implements View.OnClickListe
             tthtBBanEntity.setID_BBAN_TRTH(cBBan.getInt(cBBan.getColumnIndex("ID_BBAN_TRTH")));
             tthtBBanEntity.setMA_CNANG(cBBan.getString(cBBan.getColumnIndex("MA_CNANG")));
             tthtBBanEntity.setMA_DDO(cBBan.getString(cBBan.getColumnIndex("MA_DDO")));
-            tthtBBanEntity.setMA_DVIQLY(cBBan.getString(cBBan.getColumnIndex("MA_DVIQLY")));
+            tthtBBanEntity.setMA_DVIQLY(cBBan.getString(cBBan.getColumnIndex("MA_NVIEN")));
             tthtBBanEntity.setMA_LDO(cBBan.getString(cBBan.getColumnIndex("MA_LDO")));
             tthtBBanEntity.setMA_NVIEN(cBBan.getString(cBBan.getColumnIndex("BUNDLE_MA_NVIEN")));
             tthtBBanEntity.setMA_YCAU_KNAI(cBBan.getString(cBBan.getColumnIndex("MA_YCAU_KNAI")));
@@ -225,7 +225,7 @@ public class TthtGhiCongToFragment extends Fragment implements View.OnClickListe
         Cursor cCto = connection.getCToByID_CHITIET_CTO(ID_CHITIET_CTO);
         if (cCto != null) {
             tthtCtoEntity = new TthtCtoEntity();
-            tthtCtoEntity.setMA_DVIQLY(cCto.getString(cCto.getColumnIndex("MA_DVIQLY")));
+            tthtCtoEntity.setMA_DVIQLY(cCto.getString(cCto.getColumnIndex("MA_NVIEN")));
             tthtCtoEntity.setID_BBAN_TRTH(cCto.getInt(cCto.getColumnIndex("ID_BBAN_TRTH")));
             tthtCtoEntity.setMA_CTO(cCto.getString(cCto.getColumnIndex("MA_CTO")));
             tthtCtoEntity.setSO_CTO(cCto.getString(cCto.getColumnIndex("SO_CTO")));

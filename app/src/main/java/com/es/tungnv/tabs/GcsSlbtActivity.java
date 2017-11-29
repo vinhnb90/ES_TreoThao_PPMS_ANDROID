@@ -118,7 +118,7 @@ public class GcsSlbtActivity extends Fragment{
                     entityKH.setMA_NVGCS(cKhachHang.getString(cKhachHang.getColumnIndex("MA_NVGCS")));
                     entityKH.setMA_KHANG(cKhachHang.getString(cKhachHang.getColumnIndex("MA_KHANG")));
                     entityKH.setMA_DDO(cKhachHang.getString(cKhachHang.getColumnIndex("MA_DDO")));
-                    entityKH.setMA_DVIQLY(cKhachHang.getString(cKhachHang.getColumnIndex("MA_DVIQLY")));
+                    entityKH.setMA_DVIQLY(cKhachHang.getString(cKhachHang.getColumnIndex("MA_NVIEN")));
                     entityKH.setMA_GC(cKhachHang.getString(cKhachHang.getColumnIndex("MA_GC")));
                     entityKH.setMA_QUYEN(cKhachHang.getString(cKhachHang.getColumnIndex("MA_QUYEN")));
                     entityKH.setMA_TRAM(cKhachHang.getString(cKhachHang.getColumnIndex("MA_TRAM")));

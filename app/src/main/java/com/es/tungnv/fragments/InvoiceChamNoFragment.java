@@ -1034,7 +1034,7 @@ public class InvoiceChamNoFragment extends Fragment implements View.OnClickListe
             int count = 0;
             if(arrData != null) {
                 for (JSONObject object : arrData) {
-                    if (connection.insertDataKHACHHANG(object.getInt("THANG_HT"), object.getInt("NAM_HT"), object.getString("MA_DVIQLY"),
+                    if (connection.insertDataKHACHHANG(object.getInt("THANG_HT"), object.getInt("NAM_HT"), object.getString("MA_NVIEN"),
                             object.getInt("ID_HDON"), object.getString("LOAI_HDON"), object.getString("LOAI_PSINH"), object.getString("MA_KHANG"),
                             object.getString("MA_KHTT"), object.getString("TEN_KHANG"), object.getString("TEN_KHANG1"), object.getString("TEN_KHTT"),
                             object.getString("DCHI_KHANG"), object.getString("DCHI_KHTT"), object.getInt("LOAI_KHANG"), object.getString("MANHOM_KHANG"),

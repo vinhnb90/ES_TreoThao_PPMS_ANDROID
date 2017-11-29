@@ -27,7 +27,7 @@ public class GcsConstantVariables {
             "G - Bị rời vị trí"};
 
     public static final String[] COLARR = {"ID_ROUTE", "MA_NVGCS", "MA_KHANG", "MA_DDO",
-            "MA_DVIQLY", "MA_GC", "MA_QUYEN", "MA_TRAM", "BOCSO_ID",
+            "MA_NVIEN", "MA_GC", "MA_QUYEN", "MA_TRAM", "BOCSO_ID",
             "LOAI_BCS", "LOAI_CS", "TEN_KHANG", "DIA_CHI", "MA_NN", "SO_HO",
             "MA_CTO", "SERY_CTO", "HSN", "CS_CU", "TTR_CU", "SL_CU",
             "SL_TTIEP", "NGAY_CU", "CS_MOI", "TTR_MOI", "SL_MOI", "CHUOI_GIA",
@@ -63,7 +63,7 @@ public class GcsConstantVariables {
     public static final String CREATE_TABLE_CHISO = "CREATE TABLE "
             + TABLE_NAME_CHISO + "(ID INTEGER ,"
             + "MA_NVGCS TEXT," + "MA_KHANG TEXT," + "MA_DDO TEXT,"
-            + "MA_DVIQLY TEXT," + "MA_GC TEXT," + "MA_QUYEN TEXT,"
+            + "MA_NVIEN TEXT," + "MA_GC TEXT," + "MA_QUYEN TEXT,"
             + "MA_TRAM TEXT," + "BOCSO_ID TEXT," + "LOAI_BCS TEXT,"
             + "LOAI_CS TEXT," + "TEN_KHANG TEXT," + "DIA_CHI TEXT,"
             + "MA_NN TEXT," + "SO_HO INTEGER," + "MA_CTO TEXT,"

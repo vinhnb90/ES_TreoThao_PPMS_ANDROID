@@ -11,6 +11,8 @@ import es.vinhnb.ttht.adapter.ChiTietCtoAdapter.DataChiTietCtoAdapter;
 import es.vinhnb.ttht.adapter.ChungLoaiAdapter;
 import es.vinhnb.ttht.adapter.HistoryAdapter;
 import es.vinhnb.ttht.adapter.TramAdapter;
+import es.vinhnb.ttht.common.Common;
+import es.vinhnb.ttht.database.table.TABLE_ANH_HIENTRUONG;
 import es.vinhnb.ttht.database.table.TABLE_BBAN_CTO;
 import es.vinhnb.ttht.database.table.TABLE_BBAN_TUTI;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_CTO;
@@ -383,5 +385,49 @@ public class TthtHnSQLDAO extends SqlDAO {
         Cursor cursor = super.mDatabase.rawQuery(query, argsTram);
 
         return super.selectAllLazy(TABLE_TRAM.class, cursor);
+    }
+
+
+    public List<TABLE_ANH_HIENTRUONG> getAnhHienTruong(String[] argsAnhHienTruong, Common.TYPE_IMAGE typeImage) {
+        StringBuilder query = new StringBuilder("SELECT  * " +
+                " FROM " +
+                TABLE_ANH_HIENTRUONG.table.getName() +
+                " WHERE " +
+                TABLE_ANH_HIENTRUONG.table.MA_NVIEN +
+                " = ? " +
+                "AND " +
+                TABLE_ANH_HIENTRUONG.table.TYPE +
+                " = " +
+                typeImage.code);
+
+
+        switch (typeImage) {
+            case IMAGE_CONG_TO:
+            case IMAGE_CONG_TO_NIEM_PHONG:
+                query.append(" AND " +
+                        TABLE_ANH_HIENTRUONG.table.ID_CHITIET_CTO +
+                        " = ?");
+                break;
+
+
+            case IMAGE_TU:
+            case IMAGE_TI:
+            case IMAGE_NIEM_PHONG_TI:
+            case IMAGE_NIEM_PHONG_TU:
+            case IMAGE_MACH_NHI_THU_TI:
+            case IMAGE_MACH_NHI_THU_TU:
+                query.append(" AND " +
+                        TABLE_ANH_HIENTRUONG.table.ID_BBAN_TUTI +
+                        " = ?" +
+                        " AND " +
+                        TABLE_ANH_HIENTRUONG.table.ID_CHITIET_TUTI +
+                        " = ?");
+                break;
+
+        }
+
+        Cursor cursor = super.mDatabase.rawQuery(query.toString(), argsAnhHienTruong);
+
+        return super.selectAllLazy(TABLE_ANH_HIENTRUONG.class, cursor);
     }
 }

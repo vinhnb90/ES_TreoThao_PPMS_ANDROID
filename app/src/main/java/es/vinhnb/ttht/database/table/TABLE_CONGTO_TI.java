@@ -25,7 +25,7 @@ public class TABLE_CONGTO_TI {
     @Collumn(name = "ID_TABLE_CONGTO_TI", type = TYPE.INTEGER, other = "NOT NULL")
     private int ID_TABLE_CONGTO_TI;
 
-    @Collumn(name = "MA_DVIQLY", type = TYPE.TEXT, other = "NOT NULL")
+    @Collumn(name = "MA_NVIEN", type = TYPE.TEXT, other = "NOT NULL")
     private String MA_DVIQLY;
 
     @Collumn(name = "ID_BBAN_TRTH", type = TYPE.INTEGER, other = "NOT NULL")

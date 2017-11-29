@@ -26,7 +26,7 @@ public class EsspEntityDviQly {
     public LinkedHashMap<String, String> ToLinkedHashMap(){
         LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
         map.put("ID", ID+"");
-        map.put("MA_DVIQLY",  MA_DVIQLY);
+        map.put("MA_NVIEN",  MA_DVIQLY);
         map.put("TEN_DVIQLY",  TEN_DVIQLY);
         return map;
     }
