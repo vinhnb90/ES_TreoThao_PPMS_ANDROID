@@ -73,11 +73,13 @@
     <color name="tththn_submited_row_recyler">@color/tththn_navi_menu_icon</color>
 
     <color name="tththn_button">@color/tththn_submited_row_recyler</color>
-    <color name="tththn_transparent">#20000000</color>
+    <color name="tththn_transparent">#40000000</color>
 
 
     <color name="tththn_background_lv1">#DDDDDD</color>
     <color name="tththn_background_lv2">#EEEEEE</color>
     <color name="tththn_background_lv3">#FFFFFF</color>
+    <color name="tththn_background_lv4">#448AFF</color>
+
 
 </resources>

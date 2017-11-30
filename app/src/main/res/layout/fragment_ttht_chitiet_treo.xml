@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/rl_v1"
-        android:layout_marginTop="@dimen/_50sdp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_40sdp">
+
         <ScrollView
-            android:padding="@dimen/_5sdp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_40sdp"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_5sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -704,7 +706,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:orientation="horizontal"
                     android:weightSum="2"
-                    tools:visibility="visible">
+                    tools:visibility="gone">
 
                     <RelativeLayout
                         android:id="@+id/rl_26"
@@ -765,7 +767,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:orientation="horizontal"
                     android:weightSum="2"
-                    tools:visibility="visible">
+                    tools:visibility="gone">
 
                     <RelativeLayout
                         android:id="@+id/rl_28"
@@ -824,7 +826,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:orientation="horizontal"
                     android:weightSum="2"
-                    tools:visibility="visible">
+                    tools:visibility="gone">
 
                     <RelativeLayout
                         android:id="@+id/rl_28_1"
@@ -870,12 +872,13 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_24sdp"
                             android:layout_alignParentBottom="true"
                             android:layout_below="@+id/tv_29_1a"
                             android:layout_marginRight="3dp"
                             android:background="@drawable/xml_tththn_spin"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_2sdp">
 
                             <ImageButton
                                 android:id="@+id/iv_30a_sp_loaihom"
@@ -941,12 +944,13 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_24sdp"
                             android:layout_alignParentBottom="true"
                             android:layout_below="@+id/tv_30a"
                             android:layout_marginRight="3dp"
                             android:background="@drawable/xml_tththn_spin"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_2sdp">
 
                             <ImageButton
                                 android:id="@+id/iv_30a_sp_sochikiemdinh"
@@ -1002,12 +1006,13 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_24sdp"
                             android:layout_alignParentBottom="true"
                             android:layout_below="@+id/tv_31a"
                             android:layout_marginRight="3dp"
                             android:background="@drawable/xml_tththn_spin"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_2sdp">
 
                             <ImageButton
                                 android:id="@+id/iv_31a_sp_sochi_homhop"
@@ -1063,12 +1068,13 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_24sdp"
                             android:layout_alignParentBottom="true"
                             android:layout_below="@+id/tv_32a"
                             android:layout_marginRight="3dp"
                             android:background="@drawable/xml_tththn_spin"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_2sdp">
 
                             <ImageButton
                                 android:id="@+id/iv_32a_sp_sochi_booc"
@@ -1115,7 +1121,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:orientation="horizontal"
                     android:weightSum="3"
-                    tools:visibility="gone">
+                    tools:visibility="visible">
 
                     <RelativeLayout
                         android:id="@+id/rl_33"
@@ -1189,7 +1195,7 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_24sdp"
                             android:layout_alignParentBottom="true"
                             android:layout_below="@+id/tv_35"
                             android:layout_marginRight="3dp"
@@ -1295,7 +1301,7 @@
                     android:background="@drawable/xml_tththn_rectangle6"
                     android:orientation="horizontal"
                     android:weightSum="2"
-                    tools:visibility="gone">
+                    tools:visibility="visible">
 
                     <RelativeLayout
                         android:id="@+id/rl_37"
@@ -1341,7 +1347,8 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_margin="@dimen/_5sdp"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/_20sdp">
 
                         <RelativeLayout
                             android:id="@+id/rl_39"
@@ -1378,7 +1385,7 @@
                     android:background="@drawable/xml_tththn_rectangle6"
                     android:orientation="horizontal"
                     android:weightSum="2"
-                    tools:visibility="gone">
+                    tools:visibility="visible">
 
                     <RelativeLayout
                         android:id="@+id/rl_40"
@@ -1447,8 +1454,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/_5sdp"
                                 android:layout_toRightOf="@+id/tv_41a_CS1"
-                                android:gravity="bottom"
-                                android:lines="1" />
+                                android:text="dsadasdasdsadasdasdasdsadasdasdasdasdsadsaddsa" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -1550,17 +1556,18 @@
         </ScrollView>
 
         <RelativeLayout
-            tools:visibility="visible"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:visibility="visible">
 
             <com.github.clans.fab.FloatingActionMenu
                 android:id="@+id/menu_red"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:paddingBottom="@dimen/_20sdp"
+                android:paddingBottom="@dimen/_40sdp"
                 fab:menu_backgroundColor="@color/tththn_transparent"
                 fab:menu_colorNormal="@color/tththn_button"
                 fab:menu_fab_label="Đóng"
@@ -1574,7 +1581,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_tththn_move"
                     fab:fab_label="Thông tin khách hàng"
-                    fab:fab_size="mini" />
+                    fab:fab_size="normal" />
 
                 <com.github.clans.fab.FloatingActionButton
                     android:id="@+id/fab_tt_cannhap"
@@ -1582,7 +1589,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_tththn_move"
                     fab:fab_label="Thông tin cần nhập"
-                    fab:fab_size="mini" />
+                    fab:fab_size="normal" />
 
                 <com.github.clans.fab.FloatingActionButton
                     android:id="@+id/fab_tt_chupanh"
@@ -1590,29 +1597,55 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_tththn_move"
                     fab:fab_label="Chụp ảnh"
-                    fab:fab_size="mini" />
+                    fab:fab_size="normal" />
+
 
             </com.github.clans.fab.FloatingActionMenu>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:background="@color/tththn_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentBottom="true"
+            tools:background="@color/colorPrimary">
+
+            <com.roughike.bottombar.BottomBar
+                android:id="@+id/nav_bottom_menu"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:background="@color/tththn_button"
+                android:backgroundTint="@color/text_white"
+                app:bb_activeTabColor="@color/text_white"
+                app:bb_badgeBackgroundColor="@color/text_white"
+                app:bb_behavior="shifting"
+                app:bb_inActiveTabAlpha="0.8"
+                app:bb_inActiveTabColor="@color/text_white"
+                app:bb_showShadow="true"
+                app:bb_tabXmlResource="@xml/xml_tththn_resource_bottom_menu"
+                app:bb_titleTextAppearance="@style/CustomTitleTextAppearance"
+                />
         </RelativeLayout>
     </RelativeLayout>
 
 
-    <com.github.clans.fab.FloatingActionButton
-        android:id="@+id/fab_ghi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/_10sdp"
-        android:src="@drawable/ic_tththn_edit_2"
-        android:visibility="visible"
-        app:layout_anchor="@id/rl_v1"
-        app:layout_anchorGravity="top|end"
-        fab:fab_colorPressed="#E8004A"
-        fab:fab_colorRipple="#C20024"
-        fab:fab_elevationCompat="6dp"
-        fab:fab_colorNormal="@color/tththn_button"
-        fab:fab_shadowColor="#000"
-        fab:fab_size="normal"
-        tools:override="true"
-        tools:visibility="visible" />
+    <!--
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_ghi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_tththn_edit_2"
+            android:visibility="visible"
+            app:layout_anchor="@id/rl_v1"
+            app:layout_anchorGravity="top|end"
+            fab:fab_colorNormal="@color/tththn_button"
+            fab:fab_colorPressed="#E8004A"
+            fab:fab_colorRipple="#C20024"
+            fab:fab_elevationCompat="6dp"
+            fab:fab_shadowColor="#000"
+            fab:fab_size="normal"
+            tools:visibility="visible" />-->
 </android.support.design.widget.CoordinatorLayout>

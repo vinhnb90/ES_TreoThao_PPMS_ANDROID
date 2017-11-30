@@ -25,7 +25,7 @@
             <android.support.design.widget.AppBarLayout
                 android:id="@+id/app_bar_tththn"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_64sdp"
+                android:layout_height="@dimen/_60sdp"
                 android:layout_alignParentTop="true"
                 android:background="?attr/colorPrimary"
                 android:stateListAnimator="@null"
@@ -58,8 +58,8 @@
                     <RelativeLayout
                         android:id="@+id/menu"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_50sdp"
-                        android:background="#448AFF"></RelativeLayout>
+                        android:layout_height="@dimen/_40sdp"
+                        android:background="@color/tththn_background_lv4"></RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/rl_content_main"

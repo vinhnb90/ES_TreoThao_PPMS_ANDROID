@@ -28,6 +28,8 @@ import android.widget.TextView;
 import com.es.tungnv.views.R;
 import com.esolutions.esloginlib.lib.LoginFragment;
 import com.github.clans.fab.FloatingActionButton;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -66,9 +68,9 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
     private TthtHnSQLDAO mSqlDAO;
     private Unbinder unbinder;
 
-    //fab
-    @BindView(R.id.fab_ghi)
-    FloatingActionButton fab_ghi;
+    //menu bottom
+    @BindView(R.id.nav_bottom_menu)
+    BottomBar bottomBar;
 
 
     //tv
@@ -926,44 +928,19 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         catchEditCHI_SO();
 
 
+        //catch action bottombar
+        catchClickBottomBar();
+
+
         //spin click
-        ibtnLoaihom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                spLoaihom.performClick();
-            }
-        });
-
-        ibtnPhuongthucdoxa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                spPhuongthucdoxa.performClick();
-            }
-        });
-
-        ibtnSochibooc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                spSochibooc.performClick();
-            }
-        });
-
-        ibtnSochihomhop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                spSochihomhop.performClick();
-            }
-        });
-
-        ibtnSochikiemdinh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                spSochikiemdinh.performClick();
-            }
-        });
+        catchSelectSpinner();
 
 
         //anh niem phong
+        catchClickAnh();
+    }
+
+    private void catchClickAnh() {
         ivAnhNiemPhong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1051,16 +1028,65 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
             }
         });
+    }
 
-
-        //click fab
-        fab_ghi.setOnClickListener(new View.OnClickListener() {
+    private void catchSelectSpinner() {
+        ibtnLoaihom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                spLoaihom.performClick();
+            }
+        });
+
+        ibtnPhuongthucdoxa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spPhuongthucdoxa.performClick();
+            }
+        });
+
+        ibtnSochibooc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spSochibooc.performClick();
+            }
+        });
+
+        ibtnSochihomhop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spSochihomhop.performClick();
+            }
+        });
+
+        ibtnSochikiemdinh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spSochikiemdinh.performClick();
+            }
+        });
+    }
+
+    private void catchClickBottomBar() {
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(int tabId) {
                 try {
-                    //check Data
-                    if (isFullRequireDataCto()) {
-                        saveDataCto();
+                    switch (tabId) {
+                        case R.id.nav_bottom_truoc:
+
+                            break;
+
+                        case R.id.nav_bottom_ghi:
+                            //check Data
+                            if (isFullRequireDataCto()) {
+                                saveDataCto();
+                            }
+                            break;
+
+                        case R.id.nav_bottom_tieptheo:
+
+                            break;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

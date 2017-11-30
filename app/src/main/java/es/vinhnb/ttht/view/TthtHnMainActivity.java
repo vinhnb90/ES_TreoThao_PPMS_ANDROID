@@ -395,7 +395,6 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
 
                     fragmentMain = new TthtHnMainFragment().newInstance(bundle);
                     mTransaction.replace(mRlMain.getId(), fragmentMain);
-                    mTransaction.addToBackStack(tagNew.tagFrag);
                     mTransaction.commit();
                 }
 
@@ -406,7 +405,6 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
 
                     fragmentDownload = new TthtHnDownloadFragment().newInstance(bundle);
                     mTransaction.replace(mRlMain.getId(), fragmentDownload);
-                    mTransaction.addToBackStack(tagNew.tagFrag);
                     mTransaction.commit();
                 }
 
