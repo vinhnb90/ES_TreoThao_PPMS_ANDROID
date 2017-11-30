@@ -69,8 +69,8 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
     private Unbinder unbinder;
 
     //menu bottom
-    @BindView(R.id.nav_bottom_menu)
-    BottomBar bottomBar;
+    @BindView(R.id.btn_ghi)
+    Button btnGhi;
 
 
     //tv
@@ -928,7 +928,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         catchEditCHI_SO();
 
 
-        //catch action bottombar
+        //catch action bottom menu
         catchClickBottomBar();
 
 
@@ -1068,25 +1068,13 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
     }
 
     private void catchClickBottomBar() {
-        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+        btnGhi.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTabSelected(int tabId) {
+            public void onClick(View view) {
                 try {
-                    switch (tabId) {
-                        case R.id.nav_bottom_truoc:
-
-                            break;
-
-                        case R.id.nav_bottom_ghi:
-                            //check Data
-                            if (isFullRequireDataCto()) {
-                                saveDataCto();
-                            }
-                            break;
-
-                        case R.id.nav_bottom_tieptheo:
-
-                            break;
+                    //check Data
+                    if (isFullRequireDataCto()) {
+                        saveDataCto();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

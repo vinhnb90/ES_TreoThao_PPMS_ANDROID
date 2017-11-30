@@ -1562,11 +1562,11 @@
 
             <com.github.clans.fab.FloatingActionMenu
                 android:id="@+id/menu_red"
-                android:layout_marginBottom="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:paddingBottom="@dimen/_40sdp"
                 fab:menu_backgroundColor="@color/tththn_transparent"
                 fab:menu_colorNormal="@color/tththn_button"
@@ -1603,31 +1603,50 @@
             </com.github.clans.fab.FloatingActionMenu>
         </RelativeLayout>
 
-        <RelativeLayout
-            android:background="@color/tththn_button"
+        <LinearLayout
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:orientation="horizontal"
+            android:weightSum="3"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            tools:background="@color/colorPrimary">
+            android:background="@color/text_white"
+            android:gravity="center_horizontal|center_vertical"
+            >
 
-            <com.roughike.bottombar.BottomBar
-                android:id="@+id/nav_bottom_menu"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_alignParentBottom="true"
-                android:layout_gravity="bottom"
-                android:background="@color/tththn_button"
-                android:backgroundTint="@color/text_white"
-                app:bb_activeTabColor="@color/text_white"
-                app:bb_badgeBackgroundColor="@color/text_white"
-                app:bb_behavior="shifting"
-                app:bb_inActiveTabAlpha="0.8"
-                app:bb_inActiveTabColor="@color/text_white"
-                app:bb_showShadow="true"
-                app:bb_tabXmlResource="@xml/xml_tththn_resource_bottom_menu"
-                app:bb_titleTextAppearance="@style/CustomTitleTextAppearance"
-                />
-        </RelativeLayout>
+            <Button
+                android:id="@+id/btn_cto_truoc"
+                style="@style/buttonStyle_menu_bottom"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_tththn_arrow_left"
+                android:text="Công tơ trước" />
+
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/_1sdp"
+                android:id="@+id/btn_ghi"
+                style="@style/buttonStyle_menu_bottom"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_tththn_edit_2"
+                android:text="Ghi thông tin" />
+
+
+            <Button
+                android:layout_marginLeft="@dimen/_1sdp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:id="@+id/btn_cto_tieptheo"
+                style="@style/buttonStyle_menu_bottom"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_tththn_arrow_right"
+                android:text="Công tơ tiếp" />
+
+        </LinearLayout>
     </RelativeLayout>
 
 

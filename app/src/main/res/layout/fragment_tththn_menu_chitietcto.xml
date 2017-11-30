@@ -11,7 +11,7 @@
 
 
     <Button
-        style="@style/buttonStyle_menu"
+        style="@style/buttonStyle_menu_top"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_26sdp"
         android:layout_marginLeft="@dimen/_5sdp"
@@ -20,7 +20,7 @@
         android:textAllCaps="false" />
 
     <Button
-        style="@style/buttonStyle_menu"
+        style="@style/buttonStyle_menu_top"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_26sdp"
         android:layout_marginLeft="@dimen/_5sdp"
@@ -29,7 +29,7 @@
         android:textAllCaps="false" />
 
     <Button
-        style="@style/buttonStyle_menu"
+        style="@style/buttonStyle_menu_top"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_26sdp"
         android:layout_marginLeft="@dimen/_5sdp"
