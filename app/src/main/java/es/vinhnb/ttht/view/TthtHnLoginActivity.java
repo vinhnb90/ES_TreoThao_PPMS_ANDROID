@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.AppCompatSpinner;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.es.tungnv.views.R;
@@ -236,6 +237,10 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
             if (statusCode == 200) {
                 userMtb = userMtbResponse.body();
                 mMaNVien = userMtb.MA_NHAN_VIEN;
+                if (TextUtils.isEmpty(mMaNVien) || mMaNVien.equalsIgnoreCase("error")) {
+                    showSnackBar(Common.MESSAGE.ex02.getContent(), "Không lấy được dữ liệu nhân viên, vui lòng xem địa lại thông tin đăng nhập, đăng kí imei máy tính bảng!", null);
+                    return false;
+                }
                 return true;
             } else {
                 showSnackBar(Common.MESSAGE.ex02.getContent(), "Mã lỗi: " + statusCode + "\nNội dung:" + userMtbResponse.errorBody().string(), null);
@@ -249,7 +254,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
 
     @Override
     public void saveDBDepart(List<TABLE_DVIQLY> list) throws Exception {
-        String[] collumnCheck = new String[]{TABLE_DVIQLY.decrale.MA_DVIQLY.name()};
+        String[] collumnCheck = new String[]{TABLE_DVIQLY.table.MA_DVIQLY.name()};
         for (TABLE_DVIQLY dviqly : list) {
             String[] valueCheck = new String[]{dviqly.getMA_DVIQLY()};
             if (!mSqlDAO.isExistRows(TABLE_DVIQLY.class, collumnCheck, valueCheck)) {
@@ -379,6 +384,12 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
 
             @Override
             public String getCodeDepart(int pos) {
+                if(listDepart.size() ==0)
+                    listDepart = mSqlDAO.selectAllLazy(TABLE_DVIQLY.class, null);
+
+                if(pos>=listDepart.size())
+                    return "";
+
                 return listDepart.get(pos).getMA_DVIQLY();
             }
         };

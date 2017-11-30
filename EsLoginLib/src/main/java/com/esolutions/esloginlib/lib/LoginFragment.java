@@ -90,7 +90,7 @@ public class LoginFragment extends Fragment {
             throw new ClassCastException("Class must be implement LoginInteface!");
 
         if (mLoginSharedPref == null) {
-            throw new NullPointerException("Shared Preference Login must be not null!");
+            return;
         }
 
         if (mLoginSharedPref.getAll().isEmpty()) {
@@ -378,6 +378,12 @@ public class LoginFragment extends Fragment {
                                         //login offline
                                         //Hiển thị message thông báo nếu đang chế độ ofline gọi main
                                         if (!resultCheckServerLogin) {
+                                            //nếu có mạng thì  không cho login offline
+                                            if (Common.isNetworkConnected(getContext())) {
+                                                showSnackBar("Thông báo", "Đăng nhập không thành công!", null);
+                                                return;
+                                            }
+
                                             if (resultCheckSessionLogin) {
                                                 ISnackbarIteractions snackbarIteractions = new ISnackbarIteractions() {
                                                     @Override

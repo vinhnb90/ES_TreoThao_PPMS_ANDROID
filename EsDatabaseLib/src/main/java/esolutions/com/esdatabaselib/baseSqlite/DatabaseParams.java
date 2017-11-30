@@ -10,6 +10,9 @@ public class DatabaseParams {
         public String nullColumnHack;
         public ContentValues values;
 
+        public Insert() {
+        }
+
         public Insert(String table, String nullColumnHack, ContentValues values) {
             this.table = table;
             this.nullColumnHack = nullColumnHack;

@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -646,6 +647,8 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
 
         //casting dữ liệu server MtbCtoModel sang dữ liệu sqlite TABLE_CHITIET_CTO
+
+
         TABLE_CHITIET_CTO tableBbanTuti = new TABLE_CHITIET_CTO(
                 0,
                 mtbCtoModel.MA_DVIQLY,
@@ -761,6 +764,10 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
         List<String> TRANG_THAI_DU_LIEUList = mSqlDAO.getTRANG_THAI_DU_LIEUofTABLE_BBAN_CTO(valueCheck);
 
         //casting dữ liệu server bbanModel sang dữ liệu sqlite TABLE_BBAN_CTO
+
+        //server ko trả về dữ liệu
+        String MA_NVIEN = TextUtils.isEmpty(bbanModel.MA_NVIEN) ? mMaNVien : bbanModel.MA_NVIEN;
+
         TABLE_BBAN_CTO tableBbanCto = new TABLE_BBAN_CTO(
                 0,
                 bbanModel.MA_DVIQLY,
@@ -768,7 +775,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                 bbanModel.MA_DDO,
                 bbanModel.SO_BBAN,
                 bbanModel.NGAY_TRTH,
-                bbanModel.MA_NVIEN,
+                MA_NVIEN,
                 bbanModel.MA_LDO,
                 bbanModel.NGAY_TAO,
                 bbanModel.NGUOI_TAO,
@@ -848,6 +855,10 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
 
         //casting dữ liệu server MtbBbanTutiModel sang dữ liệu sqlite TABLE_BBAN_TUTI
+        //catch case server ko trả về dữ liệu
+        String MA_NVIEN = TextUtils.isEmpty(bbanTutiModel.MA_NVIEN) ? mMaNVien : bbanTutiModel.MA_NVIEN;
+
+
         TABLE_BBAN_TUTI tableBbanTuti = new TABLE_BBAN_TUTI(
                 0,
                 bbanTutiModel.MA_DVIQLY,
@@ -855,7 +866,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                 bbanTutiModel.MA_DDO,
                 bbanTutiModel.SO_BBAN,
                 bbanTutiModel.NGAY_TRTH,
-                bbanTutiModel.MA_NVIEN,
+                MA_NVIEN,
                 bbanTutiModel.TRANG_THAI,
                 bbanTutiModel.TEN_KHANG,
                 bbanTutiModel.DCHI_HDON,
@@ -926,6 +937,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
 
         //casting dữ liệu server MTB_TuTiModel sang dữ liệu sqlite TABLE_CHITIET_TUTI
+
         TABLE_CHITIET_TUTI tableChitietTuti = new TABLE_CHITIET_TUTI(
                 0,
                 tuTiModel.MA_CLOAI,

@@ -16,7 +16,7 @@ import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
  */
 
 @Table(name = "TABLE_BBAN_CTO")
-public class TABLE_BBAN_CTO {
+public class TABLE_BBAN_CTO implements Cloneable{
 
     @EnumNameCollumn()
     public enum table {
@@ -411,5 +411,10 @@ public class TABLE_BBAN_CTO {
 
     public void setTRANG_THAI_DU_LIEU(String TRANG_THAI_DU_LIEU) {
         this.TRANG_THAI_DU_LIEU = TRANG_THAI_DU_LIEU;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

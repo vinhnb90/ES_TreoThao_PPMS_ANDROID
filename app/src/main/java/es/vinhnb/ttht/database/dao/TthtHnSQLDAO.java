@@ -3,6 +3,7 @@ package es.vinhnb.ttht.database.dao;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.List;
 
@@ -230,7 +231,7 @@ public class TthtHnSQLDAO extends SqlDAO {
                 TABLE_CHITIET_CTO.table.ID_BBAN_TRTH.name() +
                 " = ? " +
                 " AND " +
-                TABLE_CHITIET_CTO.table.MA_BDONG +
+                TABLE_CHITIET_CTO.table.MA_BDONG.name() +
                 " = ? ";
 
         Cursor c = super.mDatabase.rawQuery(query, valueCheck);
@@ -315,6 +316,7 @@ public class TthtHnSQLDAO extends SqlDAO {
                 tableHistory.soTi = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_TI_API.name()));
                 tableHistory.soTram = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_TRAM_API.name()));
                 tableHistory.soChungLoai = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_CHUNGLOAI_API.name()));
+                tableHistory.typeResult = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.TYPE_RESULT.name()));
 
                 return tableHistory;
             }
@@ -327,13 +329,13 @@ public class TthtHnSQLDAO extends SqlDAO {
                 " FROM " +
                 TABLE_CHITIET_CTO.table.getName() +
                 " WHERE " +
-                TABLE_CHITIET_CTO.table.ID_BBAN_TRTH +
+                TABLE_CHITIET_CTO.table.ID_BBAN_TRTH.name() +
                 " = ?" +
                 " AND " +
-                TABLE_CHITIET_CTO.table.MA_BDONG +
+                TABLE_CHITIET_CTO.table.MA_BDONG.name() +
                 " = ?" +
                 " AND " +
-                TABLE_CHITIET_CTO.table.MA_NVIEN +
+                TABLE_CHITIET_CTO.table.MA_NVIEN.name() +
                 " = ?" +
                 "";
 
@@ -347,14 +349,15 @@ public class TthtHnSQLDAO extends SqlDAO {
                 " FROM " +
                 TABLE_BBAN_CTO.table.getName() +
                 " WHERE " +
-                TABLE_BBAN_CTO.table.ID_BBAN_TRTH +
+                TABLE_BBAN_CTO.table.ID_BBAN_TRTH.name() +
                 " = ?" +
                 " AND " +
-                TABLE_BBAN_CTO.table.MA_NVIEN +
+                TABLE_BBAN_CTO.table.MA_NVIEN.name() +
                 " = ?" +
                 "";
 
         Cursor cursor = super.mDatabase.rawQuery(query, agrs);
+        Log.d(TAG, "getBBan: " + cursor.getCount());
 
         return super.selectAllLazy(TABLE_BBAN_CTO.class, cursor);
     }
@@ -364,7 +367,7 @@ public class TthtHnSQLDAO extends SqlDAO {
                 " FROM " +
                 TABLE_LOAI_CONG_TO.table.getName() +
                 " WHERE " +
-                TABLE_LOAI_CONG_TO.table.MA_CLOAI +
+                TABLE_LOAI_CONG_TO.table.MA_CLOAI.name() +
                 " = ?" +
                 "";
 
@@ -393,19 +396,23 @@ public class TthtHnSQLDAO extends SqlDAO {
                 " FROM " +
                 TABLE_ANH_HIENTRUONG.table.getName() +
                 " WHERE " +
-                TABLE_ANH_HIENTRUONG.table.MA_NVIEN +
+                TABLE_ANH_HIENTRUONG.table.MA_NVIEN.name() +
                 " = ? " +
                 "AND " +
-                TABLE_ANH_HIENTRUONG.table.TYPE +
+                TABLE_ANH_HIENTRUONG.table.TYPE.name() +
                 " = " +
-                typeImage.code);
+                "'" +
+                typeImage.code
+                +
+                "'"
+        );
 
 
         switch (typeImage) {
             case IMAGE_CONG_TO:
             case IMAGE_CONG_TO_NIEM_PHONG:
                 query.append(" AND " +
-                        TABLE_ANH_HIENTRUONG.table.ID_CHITIET_CTO +
+                        TABLE_ANH_HIENTRUONG.table.ID_CHITIET_CTO.name() +
                         " = ?");
                 break;
 
@@ -417,10 +424,10 @@ public class TthtHnSQLDAO extends SqlDAO {
             case IMAGE_MACH_NHI_THU_TI:
             case IMAGE_MACH_NHI_THU_TU:
                 query.append(" AND " +
-                        TABLE_ANH_HIENTRUONG.table.ID_BBAN_TUTI +
+                        TABLE_ANH_HIENTRUONG.table.ID_BBAN_TUTI.name() +
                         " = ?" +
                         " AND " +
-                        TABLE_ANH_HIENTRUONG.table.ID_CHITIET_TUTI +
+                        TABLE_ANH_HIENTRUONG.table.ID_CHITIET_TUTI.name() +
                         " = ?");
                 break;
 

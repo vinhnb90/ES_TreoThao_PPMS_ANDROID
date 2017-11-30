@@ -21,6 +21,7 @@ import com.es.tungnv.views.R;
 public abstract class TthtHnBaseFragment extends Fragment {
     public static final int CAMERA_REQUEST_CONGTO = 1111;
     public static final int CAMERA_REQUEST_CONGTO_NIEMPHONG = 1112;
+    public static final int MESSAGE_CTO = 1113;
 
     abstract void initDataAndView(View viewRoot) throws Exception;
 
@@ -43,6 +44,7 @@ public abstract class TthtHnBaseFragment extends Fragment {
         final TextView tvTitle = (TextView) dialog.findViewById(R.id.tv_title_dialog);
         final Button btHuy = (Button) dialog.findViewById(R.id.btn_huy);
         final Button btContinued = (Button) dialog.findViewById(R.id.btn_tieptuc);
+        final View divider = (View) dialog.findViewById(R.id.v_mid_dialog);
 
         if(!TextUtils.isEmpty(iDialog.textBtnOK))
         {
@@ -52,6 +54,9 @@ public abstract class TthtHnBaseFragment extends Fragment {
         if(!TextUtils.isEmpty(iDialog.textBtnCancel))
         {
             btHuy.setText(iDialog.textBtnCancel);
+        }else {
+            btHuy.setVisibility(View.GONE);
+            divider.setVisibility(View.GONE);
         }
 
         if(!TextUtils.isEmpty(iDialog.title))

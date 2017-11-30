@@ -16,13 +16,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import esolutions.com.esdatabaselib.baseSqlite.anonation.AutoIncrement;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Collumn;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Params;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.PrimaryKey;
+import esolutions.com.esdatabaselib.baseSqlite.anonation.TYPE;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
 
 public class SqlDAO {
@@ -67,6 +67,13 @@ public class SqlDAO {
                 HashMap<String, Object> data = new HashMap<>();
                 T classResult = null;
                 StringBuilder messsageThrow = new StringBuilder();
+
+                //check cursor
+                if (cursor.getCount() == 0) {
+                    Toast.makeText(mContext, "Không có dữ liệu trong cursor của table!", Toast.LENGTH_SHORT).show();
+                    return classResult;
+                }
+
                 try {
                     object = getItemClassType().newInstance();
                     cursor.moveToPosition(index);
@@ -95,9 +102,22 @@ public class SqlDAO {
                         //set value reflection
                         field.setAccessible(true);
                         Object value = field.get(object);
-                        if (value == null) {
-                            int columnIndex = cursor.getColumnIndex(collumn.name());
-                            value = cursor.getString(columnIndex);
+                        int columnIndex = cursor.getColumnIndex(collumn.name());
+
+                        if (collumn.type() == TYPE.INTEGER)
+                            value = cursor.getInt(columnIndex);
+
+                        else {
+                            if (value == null) {
+                                if (collumn.type() == TYPE.TEXT)
+                                    value = cursor.getString(columnIndex);
+
+                                if (collumn.type() == TYPE.BLOB)
+                                    value = cursor.getString(columnIndex);
+
+                                if (collumn.type() == TYPE.REAL)
+                                    value = cursor.getString(columnIndex);
+                            }
                         }
 
                         data.put(fieldName, value);
@@ -369,7 +389,7 @@ public class SqlDAO {
     }
 
 
-    public <T> int updateRows(Class<T> tClass, T dataOld, T dataNew) throws Exception {
+    public <T> long updateRows(Class<T> tClass, T dataOld, T dataNew) throws Exception {
         //check validate
         //check annotation table class
         Class<?> classz = tClass;
@@ -383,12 +403,105 @@ public class SqlDAO {
         //kiểm tra collumn annotations và lấy dữ liệu tạo DatabaseParams.Select và chuỗi điều kiện whereClause và whereArgs
         //nếu giá trị của trường dataCheck = null thì khi isExistRows sẽ bỏ qua trường đó
         Field[] fields = classz.getDeclaredFields();
-        DatabaseParams.Update param = new DatabaseParams.Update();
+        DatabaseParams.Update paramUpdate = new DatabaseParams.Update();
         StringBuilder whereClause = new StringBuilder();
         HashMap<String, Collumn> listCollumn = new HashMap<>();
+        HashMap<Field, Collumn> listCollumnPrimaryKey = new HashMap<>();
         ArrayList<String> valuesCheck = new ArrayList<>();
         ContentValues contentValues = new ContentValues();
+        int index = 0;
+        for (Field field : fields) {
+            String fieldName = field.getName();
+            if (fieldName.equals("$change") || fieldName.equals("serialVersionUID"))
+                continue;
 
+
+            //check annotation collumn
+            boolean isCollumn = field.isAnnotationPresent(Collumn.class);
+            if (!isCollumn)
+                continue;
+            Collumn collumn = field.getAnnotation(Collumn.class);
+            boolean isPrimaryKey = field.isAnnotationPresent(PrimaryKey.class);
+            boolean isAutoIncrement = field.isAnnotationPresent(AutoIncrement.class);
+
+            if (isPrimaryKey && isAutoIncrement) {
+                listCollumnPrimaryKey.put(field, collumn);
+                continue;
+            }
+            if (isPrimaryKey)
+                listCollumnPrimaryKey.put(field, collumn);
+
+
+            //thêm vào Map cột và tên field cột đó
+            //tăng index để loại bỏ "and" nếu index > 0
+            listCollumn.put(fieldName, collumn);
+
+            //set valueCheck
+            contentValues.put(collumn.name(), (field.get(dataNew) == null) ? "" : field.get(dataNew).toString());
+            index++;
+        }
+
+
+        //tăng index để loại bỏ "and" nếu index > 0
+        if (listCollumnPrimaryKey.size() == 0)
+            throw new RuntimeException("class " + annTable.name() + " cần có ít nhất một khóa chính!");
+
+        if (listCollumn.size() == 0)
+            throw new RuntimeException("class " + annTable.name() + " cần có ít nhất một cột không phải khóa chính!");
+
+        //create param check
+        Set<Field> fieldSet = listCollumnPrimaryKey.keySet();
+        ArrayList<String> nameCollumnCheck = new ArrayList<>();
+//        ArrayList<String> valuesCheck = new ArrayList<>();
+
+        for (Field field : fieldSet) {
+            Collumn collumn = listCollumn.get(field);
+            field.setAccessible(true);
+            valuesCheck.add((field.get(dataOld) == null) ? "" : field.get(dataOld).toString());
+            nameCollumnCheck.add(collumn.name());
+            whereClause.append(collumn.name() + " = ? ").append(" and ");
+        }
+
+
+        //tinh chỉnh câu query
+        whereClause.delete(whereClause.length() - (" and ").length(), whereClause.length());
+
+
+        long rowAffect;
+        //select database
+        paramUpdate.table = annTable.name();
+        paramUpdate.values = contentValues;
+        paramUpdate.whereClause = whereClause.toString();
+        paramUpdate.whereArgs = valuesCheck.toArray(new String[valuesCheck.size()]);
+
+
+        //get Cursor and close db
+        rowAffect = mDatabase.update(mDatabase.mDatabase, paramUpdate);
+        return rowAffect;
+    }
+
+    public <T> long updateORInsertRows(Class<T> tClass, T dataOld, T dataNew) throws Exception {
+        //check validate
+        //check annotation table class
+        Class<?> classz = tClass;
+        boolean isTableSQL = classz.isAnnotationPresent(Table.class);
+        if (!isTableSQL)
+            throw new RuntimeException("Class not description is table!");
+        Table annTable = classz.getAnnotation(Table.class);
+
+
+        //lấy tất cả field ngoài $change and serialVersionUID
+        //kiểm tra collumn annotations và lấy dữ liệu tạo DatabaseParams.Select và chuỗi điều kiện whereClause và whereArgs
+        //nếu giá trị của trường dataCheck = null thì khi isExistRows sẽ bỏ qua trường đó
+        Field[] fields = classz.getDeclaredFields();
+        DatabaseParams.Update paramUpdate = new DatabaseParams.Update();
+        DatabaseParams.Insert paramInsert = new DatabaseParams.Insert();
+        StringBuilder whereClause = new StringBuilder();
+        HashMap<String, Collumn> listCollumn = new HashMap<>();
+        HashMap<Field, Collumn> listCollumnPrimaryKey = new HashMap<>();
+
+        ArrayList<String> valuesCheck = new ArrayList<>();
+        ContentValues contentValues = new ContentValues();
         int index = 0;
         for (Field field : fields) {
             String fieldName = field.getName();
@@ -405,42 +518,72 @@ public class SqlDAO {
             boolean isAutoIncrement = field.isAnnotationPresent(AutoIncrement.class);
 
 
+            if (isPrimaryKey && isAutoIncrement) {
+                listCollumnPrimaryKey.put(field, collumn);
+                continue;
+            }
+            if (isPrimaryKey)
+                listCollumnPrimaryKey.put(field, collumn);
+
+
             //thêm vào Map cột và tên field cột đó
             //tăng index để loại bỏ "and" nếu index > 0
             listCollumn.put(fieldName, collumn);
 
             //set valueCheck
-            field.setAccessible(true);
-            valuesCheck.add((field.get(dataOld) == null) ? "" : field.get(dataOld).toString());
             contentValues.put(collumn.name(), (field.get(dataNew) == null) ? "" : field.get(dataNew).toString());
             index++;
         }
 
 
         //tăng index để loại bỏ "and" nếu index > 0
-        if (index == 0)
-            throw new RuntimeException("Kiểm tra lại class " + annTable.name() + "!");
+        if (listCollumnPrimaryKey.size() == 0)
+            throw new RuntimeException("class " + annTable.name() + " cần có ít nhất một khóa chính!");
 
+        if (listCollumn.size() == 0)
+            throw new RuntimeException("class " + annTable.name() + " cần có ít nhất một cột không phải khóa chính!");
 
-        //create param
-        for (int i = 0; i < listCollumn.size(); i++) {
-            Collumn collumn = listCollumn.get(i);
+        //create param check
+        Set<Field> fieldSet = listCollumnPrimaryKey.keySet();
+        ArrayList<String> nameCollumnCheck = new ArrayList<>();
+//        ArrayList<String> valuesCheck = new ArrayList<>();
+
+        for (Field field : fieldSet) {
+            Collumn collumn = listCollumn.get(field);
+            field.setAccessible(true);
+            valuesCheck.add((field.get(dataOld) == null) ? "" : field.get(dataOld).toString());
+            nameCollumnCheck.add(collumn.name());
             whereClause.append(collumn.name() + " = ? ").append(" and ");
         }
+
 
         //tinh chỉnh câu query
         whereClause.delete(whereClause.length() - (" and ").length(), whereClause.length());
 
 
-        //select database
-        param.table = annTable.name();
-        param.values = contentValues;
-        param.whereClause = whereClause.toString();
-        param.whereArgs = valuesCheck.toArray(new String[valuesCheck.size()]);
+        long rowAffect;
+        boolean isHasRow = isExistRows(tClass, nameCollumnCheck.toArray(new String[nameCollumnCheck.size()]), valuesCheck.toArray(new String[valuesCheck.size()]));
+        if (isHasRow) {
+            //select database
+            paramUpdate.table = annTable.name();
+            paramUpdate.values = contentValues;
+            paramUpdate.whereClause = whereClause.toString();
+            paramUpdate.whereArgs = valuesCheck.toArray(new String[valuesCheck.size()]);
 
-        //get Cursor and close db
-        int rowUpdate = mDatabase.update(mDatabase.mDatabase, param);
-        return rowUpdate;
+
+            //get Cursor and close db
+            rowAffect = mDatabase.update(mDatabase.mDatabase, paramUpdate);
+        } else {
+            //select database
+            paramInsert.table = annTable.name();
+            paramInsert.nullColumnHack = null;
+            paramInsert.values = contentValues;
+
+
+            //get Cursor and close db
+            rowAffect = mDatabase.insert(paramInsert);
+        }
+        return rowAffect;
     }
 
     public <T> int deleteRows(Class<T> tClass, String[] nameCollumnCheck, String[] valuesCheck) throws Exception {

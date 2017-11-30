@@ -84,11 +84,12 @@ public class DepartUpdateFragment<T> extends ModuleFragment {
                 viewRoot = viewEntity.getViewLayout();
             else
                 viewRoot = inflater.inflate(R.layout.fragment_login, container, false);
+
+            fillData();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        fillData();
         return viewRoot;
     }
 

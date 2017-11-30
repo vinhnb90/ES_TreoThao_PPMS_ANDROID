@@ -81,6 +81,7 @@
                     android:textColor="@color/tththn_text_less_black" />
 
                 <View
+                    android:id="@+id/v_mid_dialog"
                     android:layout_width="@dimen/_1sdp"
                     android:layout_height="match_parent"
                     android:background="@color/tththn_text_less_black" />

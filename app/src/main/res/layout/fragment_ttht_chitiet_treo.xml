@@ -1334,7 +1334,7 @@
                             android:background="@drawable/xml_tththn_rectangle9"
                             android:text="Chụp ảnh niêm phong"
                             android:textColor="@color/text_white"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_10sdp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -1418,7 +1418,7 @@
                             android:background="@drawable/xml_tththn_rectangle9"
                             android:text="Chụp ảnh chỉ số"
                             android:textColor="@color/text_white"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_10sdp" />
                     </RelativeLayout>
 
                     <LinearLayout
@@ -1561,35 +1561,35 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:paddingBottom="@dimen/_20sdp"
-
                 fab:menu_backgroundColor="@color/tththn_transparent"
-                fab:menu_fab_label="Menu label"
-                fab:menu_fab_size="mini"
+                fab:menu_colorNormal="@color/tththn_button"
+                fab:menu_fab_label="Đóng"
+                fab:menu_fab_size="normal"
                 fab:menu_labels_ellipsize="end"
                 fab:menu_labels_singleLine="true">
 
                 <com.github.clans.fab.FloatingActionButton
-                    android:id="@+id/fab1"
+                    android:id="@+id/fab_tt_kh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_love"
-                    fab:fab_label="Disabled"
+                    android:src="@drawable/ic_tththn_move"
+                    fab:fab_label="Thông tin khách hàng"
                     fab:fab_size="mini" />
 
                 <com.github.clans.fab.FloatingActionButton
-                    android:id="@+id/fab2"
+                    android:id="@+id/fab_tt_cannhap"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_love"
-                    fab:fab_label="Remove button"
+                    android:src="@drawable/ic_tththn_move"
+                    fab:fab_label="Thông tin cần nhập"
                     fab:fab_size="mini" />
 
                 <com.github.clans.fab.FloatingActionButton
-                    android:id="@+id/fab3"
+                    android:id="@+id/fab_tt_chupanh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_love"
-                    fab:fab_label="Restore Button"
+                    android:src="@drawable/ic_tththn_move"
+                    fab:fab_label="Chụp ảnh"
                     fab:fab_size="mini" />
 
             </com.github.clans.fab.FloatingActionMenu>
@@ -1610,8 +1610,9 @@
         fab:fab_colorPressed="#E8004A"
         fab:fab_colorRipple="#C20024"
         fab:fab_elevationCompat="6dp"
+        fab:fab_colorNormal="@color/tththn_button"
         fab:fab_shadowColor="#000"
-        fab:fab_size="mini"
+        fab:fab_size="normal"
         tools:override="true"
         tools:visibility="visible" />
 </android.support.design.widget.CoordinatorLayout>

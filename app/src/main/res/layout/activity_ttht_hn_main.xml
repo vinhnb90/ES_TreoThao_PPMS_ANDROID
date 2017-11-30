@@ -59,7 +59,7 @@
                         android:id="@+id/menu"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_50sdp"
-                        android:background="@color/tththn_button"></RelativeLayout>
+                        android:background="#448AFF"></RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/rl_content_main"
@@ -77,8 +77,8 @@
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"
-        android:layout_width="wrap_content"
-        tools:visibility="gone"
+        android:layout_width="@dimen/_200sdp"
+        tools:visibility="visible"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/tththn_navi_menu">

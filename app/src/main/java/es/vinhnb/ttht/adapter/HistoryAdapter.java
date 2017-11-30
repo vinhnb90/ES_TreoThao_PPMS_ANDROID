@@ -55,7 +55,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         holder.tvSoTram.setText(String.valueOf(history.soTram));
         holder.tvSoChungLoai.setText(String.valueOf(history.soChungLoai));
 
-        if (!TextUtils.isEmpty(history.message))
+        if (Common.TYPE_RESULT.findTYPE_RESULT(history.typeResult) == Common.TYPE_RESULT.ERROR)
             holder.btnMessage.setVisibility(View.VISIBLE);
     }
 
@@ -125,6 +125,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         public int soTi;
         public int soTram;
         public int soChungLoai;
+        public String typeResult;
         public String message;
     }
 }

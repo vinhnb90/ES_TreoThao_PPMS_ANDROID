@@ -17,7 +17,7 @@ import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
 public class TABLE_DVIQLY {
 
     @EnumNameCollumn()
-    public enum decrale {
+    public enum table {
         ID_TABLE_DVIQLY,
         MA_DVIQLY,
         TEN_DVIQLY;
