@@ -388,7 +388,6 @@ public class SqlDAO {
         return exist;
     }
 
-
     public <T> long updateRows(Class<T> tClass, T dataOld, T dataNew) throws Exception {
         //check validate
         //check annotation table class
@@ -437,6 +436,7 @@ public class SqlDAO {
             listCollumn.put(fieldName, collumn);
 
             //set valueCheck
+            field.setAccessible(true);
             contentValues.put(collumn.name(), (field.get(dataNew) == null) ? "" : field.get(dataNew).toString());
             index++;
         }
@@ -455,7 +455,7 @@ public class SqlDAO {
 //        ArrayList<String> valuesCheck = new ArrayList<>();
 
         for (Field field : fieldSet) {
-            Collumn collumn = listCollumn.get(field);
+            Collumn collumn = listCollumnPrimaryKey.get(field);
             field.setAccessible(true);
             valuesCheck.add((field.get(dataOld) == null) ? "" : field.get(dataOld).toString());
             nameCollumnCheck.add(collumn.name());
@@ -531,6 +531,7 @@ public class SqlDAO {
             listCollumn.put(fieldName, collumn);
 
             //set valueCheck
+            field.setAccessible(true);
             contentValues.put(collumn.name(), (field.get(dataNew) == null) ? "" : field.get(dataNew).toString());
             index++;
         }
@@ -549,7 +550,7 @@ public class SqlDAO {
 //        ArrayList<String> valuesCheck = new ArrayList<>();
 
         for (Field field : fieldSet) {
-            Collumn collumn = listCollumn.get(field);
+            Collumn collumn = listCollumnPrimaryKey.get(field);
             field.setAccessible(true);
             valuesCheck.add((field.get(dataOld) == null) ? "" : field.get(dataOld).toString());
             nameCollumnCheck.add(collumn.name());
