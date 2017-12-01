@@ -1621,7 +1621,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_tththn_arrow_left"
+                android:drawableTop="@drawable/ic_tththn_arrow_left"
                 android:text="Công tơ trước" />
 
 
@@ -1632,7 +1632,7 @@
                 android:id="@+id/btn_ghi"
                 style="@style/buttonStyle_menu_bottom"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_tththn_edit_2"
+                android:drawableTop="@drawable/ic_tththn_edit_2"
                 android:text="Ghi thông tin" />
 
 
@@ -1643,7 +1643,7 @@
                 android:id="@+id/btn_cto_tieptheo"
                 style="@style/buttonStyle_menu_bottom"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_tththn_arrow_right"
+                android:drawableTop="@drawable/ic_tththn_arrow_right"
                 android:text="Công tơ tiếp" />
 
         </LinearLayout>

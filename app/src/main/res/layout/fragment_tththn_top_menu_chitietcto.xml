@@ -11,6 +11,7 @@
 
 
     <Button
+        android:id="@+id/btn_cto_menu"
         style="@style/buttonStyle_menu_top"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_26sdp"
@@ -20,6 +21,7 @@
         android:textAllCaps="false" />
 
     <Button
+        android:id="@+id/btn_bban_tuti_menu"
         style="@style/buttonStyle_menu_top"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_26sdp"
@@ -29,6 +31,7 @@
         android:textAllCaps="false" />
 
     <Button
+        android:id="@+id/btn_chuyen_loaicto_menu"
         style="@style/buttonStyle_menu_top"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_26sdp"

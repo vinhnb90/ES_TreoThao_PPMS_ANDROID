@@ -27,18 +27,23 @@ import java.util.ArrayList;
 import es.vinhnb.ttht.adapter.ChiTietCtoAdapter;
 import es.vinhnb.ttht.adapter.NaviMenuAdapter;
 import es.vinhnb.ttht.common.Common;
+import es.vinhnb.ttht.view.TthtHnBBanTutiFragment.IOnTthtHnBBanTutiFragment;
 import es.vinhnb.ttht.view.TthtHnDownloadFragment.OnListenerTthtHnDownloadFragment;
 
 import static com.es.tungnv.views.R.layout.activity_ttht_hn_main;
-import static es.vinhnb.ttht.view.TthtHnChiTietCtoFragment.*;
-import static es.vinhnb.ttht.view.TthtHnMainFragment.*;
+import static es.vinhnb.ttht.view.TthtHnChiTietCtoFragment.OnITthtHnChiTietCtoFragment;
+import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuTop.CHITIET_CTO;
+import static es.vinhnb.ttht.view.TthtHnMainFragment.OnListenerTthtHnMainFragment;
+import static es.vinhnb.ttht.view.TthtHnTopMenuChiTietCtoFragment.IOnTthtHnTopMenuChiTietCtoFragment;
 
 public class TthtHnMainActivity extends TthtHnBaseActivity implements
         NaviMenuAdapter.INaviMenuAdapter,
         OnListenerTthtHnMainFragment,
         OnListenerTthtHnDownloadFragment,
-        OnListenerTthtHnChiTietCtoFragment,
-        ChiTietCtoAdapter.OnIChiTietCtoAdapter {
+        OnITthtHnChiTietCtoFragment,
+        ChiTietCtoAdapter.OnIChiTietCtoAdapter,
+        IOnTthtHnTopMenuChiTietCtoFragment,
+        IOnTthtHnBBanTutiFragment {
 
     private LoginFragment.LoginData mLoginData;
     private DrawerLayout mDrawerLayout;
@@ -49,7 +54,9 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
     private TthtHnMainFragment fragmentMain;
     private TthtHnDownloadFragment fragmentDownload;
     private TthtHnChiTietCtoFragment fragmentChitietCto;
-    private TthtHnMainActivity.TagMenu tagOld;
+    private TthtHnBBanTutiFragment fragmentBBanTuTi;
+    private TthtHnTopMenuChiTietCtoFragment fragmentTopMenuChiTietCto;
+    private TagMenuNaviLeft tagOld;
 
 
     public enum TypeFragment {
@@ -57,7 +64,11 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
         TthtHnDownloadFragment(TthtHnDownloadFragment.class),
         TthtHnUploadFragment(TthtHnUploadFragment.class),
         TthtHnHistoryFragment(TthtHnHistoryFragment.class),
-        TthtHnChiTietCtoFragment(TthtHnChiTietCtoFragment.class);
+        TthtHnChiTietCtoFragment(TthtHnChiTietCtoFragment.class),
+        TthtHnBBanTutiFragment(TthtHnBBanTutiFragment.class),
+
+        TthtHnTopMenuChiTietCtoFragment(TthtHnTopMenuChiTietCtoFragment.class);
+
 
         public Class<?> typeFrag;
 
@@ -72,7 +83,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
         EMPTY
     }
 
-    public enum TagMenu {
+    public enum TagMenuNaviLeft {
         BBAN_CTO("BBAN_CTO", TypeFragment.TthtHnMainFragment, "Biên bản công tơ", R.drawable.ic_tththn_bien_ban, TypeViewMenu.VIEW),
         TRAM("TRAM", TypeFragment.TthtHnMainFragment, "Trạm", R.drawable.ic_tththn_tram, TypeViewMenu.VIEW),
         CTO_TREO("CTO_TREO", TypeFragment.TthtHnMainFragment, "Công tơ treo", R.drawable.ic_tththn_cto_treo, TypeViewMenu.VIEW),
@@ -81,6 +92,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
 
         CHITIET_CTO_TREO("CHITIET_CTO_TREO", TypeFragment.TthtHnChiTietCtoFragment, "Chi tiết công tơ treo", R.drawable.ic_tththn_cto_treo, TypeViewMenu.VIEW),
         CHITIET_CTO_THAO("CHITIET_CTO_THAO", TypeFragment.TthtHnChiTietCtoFragment, "Chi tiết công tơ tháo", R.drawable.ic_tththn_cto_thao, TypeViewMenu.VIEW),
+        CHITIET_BBAN_TUTI("CHITIET_BBAN_TUTI", TypeFragment.TthtHnBBanTutiFragment, "Chi tiết biên bản TU Ti của công tơ", R.drawable.ic_tththn_cto_treo, TypeViewMenu.VIEW),
 
         EMPTY1("", null, "", 0, TypeViewMenu.EMPTY),
         LINE1("", null, "", 0, TypeViewMenu.LINE),
@@ -90,13 +102,14 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
         UPLOAD("UPLOAD", TypeFragment.TthtHnUploadFragment, "Gửi dữ liệu", R.drawable.ic_tththn_upload, TypeViewMenu.VIEW),
         HISTORY("HISTORY", TypeFragment.TthtHnHistoryFragment, "Lịch sử đồng bộ/Gửi", R.drawable.ic_tththn_history, TypeViewMenu.VIEW);
 
+
         public String tagFrag;
         public TypeFragment typeFrag;
         public String title;
         public int drawableIconID;
         public TypeViewMenu typeViewMenu;
 
-        TagMenu(String tag, TypeFragment typeFrag, String title, int drawableIconID, TypeViewMenu typeViewMenu) {
+        TagMenuNaviLeft(String tag, TypeFragment typeFrag, String title, int drawableIconID, TypeViewMenu typeViewMenu) {
             this.tagFrag = tag;
             this.typeFrag = typeFrag;
             this.title = title;
@@ -104,19 +117,41 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
             this.typeViewMenu = typeViewMenu;
         }
 
-        public TagMenu findTagMenu(String tag) {
-            for (TagMenu tagMenu : TagMenu.values()) {
-                if (tagMenu.tagFrag.equals(tag))
-                    return tagMenu;
+        public TagMenuNaviLeft findTagMenu(String tag) {
+            for (TagMenuNaviLeft tagMenuNaviLeft : TagMenuNaviLeft.values()) {
+                if (tagMenuNaviLeft.tagFrag.equals(tag))
+                    return tagMenuNaviLeft;
             }
             return null;
         }
     }
 
+    public enum TagMenuTop {
+        CHITIET_CTO("CHITIET_CTO", TypeFragment.TthtHnTopMenuChiTietCtoFragment),
+        BBAN_TUTI("BBAN_TUTI", TypeFragment.TthtHnTopMenuChiTietCtoFragment),
+        CHUYEN_LOAI_CTO("CHUYEN_LOAI_CTO", TypeFragment.TthtHnTopMenuChiTietCtoFragment);
+
+        public String tagFrag;
+        public TypeFragment typeFrag;
+
+        TagMenuTop(String tagFrag, TypeFragment typeFrag) {
+            this.tagFrag = tagFrag;
+            this.typeFrag = typeFrag;
+        }
+
+        public TagMenuTop findTagMenuTop(String tag) {
+            for (TagMenuTop tagMenuTop : TagMenuTop.values()) {
+                if (tagMenuTop.tagFrag.equals(tag))
+                    return tagMenuTop;
+            }
+            return null;
+        }
+    }
 
     private ArrayList<NaviMenuAdapter.NaviMenu> naviMenuList = new ArrayList<>();
     private ActionBarDrawerToggle mDrawerToggle;
     private RelativeLayout mRlMain;
+    private RelativeLayout mRlTopMenu;
     private FragmentTransaction mTransaction;
 
     @Override
@@ -124,7 +159,6 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
         super.onCreate(savedInstanceState);
         try {
             initDataAndView();
-
 
             setAction(savedInstanceState);
         } catch (Exception e) {
@@ -142,23 +176,23 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
 
 
         //init nav menu
-        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenu.BBAN_CTO).setClicked(true));
-        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenu.TRAM));
-        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenu.CTO_TREO));
-        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenu.CTO_THAO));
-        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenu.CHUNG_LOAI));
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenuNaviLeft.BBAN_CTO).setClicked(true));
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenuNaviLeft.TRAM));
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenuNaviLeft.CTO_TREO));
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenuNaviLeft.CTO_THAO));
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenuNaviLeft.CHUNG_LOAI));
 
 
         //add line
-        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenu.EMPTY1));
-        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenu.LINE1));
-        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenu.LINE2));
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenuNaviLeft.EMPTY1));
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenuNaviLeft.LINE1));
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenuNaviLeft.LINE2));
 
 
         //addLine
-        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenu.DOWNLOAD));
-        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenu.UPLOAD));
-        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenu.HISTORY));
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenuNaviLeft.DOWNLOAD));
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenuNaviLeft.UPLOAD));
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenuNaviLeft.HISTORY));
 
 
         //init View
@@ -196,14 +230,14 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
         Bundle bundle = new Bundle();
         bundle.putParcelable(TthtHnLoginActivity.BUNDLE_LOGIN, mLoginData);
         bundle.putString(TthtHnLoginActivity.BUNDLE_MA_NVIEN, mMaNVien);
-        bundle.putSerializable(BUNDLE_TAG_MENU, TagMenu.BBAN_CTO);
+        bundle.putSerializable(BUNDLE_TAG_MENU, TagMenuNaviLeft.BBAN_CTO);
 
 
         fragmentMain = new TthtHnMainFragment().newInstance(bundle);
         mTransaction = getSupportFragmentManager().beginTransaction();
         mTransaction.replace(mRlMain.getId(), fragmentMain);
-        mTransaction.addToBackStack(TagMenu.BBAN_CTO.tagFrag);
-        tagOld = TagMenu.BBAN_CTO;
+        mTransaction.addToBackStack(TagMenuNaviLeft.BBAN_CTO.tagFrag);
+        tagOld = TagMenuNaviLeft.BBAN_CTO;
         mTransaction.commit();
     }
 
@@ -245,17 +279,18 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
         mIbtnLogout = (ImageButton) findViewById(R.id.ibtn_logout);
         mGridView = (GridView) findViewById(R.id.gv_nav_menu);
         mRlMain = (RelativeLayout) findViewById(R.id.rl_content_main);
+        mRlTopMenu = (RelativeLayout) findViewById(R.id.rl_topmenu);
 
 
         //set action bar
         findViewById(R.id.app_bar_tththn).bringToFront();
         setSupportActionBar(mToolbar);
-        this.setActionBarTittle(TagMenu.BBAN_CTO.title);
+        this.setActionBarTittle(TagMenuNaviLeft.BBAN_CTO.title);
     }
 
     //region NaviMenuAdapter.INaviMenuAdapter
     @Override
-    public void doClickNaviMenu(int pos, TthtHnMainActivity.TagMenu tagNew) {
+    public void doClickNaviMenu(int pos, TagMenuNaviLeft tagNew) {
         try {
             //set text action bar
             setActionBarTittle(tagNew.title);
@@ -333,24 +368,41 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
 
     //region ChiTietCtoAdapter.OnIChiTietCtoAdapter
     @Override
-    public void clickRowChiTietCtoAdapter(int post, Common.MA_BDONG maBdong, ChiTietCtoAdapter.DataChiTietCtoAdapter ctoAdapter) {
+    public void clickRowChiTietCtoAdapter(Common.MA_BDONG maBdong, ChiTietCtoAdapter.DataChiTietCtoAdapter ctoAdapter) {
+        showChiTietCtoFragment(maBdong, ctoAdapter.getIdbbantrth());
+    }
+
+    private void showChiTietCtoFragment(Common.MA_BDONG maBdong, int idbbantrth) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(TthtHnLoginActivity.BUNDLE_LOGIN, mLoginData);
         bundle.putString(TthtHnLoginActivity.BUNDLE_MA_NVIEN, mMaNVien);
-        bundle.putInt(TthtHnMainActivity.ID_BBAN_TRTH, ctoAdapter.getIdbbantrth());
+        bundle.putInt(TthtHnMainActivity.BUNDLE_ID_BBAN_TRTH, idbbantrth);
 
 
         if (maBdong == Common.MA_BDONG.B) {
-            bundle.putSerializable(BUNDLE_TAG_MENU, TagMenu.CHITIET_CTO_TREO);
-            callFragment(TagMenu.CHITIET_CTO_TREO, bundle);
+            bundle.putSerializable(BUNDLE_TAG_MENU, TagMenuNaviLeft.CHITIET_CTO_TREO);
+            callFragment(TagMenuNaviLeft.CHITIET_CTO_TREO, bundle);
         } else {
-            bundle.putSerializable(BUNDLE_TAG_MENU, TagMenu.CHITIET_CTO_THAO);
-            callFragment(TagMenu.CHITIET_CTO_THAO, bundle);
+            bundle.putSerializable(BUNDLE_TAG_MENU, TagMenuNaviLeft.CHITIET_CTO_THAO);
+            callFragment(TagMenuNaviLeft.CHITIET_CTO_THAO, bundle);
         }
     }
 
+    private void showBBanTuTiFragment(Common.MA_BDONG maBdong, int idbbantrth, int ID_BBAN_TUTI) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(TthtHnLoginActivity.BUNDLE_LOGIN, mLoginData);
+        bundle.putSerializable(TthtHnLoginActivity.BUNDLE_MA_BDONG, maBdong);
+        bundle.putString(TthtHnLoginActivity.BUNDLE_MA_NVIEN, mMaNVien);
+        bundle.putInt(TthtHnMainActivity.BUNDLE_ID_BBAN_TRTH, idbbantrth);
+        bundle.putInt(TthtHnMainActivity.BUNDLE_ID_BBAN_TUTI, ID_BBAN_TUTI);
+
+
+        bundle.putSerializable(BUNDLE_TAG_MENU, TagMenuNaviLeft.CHITIET_BBAN_TUTI);
+        callFragment(TagMenuNaviLeft.CHITIET_BBAN_TUTI, bundle);
+    }
+
     //endregion
-    private void callFragment(TagMenu tagNew, Bundle bundle) {
+    private void callFragment(TagMenuNaviLeft tagNew, Bundle bundle) {
         try {
             //check fragment
             //trong trường hợp mRlMain.getId() được replace bởi nhiều loại fragment khác nhau trong enum TypeFragment
@@ -386,6 +438,12 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
                     mTransaction.commit();
                 }
 
+                if (fragmentVisible instanceof TthtHnBBanTutiFragment) {
+                    mTransaction.detach(fragmentBBanTuTi);
+                    mTransaction.attach(fragmentBBanTuTi);
+                    mTransaction.commit();
+                }
+
             } else {
                 if (tagNew.typeFrag == TypeFragment.TthtHnMainFragment) {
                     bundle.putParcelable(TthtHnLoginActivity.BUNDLE_LOGIN, mLoginData);
@@ -409,15 +467,74 @@ public class TthtHnMainActivity extends TthtHnBaseActivity implements
                 }
 
                 if (tagNew.typeFrag == TypeFragment.TthtHnChiTietCtoFragment) {
+                    //replace main relative
                     fragmentChitietCto = new TthtHnChiTietCtoFragment().newInstance(bundle);
                     mTransaction.replace(mRlMain.getId(), fragmentChitietCto);
                     mTransaction.addToBackStack(tagNew.tagFrag);
                     mTransaction.commit();
                 }
+
+                if (tagNew.typeFrag == TypeFragment.TthtHnBBanTutiFragment) {
+                    //replace main relative
+                    fragmentBBanTuTi = new TthtHnBBanTutiFragment().newInstance(bundle);
+                    mTransaction.replace(mRlMain.getId(), fragmentBBanTuTi);
+                    mTransaction.addToBackStack(tagNew.tagFrag);
+                    mTransaction.commit();
+                }
+
             }
         } catch (Exception e) {
             super.showSnackBar(Common.MESSAGE.ex03.getContent(), e.getMessage(), null);
         }
-
     }
+
+
+    //region OnITthtHnChiTietCtoFragment
+    @Override
+    public void showTopMenuChiTietCtoFragment(Bundle bundle) {
+        try {
+            //check fragment mRlTopMenu
+            mTransaction = getSupportFragmentManager().beginTransaction();
+            android.support.v4.app.Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlTopMenu.getId());
+            if (fragmentVisible instanceof TthtHnTopMenuChiTietCtoFragment) {
+                mTransaction.detach(fragmentTopMenuChiTietCto);
+                mTransaction.attach(fragmentTopMenuChiTietCto);
+                mTransaction.commit();
+            } else {
+                bundle.putSerializable(BUNDLE_TYPE_TOPMENU, CHITIET_CTO);
+                fragmentTopMenuChiTietCto = new TthtHnTopMenuChiTietCtoFragment().newInstance(bundle);
+                mTransaction.replace(mRlTopMenu.getId(), fragmentTopMenuChiTietCto);
+                mTransaction.commit();
+            }
+        } catch (Exception e) {
+            super.showSnackBar(Common.MESSAGE.ex03.getContent(), e.getMessage(), null);
+        }
+    }
+    //endregion
+
+
+    //region IOnTthtHnTopMenuChiTietCtoFragment
+    @Override
+    public void clickTopMenuButton(Bundle bundle) {
+        int ID_BBAN_TRTH = bundle.getInt(BUNDLE_ID_BBAN_TRTH, 0);
+        int ID_BBAN_TUTI = bundle.getInt(BUNDLE_ID_BBAN_TUTI, 0);
+        Common.MA_BDONG maBdong = (Common.MA_BDONG) bundle.getSerializable(BUNDLE_MA_BDONG);
+        TagMenuTop tagMenuTop = (TagMenuTop) bundle.getSerializable(BUNDLE_TYPE_TOPMENU);
+
+        switch (tagMenuTop) {
+            case CHITIET_CTO:
+            case CHUYEN_LOAI_CTO:
+                showChiTietCtoFragment(maBdong, ID_BBAN_TRTH);
+                break;
+
+            case BBAN_TUTI:
+                showBBanTuTiFragment(maBdong, ID_BBAN_TRTH, ID_BBAN_TUTI);
+                break;
+        }
+    }
+    //endregion
+
+//    //replace top menu relative
+//                    bundle.putString();
+//    fragmentTopMenuChiTietCto = new TthtHnTopMenuChiTietCtoFragment.newInstance(bundle)
 }

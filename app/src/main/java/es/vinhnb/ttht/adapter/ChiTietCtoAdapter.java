@@ -95,14 +95,14 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
                     int pos = getAdapterPosition();
 
 
-                    onIChiTietCtoAdapter.clickRowChiTietCtoAdapter(pos, maBdong, listData.get(pos));
+                    onIChiTietCtoAdapter.clickRowChiTietCtoAdapter(maBdong, listData.get(pos));
                 }
             });
         }
     }
 
     public interface OnIChiTietCtoAdapter {
-        void clickRowChiTietCtoAdapter(int post, Common.MA_BDONG maBdong, DataChiTietCtoAdapter ctoAdapter);
+        void clickRowChiTietCtoAdapter(Common.MA_BDONG maBdong, DataChiTietCtoAdapter ctoAdapter);
     }
 
     public static class DataChiTietCtoAdapter {

@@ -27,9 +27,6 @@ import android.widget.TextView;
 
 import com.es.tungnv.views.R;
 import com.esolutions.esloginlib.lib.LoginFragment;
-import com.github.clans.fab.FloatingActionButton;
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.OnTabSelectListener;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -45,21 +42,23 @@ import es.vinhnb.ttht.database.dao.TthtHnSQLDAO;
 import es.vinhnb.ttht.database.table.TABLE_ANH_HIENTRUONG;
 import es.vinhnb.ttht.database.table.TABLE_BBAN_CTO;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_CTO;
-import es.vinhnb.ttht.database.table.TABLE_DVIQLY;
 import es.vinhnb.ttht.database.table.TABLE_LOAI_CONG_TO;
 import es.vinhnb.ttht.database.table.TABLE_TRAM;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 
 import static es.vinhnb.ttht.common.Common.LOAI_CTO.D1;
 import static es.vinhnb.ttht.common.Common.LOAI_CTO.DT;
+import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_ID_BBAN_TRTH;
+import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_ID_BBAN_TUTI;
+import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_MA_BDONG;
 import static es.vinhnb.ttht.view.TthtHnLoginActivity.BUNDLE_LOGIN;
 import static es.vinhnb.ttht.view.TthtHnLoginActivity.BUNDLE_MA_NVIEN;
 import static es.vinhnb.ttht.view.TthtHnLoginActivity.BUNDLE_TAG_MENU;
 
 
 public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
-    private OnListenerTthtHnChiTietCtoFragment mListener;
-    private TthtHnMainActivity.TagMenu tagMenu;
+    private OnITthtHnChiTietCtoFragment mListener;
+    private TthtHnMainActivity.TagMenuNaviLeft tagMenuNaviLeft;
     private LoginFragment.LoginData mLoginData;
     private String mMaNVien;
     private Common.MA_BDONG maBdong;
@@ -269,8 +268,8 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
             //getBundle
             mLoginData = (LoginFragment.LoginData) getArguments().getParcelable(BUNDLE_LOGIN);
             mMaNVien = getArguments().getString(BUNDLE_MA_NVIEN);
-            tagMenu = (TthtHnMainActivity.TagMenu) getArguments().getSerializable(BUNDLE_TAG_MENU);
-            ID_BBAN_TRTH = getArguments().getInt(TthtHnMainActivity.ID_BBAN_TRTH, 0);
+            tagMenuNaviLeft = (TthtHnMainActivity.TagMenuNaviLeft) getArguments().getSerializable(BUNDLE_TAG_MENU);
+            ID_BBAN_TRTH = getArguments().getInt(BUNDLE_ID_BBAN_TRTH, 0);
         }
     }
 
@@ -299,8 +298,8 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListenerTthtHnChiTietCtoFragment) {
-            mListener = (OnListenerTthtHnChiTietCtoFragment) context;
+        if (context instanceof OnITthtHnChiTietCtoFragment) {
+            mListener = (OnITthtHnChiTietCtoFragment) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnListenerTthtHnMainFragment");
@@ -369,7 +368,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
     }
 
     public TthtHnChiTietCtoFragment switchMA_BDONG(Bundle bundle) {
-        this.tagMenu = (TthtHnMainActivity.TagMenu) bundle.getSerializable(TthtHnMainActivity.BUNDLE_TAG_MENU);
+        this.tagMenuNaviLeft = (TthtHnMainActivity.TagMenuNaviLeft) bundle.getSerializable(TthtHnMainActivity.BUNDLE_TAG_MENU);
         this.ID_BBAN_TRTH = bundle.getInt(TABLE_BBAN_CTO.table.ID_BBAN_TRTH.name());
         return this;
     }
@@ -378,10 +377,10 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
     //region TthtHnBaseFragment
     @Override
     void initDataAndView(View viewRoot) throws Exception {
-        if (tagMenu == TthtHnMainActivity.TagMenu.CHITIET_CTO_TREO)
+        if (tagMenuNaviLeft == TthtHnMainActivity.TagMenuNaviLeft.CHITIET_CTO_TREO)
             fillDataChiTietCto(Common.MA_BDONG.B);
 
-        if (tagMenu == TthtHnMainActivity.TagMenu.CHITIET_CTO_THAO)
+        if (tagMenuNaviLeft == TthtHnMainActivity.TagMenuNaviLeft.CHITIET_CTO_THAO)
             fillDataChiTietCto(Common.MA_BDONG.E);
     }
 
@@ -487,7 +486,17 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
         fillImageView(Common.TYPE_IMAGE.IMAGE_CONG_TO_NIEM_PHONG, trangThaiDuLieu);
 
+
+        //show fragment menu top
+        Bundle topMenuBundle = new Bundle();
+        topMenuBundle.putSerializable(BUNDLE_MA_BDONG, maBdong);
+        topMenuBundle.putInt(BUNDLE_ID_BBAN_TRTH, ID_BBAN_TRTH);
+        topMenuBundle.putInt(BUNDLE_ID_BBAN_TUTI, tableChitietCto.getID_BBAN_TUTI());
+
+        mListener.showTopMenuChiTietCtoFragment(topMenuBundle);
+
     }
+
 
     private void fillImageView(Common.TYPE_IMAGE typeImage, Common.TRANG_THAI_DU_LIEU trangThaiDuLieu) {
         //get ten anh
@@ -940,6 +949,8 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         catchClickAnh();
     }
 
+
+
     private void catchClickAnh() {
         ivAnhNiemPhong.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1343,6 +1354,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnListenerTthtHnChiTietCtoFragment {
+    public interface OnITthtHnChiTietCtoFragment {
+        void showTopMenuChiTietCtoFragment(Bundle bundle);
     }
 }

@@ -56,7 +56,7 @@
                     android:layout_height="match_parent">
 
                     <RelativeLayout
-                        android:id="@+id/menu"
+                        android:id="@+id/rl_topmenu"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_40sdp"
                         android:background="@color/tththn_background_lv4"></RelativeLayout>

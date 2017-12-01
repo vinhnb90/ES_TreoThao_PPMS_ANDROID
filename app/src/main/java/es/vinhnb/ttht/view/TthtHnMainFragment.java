@@ -26,7 +26,7 @@ import es.vinhnb.ttht.database.table.TABLE_CHITIET_CTO;
 import es.vinhnb.ttht.database.table.TABLE_LOAI_CONG_TO;
 import es.vinhnb.ttht.database.table.TABLE_TRAM;
 import es.vinhnb.ttht.database.dao.TthtHnSQLDAO;
-import es.vinhnb.ttht.view.TthtHnMainActivity.TagMenu;
+import es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 
 
@@ -42,7 +42,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
 
     private LoginFragment.LoginData mLoginData;
     private String mMaNVien;
-    private TagMenu tagMenu;
+    private TagMenuNaviLeft tagMenuNaviLeft;
 
     private List<TABLE_BBAN_CTO> listTABLE_BBAN_CTO = new ArrayList<>();
     private List<TABLE_TRAM> listTABLE_TRAM = new ArrayList<>();
@@ -74,7 +74,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
             Bundle bundle = getArguments();
             mLoginData = (LoginFragment.LoginData) bundle.getParcelable(TthtHnLoginActivity.BUNDLE_LOGIN);
             mMaNVien = bundle.getString(TthtHnLoginActivity.BUNDLE_MA_NVIEN);
-            tagMenu = (TagMenu) bundle.getSerializable(TthtHnLoginActivity.BUNDLE_TAG_MENU);
+            tagMenuNaviLeft = (TagMenuNaviLeft) bundle.getSerializable(TthtHnLoginActivity.BUNDLE_TAG_MENU);
         }
     }
 
@@ -121,8 +121,8 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
         mListener = null;
     }
 
-    public TthtHnMainFragment switchMenu(TagMenu tagMenu) {
-        this.tagMenu = tagMenu;
+    public TthtHnMainFragment switchMenu(TagMenuNaviLeft tagMenuNaviLeft) {
+        this.tagMenuNaviLeft = tagMenuNaviLeft;
         return this;
     }
 
@@ -217,7 +217,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     @Override
     void setAction(Bundle savedInstanceState) throws Exception {
         //fill data recycler
-        switch (tagMenu) {
+        switch (tagMenuNaviLeft) {
             case BBAN_CTO:
                 fillDataBBanCto();
                 break;

@@ -63,7 +63,7 @@ public class NaviMenuAdapter extends ArrayAdapter<NaviMenuAdapter.NaviMenu> {
             naviMenuHolder.ibtnIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    iNaviMenuAdapter.doClickNaviMenu(positionFinal, naviMenuData.tagMenu);
+                    iNaviMenuAdapter.doClickNaviMenu(positionFinal, naviMenuData.tagMenuNaviLeft);
                 }
             });
 
@@ -74,14 +74,14 @@ public class NaviMenuAdapter extends ArrayAdapter<NaviMenuAdapter.NaviMenu> {
 
 
         //if menuTag is line
-        if (naviMenuData.tagMenu.typeViewMenu == TthtHnMainActivity.TypeViewMenu.EMPTY)
+        if (naviMenuData.tagMenuNaviLeft.typeViewMenu == TthtHnMainActivity.TypeViewMenu.EMPTY)
             naviMenuHolder.rlView.setVisibility(View.GONE);
-        if (naviMenuData.tagMenu.typeViewMenu == TthtHnMainActivity.TypeViewMenu.LINE){
+        if (naviMenuData.tagMenuNaviLeft.typeViewMenu == TthtHnMainActivity.TypeViewMenu.LINE){
             naviMenuHolder.vLine.setVisibility(View.VISIBLE);
             naviMenuHolder.ibtnIcon.setVisibility(View.GONE);
             naviMenuHolder.tvText.setVisibility(View.GONE);
         }
-        if (naviMenuData.tagMenu.typeViewMenu == TthtHnMainActivity.TypeViewMenu.VIEW) {
+        if (naviMenuData.tagMenuNaviLeft.typeViewMenu == TthtHnMainActivity.TypeViewMenu.VIEW) {
             naviMenuHolder.rlView.setVisibility(View.VISIBLE);
             naviMenuHolder.vLine.setVisibility(View.GONE);
             naviMenuHolder.ibtnIcon.setVisibility(View.VISIBLE);
@@ -90,8 +90,8 @@ public class NaviMenuAdapter extends ArrayAdapter<NaviMenuAdapter.NaviMenu> {
 
 
         //set background
-        naviMenuHolder.tvText.setText(naviMenuData.tagMenu.title);
-        naviMenuHolder.ibtnIcon.setImageResource(naviMenuData.tagMenu.drawableIconID);
+        naviMenuHolder.tvText.setText(naviMenuData.tagMenuNaviLeft.title);
+        naviMenuHolder.ibtnIcon.setImageResource(naviMenuData.tagMenuNaviLeft.drawableIconID);
         if (posOldClick != position) {
             naviMenuHolder.tvText.setTextColor(getContext().getResources().getColor(R.color.tththn_navi_menu_icon_default));
             naviMenuHolder.ibtnIcon.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.xml_tththn_cricle));
@@ -120,12 +120,12 @@ public class NaviMenuAdapter extends ArrayAdapter<NaviMenuAdapter.NaviMenu> {
     }
 
     public static class NaviMenu {
-        public TthtHnMainActivity.TagMenu tagMenu;
+        public TthtHnMainActivity.TagMenuNaviLeft tagMenuNaviLeft;
         public boolean isClicked;
 
 
-        public NaviMenu(TthtHnMainActivity.TagMenu tagMenu) {
-            this.tagMenu = tagMenu;
+        public NaviMenu(TthtHnMainActivity.TagMenuNaviLeft tagMenuNaviLeft) {
+            this.tagMenuNaviLeft = tagMenuNaviLeft;
         }
 
         public NaviMenu setClicked(boolean clicked) {
@@ -135,6 +135,6 @@ public class NaviMenuAdapter extends ArrayAdapter<NaviMenuAdapter.NaviMenu> {
     }
 
     public interface INaviMenuAdapter {
-        void doClickNaviMenu(int pos, TthtHnMainActivity.TagMenu tagNew);
+        void doClickNaviMenu(int pos, TthtHnMainActivity.TagMenuNaviLeft tagNew);
     }
 }
