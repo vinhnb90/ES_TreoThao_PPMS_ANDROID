@@ -47,7 +47,6 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_40sdp"
-                android:background="@color/text_white"
                 android:elevation="@dimen/_5sdp"
                 android:orientation="vertical">
 
@@ -59,13 +58,14 @@
                         android:id="@+id/rl_topmenu"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_40sdp"
-                        android:background="@color/tththn_background_lv4"></RelativeLayout>
+                        android:background="@drawable/xml_tththn_rectangle12_top"></RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/rl_content_main"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                    </RelativeLayout>
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/rl_topmenu"
+                        android:background="@drawable/xml_tththn_rectangle12_bottom"></RelativeLayout>
                 </RelativeLayout>
 
             </android.support.design.widget.CoordinatorLayout>
@@ -78,10 +78,10 @@
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"
         android:layout_width="@dimen/_200sdp"
-        tools:visibility="visible"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/tththn_navi_menu">
+        android:background="@color/tththn_navi_menu"
+        tools:visibility="visible">
 
         <RelativeLayout
             android:layout_width="match_parent"

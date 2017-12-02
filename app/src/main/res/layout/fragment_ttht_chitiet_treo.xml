@@ -1589,6 +1589,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_tththn_move"
                     fab:fab_label="Thông tin cần nhập"
+                    android:layout_marginTop="@dimen/_5sdp"
                     fab:fab_size="normal" />
 
                 <com.github.clans.fab.FloatingActionButton
@@ -1597,6 +1598,8 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_tththn_move"
                     fab:fab_label="Chụp ảnh"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
                     fab:fab_size="normal" />
 
 
@@ -1604,47 +1607,45 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:layout_marginLeft="@dimen/_15sdp"
-            android:layout_marginRight="@dimen/_15sdp"
-            android:orientation="horizontal"
-            android:weightSum="3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_20sdp"
             android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_marginRight="@dimen/_30sdp"
             android:background="@color/text_white"
             android:gravity="center_horizontal|center_vertical"
-            >
+            android:orientation="horizontal"
+            android:weightSum="3">
 
-            <Button
+            <ImageButton
                 android:id="@+id/btn_cto_truoc"
                 style="@style/buttonStyle_menu_bottom"
                 android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:drawableTop="@drawable/ic_tththn_arrow_left"
-                android:text="Công tơ trước" />
+                android:background="@drawable/xml_tththn_rectangle12_left"
+                android:src="@drawable/ic_tththn_arrow_left" />
 
 
-            <Button
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/_1sdp"
+            <ImageButton
                 android:id="@+id/btn_ghi"
                 style="@style/buttonStyle_menu_bottom"
-                android:layout_height="wrap_content"
-                android:drawableTop="@drawable/ic_tththn_edit_2"
-                android:text="Ghi thông tin" />
-
-
-            <Button
-                android:layout_marginLeft="@dimen/_1sdp"
                 android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/_1sdp"
                 android:layout_weight="1"
+                android:src="@drawable/ic_tththn_edit_2" />
+
+
+            <ImageButton
                 android:id="@+id/btn_cto_tieptheo"
                 style="@style/buttonStyle_menu_bottom"
-                android:layout_height="wrap_content"
-                android:drawableTop="@drawable/ic_tththn_arrow_right"
-                android:text="Công tơ tiếp" />
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/_1sdp"
+                android:layout_weight="1"
+                android:background="@drawable/xml_tththn_rectangle12_right"
+                android:src="@drawable/ic_tththn_arrow_right" />
 
         </LinearLayout>
     </RelativeLayout>

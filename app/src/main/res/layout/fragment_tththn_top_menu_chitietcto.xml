@@ -7,6 +7,7 @@
     android:orientation="horizontal"
     android:paddingLeft="@dimen/_5sdp"
     android:paddingRight="@dimen/_5sdp"
+    android:background="@null"
     tools:background="#403F51B5">
 
 

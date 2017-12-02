@@ -250,6 +250,8 @@
     <style name="buttonStyle_menu_bottom">
         <item name="android:textColor">@color/text_white</item>
         <item name="android:background">@color/tththn_button</item>
+        <item name="android:paddingTop">@dimen/_2sdp</item>
+        <item name="android:paddingBottom">@dimen/_2sdp</item>
         <item name="android:textSize">@dimen/_8sdp</item>
     </style>
 
