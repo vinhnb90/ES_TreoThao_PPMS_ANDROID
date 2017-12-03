@@ -1,6 +1,7 @@
 package es.vinhnb.ttht.view;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,18 +19,14 @@ import com.es.tungnv.views.R;
  * Created by VinhNB on 11/22/2017.
  */
 
-public abstract class TthtHnBaseFragment extends Fragment {
+public abstract class TthtHnBaseFragment extends Fragment implements IBaseView{
     public static final int CAMERA_REQUEST_CONGTO = 1111;
     public static final int CAMERA_REQUEST_CONGTO_NIEMPHONG = 1112;
     public static final int MESSAGE_CTO = 1113;
 
-    abstract void initDataAndView(View viewRoot) throws Exception;
 
-    abstract void setAction(Bundle savedInstanceState) throws Exception;
-
-
-    protected void showDialog(String message, final IDialog iDialog) {
-        final Dialog dialog = new Dialog(getContext());
+    protected static void showDialog(Context context, String message, final IDialog iDialog) {
+        final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_tththn_message);
         dialog.setCanceledOnTouchOutside(true);
@@ -85,7 +82,7 @@ public abstract class TthtHnBaseFragment extends Fragment {
         dialog.show();
     }
 
-    abstract class IDialog {
+    abstract static class IDialog {
         String title;
         String textBtnCancel;
         String textBtnOK;
@@ -110,3 +107,4 @@ public abstract class TthtHnBaseFragment extends Fragment {
         abstract void clickCancel();
     }
 }
+

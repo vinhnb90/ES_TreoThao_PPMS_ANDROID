@@ -34,13 +34,16 @@ import static android.support.design.widget.BaseTransientBottomBar.BaseCallback.
  * Created by VinhNB on 11/11/2017.
  */
 
-public abstract class TthtHnBaseActivity extends AppCompatActivity {
+public abstract class TthtHnBaseActivity extends AppCompatActivity implements IBaseView {
     public static final String BUNDLE_LOGIN = "BUNDLE_LOGIN";
     public static final String BUNDLE_MA_NVIEN = "BUNDLE_MA_NVIEN";
     public static final String BUNDLE_TAG_MENU = "BUNDLE_TAG_MENU";
     public static final String BUNDLE_ID_BBAN_TRTH = "BUNDLE_ID_BBAN_TRTH";
     public static final String BUNDLE_ID_BBAN_TUTI = "BUNDLE_ID_BBAN_TUTI";
 
+    public static final String BUNDLE_POS = "BUNDLE_POS";
+    public static final String BUNDLE_PRE_CTO = "BUNDLE_PRE_CTO";
+    public static final String BUNDLE_NEXT_CTO = "BUNDLE_NEXT_CTO";
     public static final String BUNDLE_MA_BDONG = "BUNDLE_MA_BDONG";
     public static final String BUNDLE_TYPE_TOPMENU = "BUNDLE_TYPE_TOPMENU";
 
@@ -271,10 +274,6 @@ public abstract class TthtHnBaseActivity extends AppCompatActivity {
     public void setCoordinatorLayout(CoordinatorLayout coordinatorLayout) {
         this.coordinatorLayout = coordinatorLayout;
     }
-
-    abstract void initDataAndView() throws Exception;
-
-    abstract void setAction(Bundle savedInstanceState) throws Exception;
 
     private interface ISnackbarIteractions {
         void doIfPressOK();

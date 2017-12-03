@@ -7,7 +7,7 @@
     android:padding="@dimen/_5sdp">
 
     <LinearLayout
-        android:background="@drawable/xml_tththn_rectangle"
+        android:background="@drawable/xml_tththn_rectangle_select"
         android:elevation="@dimen/_5sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,9 +17,11 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/ll_main_row_chitiet_cto"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            tools:background="@color/tththn_submited_row_recyler">
+            tools:background="@color/tththn_submited_row_recyler"
+            >
 
             <TextView
                 android:id="@+id/tv_stt"
@@ -37,10 +39,11 @@
 
 
         <RelativeLayout
+            android:id="@+id/rl_main_row_chitiet_cto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_1sdp"
-            android:background="#ffffffff"
+            android:background="@color/tththn_background_lv3"
             android:paddingLeft="@dimen/_5sdp"
             android:paddingRight="@dimen/_5sdp"
             android:paddingTop="@dimen/_5sdp">

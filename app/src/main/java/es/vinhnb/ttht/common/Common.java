@@ -28,7 +28,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.es.tungnv.utils.TthtCommon;
 import com.es.tungnv.utils.TthtConstantVariables;
@@ -57,6 +60,7 @@ public class Common {
 
     public static final long DELAY = 1000;
     public static final long DELAY_PROGESS_PBAR = 20;
+    public static final long DELAY_ANIM = 250;
     public static final String PROGRAM_PHOTOS_PATH = "/ES_TTHT_HN/PHOTOS/";
     private static final int SIZE_HEIGHT_IMAGE = 600;
     private static final int SIZE_WIDTH_IMAGE_BASIC = 500;
@@ -787,6 +791,19 @@ public class Common {
             bos.close();
             TthtCommon.scanFile(context, new String[]{fileName});
         }
+    }
+
+    public static void runAnimationClickView(final View view, int idAnimation, long timeDelayAnim) {
+        if (view == null)
+            return;
+        if (idAnimation <= 0)
+            return;
+
+        Animation animation = AnimationUtils.loadAnimation(view.getContext(), idAnimation);
+        if (timeDelayAnim > 0)
+            animation.setDuration(timeDelayAnim);
+
+        view.startAnimation(animation);
     }
 
 }

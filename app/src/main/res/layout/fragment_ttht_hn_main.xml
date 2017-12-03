@@ -2,8 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
-    android:layout_marginTop="@dimen/_50sdp"
+    android:layout_marginBottom="@dimen/_5sdp"
+    android:paddingBottom="@dimen/_10sdp"
+    android:background="@drawable/xml_tththn_rectangle12_bottom"
     tools:context="es.vinhnb.ttht.view.TthtHnMainFragment">
 
     <android.support.v7.widget.RecyclerView

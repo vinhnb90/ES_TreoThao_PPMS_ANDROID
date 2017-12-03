@@ -9,14 +9,16 @@
     <RelativeLayout
         android:id="@+id/rl_v1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_40sdp">
+        android:layout_height="match_parent">
 
         <ScrollView
+            android:id="@+id/scrollv_chitiet"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/_40sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/xml_tththn_rectangle12_bottom"
             android:paddingLeft="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_25sdp"
             android:paddingRight="@dimen/_5sdp">
 
             <LinearLayout
@@ -1347,13 +1349,22 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_margin="@dimen/_5sdp"
-                        android:layout_weight="1"
-                        android:paddingLeft="@dimen/_20sdp">
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tv_invi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="KT"
+                            android:visibility="invisible" />
 
                         <RelativeLayout
                             android:id="@+id/rl_39"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_toRightOf="@+id/tv_invi"
                             android:layout_weight="1">
 
                             <TextView
@@ -1556,12 +1567,14 @@
         </ScrollView>
 
         <RelativeLayout
+            android:background="@drawable/xml_tththn_rectangle12"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:visibility="visible">
 
             <com.github.clans.fab.FloatingActionMenu
                 android:id="@+id/menu_red"
+                android:background="@drawable/xml_tththn_rectangle12"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentBottom="true"
@@ -1587,19 +1600,19 @@
                     android:id="@+id/fab_tt_cannhap"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
                     android:src="@drawable/ic_tththn_move"
                     fab:fab_label="Thông tin cần nhập"
-                    android:layout_marginTop="@dimen/_5sdp"
                     fab:fab_size="normal" />
 
                 <com.github.clans.fab.FloatingActionButton
                     android:id="@+id/fab_tt_chupanh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
                     android:src="@drawable/ic_tththn_move"
                     fab:fab_label="Chụp ảnh"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
                     fab:fab_size="normal" />
 
 
@@ -1612,13 +1625,13 @@
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/_30sdp"
             android:layout_marginRight="@dimen/_30sdp"
-            android:background="@color/text_white"
+            android:background="@android:color/transparent"
             android:gravity="center_horizontal|center_vertical"
             android:orientation="horizontal"
             android:weightSum="3">
 
             <ImageButton
-                android:id="@+id/btn_cto_truoc"
+                android:id="@+id/ibtn_cto_truoc"
                 style="@style/buttonStyle_menu_bottom"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -1638,7 +1651,7 @@
 
 
             <ImageButton
-                android:id="@+id/btn_cto_tieptheo"
+                android:id="@+id/ibtn_cto_tieptheo"
                 style="@style/buttonStyle_menu_bottom"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

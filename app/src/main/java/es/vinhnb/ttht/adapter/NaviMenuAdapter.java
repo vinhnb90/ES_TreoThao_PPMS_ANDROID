@@ -76,7 +76,7 @@ public class NaviMenuAdapter extends ArrayAdapter<NaviMenuAdapter.NaviMenu> {
         //if menuTag is line
         if (naviMenuData.tagMenuNaviLeft.typeViewMenu == TthtHnMainActivity.TypeViewMenu.EMPTY)
             naviMenuHolder.rlView.setVisibility(View.GONE);
-        if (naviMenuData.tagMenuNaviLeft.typeViewMenu == TthtHnMainActivity.TypeViewMenu.LINE){
+        if (naviMenuData.tagMenuNaviLeft.typeViewMenu == TthtHnMainActivity.TypeViewMenu.LINE) {
             naviMenuHolder.vLine.setVisibility(View.VISIBLE);
             naviMenuHolder.ibtnIcon.setVisibility(View.GONE);
             naviMenuHolder.tvText.setVisibility(View.GONE);
@@ -92,23 +92,41 @@ public class NaviMenuAdapter extends ArrayAdapter<NaviMenuAdapter.NaviMenu> {
         //set background
         naviMenuHolder.tvText.setText(naviMenuData.tagMenuNaviLeft.title);
         naviMenuHolder.ibtnIcon.setImageResource(naviMenuData.tagMenuNaviLeft.drawableIconID);
-        if (posOldClick != position) {
-            naviMenuHolder.tvText.setTextColor(getContext().getResources().getColor(R.color.tththn_navi_menu_icon_default));
-            naviMenuHolder.ibtnIcon.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.xml_tththn_cricle));
-        } else {
-            naviMenuHolder.tvText.setTextColor(getContext().getResources().getColor(R.color.tththn_navi_menu_icon));
-            naviMenuHolder.ibtnIcon.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.xml_tththn_cricle_type2));
+        if(naviMenuData.tagMenuNaviLeft.typeViewMenu == TthtHnMainActivity.TypeViewMenu.VIEW) {
+            if (posOldClick != position) {
+                naviMenuHolder.tvText.setTextColor(getContext().getResources().getColor(R.color.tththn_navi_menu_icon_default));
+                naviMenuHolder.ibtnIcon.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.xml_tththn_cricle));
+            } else {
+                naviMenuHolder.tvText.setTextColor(getContext().getResources().getColor(R.color.tththn_navi_menu_icon));
+                naviMenuHolder.ibtnIcon.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.xml_tththn_cricle_type2));
+            }
         }
-
 
         // Return the completed view to render on screen
         return convertView;
     }
 
-    public void refresh(ArrayList<NaviMenu> menuArrayList, int posOldClick) {
-        this.posOldClick = posOldClick;
+
+    public void refresh(ArrayList<NaviMenu> menuArrayList, int posNew) {
+        if (posNew != 0)
+            this.posOldClick = posNew;
+
         this.menuArrayList.clear();
         this.menuArrayList.addAll(menuArrayList);
+        notifyDataSetChanged();
+    }
+
+    public void refresh(TthtHnMainActivity.TagMenuNaviLeft tagMenuNaviLeft) {
+        //find NaviMenu
+        for (int i = 0; i< menuArrayList.size(); i++)
+        {
+            if(menuArrayList.get(i).tagMenuNaviLeft == tagMenuNaviLeft)
+            {
+                this.posOldClick = i;
+                break;
+            }
+        }
+
         notifyDataSetChanged();
     }
 
@@ -121,16 +139,10 @@ public class NaviMenuAdapter extends ArrayAdapter<NaviMenuAdapter.NaviMenu> {
 
     public static class NaviMenu {
         public TthtHnMainActivity.TagMenuNaviLeft tagMenuNaviLeft;
-        public boolean isClicked;
 
 
         public NaviMenu(TthtHnMainActivity.TagMenuNaviLeft tagMenuNaviLeft) {
             this.tagMenuNaviLeft = tagMenuNaviLeft;
-        }
-
-        public NaviMenu setClicked(boolean clicked) {
-            isClicked = clicked;
-            return this;
         }
     }
 

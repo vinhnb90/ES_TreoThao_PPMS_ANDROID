@@ -60,12 +60,27 @@
                         android:layout_height="@dimen/_40sdp"
                         android:background="@drawable/xml_tththn_rectangle12_top"></RelativeLayout>
 
+
+                    <ProgressBar
+                        android:progressBackgroundTint="@color/text_white"
+                        android:background="@color/tththn_background_lv4"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:maxHeight="@dimen/_7sdp"
+                        android:minHeight="@dimen/_7sdp"
+                        android:progressDrawable="@drawable/xml_ttht_hn_progressbar"
+                        android:indeterminate="true"
+                        android:id="@+id/pbar_load"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_7sdp"
+                        android:layout_below="@+id/rl_topmenu"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
                     <RelativeLayout
                         android:id="@+id/rl_content_main"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_below="@+id/rl_topmenu"
-                        android:background="@drawable/xml_tththn_rectangle12_bottom"></RelativeLayout>
+                        android:layout_below="@+id/pbar_load"></RelativeLayout>
                 </RelativeLayout>
 
             </android.support.design.widget.CoordinatorLayout>
@@ -81,7 +96,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/tththn_navi_menu"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <RelativeLayout
             android:layout_width="match_parent"

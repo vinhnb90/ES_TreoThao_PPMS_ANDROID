@@ -1,5 +1,6 @@
 package es.vinhnb.ttht.view;
 
+import android.support.v4.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,6 +18,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,7 +28,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.es.tungnv.views.R;
-import com.esolutions.esloginlib.lib.LoginFragment;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -48,28 +51,51 @@ import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 
 import static es.vinhnb.ttht.common.Common.LOAI_CTO.D1;
 import static es.vinhnb.ttht.common.Common.LOAI_CTO.DT;
-import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_ID_BBAN_TRTH;
-import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_ID_BBAN_TUTI;
-import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_MA_BDONG;
-import static es.vinhnb.ttht.view.TthtHnLoginActivity.BUNDLE_LOGIN;
-import static es.vinhnb.ttht.view.TthtHnLoginActivity.BUNDLE_MA_NVIEN;
+import static es.vinhnb.ttht.view.TthtHnBaseFragment.CAMERA_REQUEST_CONGTO;
+import static es.vinhnb.ttht.view.TthtHnBaseFragment.CAMERA_REQUEST_CONGTO_NIEMPHONG;
+import static es.vinhnb.ttht.view.TthtHnBaseFragment.MESSAGE_CTO;
 import static es.vinhnb.ttht.view.TthtHnLoginActivity.BUNDLE_TAG_MENU;
+import static es.vinhnb.ttht.view.TthtHnMainActivity.*;
 
 
-public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
+public class TthtHnChiTietCtoDialogFragment extends DialogFragment implements IBaseView {
     private OnITthtHnChiTietCtoFragment mListener;
-    private TthtHnMainActivity.TagMenuNaviLeft tagMenuNaviLeft;
-    private LoginFragment.LoginData mLoginData;
-    private String mMaNVien;
-    private Common.MA_BDONG maBdong;
-    private int ID_BBAN_TRTH;
+    private IInteractionDataCommon onIDataCommom;
+    private TagMenuNaviLeft tagMenuNaviLeft;
 
     private TthtHnSQLDAO mSqlDAO;
     private Unbinder unbinder;
 
+
+    //view
+    @BindView(R.id.scrollv_chitiet)
+    FloatingActionMenu scrollChitiet;
+
+
+    //fab
+    @BindView(R.id.menu_red)
+    FloatingActionMenu fabMenu;
+
+
+    @BindView(R.id.fab_tt_kh)
+    FloatingActionButton fabKH;
+
+    @BindView(R.id.fab_tt_cannhap)
+    FloatingActionButton fabNhap;
+
+    @BindView(R.id.fab_tt_chupanh)
+    FloatingActionButton fabChupAnh;
+
+
     //menu bottom
+    @BindView(R.id.ibtn_cto_truoc)
+    ImageButton btnCtoTruoc;
+
     @BindView(R.id.btn_ghi)
-    Button btnGhi;
+    ImageButton btnGhi;
+
+    @BindView(R.id.ibtn_cto_tieptheo)
+    ImageButton btnCtoSau;
 
 
     //tv
@@ -248,28 +274,35 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
     private String timeFileCaptureAnhChiSo;
     private String timeFileCaptureAnhNiemPhong;
     private String cs1, cs2, cs3, cs4, cs5;
+    private int pos = -1;
 
 
-    public TthtHnChiTietCtoFragment() {
-        // Required empty public constructor
+    public TthtHnChiTietCtoDialogFragment() {
     }
 
 
-    public static TthtHnChiTietCtoFragment newInstance(Bundle bundle) {
-        TthtHnChiTietCtoFragment fragment = new TthtHnChiTietCtoFragment();
+    public static TthtHnChiTietCtoDialogFragment newInstance(TagMenuNaviLeft tagMenuNaviLeft, int pos) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(BUNDLE_TAG_MENU, tagMenuNaviLeft);
+        bundle.putInt(BUNDLE_POS, pos);
+        TthtHnChiTietCtoDialogFragment fragment = new TthtHnChiTietCtoDialogFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (this.getActivity() instanceof IInteractionDataCommon)
+            this.onIDataCommom = (IInteractionDataCommon) getActivity();
+        else
+            throw new ClassCastException("context must be implemnet IInteractionDataCommon!");
+
+
         if (getArguments() != null) {
-            //getBundle
-            mLoginData = (LoginFragment.LoginData) getArguments().getParcelable(BUNDLE_LOGIN);
-            mMaNVien = getArguments().getString(BUNDLE_MA_NVIEN);
-            tagMenuNaviLeft = (TthtHnMainActivity.TagMenuNaviLeft) getArguments().getSerializable(BUNDLE_TAG_MENU);
-            ID_BBAN_TRTH = getArguments().getInt(BUNDLE_ID_BBAN_TRTH, 0);
+            tagMenuNaviLeft = (TagMenuNaviLeft) getArguments().getSerializable(BUNDLE_TAG_MENU);
+            pos = getArguments().getInt(BUNDLE_POS, -1);
         }
     }
 
@@ -280,7 +313,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
         // Inflate the layout for this fragment
         View viewRoot = inflater.inflate(R.layout.fragment_ttht_chitiet_treo, container, false);
-        unbinder = ButterKnife.bind(TthtHnChiTietCtoFragment.this, viewRoot);
+        unbinder = ButterKnife.bind(TthtHnChiTietCtoDialogFragment.this, viewRoot);
 
 
         try {
@@ -288,7 +321,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
             setAction(savedInstanceState);
         } catch (Exception e) {
             e.printStackTrace();
-            ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex03.getContent(), e.getMessage(), null);
+            ((TthtHnBaseActivity) getActivity()).showSnackBar(Common.MESSAGE.ex03.getContent(), e.getMessage(), null);
         }
 
 
@@ -325,24 +358,24 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case TthtHnBaseFragment.MESSAGE_CTO:
+                case MESSAGE_CTO:
                     if (isRefreshAnh || isRefreshChiSo) {
-                        IDialog iDialog = new IDialog() {
+                        TthtHnBaseFragment.IDialog iDialog = new TthtHnBaseFragment.IDialog() {
                             @Override
                             void clickOK() {
                                 isRefreshAnh = false;
                                 isRefreshChiSo = false;
-                                TthtHnChiTietCtoFragment.this.onDestroy();
+                                TthtHnChiTietCtoDialogFragment.this.onDestroy();
                             }
 
                             @Override
                             void clickCancel() {
-                                TthtHnChiTietCtoFragment.this.onResume();
+                                TthtHnChiTietCtoDialogFragment.this.onResume();
                             }
                         }.setTextBtnOK("TIẾP TỤC").setTextBtnCancel("TRỞ LẠI").setTitle("Thông báo");
 
 
-                        showDialog("Dữ liệu chỉnh sửa phần ảnh chỉ số và thông tin chỉ số chưa lưu!\n Hủy việc sửa ?", iDialog);
+                        TthtHnBaseFragment.showDialog(getActivity(), "Dữ liệu chỉnh sửa phần ảnh chỉ số và thông tin chỉ số chưa lưu!\n Hủy việc sửa ?", iDialog);
                     }
                     break;
                 default:
@@ -367,28 +400,22 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         super.onDestroy();
     }
 
-    public TthtHnChiTietCtoFragment switchMA_BDONG(Bundle bundle) {
-        this.tagMenuNaviLeft = (TthtHnMainActivity.TagMenuNaviLeft) bundle.getSerializable(TthtHnMainActivity.BUNDLE_TAG_MENU);
-        this.ID_BBAN_TRTH = bundle.getInt(TABLE_BBAN_CTO.table.ID_BBAN_TRTH.name());
+    public TthtHnChiTietCtoDialogFragment refresh(TagMenuNaviLeft tagMenuNaviLeft) {
+        this.tagMenuNaviLeft = tagMenuNaviLeft;
         return this;
     }
 
 
     //region TthtHnBaseFragment
     @Override
-    void initDataAndView(View viewRoot) throws Exception {
-        if (tagMenuNaviLeft == TthtHnMainActivity.TagMenuNaviLeft.CHITIET_CTO_TREO)
-            fillDataChiTietCto(Common.MA_BDONG.B);
-
-        if (tagMenuNaviLeft == TthtHnMainActivity.TagMenuNaviLeft.CHITIET_CTO_THAO)
-            fillDataChiTietCto(Common.MA_BDONG.E);
+    public void initDataAndView(View rootView) throws Exception {
+        fillDataChiTietCto();
     }
 
-    private void fillDataChiTietCto(Common.MA_BDONG maBdong) throws Exception {
-        this.maBdong = maBdong;
+    private void fillDataChiTietCto() throws Exception {
 
         //get Data Chi tiet cong to
-        String[] agrs = new String[]{String.valueOf(ID_BBAN_TRTH), maBdong.code, mMaNVien};
+        String[] agrs = new String[]{String.valueOf(onIDataCommom.getID_BBAN_TRTH()), onIDataCommom.getMA_BDONG().code, onIDataCommom.getMaNVien()};
         List<TABLE_CHITIET_CTO> tableChitietCtoList = mSqlDAO.getChiTietCongto(agrs);
         if (tableChitietCtoList.size() != 0)
             tableChitietCto = tableChitietCtoList.get(0);
@@ -397,7 +424,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
 
         //get Data bien ban
-        String[] agrsBB = new String[]{String.valueOf(ID_BBAN_TRTH), mMaNVien};
+        String[] agrsBB = new String[]{String.valueOf(onIDataCommom.getID_BBAN_TRTH()), onIDataCommom.getMaNVien()};
         List<TABLE_BBAN_CTO> tableBbanCtoList = mSqlDAO.getBBan(agrsBB);
         if (tableBbanCtoList.size() != 0)
             tableBbanCto = tableBbanCtoList.get(0);
@@ -437,7 +464,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
 
         //get info ẢNH chỉ số
-        argsAnh = new String[]{mMaNVien, String.valueOf(ID_CHITIET_CTO)};
+        argsAnh = new String[]{onIDataCommom.getMaNVien(), String.valueOf(ID_CHITIET_CTO)};
         tableAnhHientruongList = mSqlDAO.getAnhHienTruong(argsAnh, Common.TYPE_IMAGE.IMAGE_CONG_TO);
         if (tableAnhHientruongList.size() != 0)
             tableAnhChiso = tableAnhHientruongList.get(0);
@@ -446,7 +473,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
 
         //get Ảnh niêm phong
-        argsAnh = new String[]{mMaNVien, String.valueOf(ID_CHITIET_CTO)};
+        argsAnh = new String[]{onIDataCommom.getMaNVien(), String.valueOf(ID_CHITIET_CTO)};
         tableAnhHientruongList = mSqlDAO.getAnhHienTruong(argsAnh, Common.TYPE_IMAGE.IMAGE_CONG_TO_NIEM_PHONG);
         if (tableAnhHientruongList.size() != 0)
             tableAnhNiemPhong = tableAnhHientruongList.get(0);
@@ -485,16 +512,6 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         fillImageView(Common.TYPE_IMAGE.IMAGE_CONG_TO, trangThaiDuLieu);
 
         fillImageView(Common.TYPE_IMAGE.IMAGE_CONG_TO_NIEM_PHONG, trangThaiDuLieu);
-
-
-        //show fragment menu top
-        Bundle topMenuBundle = new Bundle();
-        topMenuBundle.putSerializable(BUNDLE_MA_BDONG, maBdong);
-        topMenuBundle.putInt(BUNDLE_ID_BBAN_TRTH, ID_BBAN_TRTH);
-        topMenuBundle.putInt(BUNDLE_ID_BBAN_TUTI, tableChitietCto.getID_BBAN_TUTI());
-
-        mListener.showTopMenuChiTietCtoFragment(topMenuBundle);
-
     }
 
 
@@ -831,7 +848,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
 
                     //scale ảnh
-                    String TEN_ANH_CONG_TO = Common.getImageName(Common.TYPE_IMAGE.IMAGE_CONG_TO.code, timeFileCaptureAnhChiSo, MA_DVIQLY, MA_TRAM, ID_BBAN_TRTH, SO_CTO);
+                    String TEN_ANH_CONG_TO = Common.getImageName(Common.TYPE_IMAGE.IMAGE_CONG_TO.code, timeFileCaptureAnhChiSo, MA_DVIQLY, MA_TRAM, onIDataCommom.getID_BBAN_TRTH(), SO_CTO);
                     String pathURICapturedAnhChiso = Common.getRecordDirectoryFolder(Common.FOLDER_NAME.FOLDER_ANH_CONG_TO.name()) + "/" + TEN_ANH_CONG_TO;
                     Common.scaleImage(pathURICapturedAnhChiso, getActivity());
 
@@ -870,7 +887,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
                     tableAnhChiso = new TABLE_ANH_HIENTRUONG();
                     tableAnhChiso.setID_CHITIET_CTO(tableChitietCto.getID_CHITIET_CTO());
                     tableAnhChiso.setCREATE_DAY(timeSQLCapturedAnhChiso);
-                    tableAnhChiso.setMA_NVIEN(mMaNVien);
+                    tableAnhChiso.setMA_NVIEN(onIDataCommom.getMaNVien());
                     tableAnhChiso.setTYPE(Common.TYPE_IMAGE.IMAGE_CONG_TO.code);
                     tableAnhChiso.setTEN_ANH(TEN_ANH_CONG_TO);
 //                    tableAnhChiso.setID_TABLE_ANH_HIENTRUONG((int) mSqlDAO.insert(TABLE_ANH_HIENTRUONG.class, tableAnhChiso));
@@ -882,7 +899,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
 
                     //scale ảnh
-                    String TEN_ANH_CONG_TO_NIEMPHONG = Common.getImageName(Common.TYPE_IMAGE.IMAGE_CONG_TO_NIEM_PHONG.name(), timeFileCaptureAnhNiemPhong, MA_DVIQLY, MA_TRAM, ID_BBAN_TRTH, SO_CTO);
+                    String TEN_ANH_CONG_TO_NIEMPHONG = Common.getImageName(Common.TYPE_IMAGE.IMAGE_CONG_TO_NIEM_PHONG.name(), timeFileCaptureAnhNiemPhong, MA_DVIQLY, MA_TRAM, onIDataCommom.getID_BBAN_TRTH(), SO_CTO);
                     String pathURICapturedAnhNiemPhong = Common.getRecordDirectoryFolder(Common.FOLDER_NAME.FOLDER_ANH_CONG_TO.name()) + "/" + TEN_ANH_CONG_TO_NIEMPHONG;
                     Common.scaleImage(pathURICapturedAnhNiemPhong, getActivity());
 
@@ -919,7 +936,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
                     tableAnhNiemPhong = new TABLE_ANH_HIENTRUONG();
                     tableAnhNiemPhong.setID_CHITIET_CTO(tableChitietCto.getID_CHITIET_CTO());
                     tableAnhNiemPhong.setCREATE_DAY(timeSQLCapturedAnhNiemPhong);
-                    tableAnhNiemPhong.setMA_NVIEN(mMaNVien);
+                    tableAnhNiemPhong.setMA_NVIEN(onIDataCommom.getMaNVien());
                     tableAnhNiemPhong.setTYPE(Common.TYPE_IMAGE.IMAGE_CONG_TO_NIEM_PHONG.code);
                     tableAnhNiemPhong.setTEN_ANH(TEN_ANH_CONG_TO_NIEMPHONG);
 //                    tableAnhNiemPhong.setID_TABLE_ANH_HIENTRUONG((int) mSqlDAO.insert(TABLE_ANH_HIENTRUONG.class, tableAnhNiemPhong));
@@ -927,12 +944,12 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
                 }
             }
         } catch (Exception e) {
-            ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
+            ((TthtHnBaseActivity) getActivity()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
         }
     }
 
     @Override
-    void setAction(Bundle savedInstanceState) throws Exception {
+    public void setAction(Bundle savedInstanceState) throws Exception {
         //check sự thay đổi nếu sửa chỉ số
         catchEditCHI_SO();
 
@@ -947,8 +964,68 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
         //anh niem phong
         catchClickAnh();
+
+
+        //catch click fab
+        catchClickFab();
+
+
+        //call main hide progress bar load and update navigation menu , title
+        onIDataCommom.setVisiblePbarLoad(false);
+        onIDataCommom.setMenuNaviAndTitle(onIDataCommom.getMA_BDONG() == Common.MA_BDONG.B ? TagMenuNaviLeft.CHITIET_CTO_TREO : TagMenuNaviLeft.CHITIET_CTO_THAO);
+
     }
 
+    private void catchClickFab() {
+        scrollChitiet.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                if (fabMenu.isOpened()) {
+                    fabMenu.close(true);
+                }
+            }
+        });
+
+
+        fabKH.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scrollChitiet.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollChitiet.scrollTo(0, TthtHnChiTietCtoDialogFragment.this.getView().findViewById(R.id.tv_1).getTop());
+                    }
+                });
+            }
+        });
+
+
+        fabNhap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scrollChitiet.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollChitiet.scrollTo(0, TthtHnChiTietCtoDialogFragment.this.getView().findViewById(R.id.tv_2).getTop());
+                    }
+                });
+            }
+        });
+
+
+        fabKH.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scrollChitiet.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollChitiet.scrollTo(0, TthtHnChiTietCtoDialogFragment.this.getView().findViewById(R.id.tv_t_4a).getTop());
+                    }
+                });
+            }
+        });
+
+    }
 
 
     private void catchClickAnh() {
@@ -967,7 +1044,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
                     Common.zoomImage(getActivity(), bitmap);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
+                    ((TthtHnBaseActivity) getActivity()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
                 }
             }
         });
@@ -979,7 +1056,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
                     captureAnhNiemPhong();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
+                    ((TthtHnBaseActivity) getActivity()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
                 }
             }
         });
@@ -1014,7 +1091,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
                         throw new Exception("Phải ghi từng chỉ số trước khi chụp ảnh!");
                 } catch (Exception e) {
                     e.printStackTrace();
-                    ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
+                    ((TthtHnBaseActivity) getActivity()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
                 }
             }
         });
@@ -1034,7 +1111,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
                     Common.zoomImage(getActivity(), bitmap);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
+                    ((TthtHnBaseActivity) getActivity()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
                 }
 
             }
@@ -1079,6 +1156,31 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
     }
 
     private void catchClickBottomBar() {
+        btnCtoTruoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    onIDataCommom.setPreCto(pos);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ((TthtHnBaseActivity) getActivity()).showSnackBar(Common.MESSAGE.ex03.getContent(), e.getMessage(), null);
+                }
+            }
+        });
+
+        btnCtoSau.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    onIDataCommom.setNextCto(pos);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ((TthtHnBaseActivity) getActivity()).showSnackBar(Common.MESSAGE.ex03.getContent(), e.getMessage(), null);
+                }
+            }
+        });
+
+
         btnGhi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1089,10 +1191,11 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex03.getContent(), e.getMessage(), null);
+                    ((TthtHnBaseActivity) getActivity()).showSnackBar(Common.MESSAGE.ex03.getContent(), e.getMessage(), null);
                 }
             }
         });
+
     }
 
     private void catchEditCHI_SO() {
@@ -1201,8 +1304,6 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         //data common
         String MA_DVIQLY = tableBbanCto.getMA_DVIQLY();
         String SO_CTO = tableChitietCto.getSO_CTO();
-        String MA_BDONG = maBdong.code;
-        int ID_CHITIET_CTO = tableChitietCto.getID_CHITIET_CTO();
         String TEN_KHANG = tableBbanCto.getTEN_KHANG();
         String MA_DDO = tableBbanCto.getMA_DDO();
         String MA_TRAM = tableBbanCto.getMA_TRAM();
@@ -1210,9 +1311,9 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
 
         //data anh
-        String TYPE_IMAGE_DRAW_chiso = (maBdong == Common.MA_BDONG.B) ? "ẢNH CÔNG TƠ TREO" : "ẢNH CÔNG TƠ THÁO";
-        String TYPE_IMAGE_DRAW_niemphong = (maBdong == Common.MA_BDONG.B) ? "ẢNH NIÊM PHONG TREO" : "ẢNH NIÊM PHONG THÁO";
-        String CHI_SO_DRAW = (maBdong == Common.MA_BDONG.B) ? "CS TREO: " + tableChitietCto.getCHI_SO() : "CS THÁO: " + tableChitietCto.getCHI_SO();
+        String TYPE_IMAGE_DRAW_chiso = (onIDataCommom.getMA_BDONG() == Common.MA_BDONG.B) ? "ẢNH CÔNG TƠ TREO" : "ẢNH CÔNG TƠ THÁO";
+        String TYPE_IMAGE_DRAW_niemphong = (onIDataCommom.getMA_BDONG() == Common.MA_BDONG.B) ? "ẢNH NIÊM PHONG TREO" : "ẢNH NIÊM PHONG THÁO";
+        String CHI_SO_DRAW = (onIDataCommom.getMA_BDONG() == Common.MA_BDONG.B) ? "CS TREO: " + tableChitietCto.getCHI_SO() : "CS THÁO: " + tableChitietCto.getCHI_SO();
         String MA_DDO_DRAW = "MÃ Đ.ĐO:" + MA_DDO;
         String SO_CTO_DRAW = "SỐ C.TƠ:" + SO_CTO;
         String timeDrawCapturedAnh = Common.getDateTimeNow(Common.DATE_TIME_TYPE.type9);
@@ -1235,8 +1336,8 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
         tableAnhChiso.setCREATE_DAY(timeSQLSaveAnh);
         tableAnhNiemPhong.setCREATE_DAY(timeSQLSaveAnh);
-        tableAnhChiso.setTEN_ANH(Common.getImageName(Common.TYPE_IMAGE.IMAGE_CONG_TO.code, timeNameFileCapturedAnh, MA_DVIQLY, MA_TRAM, ID_BBAN_TRTH, SO_CTO));
-        tableAnhNiemPhong.setTEN_ANH(Common.getImageName(Common.TYPE_IMAGE.IMAGE_CONG_TO_NIEM_PHONG.code, timeNameFileCapturedAnh, MA_DVIQLY, MA_TRAM, ID_BBAN_TRTH, SO_CTO));
+        tableAnhChiso.setTEN_ANH(Common.getImageName(Common.TYPE_IMAGE.IMAGE_CONG_TO.code, timeNameFileCapturedAnh, MA_DVIQLY, MA_TRAM, onIDataCommom.getID_BBAN_TRTH(), SO_CTO));
+        tableAnhNiemPhong.setTEN_ANH(Common.getImageName(Common.TYPE_IMAGE.IMAGE_CONG_TO_NIEM_PHONG.code, timeNameFileCapturedAnh, MA_DVIQLY, MA_TRAM, onIDataCommom.getID_BBAN_TRTH(), SO_CTO));
         String pathNewAnhChiSo = Common.getRecordDirectoryFolder(Common.FOLDER_NAME.FOLDER_ANH_CONG_TO.name()) + "/" + tableAnhChiso.getTEN_ANH();
         String pathNewAnhNiemPhong = Common.getRecordDirectoryFolder(Common.FOLDER_NAME.FOLDER_ANH_CONG_TO.name()) + "/" + tableAnhNiemPhong.getTEN_ANH();
 
@@ -1304,7 +1405,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
         final String fileName = Common.getRecordDirectoryFolder(Common.FOLDER_NAME.FOLDER_ANH_CONG_TO.name())
                 + "/"
-                + Common.getImageName(Common.TYPE_IMAGE.IMAGE_CONG_TO.name(), timeFileCaptureAnhChiSo, MA_DVIQLY, MA_TRAM, ID_BBAN_TRTH, SO_CTO);
+                + Common.getImageName(Common.TYPE_IMAGE.IMAGE_CONG_TO.name(), timeFileCaptureAnhChiSo, MA_DVIQLY, MA_TRAM, onIDataCommom.getID_BBAN_TRTH(), SO_CTO);
 
 
         File file = new File(fileName);
@@ -1328,7 +1429,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
         final String fileName = Common.getRecordDirectoryFolder(Common.FOLDER_NAME.FOLDER_ANH_CONG_TO.name())
                 + "/"
-                + Common.getImageName(Common.TYPE_IMAGE.IMAGE_CONG_TO_NIEM_PHONG.name(), timeFileCaptureAnhNiemPhong, MA_DVIQLY, MA_TRAM, ID_BBAN_TRTH, SO_CTO);
+                + Common.getImageName(Common.TYPE_IMAGE.IMAGE_CONG_TO_NIEM_PHONG.name(), timeFileCaptureAnhNiemPhong, MA_DVIQLY, MA_TRAM, onIDataCommom.getID_BBAN_TRTH(), SO_CTO);
 
 
         File file = new File(fileName);
@@ -1355,6 +1456,5 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnITthtHnChiTietCtoFragment {
-        void showTopMenuChiTietCtoFragment(Bundle bundle);
     }
 }

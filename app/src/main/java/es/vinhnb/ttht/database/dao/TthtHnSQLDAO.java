@@ -55,6 +55,10 @@ public class TthtHnSQLDAO extends SqlDAO {
                 TABLE_CHITIET_CTO.table.SO_CTO.name() +
                 ", " +
                 TABLE_CHITIET_CTO.table.CHI_SO.name() +
+                ", " +
+                TABLE_CHITIET_CTO.table.ID_BBAN_TUTI.name() +
+                ", " +
+                TABLE_CHITIET_CTO.table.TRANG_THAI_DU_LIEU.name() +
                 " FROM " +
                 TABLE_CHITIET_CTO.table.getName() +
                 " WHERE " +
@@ -79,8 +83,9 @@ public class TthtHnSQLDAO extends SqlDAO {
                 dataChiTietCtoAdapter.setTenKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TEN_KHANG.name())));
                 dataChiTietCtoAdapter.setDiachiKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.DCHI_HDON.name())));
                 dataChiTietCtoAdapter.setChiso(cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.CHI_SO.name())));
+                dataChiTietCtoAdapter.setIdbbantuti(cursor.getInt(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.ID_BBAN_TUTI.name())));
                 dataChiTietCtoAdapter.setIdbbantrth(cursor.getInt(cursor.getColumnIndex("ID_BBAN_TRTH_BB")));
-
+                dataChiTietCtoAdapter.setTRANG_THAI_DULIEU(cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.TRANG_THAI_DU_LIEU.name())));
                 return dataChiTietCtoAdapter;
             }
         });

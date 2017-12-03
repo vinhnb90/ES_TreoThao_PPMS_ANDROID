@@ -1,10 +1,14 @@
 package es.vinhnb.ttht.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.es.tungnv.views.R;
@@ -13,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.vinhnb.ttht.common.Common;
+import es.vinhnb.ttht.view.IInteractionDataCommon;
 
 /**
  * Created by VinhNB on 11/22/2017.
@@ -21,18 +26,25 @@ import es.vinhnb.ttht.common.Common;
 public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.ViewHolder> {
 
     private static OnIChiTietCtoAdapter onIChiTietCtoAdapter;
-    private static Common.MA_BDONG maBdong;
+    private static IInteractionDataCommon OnIDataCommom;
     private Context context;
     private static List<DataChiTietCtoAdapter> listData = new ArrayList<>();
+    private static int posClick;
 
-    public ChiTietCtoAdapter(Context context, Common.MA_BDONG maBdong, List<DataChiTietCtoAdapter> listData) {
+    public ChiTietCtoAdapter(Context context, List<DataChiTietCtoAdapter> listData) {
         this.context = context;
         this.listData = listData;
-        this.maBdong = maBdong;
         if (context instanceof OnIChiTietCtoAdapter)
             this.onIChiTietCtoAdapter = (OnIChiTietCtoAdapter) context;
         else
             throw new ClassCastException("context must be implemnet OnIChiTietCtoAdapter!");
+
+
+        if (context instanceof IInteractionDataCommon)
+            this.OnIDataCommom = (IInteractionDataCommon) context;
+        else
+            throw new ClassCastException("context must be implemnet IInteractionDataCommon!");
+
     }
 
     @Override
@@ -53,6 +65,29 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
         holder.tvmaGCS.setText(data.maGCS);
         holder.tvmaTram.setText(data.maTram);
         holder.tvchiso.setText(data.chiso);
+
+
+        //background select
+        holder.mRlMain.setBackgroundColor(Color.WHITE);
+        if (position == posClick) {
+            holder.mRlMain.setBackgroundColor(ContextCompat.getColor(context, R.color.tththn_background_lv5));
+        }
+
+
+        switch (Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(data.TRANG_THAI_DULIEU)) {
+            case CHUA_GHI:
+                holder.mLLView.setBackgroundColor(ContextCompat.getColor(context, R.color.tththn_background_chua_ghi));
+                break;
+
+            case DA_GHI:
+                holder.mLLView.setBackgroundColor(ContextCompat.getColor(context, R.color.tththn_background_da_ghi));
+                break;
+
+            case DA_GUI:
+                holder.mLLView.setBackgroundColor(ContextCompat.getColor(context, R.color.tththn_background_da_gui));
+                break;
+
+        }
     }
 
     @Override
@@ -67,6 +102,32 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
         notifyDataSetChanged();
     }
 
+    public int refreshNextPos(int posOld) {
+        if (posOld < 0 || posOld >= listData.size())
+            return posOld;
+
+        //set data
+        this.posClick = posOld + 1;
+        OnIDataCommom.setID_BBAN_TRTH(listData.get(this.posClick).getIdbbantrth());
+
+
+        notifyDataSetChanged();
+        return this.posClick;
+    }
+
+    public int refreshPrePos(int posOld) {
+        if (posOld <= 0 || posOld > listData.size())
+            return posOld;
+
+        //set data
+        this.posClick = posOld - 1;
+        OnIDataCommom.setID_BBAN_TRTH(listData.get(this.posClick).getIdbbantrth());
+
+
+        notifyDataSetChanged();
+        return this.posClick;
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tvstt;
         public TextView tvmaCto;
@@ -76,6 +137,9 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
         public TextView tvmaGCS;
         public TextView tvmaTram;
         public TextView tvchiso;
+
+        public LinearLayout mLLView;
+        public RelativeLayout mRlMain;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -87,22 +151,36 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
             tvmaGCS = itemView.findViewById(R.id.tv_magcs);
             tvmaTram = itemView.findViewById(R.id.tv_matram);
             tvchiso = itemView.findViewById(R.id.tv_chiso);
-
+            mRlMain = itemView.findViewById(R.id.rl_main_row_chitiet_cto);
+            mLLView = itemView.findViewById(R.id.ll_main_row_chitiet_cto);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int pos = getAdapterPosition();
+                    DataChiTietCtoAdapter dataChiTietCtoAdapter = listData.get(pos);
+                    OnIDataCommom.setID_BBAN_TRTH(dataChiTietCtoAdapter.getIdbbantrth());
+                    OnIDataCommom.setID_BBAN_TUTI_CTO(dataChiTietCtoAdapter.getIdbbantuti());
 
 
-                    onIChiTietCtoAdapter.clickRowChiTietCtoAdapter(maBdong, listData.get(pos));
+                    //get next and pre
+//                    int nextID_BBAN_TRTH = 0;
+//                    int preID_BBAN_TRTH = 0;
+//                    if (pos < listData.size() - 1)
+//                        nextID_BBAN_TRTH = listData.get(pos + 1).getIdbbantrth();
+//                    if (pos > 0)
+//                        preID_BBAN_TRTH = listData.get(pos - 1).getIdbbantrth();
+
+
+                    posClick = pos;
+                    onIChiTietCtoAdapter.clickRowChiTietCtoAdapter(pos);
                 }
             });
         }
     }
 
     public interface OnIChiTietCtoAdapter {
-        void clickRowChiTietCtoAdapter(Common.MA_BDONG maBdong, DataChiTietCtoAdapter ctoAdapter);
+        void clickRowChiTietCtoAdapter(int pos);
     }
 
     public static class DataChiTietCtoAdapter {
@@ -114,6 +192,17 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
         private String maTram;
         private String chiso;
         private int idbbantrth;
+        private int idbbantuti;
+
+        private String TRANG_THAI_DULIEU;
+
+        public int getIdbbantuti() {
+            return idbbantuti;
+        }
+
+        public void setIdbbantuti(int idbbantuti) {
+            this.idbbantuti = idbbantuti;
+        }
 
         public int getIdbbantrth() {
             return idbbantrth;
@@ -177,6 +266,14 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
 
         public void setChiso(String chiso) {
             this.chiso = chiso;
+        }
+
+        public String getTRANG_THAI_DULIEU() {
+            return TRANG_THAI_DULIEU;
+        }
+
+        public void setTRANG_THAI_DULIEU(String TRANG_THAI_DULIEU) {
+            this.TRANG_THAI_DULIEU = TRANG_THAI_DULIEU;
         }
     }
 }

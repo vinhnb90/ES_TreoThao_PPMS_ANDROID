@@ -21,8 +21,9 @@ public class TthtHnBBanTutiFragment extends TthtHnBaseFragment {
         // Required empty public constructor
     }
 
-    public static TthtHnBBanTutiFragment newInstance(Bundle bundle) {
+    public static TthtHnBBanTutiFragment newInstance() {
         TthtHnBBanTutiFragment fragment = new TthtHnBBanTutiFragment();
+        Bundle bundle = new Bundle();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -30,9 +31,6 @@ public class TthtHnBBanTutiFragment extends TthtHnBaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
-        }
     }
 
     @Override
@@ -81,12 +79,12 @@ public class TthtHnBBanTutiFragment extends TthtHnBaseFragment {
 
     //region TthtHnBaseFragment
     @Override
-    void initDataAndView(View viewRoot) throws Exception {
+    public void initDataAndView(View viewRoot) throws Exception {
 
     }
 
     @Override
-    void setAction(Bundle savedInstanceState) throws Exception {
+    public void setAction(Bundle savedInstanceState) throws Exception {
 
     }
     //endregion

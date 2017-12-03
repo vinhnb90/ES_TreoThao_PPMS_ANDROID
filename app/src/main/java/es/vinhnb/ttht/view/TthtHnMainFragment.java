@@ -2,7 +2,6 @@ package es.vinhnb.ttht.view;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.es.tungnv.views.R;
-import com.esolutions.esloginlib.lib.LoginFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,28 +19,20 @@ import es.vinhnb.ttht.adapter.ChiTietCtoAdapter;
 import es.vinhnb.ttht.adapter.ChungLoaiAdapter;
 import es.vinhnb.ttht.adapter.TramAdapter;
 import es.vinhnb.ttht.common.Common;
+import es.vinhnb.ttht.database.dao.TthtHnSQLDAO;
 import es.vinhnb.ttht.database.table.TABLE_BBAN_CTO;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_CTO;
 import es.vinhnb.ttht.database.table.TABLE_LOAI_CONG_TO;
 import es.vinhnb.ttht.database.table.TABLE_TRAM;
-import es.vinhnb.ttht.database.dao.TthtHnSQLDAO;
 import es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 
+import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_TAG_MENU;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link OnListenerTthtHnMainFragment} interface
- * to handle interaction events.
- * Use the {@link TthtHnMainFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class TthtHnMainFragment extends TthtHnBaseFragment {
 
-    private LoginFragment.LoginData mLoginData;
-    private String mMaNVien;
     private TagMenuNaviLeft tagMenuNaviLeft;
+    private IInteractionDataCommon onIDataCommon;
 
     private List<TABLE_BBAN_CTO> listTABLE_BBAN_CTO = new ArrayList<>();
     private List<TABLE_TRAM> listTABLE_TRAM = new ArrayList<>();
@@ -60,8 +50,10 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
         // Required empty public constructor
     }
 
-    public static TthtHnMainFragment newInstance(Bundle bundle) {
+    public static TthtHnMainFragment newInstance(TagMenuNaviLeft tagMenuNaviLeft) {
         TthtHnMainFragment fragment = new TthtHnMainFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(BUNDLE_TAG_MENU, tagMenuNaviLeft);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -69,13 +61,20 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            //getBundle
-            Bundle bundle = getArguments();
-            mLoginData = (LoginFragment.LoginData) bundle.getParcelable(TthtHnLoginActivity.BUNDLE_LOGIN);
-            mMaNVien = bundle.getString(TthtHnLoginActivity.BUNDLE_MA_NVIEN);
-            tagMenuNaviLeft = (TagMenuNaviLeft) bundle.getSerializable(TthtHnLoginActivity.BUNDLE_TAG_MENU);
+
+
+        //getBundle
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            tagMenuNaviLeft = (TagMenuNaviLeft) bundle.getSerializable(BUNDLE_TAG_MENU);
         }
+
+
+        //get onIDataCommon
+        if (getContext() instanceof IInteractionDataCommon)
+            this.onIDataCommon = (IInteractionDataCommon) getContext();
+        else
+            throw new ClassCastException("context must be implemnet IInteractionDataCommon!");
     }
 
     @Override
@@ -146,21 +145,21 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     }
 
 
-    private void fillDataCto(Common.MA_BDONG maBdong) {
+    private void fillDataCto() {
+
         //get Data and apdater
-        String[] agrs = new String[]{maBdong.code};
+        String[] agrs = new String[]{onIDataCommon.getMA_BDONG().code};
         List<ChiTietCtoAdapter.DataChiTietCtoAdapter> dataTreoChiTietCtoAdapters = mSqlDAO.getTreoDataChiTietCtoAdapter(agrs);
 
 
         if (mRvMain.getAdapter() instanceof ChiTietCtoAdapter) {
             ((ChiTietCtoAdapter) mRvMain.getAdapter()).refresh(dataTreoChiTietCtoAdapters);
         } else {
-            ChiTietCtoAdapter treoCtoAdapter = new ChiTietCtoAdapter(getContext(), maBdong, dataTreoChiTietCtoAdapters);
+            ChiTietCtoAdapter treoCtoAdapter = new ChiTietCtoAdapter(getContext(), dataTreoChiTietCtoAdapters);
             mRvMain.removeAllViews();
             mRvMain.invalidate();
             mRvMain.swapAdapter(treoCtoAdapter, true);
         }
-
 
         mRvMain.invalidate();
     }
@@ -205,7 +204,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
 
     //region TthtHnBaseFragment
     @Override
-    void initDataAndView(View viewRoot) throws Exception {
+    public void initDataAndView(View viewRoot) throws Exception {
         mRvMain = (RecyclerView) viewRoot.findViewById(R.id.rv_tththn_main);
 
 
@@ -215,7 +214,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     }
 
     @Override
-    void setAction(Bundle savedInstanceState) throws Exception {
+    public void setAction(Bundle savedInstanceState) throws Exception {
         //fill data recycler
         switch (tagMenuNaviLeft) {
             case BBAN_CTO:
@@ -223,13 +222,8 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
                 break;
 
             case CTO_TREO:
-
-                fillDataCto(Common.MA_BDONG.B);
-                break;
-
             case CTO_THAO:
-                fillDataCto(Common.MA_BDONG.E);
-                break;
+                fillDataCto();
 
             case CHUNG_LOAI:
                 fillDataChungLoai();
@@ -239,6 +233,34 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
                 fillDataTram();
                 break;
 
+        }
+    }
+
+    public void refreshNextCto(int posOld) throws Exception {
+        if (posOld == mRvMain.getAdapter().getItemCount())
+            throw new Exception("Không còn công tơ!");
+
+
+        if (mRvMain.getAdapter() instanceof ChiTietCtoAdapter) {
+            int posNew = ((ChiTietCtoAdapter) mRvMain.getAdapter()).refreshNextPos(posOld);
+            if (posNew != posOld) ;
+            {
+                mRvMain.getLayoutManager().scrollToPosition(posNew);
+            }
+        }
+    }
+
+    public void refreshPreCto(int posOld)  throws Exception {
+        if (posOld == mRvMain.getAdapter().getItemCount())
+            throw new Exception("Không còn công tơ!");
+
+
+        if (mRvMain.getAdapter() instanceof ChiTietCtoAdapter) {
+            int posNew = ((ChiTietCtoAdapter) mRvMain.getAdapter()).refreshPrePos(posOld);
+            if (posNew != posOld) ;
+            {
+                mRvMain.getLayoutManager().scrollToPosition(posNew);
+            }
         }
     }
     //endregion

@@ -17,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.es.tungnv.views.R;
-import com.esolutions.esloginlib.lib.LoginFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,10 +61,9 @@ import static es.vinhnb.ttht.server.TthtHnApiInterface.IAsync.STATUS_CODE;
  * create an instance of this fragment.
  */
 public class TthtHnDownloadFragment extends TthtHnBaseFragment {
-    private LoginFragment.LoginData mLoginData;
-    private String mMaNVien;
 
     private TthtHnApiInterface apiInterface;
+    private IInteractionDataCommon onIDataCommon;
 
 
     // TODO: Rename and change types of parameters
@@ -92,21 +90,21 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
         // Required empty public constructor
     }
 
-    public static TthtHnDownloadFragment newInstance(Bundle bundle) {
+    public static TthtHnDownloadFragment newInstance() {
         TthtHnDownloadFragment fragment = new TthtHnDownloadFragment();
-
-        fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            //getBundle
-            mLoginData = (LoginFragment.LoginData) getArguments().getParcelable(TthtHnLoginActivity.BUNDLE_LOGIN);
-            mMaNVien = getArguments().getString(TthtHnLoginActivity.BUNDLE_MA_NVIEN);
-        }
+
+
+        //get onIDataCommon
+        if (getContext() instanceof IInteractionDataCommon)
+            this.onIDataCommon = (IInteractionDataCommon) getContext();
+        else
+            throw new ClassCastException("context must be implemnet IInteractionDataCommon!");
     }
 
     @Override
@@ -217,8 +215,8 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
 
                             //set default
-                            infoSessionDownload.setMA_DVIQLY(mLoginData.getmMaDvi());
-                            infoSessionDownload.setMA_NVIEN(mMaNVien);
+                            infoSessionDownload.setMA_DVIQLY(onIDataCommon.getLoginData().getmMaDvi());
+                            infoSessionDownload.setMA_NVIEN(onIDataCommon.getMaNVien());
                             infoSessionDownload.setTYPE_CALL_API(Common.TYPE_CALL_API.DOWNLOAD.content);
                             infoSessionDownload.setTYPE_RESULT(Common.TYPE_RESULT.SUCCESS.content);
 
@@ -652,7 +650,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
         TABLE_CHITIET_CTO tableBbanTuti = new TABLE_CHITIET_CTO(
                 0,
                 mtbCtoModel.MA_DVIQLY,
-                mMaNVien,
+                onIDataCommon.getMaNVien(),
                 mtbCtoModel.ID_BBAN_TRTH,
                 mtbCtoModel.MA_CTO,
                 mtbCtoModel.SO_CTO,
@@ -766,7 +764,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
         //casting dữ liệu server bbanModel sang dữ liệu sqlite TABLE_BBAN_CTO
 
         //server ko trả về dữ liệu
-        String MA_NVIEN = TextUtils.isEmpty(bbanModel.MA_NVIEN) ? mMaNVien : bbanModel.MA_NVIEN;
+        String MA_NVIEN = TextUtils.isEmpty(bbanModel.MA_NVIEN) ? onIDataCommon.getMaNVien() : bbanModel.MA_NVIEN;
 
         TABLE_BBAN_CTO tableBbanCto = new TABLE_BBAN_CTO(
                 0,
@@ -856,7 +854,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
         //casting dữ liệu server MtbBbanTutiModel sang dữ liệu sqlite TABLE_BBAN_TUTI
         //catch case server ko trả về dữ liệu
-        String MA_NVIEN = TextUtils.isEmpty(bbanTutiModel.MA_NVIEN) ? mMaNVien : bbanTutiModel.MA_NVIEN;
+        String MA_NVIEN = TextUtils.isEmpty(bbanTutiModel.MA_NVIEN) ? onIDataCommon.getMaNVien() : bbanTutiModel.MA_NVIEN;
 
 
         TABLE_BBAN_TUTI tableBbanTuti = new TABLE_BBAN_TUTI(
@@ -1151,7 +1149,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
                 try {
                     //call check CMIS connect
-                    Call<List<TRAMVIEW>> GetTramCall = apiInterface.GetTram(mLoginData.getmMaDvi());
+                    Call<List<TRAMVIEW>> GetTramCall = apiInterface.GetTram(onIDataCommon.getLoginData().getmMaDvi());
                     Response<List<TRAMVIEW>> GetTramResponse = GetTramCall.execute();
 
 
@@ -1246,7 +1244,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
                 try {
                     //call check CMIS connect
-                    Call<List<MTB_TuTiModel>> Get_TUTICall = apiInterface.Get_TUTI(mLoginData.getmMaDvi(), String.valueOf(ID_BBAN_TUTI));
+                    Call<List<MTB_TuTiModel>> Get_TUTICall = apiInterface.Get_TUTI(onIDataCommon.getLoginData().getmMaDvi(), String.valueOf(ID_BBAN_TUTI));
                     Response<List<MTB_TuTiModel>> Get_TUTIResponse = Get_TUTICall.execute();
 
 
@@ -1342,7 +1340,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
                 try {
                     //call check CMIS connect
-                    Call<List<MtbBbanTutiModel>> Get_bban_TUTICall = apiInterface.Get_bban_TUTI(mLoginData.getmMaDvi(), mMaNVien);
+                    Call<List<MtbBbanTutiModel>> Get_bban_TUTICall = apiInterface.Get_bban_TUTI(onIDataCommon.getLoginData().getmMaDvi(), onIDataCommon.getMaNVien());
                     Response<List<MtbBbanTutiModel>> Get_bban_TUTIResponse = Get_bban_TUTICall.execute();
 
 
@@ -1442,7 +1440,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
                 try {
                     //call check CMIS connect
-                    Call<List<MtbCtoModel>> Get_ctoCall = apiInterface.Get_cto(mLoginData.getmMaDvi(), String.valueOf(ID_BBAN_TRTH));
+                    Call<List<MtbCtoModel>> Get_ctoCall = apiInterface.Get_cto(onIDataCommon.getLoginData().getmMaDvi(), String.valueOf(ID_BBAN_TRTH));
                     Response<List<MtbCtoModel>> Get_ctoResponse = Get_ctoCall.execute();
 
 
@@ -1551,7 +1549,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
                 try {
                     //call check CMIS connect
-                    Call<List<UpdateStatus>> LayDuLieuCmisCall = apiInterface.LayDuLieuCmis(mLoginData.getmMaDvi(), mMaNVien);
+                    Call<List<UpdateStatus>> LayDuLieuCmisCall = apiInterface.LayDuLieuCmis(onIDataCommon.getLoginData().getmMaDvi(), onIDataCommon.getMaNVien());
                     Response<List<UpdateStatus>> LayDuLieuCmisCallResponse = LayDuLieuCmisCall.execute();
 
 
@@ -1673,7 +1671,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
                 try {
                     //call check CMIS connect
-                    Call<List<MtbBbanModel>> GeT_BBANCall = apiInterface.GeT_BBAN(mLoginData.getmMaDvi(), mMaNVien);
+                    Call<List<MtbBbanModel>> GeT_BBANCall = apiInterface.GeT_BBAN(onIDataCommon.getLoginData().getmMaDvi(), onIDataCommon.getMaNVien());
                     Response<List<MtbBbanModel>> GeT_BBANResponse = GeT_BBANCall.execute();
 
 
