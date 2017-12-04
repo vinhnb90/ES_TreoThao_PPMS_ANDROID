@@ -429,7 +429,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
             } else {
                 fragmentChitietCto = new TthtHnChiTietCtoFragment();
                 fragmentChitietCto = new TthtHnChiTietCtoFragment().newInstance(MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CHITIET_CTO_TREO : TagMenuNaviLeft.CHITIET_CTO_THAO, pos);
-                mTransaction.replace(mRlMain.getId(), fragmentBBanTuTi);
+                mTransaction.replace(mRlMain.getId(), fragmentChitietCto);
                 mTransaction.commit();
 
             }
