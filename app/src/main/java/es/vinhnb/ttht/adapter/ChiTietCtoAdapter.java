@@ -33,7 +33,11 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
 
     public ChiTietCtoAdapter(Context context, List<DataChiTietCtoAdapter> listData) {
         this.context = context;
-        this.listData = listData;
+        //clone
+        this.listData.clear();
+        this.listData = Common.cloneList(listData);
+
+
         if (context instanceof OnIChiTietCtoAdapter)
             this.onIChiTietCtoAdapter = (OnIChiTietCtoAdapter) context;
         else
@@ -97,8 +101,8 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
 
 
     public void refresh(List<DataChiTietCtoAdapter> listData) {
-        listData.clear();
-        this.listData = listData;
+        this.listData.clear();
+        this.listData = Common.cloneList(listData);
         notifyDataSetChanged();
     }
 
@@ -193,8 +197,27 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
         private String chiso;
         private int idbbantrth;
         private int idbbantuti;
+        private String ngaytrth;
+        private String sobban;
 
         private String TRANG_THAI_DULIEU;
+
+
+        public String getSobban() {
+            return sobban;
+        }
+
+        public void setSobban(String sobban) {
+            this.sobban = sobban;
+        }
+
+        public String getNgaytrth() {
+            return ngaytrth;
+        }
+
+        public void setNgaytrth(String ngaytrth) {
+            this.ngaytrth = ngaytrth;
+        }
 
         public int getIdbbantuti() {
             return idbbantuti;

@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -58,7 +59,7 @@ import static es.vinhnb.ttht.view.TthtHnLoginActivity.BUNDLE_TAG_MENU;
 import static es.vinhnb.ttht.view.TthtHnMainActivity.*;
 
 
-public class TthtHnChiTietCtoDialogFragment extends DialogFragment implements IBaseView {
+public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment{
     private OnITthtHnChiTietCtoFragment mListener;
     private IInteractionDataCommon onIDataCommom;
     private TagMenuNaviLeft tagMenuNaviLeft;
@@ -69,7 +70,7 @@ public class TthtHnChiTietCtoDialogFragment extends DialogFragment implements IB
 
     //view
     @BindView(R.id.scrollv_chitiet)
-    FloatingActionMenu scrollChitiet;
+    ScrollView scrollChitiet;
 
 
     //fab
@@ -277,15 +278,15 @@ public class TthtHnChiTietCtoDialogFragment extends DialogFragment implements IB
     private int pos = -1;
 
 
-    public TthtHnChiTietCtoDialogFragment() {
+    public TthtHnChiTietCtoFragment() {
     }
 
 
-    public static TthtHnChiTietCtoDialogFragment newInstance(TagMenuNaviLeft tagMenuNaviLeft, int pos) {
+    public static TthtHnChiTietCtoFragment newInstance(TagMenuNaviLeft tagMenuNaviLeft, int pos) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(BUNDLE_TAG_MENU, tagMenuNaviLeft);
         bundle.putInt(BUNDLE_POS, pos);
-        TthtHnChiTietCtoDialogFragment fragment = new TthtHnChiTietCtoDialogFragment();
+        TthtHnChiTietCtoFragment fragment = new TthtHnChiTietCtoFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -294,6 +295,7 @@ public class TthtHnChiTietCtoDialogFragment extends DialogFragment implements IB
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (this.getActivity() instanceof IInteractionDataCommon)
             this.onIDataCommom = (IInteractionDataCommon) getActivity();
         else
@@ -313,7 +315,7 @@ public class TthtHnChiTietCtoDialogFragment extends DialogFragment implements IB
 
         // Inflate the layout for this fragment
         View viewRoot = inflater.inflate(R.layout.fragment_ttht_chitiet_treo, container, false);
-        unbinder = ButterKnife.bind(TthtHnChiTietCtoDialogFragment.this, viewRoot);
+        unbinder = ButterKnife.bind(TthtHnChiTietCtoFragment.this, viewRoot);
 
 
         try {
@@ -354,6 +356,11 @@ public class TthtHnChiTietCtoDialogFragment extends DialogFragment implements IB
         mListener = null;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
     Handler mHandler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message msg) {
@@ -365,12 +372,12 @@ public class TthtHnChiTietCtoDialogFragment extends DialogFragment implements IB
                             void clickOK() {
                                 isRefreshAnh = false;
                                 isRefreshChiSo = false;
-                                TthtHnChiTietCtoDialogFragment.this.onDestroy();
+                                TthtHnChiTietCtoFragment.this.onDestroy();
                             }
 
                             @Override
                             void clickCancel() {
-                                TthtHnChiTietCtoDialogFragment.this.onResume();
+                                TthtHnChiTietCtoFragment.this.onResume();
                             }
                         }.setTextBtnOK("TIẾP TỤC").setTextBtnCancel("TRỞ LẠI").setTitle("Thông báo");
 
@@ -400,7 +407,7 @@ public class TthtHnChiTietCtoDialogFragment extends DialogFragment implements IB
         super.onDestroy();
     }
 
-    public TthtHnChiTietCtoDialogFragment refresh(TagMenuNaviLeft tagMenuNaviLeft) {
+    public TthtHnChiTietCtoFragment refresh(TagMenuNaviLeft tagMenuNaviLeft) {
         this.tagMenuNaviLeft = tagMenuNaviLeft;
         return this;
     }
@@ -993,7 +1000,7 @@ public class TthtHnChiTietCtoDialogFragment extends DialogFragment implements IB
                 scrollChitiet.post(new Runnable() {
                     @Override
                     public void run() {
-                        scrollChitiet.scrollTo(0, TthtHnChiTietCtoDialogFragment.this.getView().findViewById(R.id.tv_1).getTop());
+                        scrollChitiet.scrollTo(0, TthtHnChiTietCtoFragment.this.getView().findViewById(R.id.tv_1).getTop());
                     }
                 });
             }
@@ -1006,7 +1013,7 @@ public class TthtHnChiTietCtoDialogFragment extends DialogFragment implements IB
                 scrollChitiet.post(new Runnable() {
                     @Override
                     public void run() {
-                        scrollChitiet.scrollTo(0, TthtHnChiTietCtoDialogFragment.this.getView().findViewById(R.id.tv_2).getTop());
+                        scrollChitiet.scrollTo(0, TthtHnChiTietCtoFragment.this.getView().findViewById(R.id.tv_2).getTop());
                     }
                 });
             }
@@ -1019,7 +1026,7 @@ public class TthtHnChiTietCtoDialogFragment extends DialogFragment implements IB
                 scrollChitiet.post(new Runnable() {
                     @Override
                     public void run() {
-                        scrollChitiet.scrollTo(0, TthtHnChiTietCtoDialogFragment.this.getView().findViewById(R.id.tv_t_4a).getTop());
+                        scrollChitiet.scrollTo(0, TthtHnChiTietCtoFragment.this.getView().findViewById(R.id.tv_t_4a).getTop());
                     }
                 });
             }
@@ -1456,5 +1463,9 @@ public class TthtHnChiTietCtoDialogFragment extends DialogFragment implements IB
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnITthtHnChiTietCtoFragment {
+    }
+
+    public int getPos(){
+        return pos;
     }
 }

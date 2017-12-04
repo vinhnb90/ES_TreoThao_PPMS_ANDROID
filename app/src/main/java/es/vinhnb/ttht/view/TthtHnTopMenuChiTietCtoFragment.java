@@ -11,14 +11,11 @@ import android.widget.Button;
 
 import com.es.tungnv.views.R;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.database.dao.TthtHnSQLDAO;
-import es.vinhnb.ttht.database.table.TABLE_CHITIET_CTO;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 
 import static es.vinhnb.ttht.common.Common.DELAY_ANIM;
@@ -104,7 +101,7 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
             mListener = (IOnTthtHnTopMenuChiTietCtoFragment) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement IOnTthtHnTopMenuChiTietCtoFragment");
+                    + " must implement IOnTthtHnTopSearchFragment");
         }
 
 
@@ -133,7 +130,7 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
     public void initDataAndView(View viewRoot) throws Exception {
 
         //show visible Topmenu
-        showTopMenu(btnCtoMenu);
+        showTopMenu(viewRoot);
     }
 
     @Override
@@ -164,7 +161,7 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
             @Override
             public void onClick(final View view) {
                 try {
-                    //clickTopMenuButton
+                    //clickTopMenuChitietCto
                     Common.runAnimationClickView(view, R.anim.tththn_scale_view_pull, DELAY_ANIM);
 
 
@@ -172,7 +169,7 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
                         @Override
                         public void run() {
                             setBackgroundTopMenu(view);
-                            mListener.clickTopMenuButton(TthtHnMainActivity.TagMenuTop.CHITIET_CTO);
+                            mListener.clickTopMenuChitietCto(TthtHnMainActivity.TagMenuTop.CHITIET_CTO);
                         }
                     }, DELAY_ANIM + DELAY_ANIM);
                 } catch (Exception e) {
@@ -186,7 +183,7 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
             @Override
             public void onClick(View view) {
                 try {
-                    //clickTopMenuButton
+                    //clickTopMenuChitietCto
                     Common.runAnimationClickView(view, R.anim.tththn_scale_view_pull, DELAY_ANIM);
 
                     getView().postDelayed(new Runnable() {
@@ -205,7 +202,7 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
 //                                    ID_BBAN_TUTI = tableChitietCtoList.get(0).getID_BBAN_TUTI();
 //                                onIDataCommon.setID_BBAN_TUTI_CTO(ID_BBAN_TUTI);
 
-                                mListener.clickTopMenuButton(TthtHnMainActivity.TagMenuTop.CHITIET_CTO);
+                                mListener.clickTopMenuChitietCto(TthtHnMainActivity.TagMenuTop.CHITIET_CTO);
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
@@ -224,13 +221,13 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
             @Override
             public void onClick(View view) {
                 try {
-                    //clickTopMenuButton
+                    //clickTopMenuChitietCto
                     Common.runAnimationClickView(view, R.anim.tththn_scale_view_pull, DELAY_ANIM);
                     setBackgroundTopMenu(view);
 
 
-                    //clickTopMenuButton
-                    mListener.clickTopMenuButton(TthtHnMainActivity.TagMenuTop.BBAN_TUTI);
+                    //clickTopMenuChitietCto
+                    mListener.clickTopMenuChitietCto(TthtHnMainActivity.TagMenuTop.BBAN_TUTI);
                 } catch (Exception e) {
                     e.printStackTrace();
                     ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
@@ -260,6 +257,6 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
     }
 
     public interface IOnTthtHnTopMenuChiTietCtoFragment {
-        void clickTopMenuButton(TthtHnMainActivity.TagMenuTop tagMenuTop);
+        void clickTopMenuChitietCto(TthtHnMainActivity.TagMenuTop tagMenuTop);
     }
 }

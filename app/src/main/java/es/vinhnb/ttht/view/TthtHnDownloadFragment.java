@@ -150,7 +150,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
     //region TthtHnBaseFragment
     @Override
-    void initDataAndView(View viewRoot) throws Exception {
+    public void initDataAndView(View viewRoot) throws Exception {
         tvDateDownload = (TextView) viewRoot.findViewById(R.id.tv_date_download);
         tvPercentDownload = (TextView) viewRoot.findViewById(R.id.tv_percent);
         pbarDownload = (ProgressBar) viewRoot.findViewById(R.id.pbar_download);
@@ -165,7 +165,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
     }
 
     @Override
-    void setAction(Bundle savedInstanceState) throws Exception {
+    public void setAction(Bundle savedInstanceState) throws Exception {
         //setDate time now
         tvDateDownload.setTextColor(getResources().getColor(R.color.text_black));
         tvDateDownload.setText(Common.getDateTimeNow(Common.DATE_TIME_TYPE.type6));
@@ -189,7 +189,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
                     }
                 }.setTextBtnOK("CHÉP NỘI DUNG");
-                TthtHnDownloadFragment.super.showDialog(historyAdapter.message, iDialog);
+                TthtHnDownloadFragment.super.showDialog(getContext(), historyAdapter.message, iDialog);
             }
         };
 

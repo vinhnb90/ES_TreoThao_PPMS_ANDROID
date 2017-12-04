@@ -44,6 +44,10 @@ public class TthtHnSQLDAO extends SqlDAO {
                 TABLE_BBAN_CTO.table.MA_GCS_CTO.name() +
                 ", " +
                 TABLE_BBAN_CTO.table.MA_TRAM.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.NGAY_TRTH.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.SO_BBAN.name() +
                 " FROM " +
                 TABLE_BBAN_CTO.table.getName() +
                 ") AS BBAN JOIN " +
@@ -86,6 +90,9 @@ public class TthtHnSQLDAO extends SqlDAO {
                 dataChiTietCtoAdapter.setIdbbantuti(cursor.getInt(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.ID_BBAN_TUTI.name())));
                 dataChiTietCtoAdapter.setIdbbantrth(cursor.getInt(cursor.getColumnIndex("ID_BBAN_TRTH_BB")));
                 dataChiTietCtoAdapter.setTRANG_THAI_DULIEU(cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.TRANG_THAI_DU_LIEU.name())));
+                dataChiTietCtoAdapter.setNgaytrth(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.NGAY_TRTH.name())));
+                dataChiTietCtoAdapter.setSobban(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.SO_BBAN.name())));
+
                 return dataChiTietCtoAdapter;
             }
         });
@@ -180,6 +187,10 @@ public class TthtHnSQLDAO extends SqlDAO {
                 TABLE_BBAN_CTO.table.TEN_KHANG.name() +
                 ", " +
                 TABLE_BBAN_CTO.table.MA_TRAM.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.NGAY_TRTH.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.SO_BBAN.name() +
                 " FROM " +
                 TABLE_BBAN_CTO.table.getName() +
                 "";
@@ -199,6 +210,9 @@ public class TthtHnSQLDAO extends SqlDAO {
                 dataBBanAdapter.setTenKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TEN_KHANG.name())));
                 dataBBanAdapter.setMaTramcapdien(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_TRAM.name())));
                 dataBBanAdapter.setMaKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_KHANG.name())));
+                dataBBanAdapter.setNgayTrth(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.NGAY_TRTH.name())));
+                dataBBanAdapter.setSobban(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.SO_BBAN.name())));
+
 
                 return dataBBanAdapter;
             }

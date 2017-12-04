@@ -10,7 +10,10 @@ import android.widget.TextView;
 import com.es.tungnv.views.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import es.vinhnb.ttht.common.Common;
 
 /**
  * Created by VinhNB on 11/22/2017.
@@ -23,7 +26,8 @@ public class BBanAdapter extends RecyclerView.Adapter<BBanAdapter.ViewHolder> {
 
     public BBanAdapter(Context context, List<DataBBanAdapter> listData) {
         this.context = context;
-        this.listData = listData;
+        //clone
+        this.listData = Common.cloneList(listData);
     }
 
     @Override
@@ -52,10 +56,11 @@ public class BBanAdapter extends RecyclerView.Adapter<BBanAdapter.ViewHolder> {
     }
 
 
-    public void refresh(List<DataBBanAdapter> listData ){
-        listData.clear();
-        this.listData = listData;
-        notifyDataSetChanged();
+    public void refresh(List<DataBBanAdapter> listData) {
+        this.listData.clear();
+        //clone
+        this.listData = Common.cloneList(listData);
+        this.notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -89,6 +94,24 @@ public class BBanAdapter extends RecyclerView.Adapter<BBanAdapter.ViewHolder> {
         private String maGCS;
         private String maTramcapdien;
         private String lydo;
+        private String ngayTrth;
+        private String sobban;
+
+        public String getSobban() {
+            return sobban;
+        }
+
+        public void setSobban(String sobban) {
+            this.sobban = sobban;
+        }
+
+        public String getNgayTrth() {
+            return ngayTrth;
+        }
+
+        public void setNgayTrth(String ngayTrth) {
+            this.ngayTrth = ngayTrth;
+        }
 
         public String getMaKH() {
             return maKH;

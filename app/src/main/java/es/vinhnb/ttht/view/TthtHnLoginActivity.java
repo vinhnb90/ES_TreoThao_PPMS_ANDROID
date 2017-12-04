@@ -9,6 +9,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Toast;
 
 import com.es.tungnv.views.R;
@@ -71,8 +72,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
 
 
             //init view
-            initDataAndView();
-
+            initDataAndView(getWindow().getDecorView().getRootView());
 
             //set action
             setAction(savedInstanceState);
@@ -114,7 +114,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
                 } else {
                     try {
                         //init view
-                        initDataAndView();
+                        initDataAndView(getWindow().getDecorView().getRootView());
 
 
                         setAction(super.savedInstanceState);
@@ -296,7 +296,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
 
     //region TthtHnBaseActivity
     @Override
-    void initDataAndView() throws Exception {
+    public void initDataAndView(View rootView) throws Exception {
         //set view
         setContentView(R.layout.activity_login);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.cl_ac_login);
@@ -428,7 +428,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
     }
 
     @Override
-    void setAction(Bundle savedInstanceState) throws Exception {
+    public void setAction(Bundle savedInstanceState) throws Exception {
         //show view login
         transaction.replace(R.id.cl_ac_login, loginFragment).commit();
     }
