@@ -251,7 +251,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         fragmentMain = new TthtHnMainFragment().newInstance(TagMenuNaviLeft.BBAN_CTO);
         mTransaction = getSupportFragmentManager().beginTransaction();
         mTransaction.replace(mRlMain.getId(), fragmentMain);
-//        mTransaction.addToBackStack(TagMenuNaviLeft.BBAN_CTO.tagFrag);
+
         tagOld = TagMenuNaviLeft.BBAN_CTO;
 
 
@@ -406,6 +406,13 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
             setMenuNaviAndTitle(TagMenuNaviLeft.CHITIET_CTO_THAO);
 
 
+        //save data posClick
+        Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
+        if (fragmentVisible instanceof TthtHnMainFragment) {
+            ((TthtHnMainFragment) fragmentVisible).savePosClick(pos);
+        }
+
+
         //show body
         showChiTietCtoFragment(pos);
 
@@ -422,16 +429,17 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
             mTransaction = getSupportFragmentManager().beginTransaction();
             Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
             if (fragmentVisible instanceof TthtHnChiTietCtoFragment) {
-                fragmentChitietCto.refresh(MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CHITIET_CTO_TREO : TagMenuNaviLeft.CHITIET_CTO_THAO);
+                fragmentChitietCto.refresh(MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CHITIET_CTO_TREO : TagMenuNaviLeft.CHITIET_CTO_THAO, pos);
                 mTransaction.detach(fragmentChitietCto);
                 mTransaction.attach(fragmentChitietCto);
+                mTransaction.addToBackStack(MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CHITIET_CTO_TREO.tagFrag : TagMenuNaviLeft.CHITIET_CTO_THAO.tagFrag);
                 mTransaction.commit();
             } else {
                 fragmentChitietCto = new TthtHnChiTietCtoFragment();
                 fragmentChitietCto = new TthtHnChiTietCtoFragment().newInstance(MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CHITIET_CTO_TREO : TagMenuNaviLeft.CHITIET_CTO_THAO, pos);
                 mTransaction.replace(mRlMain.getId(), fragmentChitietCto);
+                mTransaction.addToBackStack(MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CHITIET_CTO_TREO.tagFrag : TagMenuNaviLeft.CHITIET_CTO_THAO.tagFrag);
                 mTransaction.commit();
-
             }
         } catch (Exception e) {
             super.showSnackBar(Common.MESSAGE.ex03.getContent(), e.getMessage(), null);
@@ -525,8 +533,15 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
             if (!(fragmentVisible instanceof TthtHnMainFragment))
                 return;
 
+
+            //save pos new
+            int posNew = ((TthtHnMainFragment) fragmentVisible).refreshPreCto(posOld);
+            ((TthtHnMainFragment) fragmentVisible).savePosClick(posNew);
+
+
             //show body
-            showChiTietCtoFragment(((TthtHnMainFragment) fragmentVisible).refreshNextCto(posOld));
+            showChiTietCtoFragment(posNew);
+
 
             //show top
             showTopMenuFragment(MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO : TagMenuNaviLeft.CTO_THAO, CHITIET_CTO);
@@ -546,8 +561,14 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                 return;
 
 
+            //save pos new
+            int posNew = ((TthtHnMainFragment) fragmentVisible).refreshPreCto(posOld);
+            ((TthtHnMainFragment) fragmentVisible).savePosClick(posNew);
+
+
             //show body
-            showChiTietCtoFragment(((TthtHnMainFragment) fragmentVisible).refreshPreCto(posOld));
+            showChiTietCtoFragment(posNew);
+
 
             //show top
             showTopMenuFragment(MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO : TagMenuNaviLeft.CTO_THAO, CHITIET_CTO);
@@ -592,6 +613,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                     fragmentMain.switchMenu(tagNew);
                     mTransaction.detach(fragmentMain);
                     mTransaction.attach(fragmentMain);
+                    mTransaction.addToBackStack(tagNew.tagFrag);
                     mTransaction.commit();
                 }
 
@@ -612,6 +634,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                 if (tagNew.typeFrag == TypeFragment.TthtHnMainFragment) {
                     fragmentMain = new TthtHnMainFragment().newInstance(tagNew);
                     mTransaction.replace(mRlMain.getId(), fragmentMain);
+                    mTransaction.addToBackStack(tagNew.tagFrag);
                     mTransaction.commit();
                 }
 

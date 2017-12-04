@@ -47,6 +47,9 @@ public abstract class TthtHnBaseActivity extends AppCompatActivity implements IB
     public static final String BUNDLE_MA_BDONG = "BUNDLE_MA_BDONG";
     public static final String BUNDLE_TYPE_TOPMENU = "BUNDLE_TYPE_TOPMENU";
 
+    public static final String BUNDLE_TYPE_SEARCH_STORE = "BUNDLE_TYPE_SEARCH_STORE";
+    public static final String BUNDLE_MESSAGE_SEARCH = "BUNDLE_TYPE_MESSAGE_SEARCH";
+
     protected Snackbar snackbar;
     protected CoordinatorLayout coordinatorLayout;
     protected Bundle savedInstanceState;

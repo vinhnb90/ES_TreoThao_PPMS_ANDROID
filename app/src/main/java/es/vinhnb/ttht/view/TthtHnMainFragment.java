@@ -2,6 +2,7 @@ package es.vinhnb.ttht.view;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -27,7 +28,11 @@ import es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 
 import static es.vinhnb.ttht.adapter.ChiTietCtoAdapter.*;
+import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_ID_BBAN_TRTH;
+import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_MESSAGE_SEARCH;
+import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_POS;
 import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_TAG_MENU;
+import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_TYPE_SEARCH_STORE;
 
 public class TthtHnMainFragment extends TthtHnBaseFragment {
 
@@ -43,6 +48,11 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     private List<DataChiTietCtoAdapter> dataChiTietCtoAdapters = new ArrayList<>();
     private List<DataChungLoaiAdapter> dataCloaiAdapterList = new ArrayList<>();
     private List<DataTramAdapter> dataTramAdapterList = new ArrayList<>();
+
+    //save data cho fragment bien ban
+    private String typeSearchStringCto;
+    private String messageSearchCto;
+    private int posRecylerClick = -1;
 
     public TthtHnMainFragment() {
         // Required empty public constructor
@@ -112,6 +122,28 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
             throw new RuntimeException(e.getMessage());
         }
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            tagMenuNaviLeft = (TagMenuNaviLeft) savedInstanceState.getSerializable(BUNDLE_MESSAGE_SEARCH);
+            typeSearchStringCto = savedInstanceState.getString(BUNDLE_TYPE_SEARCH_STORE);
+            messageSearchCto = savedInstanceState.getString(BUNDLE_MESSAGE_SEARCH);
+            posRecylerClick = savedInstanceState.getInt(BUNDLE_POS);
+        } else {
+            tagMenuNaviLeft = TagMenuNaviLeft.BBAN_CTO;
+            typeSearchStringCto = null;
+            messageSearchCto = null;
+            posRecylerClick = -1;
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
 
     @Override
     public void onDetach() {
@@ -227,7 +259,15 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
                 dataChiTietCtoAdapters = mSqlDAO.getTreoDataChiTietCtoAdapter(agrsCto);
 
 
-                fillDataCto(dataChiTietCtoAdapters);
+                //nếu có store data fragment thì restore
+                if (isStateSaved()) {
+                    searchCto(typeSearchStringCto, messageSearchCto);
+                    mRvMain.scrollToPosition(posRecylerClick);
+                    mRvMain.postInvalidate();
+                } else
+                    fillDataCto(dataChiTietCtoAdapters);
+
+
                 break;
 
             case CHUNG_LOAI:
@@ -261,6 +301,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     public int refreshPreCto(int posOld) throws Exception {
         if (posOld == mRvMain.getAdapter().getItemCount())
             throw new Exception("Không còn công tơ!");
+
 
         int posNew = 0;
         if (mRvMain.getAdapter() instanceof ChiTietCtoAdapter) {
@@ -312,6 +353,10 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     }
 
     private void searchCto(String typeSearchString, String messageSearch) {
+        this.typeSearchStringCto = typeSearchString;
+        this.messageSearchCto = messageSearch;
+
+
         Common.TYPE_SEARCH_CTO typeSearch = Common.TYPE_SEARCH_CTO.findTYPE_SEARCH(typeSearchString);
         String query = Common.removeAccent(messageSearch.toString().trim().toLowerCase());
         List<DataChiTietCtoAdapter> dataFilter = new ArrayList<>();
@@ -394,6 +439,19 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
 
         //giữ nguyên dữ liệu, lọc cái cần dùng
         fillDataBBanCto(dataFilter);
+    }
+
+    public void savePosClick(int pos) {
+        this.posRecylerClick = pos;
+        //save
+        Bundle outState = new Bundle();
+        if (tagMenuNaviLeft == TagMenuNaviLeft.CTO_TREO || tagMenuNaviLeft == TagMenuNaviLeft.CTO_THAO) {
+            outState.putString(BUNDLE_TYPE_SEARCH_STORE, typeSearchStringCto);
+            outState.putString(BUNDLE_MESSAGE_SEARCH, messageSearchCto);
+            outState.putSerializable(BUNDLE_TAG_MENU, tagMenuNaviLeft);
+            outState.putInt(BUNDLE_POS, posRecylerClick);
+        }
+        onSaveInstanceState(outState);
     }
 
 

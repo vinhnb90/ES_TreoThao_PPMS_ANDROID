@@ -407,7 +407,8 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment{
         super.onDestroy();
     }
 
-    public TthtHnChiTietCtoFragment refresh(TagMenuNaviLeft tagMenuNaviLeft) {
+    public TthtHnChiTietCtoFragment refresh(TagMenuNaviLeft tagMenuNaviLeft, int pos) {
+        this.pos = pos;
         this.tagMenuNaviLeft = tagMenuNaviLeft;
         return this;
     }
@@ -987,9 +988,8 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment{
         scrollChitiet.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
-                if (fabMenu.isOpened()) {
-                    fabMenu.close(true);
-                }
+//                if(!fabMenu.isMenuButtonHidden())
+//                    fabMenu.hideMenuButton(true);
             }
         });
 
@@ -1020,7 +1020,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment{
         });
 
 
-        fabKH.setOnClickListener(new View.OnClickListener() {
+        fabChupAnh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 scrollChitiet.post(new Runnable() {
@@ -1450,6 +1450,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment{
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
         startActivityForResult(cameraIntent, CAMERA_REQUEST_CONGTO_NIEMPHONG);
     }
+
     //endregion
 
     /**
