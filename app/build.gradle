@@ -41,8 +41,7 @@ dependencies {
     compile 'com.android.support:support-v13:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-    compile project(path: ':EsDatabaseLib')
-    compile project(path: ':EsLoginLib')
+    implementation project(path: ':EsDatabaseLib')
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation files('libs/converter-gson-2.3.0.jar')
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
@@ -50,4 +49,5 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.github.clans:fab:1.6.4'
     compile 'com.roughike:bottom-bar:2.3.1'
+    implementation project(':EsLoginLib')
 }

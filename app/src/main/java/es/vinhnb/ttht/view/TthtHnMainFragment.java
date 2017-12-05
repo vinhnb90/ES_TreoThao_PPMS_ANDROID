@@ -28,7 +28,6 @@ import es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 
 import static es.vinhnb.ttht.adapter.ChiTietCtoAdapter.*;
-import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_ID_BBAN_TRTH;
 import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_MESSAGE_SEARCH;
 import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_POS;
 import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_TAG_MENU;
@@ -50,8 +49,8 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     private List<DataTramAdapter> dataTramAdapterList = new ArrayList<>();
 
     //save data cho fragment bien ban
-    private String typeSearchStringCto;
-    private String messageSearchCto;
+    private String typeSearchString;
+    private String messageSearch;
     private int posRecylerClick = -1;
 
     public TthtHnMainFragment() {
@@ -128,20 +127,22 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null) {
             tagMenuNaviLeft = (TagMenuNaviLeft) savedInstanceState.getSerializable(BUNDLE_MESSAGE_SEARCH);
-            typeSearchStringCto = savedInstanceState.getString(BUNDLE_TYPE_SEARCH_STORE);
-            messageSearchCto = savedInstanceState.getString(BUNDLE_MESSAGE_SEARCH);
+            typeSearchString = savedInstanceState.getString(BUNDLE_TYPE_SEARCH_STORE);
+            messageSearch = savedInstanceState.getString(BUNDLE_MESSAGE_SEARCH);
             posRecylerClick = savedInstanceState.getInt(BUNDLE_POS);
-        } else {
-            tagMenuNaviLeft = TagMenuNaviLeft.BBAN_CTO;
-            typeSearchStringCto = null;
-            messageSearchCto = null;
-            posRecylerClick = -1;
         }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        //save
+        if (tagMenuNaviLeft == TagMenuNaviLeft.CTO_TREO || tagMenuNaviLeft == TagMenuNaviLeft.CTO_THAO) {
+            outState.putString(BUNDLE_TYPE_SEARCH_STORE, typeSearchString);
+            outState.putString(BUNDLE_MESSAGE_SEARCH, messageSearch);
+            outState.putSerializable(BUNDLE_TAG_MENU, tagMenuNaviLeft);
+            outState.putInt(BUNDLE_POS, posRecylerClick);
+        }
     }
 
 
@@ -224,6 +225,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
         mRvMain.invalidate();
     }
 
+
     //region TthtHnBaseFragment
     @Override
     public void initDataAndView(View viewRoot) throws Exception {
@@ -260,8 +262,8 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
 
 
                 //nếu có store data fragment thì restore
-                if (isStateSaved()) {
-                    searchCto(typeSearchStringCto, messageSearchCto);
+                if (savedInstanceState!=null) {
+                    searchCto(typeSearchString, messageSearch);
                     mRvMain.scrollToPosition(posRecylerClick);
                     mRvMain.postInvalidate();
                 } else
@@ -316,6 +318,9 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     }
 
     public void searchData(String typeSearchString, String messageSearch) {
+        this.typeSearchString = typeSearchString;
+        this.messageSearch = messageSearch;
+
         switch (tagMenuNaviLeft) {
             case BBAN_CTO:
                 searchBBan(typeSearchString, messageSearch);
@@ -353,8 +358,8 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     }
 
     private void searchCto(String typeSearchString, String messageSearch) {
-        this.typeSearchStringCto = typeSearchString;
-        this.messageSearchCto = messageSearch;
+        this.typeSearchString = typeSearchString;
+        this.messageSearch = messageSearch;
 
 
         Common.TYPE_SEARCH_CTO typeSearch = Common.TYPE_SEARCH_CTO.findTYPE_SEARCH(typeSearchString);
@@ -441,17 +446,8 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
         fillDataBBanCto(dataFilter);
     }
 
-    public void savePosClick(int pos) {
+    public void savePosClick(int pos, TagMenuNaviLeft tagMenuNaviLeft) {
         this.posRecylerClick = pos;
-        //save
-        Bundle outState = new Bundle();
-        if (tagMenuNaviLeft == TagMenuNaviLeft.CTO_TREO || tagMenuNaviLeft == TagMenuNaviLeft.CTO_THAO) {
-            outState.putString(BUNDLE_TYPE_SEARCH_STORE, typeSearchStringCto);
-            outState.putString(BUNDLE_MESSAGE_SEARCH, messageSearchCto);
-            outState.putSerializable(BUNDLE_TAG_MENU, tagMenuNaviLeft);
-            outState.putInt(BUNDLE_POS, posRecylerClick);
-        }
-        onSaveInstanceState(outState);
     }
 
 

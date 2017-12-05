@@ -35,9 +35,12 @@ import static com.es.tungnv.views.R.layout.activity_ttht_hn_main;
 import static es.vinhnb.ttht.view.TthtHnBBanTutiFragment.IOnTthtHnBBanTutiFragment;
 import static es.vinhnb.ttht.view.TthtHnChiTietCtoFragment.OnITthtHnChiTietCtoFragment;
 import static es.vinhnb.ttht.view.TthtHnDownloadFragment.OnListenerTthtHnDownloadFragment;
+import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CHUNG_LOAI;
 import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CTO_THAO;
 import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CTO_TREO;
+import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.TRAM;
 import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuTop.CHITIET_CTO;
+import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuTop.SEARCH;
 import static es.vinhnb.ttht.view.TthtHnTopMenuChiTietCtoFragment.IOnTthtHnTopMenuChiTietCtoFragment;
 import static es.vinhnb.ttht.view.TthtHnTopSearchFragment.IOnTthtHnTopSearchFragment;
 
@@ -197,7 +200,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
 
         //init nav menu
         naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenuNaviLeft.BBAN_CTO));
-        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenuNaviLeft.TRAM));
+        naviMenuList.add(new NaviMenuAdapter.NaviMenu(TRAM));
         naviMenuList.add(new NaviMenuAdapter.NaviMenu(CTO_TREO));
         naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenuNaviLeft.CTO_THAO));
         naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenuNaviLeft.CHUNG_LOAI));
@@ -316,9 +319,122 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         try {
 
             setMenuNaviAndTitle(tagNew);
+            Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
+            mTransaction = getSupportFragmentManager().beginTransaction();
+            switch (tagNew) {
+                case BBAN_CTO:
+                case TRAM:
+                case CHUNG_LOAI:
+                case CTO_TREO:
+                case CTO_THAO:
+                    if (fragmentVisible instanceof TthtHnMainFragment) {
+                        fragmentMain.switchMenu(tagNew);
+                        mTransaction.detach(fragmentMain);
+                        mTransaction.attach(fragmentMain);
+                        mTransaction.commit();
+                    } else {
+                        fragmentMain = new TthtHnMainFragment().newInstance(tagNew);
+                        mTransaction.replace(mRlMain.getId(), fragmentMain);
+                        mTransaction.addToBackStack(tagNew.tagFrag);
+                        mTransaction.commit();
+                    }
+
+
+                    //show top menu
+                    if (tagNew == CHUNG_LOAI || tagNew == TRAM) {
+                        Fragment fragment = getSupportFragmentManager().findFragmentById(mRlTopMenu.getId());
+                        if (fragment != null)
+                            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                    } else
+                        showTopMenuFragment(tagNew, SEARCH);
+                    break;
+
+
+//                if (fragmentVisible instanceof TthtHnDownloadFragment) {
+//                    mTransaction.detach(fragmentDownload);
+//                    mTransaction.attach(fragmentDownload);
+//                    mTransaction.commit();
+//                }
+//
+//
+//                if (fragmentVisible instanceof TthtHnBBanTutiFragment) {
+//                    mTransaction.detach(fragmentBBanTuTi);
+//                    mTransaction.attach(fragmentBBanTuTi);
+//                    mTransaction.commit();
+//                }
+//
+//            } else{
+//                if (tagNew.typeFrag == TypeFragment.TthtHnMainFragment) {
+//                    fragmentMain = new TthtHnMainFragment().newInstance(tagNew);
+//                    mTransaction.replace(mRlMain.getId(), fragmentMain);
+//                    if (tagNew == CTO_TREO || tagNew == CTO_THAO)
+//                        mTransaction.addToBackStack(MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO.tagFrag : TagMenuNaviLeft.CTO_THAO.tagFrag);
+//                    mTransaction.commit();
+//                }
+//
+//                if (tagNew.typeFrag == TypeFragment.TthtHnDownloadFragment) {
+//                    fragmentDownload = new TthtHnDownloadFragment().newInstance();
+//                    mTransaction.replace(mRlMain.getId(), fragmentDownload);
+//                    mTransaction.commit();
+//                }
+//
+//
+//                if (tagNew.typeFrag == TypeFragment.TthtHnBBanTutiFragment) {
+//                    //replace main relative
+//                    fragmentBBanTuTi = new TthtHnBBanTutiFragment().newInstance();
+//                    mTransaction.replace(mRlMain.getId(), fragmentBBanTuTi);
+////                    mTransaction.addToBackStack(tagNew.tagFrag);
+//                    mTransaction.commit();
+//                }
+//
+//            }
+
+
+                case DOWNLOAD:
+                    if (fragmentVisible instanceof TthtHnDownloadFragment) {
+                        mTransaction.detach(fragmentDownload);
+                        mTransaction.attach(fragmentDownload);
+                        mTransaction.commit();
+                    } else {
+                        fragmentDownload = new TthtHnDownloadFragment().newInstance();
+                        mTransaction.replace(mRlMain.getId(), fragmentDownload);
+                        mTransaction.commit();
+                    }
+
+                    Fragment fragment = getSupportFragmentManager().findFragmentById(mRlTopMenu.getId());
+                    if (fragment != null)
+                        getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                    break;
+                case UPLOAD:
+                    break;
+
+
+                case CHITIET_CTO_TREO:
+                    break;
+                case CHITIET_CTO_THAO:
+                    break;
+                case CHITIET_BBAN_TUTI_TREO:
+                    break;
+                case CHITIET_BBAN_TUTI_THAO:
+                    break;
+
+
+                case EMPTY1:
+                    break;
+                case LINE1:
+                    break;
+                case LINE2:
+                    break;
+
+                case HISTORY:
+                    break;
+            }
 
             callFragment(tagNew);
-        } catch (Exception e) {
+        } catch (
+                Exception e)
+
+        {
             e.printStackTrace();
             showSnackBar(Common.MESSAGE.ex04.getContent(), e.getMessage(), null);
         }
@@ -409,7 +525,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         //save data posClick
         Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
         if (fragmentVisible instanceof TthtHnMainFragment) {
-            ((TthtHnMainFragment) fragmentVisible).savePosClick(pos);
+            ((TthtHnMainFragment) fragmentVisible).savePosClick(pos, MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO : TagMenuNaviLeft.CTO_THAO);
         }
 
 
@@ -432,13 +548,12 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                 fragmentChitietCto.refresh(MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CHITIET_CTO_TREO : TagMenuNaviLeft.CHITIET_CTO_THAO, pos);
                 mTransaction.detach(fragmentChitietCto);
                 mTransaction.attach(fragmentChitietCto);
-                mTransaction.addToBackStack(MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CHITIET_CTO_TREO.tagFrag : TagMenuNaviLeft.CHITIET_CTO_THAO.tagFrag);
+
                 mTransaction.commit();
             } else {
                 fragmentChitietCto = new TthtHnChiTietCtoFragment();
                 fragmentChitietCto = new TthtHnChiTietCtoFragment().newInstance(MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CHITIET_CTO_TREO : TagMenuNaviLeft.CHITIET_CTO_THAO, pos);
                 mTransaction.replace(mRlMain.getId(), fragmentChitietCto);
-                mTransaction.addToBackStack(MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CHITIET_CTO_TREO.tagFrag : TagMenuNaviLeft.CHITIET_CTO_THAO.tagFrag);
                 mTransaction.commit();
             }
         } catch (Exception e) {
@@ -536,7 +651,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
 
             //save pos new
             int posNew = ((TthtHnMainFragment) fragmentVisible).refreshPreCto(posOld);
-            ((TthtHnMainFragment) fragmentVisible).savePosClick(posNew);
+            ((TthtHnMainFragment) fragmentVisible).savePosClick(posNew, MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO : TagMenuNaviLeft.CTO_THAO);
 
 
             //show body
@@ -563,7 +678,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
 
             //save pos new
             int posNew = ((TthtHnMainFragment) fragmentVisible).refreshPreCto(posOld);
-            ((TthtHnMainFragment) fragmentVisible).savePosClick(posNew);
+            ((TthtHnMainFragment) fragmentVisible).savePosClick(posNew, MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO : TagMenuNaviLeft.CTO_THAO);
 
 
             //show body
@@ -584,6 +699,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
     //region IOnTthtHnTopSearchFragment
     @Override
     public void clickSearch(String typeSearchString, String messageSearch) {
+
         Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
         if (!(fragmentVisible instanceof TthtHnMainFragment)) {
             return;
@@ -613,7 +729,8 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                     fragmentMain.switchMenu(tagNew);
                     mTransaction.detach(fragmentMain);
                     mTransaction.attach(fragmentMain);
-                    mTransaction.addToBackStack(tagNew.tagFrag);
+                    if (tagNew == CTO_TREO || tagNew == CTO_THAO)
+                        mTransaction.addToBackStack(MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO.tagFrag : TagMenuNaviLeft.CTO_THAO.tagFrag);
                     mTransaction.commit();
                 }
 
@@ -634,7 +751,8 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                 if (tagNew.typeFrag == TypeFragment.TthtHnMainFragment) {
                     fragmentMain = new TthtHnMainFragment().newInstance(tagNew);
                     mTransaction.replace(mRlMain.getId(), fragmentMain);
-                    mTransaction.addToBackStack(tagNew.tagFrag);
+                    if (tagNew == CTO_TREO || tagNew == CTO_THAO)
+                        mTransaction.addToBackStack(MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO.tagFrag : TagMenuNaviLeft.CTO_THAO.tagFrag);
                     mTransaction.commit();
                 }
 
