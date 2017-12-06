@@ -1,6 +1,5 @@
 package es.vinhnb.ttht.view;
 
-import android.support.v4.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -52,9 +51,6 @@ import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 
 import static es.vinhnb.ttht.common.Common.LOAI_CTO.D1;
 import static es.vinhnb.ttht.common.Common.LOAI_CTO.DT;
-import static es.vinhnb.ttht.view.TthtHnBaseFragment.CAMERA_REQUEST_CONGTO;
-import static es.vinhnb.ttht.view.TthtHnBaseFragment.CAMERA_REQUEST_CONGTO_NIEMPHONG;
-import static es.vinhnb.ttht.view.TthtHnBaseFragment.MESSAGE_CTO;
 import static es.vinhnb.ttht.view.TthtHnLoginActivity.BUNDLE_TAG_MENU;
 import static es.vinhnb.ttht.view.TthtHnMainActivity.*;
 
@@ -80,6 +76,10 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment{
 
     @BindView(R.id.fab_tt_kh)
     FloatingActionButton fabKH;
+
+    @BindView(R.id.fab_tt_cto)
+    FloatingActionButton fabCto;
+
 
     @BindView(R.id.fab_tt_cannhap)
     FloatingActionButton fabNhap;
@@ -262,6 +262,21 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment{
     TextView tvCS5;
     @BindView(R.id.et_45b_CS5)
     EditText etCS5;
+
+    //anchor
+    @BindView(R.id.tv_anchor_KH)
+    TextView vAnchorKH;
+
+    @BindView(R.id.tv_anchor_cto)
+    TextView vAnchorCto;
+
+
+    @BindView(R.id.tv_anchor_nhap)
+    TextView vAnchorNhap;
+
+    @BindView(R.id.tv_anchor_camera)
+    TextView vAnchorCamera;
+
 
 
     private TABLE_TRAM tableTram;
@@ -1003,7 +1018,21 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment{
                 scrollChitiet.post(new Runnable() {
                     @Override
                     public void run() {
-                        scrollChitiet.scrollTo(0, TthtHnChiTietCtoFragment.this.getView().findViewById(R.id.tv_1).getTop());
+                        scrollChitiet.setScrollY(vAnchorKH.getTop());
+                        vAnchorKH.getParent().requestChildFocus(vAnchorKH, vAnchorKH);
+                    }
+                });
+            }
+        });
+
+        fabCto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scrollChitiet.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollChitiet.setScrollY(vAnchorCto.getTop());
+                        vAnchorCto.getParent().requestChildFocus(vAnchorCto, vAnchorCto);
                     }
                 });
             }
@@ -1016,7 +1045,8 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment{
                 scrollChitiet.post(new Runnable() {
                     @Override
                     public void run() {
-                        scrollChitiet.scrollTo(0, TthtHnChiTietCtoFragment.this.getView().findViewById(R.id.tv_2).getTop());
+                        scrollChitiet.setScrollY(vAnchorNhap.getTop());
+                        vAnchorNhap.getParent().requestChildFocus(vAnchorNhap, vAnchorNhap);
                     }
                 });
             }
@@ -1029,7 +1059,8 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment{
                 scrollChitiet.post(new Runnable() {
                     @Override
                     public void run() {
-                        scrollChitiet.scrollTo(0, TthtHnChiTietCtoFragment.this.getView().findViewById(R.id.tv_t_4a).getTop());
+                        scrollChitiet.setScrollY(vAnchorCamera.getTop());
+                        vAnchorCamera.getParent().requestChildFocus(vAnchorCamera, vAnchorCamera);
                     }
                 });
             }

@@ -12,6 +12,8 @@ import com.es.tungnv.views.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.vinhnb.ttht.common.Common;
+
 /**
  * Created by VinhNB on 11/22/2017.
  */
@@ -23,7 +25,8 @@ public class ChungLoaiAdapter extends RecyclerView.Adapter<ChungLoaiAdapter.View
 
     public ChungLoaiAdapter(Context context, List<DataChungLoaiAdapter> listData) {
         this.context = context;
-        this.listData = listData;
+        this.listData.clear();
+        this.listData = Common.cloneList(listData);
     }
 
     @Override
@@ -55,8 +58,8 @@ public class ChungLoaiAdapter extends RecyclerView.Adapter<ChungLoaiAdapter.View
 
 
     public void refresh(List<DataChungLoaiAdapter> listData ){
-        listData.clear();
-        this.listData = listData;
+        this.listData.clear();
+        this.listData = Common.cloneList(listData);
         notifyDataSetChanged();
     }
 

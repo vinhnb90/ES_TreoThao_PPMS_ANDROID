@@ -187,7 +187,8 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
                         R.layout.row_tththn_spin_white, Common.TYPE_SEARCH_BBAN.getArray());
                 break;
             case TRAM:
-
+                adapterSearch = new ArrayAdapter<>(getActivity(),
+                        R.layout.row_tththn_spin_white, Common.TYPE_SEARCH_TRAM.getArray());
                 break;
             case CTO_TREO:
             case CTO_THAO:
@@ -195,6 +196,8 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
                         R.layout.row_tththn_spin_white, Common.TYPE_SEARCH_CTO.getArray());
                 break;
             case CHUNG_LOAI:
+                adapterSearch = new ArrayAdapter<>(getActivity(),
+                        R.layout.row_tththn_spin_white, Common.TYPE_SEARCH_CLOAI.getArray());
                 break;
             case CHITIET_CTO_TREO:
                 break;
@@ -215,6 +218,8 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
             case UPLOAD:
                 break;
             case HISTORY:
+                adapterSearch = new ArrayAdapter<>(getActivity(),
+                        R.layout.row_tththn_spin_white, Common.TYPE_SEARCH_HISTORY.getArray());
                 break;
         }
 

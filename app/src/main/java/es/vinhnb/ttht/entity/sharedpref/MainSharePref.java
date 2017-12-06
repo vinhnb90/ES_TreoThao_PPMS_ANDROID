@@ -17,8 +17,12 @@ public class MainSharePref {
     @KeyType(name = "sizeList", TYPE = TYPE.INT)
     public int sizeList;
 
-    public MainSharePref(@Params(name = "posClicked") int posClicked, @Params(name = "sizeList") int sizeList) {
+    @KeyType(name = "tagMenuNaviLeft")
+    public String tagMenuNaviLeft;
+
+    public MainSharePref(@Params(name = "posClicked") int posClicked, @Params(name = "sizeList") int sizeList, @Params(name =  "tagMenuNaviLeft") String tagMenuNaviLeft) {
         this.posClicked = posClicked;
         this.sizeList = sizeList;
+        this.tagMenuNaviLeft = tagMenuNaviLeft;
     }
 }

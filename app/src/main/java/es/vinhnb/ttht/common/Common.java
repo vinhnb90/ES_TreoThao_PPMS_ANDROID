@@ -283,6 +283,133 @@ public class Common {
         }
     }
 
+    public enum TYPE_SEARCH_TRAM {
+        MA_TRAM("Mã trạm"), DINH_DANH("Định danh"), MA_DVIQLY("Mã đơn vị"), TEN_TRAM("Tên trạm");
+        private String content;
+
+        TYPE_SEARCH_TRAM(String content) {
+            this.content = content;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public static String[] getArray() {
+            ArrayList<String> result = new ArrayList<>();
+
+            for (TYPE_SEARCH_TRAM typeSearch : values()) {
+                result.add(typeSearch.content);
+            }
+
+            return result.toArray(new String[result.size()]);
+        }
+
+
+        public static TYPE_SEARCH_TRAM findTYPE_SEARCH(String content) {
+            for (TYPE_SEARCH_TRAM typeSearchCto : values()) {
+                if (typeSearchCto.content.equalsIgnoreCase(content))
+                    return typeSearchCto;
+            }
+            return null;
+        }
+
+        public static int getPosInArray(String content) {
+            int i = 0;
+            for (String s : TYPE_SEARCH_TRAM.getArray()) {
+                if (s.equalsIgnoreCase(content))
+                    break;
+                i++;
+            }
+            return i;
+        }
+    }
+
+    public enum TYPE_SEARCH_HISTORY {
+        DATE_CALL_API("Ngày đồng bộ");
+        private String content;
+
+        TYPE_SEARCH_HISTORY(String content) {
+            this.content = content;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public static String[] getArray() {
+            ArrayList<String> result = new ArrayList<>();
+
+            for (TYPE_SEARCH_HISTORY typeSearch : values()) {
+                result.add(typeSearch.content);
+            }
+
+            return result.toArray(new String[result.size()]);
+        }
+
+
+        public static TYPE_SEARCH_HISTORY findTYPE_SEARCH(String content) {
+            for (TYPE_SEARCH_HISTORY typeSearchCto : values()) {
+                if (typeSearchCto.content.equalsIgnoreCase(content))
+                    return typeSearchCto;
+            }
+            return null;
+        }
+
+        public static int getPosInArray(String content) {
+            int i = 0;
+            for (String s : TYPE_SEARCH_HISTORY.getArray()) {
+                if (s.equalsIgnoreCase(content))
+                    break;
+                i++;
+            }
+            return i;
+        }
+    }
+
+
+    public enum TYPE_SEARCH_CLOAI {
+        TEN_LOAI_CTO("Chủng loại"), VH_CONG("Vô - Hữu công"), MA_HANG("Mã hãng"), TEN_NUOC("Tên nước");
+        private String content;
+
+        TYPE_SEARCH_CLOAI(String content) {
+            this.content = content;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public static String[] getArray() {
+            ArrayList<String> result = new ArrayList<>();
+
+            for (TYPE_SEARCH_CLOAI typeSearch : values()) {
+                result.add(typeSearch.content);
+            }
+
+            return result.toArray(new String[result.size()]);
+        }
+
+
+        public static TYPE_SEARCH_CLOAI findTYPE_SEARCH(String content) {
+            for (TYPE_SEARCH_CLOAI typeSearchCto : values()) {
+                if (typeSearchCto.content.equalsIgnoreCase(content))
+                    return typeSearchCto;
+            }
+            return null;
+        }
+
+        public static int getPosInArray(String content) {
+            int i = 0;
+            for (String s : TYPE_SEARCH_CLOAI.getArray()) {
+                if (s.equalsIgnoreCase(content))
+                    break;
+                i++;
+            }
+            return i;
+        }
+    }
+
 
     public static String getImei(Context context) {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);

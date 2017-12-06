@@ -202,7 +202,7 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
 //                                    ID_BBAN_TUTI = tableChitietCtoList.get(0).getID_BBAN_TUTI();
 //                                onIDataCommon.setID_BBAN_TUTI_CTO(ID_BBAN_TUTI);
 
-                                mListener.clickTopMenuChitietCto(TthtHnMainActivity.TagMenuTop.CHITIET_CTO);
+                                mListener.clickTopMenuChitietCto(TthtHnMainActivity.TagMenuTop.CHUYEN_LOAI_CTO);
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);

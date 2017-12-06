@@ -39,6 +39,8 @@ import static com.es.tungnv.views.R.layout.activity_ttht_hn_main;
 import static es.vinhnb.ttht.view.TthtHnBBanTutiFragment.IOnTthtHnBBanTutiFragment;
 import static es.vinhnb.ttht.view.TthtHnChiTietCtoFragment.OnITthtHnChiTietCtoFragment;
 import static es.vinhnb.ttht.view.TthtHnDownloadFragment.OnListenerTthtHnDownloadFragment;
+import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CHITIET_CTO_THAO;
+import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CHITIET_CTO_TREO;
 import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CTO_THAO;
 import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CTO_TREO;
 import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.TRAM;
@@ -143,7 +145,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
             this.typeViewMenu = typeViewMenu;
         }
 
-        public TagMenuNaviLeft findTagMenu(String tag) {
+        public static TagMenuNaviLeft findTagMenu(String tag) {
             for (TagMenuNaviLeft tagMenuNaviLeft : TagMenuNaviLeft.values()) {
                 if (tagMenuNaviLeft.tagFrag.equals(tag))
                     return tagMenuNaviLeft;
@@ -157,7 +159,6 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         BBAN_TUTI("BBAN_TUTI", TypeFragment.TthtHnTopMenuChiTietCtoFragment),
         CHUYEN_LOAI_CTO("CHUYEN_LOAI_CTO", TypeFragment.TthtHnTopMenuChiTietCtoFragment),
         SEARCH("SEARCH", TypeFragment.TthtHnTopSearchFragment),
-        CHI_TIET_CTO("CHI_TIET_CTO", TypeFragment.TthtHnTopMenuChiTietCtoFragment),
         EMPTY("", null);
 
 
@@ -198,6 +199,19 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
             super.showSnackBar(Common.MESSAGE.ex03.getContent(), e.getMessage(), null);
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //clear
+        try {
+            MainSharePref mainSharePref = (MainSharePref) sharePrefManager.getSharePrefObject(MainSharePref.class);
+            mainSharePref.tagMenuNaviLeft = "";
+            sharePrefManager.writeDataSharePref(MainSharePref.class, mainSharePref);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -331,7 +345,6 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
     @Override
     public void doClickNaviMenu(int posNew, TagMenuNaviLeft tagNew) {
         try {
-
             setMenuNaviAndTitle(tagNew);
             Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
             mTransaction = getSupportFragmentManager().beginTransaction();
@@ -341,29 +354,6 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                 case CHUNG_LOAI:
                 case CTO_TREO:
                 case CTO_THAO:
-//                    if (fragmentVisible instanceof TthtHnMainFragment) {
-//                        fragmentMain.setTagMenuNaviLeft(tagNew);
-//                        mTransaction.detach(fragmentMain);
-//                        mTransaction.attach(fragmentMain);
-//                        mTransaction.commit();
-//                    }
-//
-//                    else {
-//                        fragmentMain = new TthtHnMainFragment().newInstance(tagNew);
-//                        mTransaction.replace(mRlMain.getId(), fragmentMain);
-//                        mTransaction.addToBackStack(tagNew.tagFrag);
-//                        mTransaction.commit();
-//                    }
-//
-//
-//                    //show top menu
-//                    if (tagNew == CHUNG_LOAI || tagNew == TRAM) {
-//                        Fragment fragment = getSupportFragmentManager().findFragmentById(mRlTopMenu.getId());
-//                        if (fragment != null)
-//                            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-//                    } else
-//                        showTopMenuFragment(tagNew, SEARCH);
-                    //luu gia tri de su dung khi onBackPress
                     tagMenuNaviLeftList = tagNew;
 
                     if (fragmentVisible instanceof TthtHnMainFragment) {
@@ -381,48 +371,8 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
 
 
                     updateSessionBackstackFragment(fragmentTop, fragmentMain);
+
                     break;
-
-
-//                if (fragmentVisible instanceof TthtHnDownloadFragment) {
-//                    mTransaction.detach(fragmentDownload);
-//                    mTransaction.attach(fragmentDownload);
-//                    mTransaction.commit();
-//                }
-//
-//
-//                if (fragmentVisible instanceof TthtHnBBanTutiFragment) {
-//                    mTransaction.detach(fragmentBBanTuTi);
-//                    mTransaction.attach(fragmentBBanTuTi);
-//                    mTransaction.commit();
-//                }
-//
-//            } else{
-//                if (tagNew.typeFrag == TypeFragment.TthtHnMainFragment) {
-//                    fragmentMain = new TthtHnMainFragment().newInstance(tagNew);
-//                    mTransaction.replace(mRlMain.getId(), fragmentMain);
-//                    if (tagNew == CTO_TREO || tagNew == CTO_THAO)
-//                        mTransaction.addToBackStack(MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO.tagFrag : TagMenuNaviLeft.CTO_THAO.tagFrag);
-//                    mTransaction.commit();
-//                }
-//
-//                if (tagNew.typeFrag == TypeFragment.TthtHnDownloadFragment) {
-//                    fragmentDownload = new TthtHnDownloadFragment().newInstance();
-//                    mTransaction.replace(mRlMain.getId(), fragmentDownload);
-//                    mTransaction.commit();
-//                }
-//
-//
-//                if (tagNew.typeFrag == TypeFragment.TthtHnBBanTutiFragment) {
-//                    //replace main relative
-//                    fragmentBBanTuTi = new TthtHnBBanTutiFragment().newInstance();
-//                    mTransaction.replace(mRlMain.getId(), fragmentBBanTuTi);
-////                    mTransaction.addToBackStack(tagNew.tagFrag);
-//                    mTransaction.commit();
-//                }
-//
-//            }
-
 
                 case DOWNLOAD:
                     //luu gia tri de su dung khi onBackPress
@@ -466,7 +416,13 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                     break;
             }
 
-//            callFragment(tagNew);
+            //nếu không phải cto treo, hoặc cto tháo thì xóa shared pref
+            if (tagMenuNaviLeftList != CTO_TREO && tagMenuNaviLeftList != CTO_THAO) {
+                MainSharePref mainSharePref = (MainSharePref) sharePrefManager.getSharePrefObject(MainSharePref.class);
+                mainSharePref.tagMenuNaviLeft = "";
+                sharePrefManager.writeDataSharePref(MainSharePref.class, mainSharePref);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             showSnackBar(Common.MESSAGE.ex04.getContent(), e.getMessage(), null);
@@ -491,56 +447,70 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
     //region IOnTthtHnTopSearchFragment
     @Override
     public void clickTopMenuChitietCto(TagMenuTop tagMenuTop) {
-        //refresh data common
-        Fragment fragmentVisible = null;
-        int pos = -1;
+        try {
+
+            //refresh data common
+            Fragment fragmentVisible = null;
+            int pos = -1;
 
 
-        switch (tagMenuTop) {
-            case CHITIET_CTO:
+            switch (tagMenuTop) {
+                case CHITIET_CTO:
 
-                if (MA_BDONG == Common.MA_BDONG.B)
-                    setMenuNaviAndTitle(TagMenuNaviLeft.CHITIET_CTO_TREO);
-                else
-                    setMenuNaviAndTitle(TagMenuNaviLeft.CHITIET_CTO_THAO);
-
-
-                //lấy pos của fragment chitiet hien tại
-                fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
-                if (fragmentVisible instanceof TthtHnChiTietCtoFragment)
-                    pos = ((TthtHnChiTietCtoFragment) fragmentVisible).getPos();
-
-                if (pos != -1)
-                    showChiTietCtoFragment(pos);
-                break;
-
-            case CHUYEN_LOAI_CTO:
-                setMenuNaviAndTitle(MA_BDONG == Common.MA_BDONG.B ? CTO_TREO : CTO_THAO);
+                    if (MA_BDONG == Common.MA_BDONG.B) {
+                        setMenuNaviAndTitle(TagMenuNaviLeft.CTO_TREO);
+                        setMenuNaviAndTitle(TagMenuNaviLeft.CHITIET_CTO_TREO);
+                    } else {
+                        setMenuNaviAndTitle(TagMenuNaviLeft.CTO_THAO);
+                        setMenuNaviAndTitle(TagMenuNaviLeft.CHITIET_CTO_THAO);
+                    }
 
 
-                callFragment(MA_BDONG == Common.MA_BDONG.B ? CTO_TREO : CTO_THAO);
+                    //lấy pos của fragment chitiet hien tại
+                    fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
+                    if (fragmentVisible instanceof TthtHnChiTietCtoFragment)
+                        pos = ((TthtHnChiTietCtoFragment) fragmentVisible).getPos();
+
+                    if (pos != -1)
+                        showChiTietCtoFragment(pos);
+                    break;
+
+                case CHUYEN_LOAI_CTO:
+                    //set title
+                    setMenuNaviAndTitle(MA_BDONG == Common.MA_BDONG.B ? CTO_TREO : CTO_THAO);
+                    setMenuNaviAndTitle(MA_BDONG == Common.MA_BDONG.B ? CHITIET_CTO_TREO : CHITIET_CTO_THAO);
+
+                    //refresh data chi tiet cto
+                    //lấy pos của fragment chitiet hien tại
+                    fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
+                    if (fragmentVisible instanceof TthtHnChiTietCtoFragment)
+                        pos = ((TthtHnChiTietCtoFragment) fragmentVisible).getPos();
+
+                    if (pos != -1)
+                        showChiTietCtoFragment(pos);
 
 
-                //lấy pos của fragment chitiet hien tại
-                fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
-                if (fragmentVisible instanceof TthtHnChiTietCtoFragment)
-                    pos = ((TthtHnChiTietCtoFragment) fragmentVisible).getPos();
+                    //ghi thong tin sharepref
+                    MainSharePref mainSharePref = (MainSharePref) sharePrefManager.getSharePrefObject(MainSharePref.class);
+                    mainSharePref.tagMenuNaviLeft = (MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO.tagFrag : TagMenuNaviLeft.CTO_THAO.tagFrag);
+                    sharePrefManager.writeDataSharePref(MainSharePref.class, mainSharePref);
 
-                if (pos != -1)
-                    showChiTietCtoFragment(pos);
+                    break;
 
-
-                break;
-
-            case BBAN_TUTI:
-                showBBanTuTiFragment();
+                case BBAN_TUTI:
+                    showBBanTuTiFragment();
 
 
-                if (MA_BDONG == Common.MA_BDONG.B)
-                    setMenuNaviAndTitle(TagMenuNaviLeft.CHITIET_BBAN_TUTI_TREO);
-                else
-                    setMenuNaviAndTitle(TagMenuNaviLeft.CHITIET_BBAN_TUTI_THAO);
-                break;
+                    if (MA_BDONG == Common.MA_BDONG.B)
+                        setMenuNaviAndTitle(TagMenuNaviLeft.CHITIET_BBAN_TUTI_TREO);
+                    else
+                        setMenuNaviAndTitle(TagMenuNaviLeft.CHITIET_BBAN_TUTI_THAO);
+                    break;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            super.showSnackBar(Common.MESSAGE.ex03.getContent(), e.getMessage(), null);
         }
     }
     //endregion
@@ -705,7 +675,6 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
             int sizeFitle = ((MainSharePref) sharePrefManager.getSharePrefObject(MainSharePref.class)).sizeList;
             int posNew = posOld++;
             ((TthtHnMainFragment) fragmentVisible).savePosClick(posNew, sizeFitle);
-
 
 
             //show body
@@ -908,19 +877,6 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                     }
                     return fragmentTopSearchFragment;
 
-
-                case CHI_TIET_CTO:
-                    if (fragmentVisible instanceof TthtHnTopMenuChiTietCtoFragment) {
-                        fragmentTopMenuChiTietCto.refreshTagTopMenu(tagMenuTop);
-                        mTransaction.detach(fragmentTopMenuChiTietCto);
-                        mTransaction.attach(fragmentTopMenuChiTietCto);
-                        mTransaction.commit();
-                        isAddTop = false;
-                    } else {
-                        fragmentTopMenuChiTietCto = new TthtHnTopMenuChiTietCtoFragment().newInstance(tagMenuTop);
-                        isAddTop = true;
-                    }
-                    return fragmentTopMenuChiTietCto;
                 case EMPTY:
                     Fragment fragment = new Fragment();
                     isAddTop = true;
@@ -938,27 +894,31 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         if (fm.getBackStackEntryCount() == 0)
             super.onBackPressed();
 
+        try {
+            int index = this.getSupportFragmentManager().getBackStackEntryCount() - 1;
+            FragmentManager.BackStackEntry backEntry = getSupportFragmentManager().getBackStackEntryAt(index);
+            String tagSessionNewest = backEntry.getName();
 
-        int index = this.getSupportFragmentManager().getBackStackEntryCount() - 1;
-        FragmentManager.BackStackEntry backEntry = getSupportFragmentManager().getBackStackEntryAt(index);
-        String tagSessionNewest = backEntry.getName();
 
-
-        String nameTag = "";
-        do {
-            nameTag = fm.getBackStackEntryAt(this.getSupportFragmentManager().getBackStackEntryCount() - 1).getName();
-            if (tagSessionNewest.equalsIgnoreCase(nameTag)) {
-                fm.popBackStackImmediate();
+            String nameTag = "";
+            do {
+                nameTag = fm.getBackStackEntryAt(this.getSupportFragmentManager().getBackStackEntryCount() - 1).getName();
+                if (tagSessionNewest.equalsIgnoreCase(nameTag)) {
+                    fm.popBackStackImmediate();
+                }
             }
-        }
-        while (nameTag.equalsIgnoreCase(tagSessionNewest));
+            while (nameTag.equalsIgnoreCase(tagSessionNewest));
 
 
-        //update menuNavigation
-        //get fragment last
-        Fragment f = getSupportFragmentManager().findFragmentById(mRlMain.getId());
-        if (f != null) {
-            updateMenuNaviAndTitleOnBackPress(f);
+            //update menuNavigation
+            //get fragment last
+            Fragment f = getSupportFragmentManager().findFragmentById(mRlMain.getId());
+            if (f != null) {
+                updateMenuNaviAndTitleOnBackPress(f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.finish();
         }
     }
 

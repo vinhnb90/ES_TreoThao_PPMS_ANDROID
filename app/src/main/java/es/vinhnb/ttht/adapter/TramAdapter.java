@@ -12,6 +12,8 @@ import com.es.tungnv.views.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.vinhnb.ttht.common.Common;
+
 /**
  * Created by VinhNB on 11/22/2017.
  */
@@ -23,7 +25,8 @@ public class TramAdapter extends RecyclerView.Adapter<TramAdapter.ViewHolder> {
 
     public TramAdapter(Context context, List<DataTramAdapter> listData) {
         this.context = context;
-        this.listData = listData;
+        this.listData.clear();
+        this.listData = Common.cloneList(listData);
     }
 
     @Override
@@ -51,8 +54,8 @@ public class TramAdapter extends RecyclerView.Adapter<TramAdapter.ViewHolder> {
 
 
     public void refresh(List<DataTramAdapter> listData ){
-        listData.clear();
-        this.listData = listData;
+        this.listData.clear();
+        this.listData = Common.cloneList(listData);
         notifyDataSetChanged();
     }
 

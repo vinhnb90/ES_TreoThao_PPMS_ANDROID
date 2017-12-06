@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.es.tungnv.views.R;
+import com.es.tungnv.views.TthtMainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,6 @@ import esolutions.com.esdatabaselib.baseSharedPref.SharePrefManager;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 
 import static es.vinhnb.ttht.adapter.ChiTietCtoAdapter.*;
-import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_POS;
 import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_TAG_MENU;
 
 public class TthtHnMainFragment extends TthtHnBaseFragment {
@@ -44,8 +44,8 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
 
     private RecyclerView mRvMain;
     private ChiTietCtoAdapter treoCtoAdapter;
-    private List<DataBBanAdapter> dataBBanAdapters = new ArrayList<>();
-    private List<DataChiTietCtoAdapter> dataChiTietCtoAdapters = new ArrayList<>();
+    private List<DataBBanAdapter> dataBBanAdaptersList = new ArrayList<>();
+    private List<DataChiTietCtoAdapter> dataChiTietCtoAdaptersList = new ArrayList<>();
     private List<DataChungLoaiAdapter> dataCloaiAdapterList = new ArrayList<>();
     private List<DataTramAdapter> dataTramAdapterList = new ArrayList<>();
 
@@ -157,21 +157,15 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     }
 
 
-    private void fillDataChungLoai() {
-        //get Data and apdater
-        String[] agrs = new String[]{};
-        dataCloaiAdapterList = mSqlDAO.getCloaiAdapter(agrs);
-
-
-        if (mRvMain.getAdapter() instanceof ChungLoaiAdapter) {
-            ((ChungLoaiAdapter) mRvMain.getAdapter()).refresh(dataCloaiAdapterList);
+    private void fillDataChungLoai(List<DataChungLoaiAdapter> dataChungLoaiAdapters) {
+        if (mRvMain.getAdapter() instanceof ChiTietCtoAdapter) {
+            ((ChungLoaiAdapter) mRvMain.getAdapter()).refresh(dataChungLoaiAdapters);
         } else {
-            ChungLoaiAdapter chungLoaiAdapter = new ChungLoaiAdapter(getContext(), dataCloaiAdapterList);
+            ChungLoaiAdapter chungLoaiAdapter = new ChungLoaiAdapter(getContext(), dataChungLoaiAdapters);
             mRvMain.removeAllViews();
             mRvMain.invalidate();
             mRvMain.swapAdapter(chungLoaiAdapter, true);
         }
-
 
         mRvMain.invalidate();
     }
@@ -191,12 +185,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
         mRvMain.invalidate();
     }
 
-    private void fillDataTram() {
-        //get Data and apdater
-        String[] agrs = new String[]{};
-        dataTramAdapterList = mSqlDAO.getTramAdapter(agrs);
-
-
+    private void fillDataTram(List<DataTramAdapter> dataTramAdapterList) {
         if (mRvMain.getAdapter() instanceof TramAdapter) {
             ((TramAdapter) mRvMain.getAdapter()).refresh(dataTramAdapterList);
         } else {
@@ -205,7 +194,6 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
             mRvMain.invalidate();
             mRvMain.swapAdapter(tramAdapter, true);
         }
-
 
         mRvMain.invalidate();
     }
@@ -245,26 +233,35 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
             case BBAN_CTO:
                 //get Data and apdater
                 String[] agrs = new String[]{};
-                dataBBanAdapters = mSqlDAO.getBBanAdapter(agrs);
+                dataBBanAdaptersList = mSqlDAO.getBBanAdapter(agrs);
 
 
-                fillDataBBanCto(dataBBanAdapters);
+                fillDataBBanCto(dataBBanAdaptersList);
                 break;
 
             case CTO_TREO:
             case CTO_THAO:
-                //set MA_BDONG
+                //get share pref
+                //nếu ở lần đầu thì set MA_BDONG
+                //nếu ở lần sau chuyển cto thì lấy dữ liệu liệu ở sharepref
+
+                MainSharePref mainSharePref = (MainSharePref) sharePrefManager.getSharePrefObject(MainSharePref.class);
+                if(!TextUtils.isEmpty(mainSharePref.tagMenuNaviLeft))
+                {
+                    this.tagMenuNaviLeft = TagMenuNaviLeft.findTagMenu(mainSharePref.tagMenuNaviLeft);
+                }
                 onIDataCommon.setMA_BDONG(tagMenuNaviLeft == TagMenuNaviLeft.CTO_TREO ? Common.MA_BDONG.B : Common.MA_BDONG.E);
 
-
-                //get Data and apdater
-
-                String[] agrsCto = new String[]{onIDataCommon.getMA_BDONG().code};
-                dataChiTietCtoAdapters = mSqlDAO.getTreoDataChiTietCtoAdapter(agrsCto);
 
                 MenuTopSearchSharePref menuTopSearchSharePref = (MenuTopSearchSharePref) sharePrefManager.getSharePrefObject(MenuTopSearchSharePref.class);
                 String typeSearchString = menuTopSearchSharePref.typeSearchString;
                 String messageSearch = menuTopSearchSharePref.messageSearch;
+
+                //get Data and apdater
+                tagMenuNaviLeft = onIDataCommon.getMA_BDONG() == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO:TagMenuNaviLeft.CTO_THAO;
+
+                String[] agrsCto = new String[]{onIDataCommon.getMA_BDONG().code};
+                dataChiTietCtoAdaptersList = mSqlDAO.getTreoDataChiTietCtoAdapter(agrsCto);
 
                 if (!TextUtils.isEmpty(typeSearchString)) {
                     //nếu có store data fragment thì restore
@@ -275,16 +272,21 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
                         mRvMain.postInvalidate();
                     }
                 } else
-                    fillDataCto(dataChiTietCtoAdapters);
+                    fillDataCto(dataChiTietCtoAdaptersList);
 
                 break;
 
             case CHUNG_LOAI:
-                fillDataChungLoai();
+                //get Data and apdater
+                agrs = new String[]{};
+                dataCloaiAdapterList = mSqlDAO.getCloaiAdapter(agrs);
+                fillDataChungLoai(dataCloaiAdapterList);
                 break;
 
             case TRAM:
-                fillDataTram();
+                agrs = new String[]{};
+                dataTramAdapterList = mSqlDAO.getTramAdapter(agrs);
+                fillDataTram(dataTramAdapterList);
                 break;
 
         }
@@ -339,6 +341,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
                 searchCto(typeSearchString, messageSearch);
                 break;
             case CHUNG_LOAI:
+                searchChungLoai(typeSearchString, messageSearch);
                 break;
             case CHITIET_CTO_TREO:
                 break;
@@ -363,6 +366,43 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
         }
     }
 
+    private void searchChungLoai(String typeSearchString, String messageSearch) {
+        Common.TYPE_SEARCH_CLOAI typeSearch = Common.TYPE_SEARCH_CLOAI.findTYPE_SEARCH(typeSearchString);
+        String query = Common.removeAccent(messageSearch.toString().trim().toLowerCase());
+        List<DataChungLoaiAdapter> dataFilter = new ArrayList<>();
+
+
+        if (!TextUtils.isEmpty(messageSearch)) {
+            for (int i = 0; i < dataCloaiAdapterList.size(); i++) {
+                boolean isHasData = true;
+                DataChungLoaiAdapter data = dataCloaiAdapterList.get(i);
+
+                switch (typeSearch) {
+                    case TEN_LOAI_CTO:
+                        isHasData = Common.removeAccent(data.getTenLoaiCto().toLowerCase()).contains(query);
+                        break;
+                    case VH_CONG:
+                        isHasData = Common.removeAccent(data.getVhCong().toLowerCase()).contains(query);
+                        break;
+                    case MA_HANG:
+                        isHasData = Common.removeAccent(data.getMaHang().toLowerCase()).contains(query);
+                        break;
+                    case TEN_NUOC:
+                        isHasData = Common.removeAccent(data.getTenNuoc().toLowerCase()).contains(query);
+                        break;
+                }
+                if (isHasData) {
+                    dataFilter.add(data);
+                }
+            }
+        } else
+            dataFilter = Common.cloneList(dataCloaiAdapterList);
+
+
+        //giữ nguyên dữ liệu, lọc cái cần dùng
+        fillDataChungLoai(dataFilter);
+    }
+
     private void searchCto(String typeSearchString, String messageSearch) {
 
 
@@ -372,9 +412,9 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
 
 
         if (!TextUtils.isEmpty(messageSearch)) {
-            for (int i = 0; i < dataChiTietCtoAdapters.size(); i++) {
+            for (int i = 0; i < dataChiTietCtoAdaptersList.size(); i++) {
                 boolean isHasData = true;
-                DataChiTietCtoAdapter data = dataChiTietCtoAdapters.get(i);
+                DataChiTietCtoAdapter data = dataChiTietCtoAdaptersList.get(i);
 
                 switch (typeSearch) {
                     case MA_TRAM:
@@ -404,7 +444,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
                 }
             }
         } else
-            dataFilter = Common.cloneList(dataChiTietCtoAdapters);
+            dataFilter = Common.cloneList(dataChiTietCtoAdaptersList);
 
 
         //giữ nguyên dữ liệu, lọc cái cần dùng
@@ -418,9 +458,9 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
 
 
         if (!TextUtils.isEmpty(messageSearch)) {
-            for (int i = 0; i < dataBBanAdapters.size(); i++) {
+            for (int i = 0; i < dataBBanAdaptersList.size(); i++) {
                 boolean isHasData = true;
-                DataBBanAdapter data = dataBBanAdapters.get(i);
+                DataBBanAdapter data = dataBBanAdaptersList.get(i);
                 switch (typeSearch) {
                     case MA_TRAM:
                         isHasData = Common.removeAccent(data.getMaTramcapdien().toLowerCase()).contains(query);
@@ -443,7 +483,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
                 }
             }
         } else
-            dataFilter = Common.cloneList(dataBBanAdapters);
+            dataFilter = Common.cloneList(dataBBanAdaptersList);
 
 
         //giữ nguyên dữ liệu, lọc cái cần dùng
@@ -457,7 +497,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
 
         this.posRecylerClick = pos;
         this.sizeList = sizeFitle;
-        MainSharePref mainSharePref = new MainSharePref(pos, sizeFitle);
+        MainSharePref mainSharePref = new MainSharePref(pos, sizeFitle, onIDataCommon.getMA_BDONG() == Common.MA_BDONG.B? TagMenuNaviLeft.CTO_TREO.tagFrag: TagMenuNaviLeft.CTO_THAO.tagFrag);
         sharePrefManager.writeDataSharePref(MainSharePref.class, mainSharePref);
     }
 

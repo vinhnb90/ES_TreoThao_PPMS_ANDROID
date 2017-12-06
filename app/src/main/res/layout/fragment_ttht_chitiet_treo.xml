@@ -25,6 +25,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <!--KH-->
+                <TextView
+                    android:id="@+id/tv_anchor_KH"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -183,6 +188,11 @@
 
                 <!--END KH-->
 
+                <TextView
+                    android:id="@+id/tv_anchor_cto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
 
                 <!--Thong tin cto-->
                 <RelativeLayout
@@ -652,6 +662,11 @@
 
                 <!--Thong tin can nhap-->
 
+                <TextView
+                    android:id="@+id/tv_anchor_nhap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -1269,7 +1284,11 @@
                 <!--END Thong tin can nhap-->
 
                 <!--CHUP ANH-->
-
+                <TextView
+                    android:id="@+id/tv_anchor_camera"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -1591,6 +1610,14 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_tththn_move"
                     fab:fab_label="Thông tin khách hàng"
+                    fab:fab_size="normal" />
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/fab_tt_cto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_tththn_move"
+                    fab:fab_label="Thông tin công tơ"
                     fab:fab_size="normal" />
 
                 <com.github.clans.fab.FloatingActionButton
