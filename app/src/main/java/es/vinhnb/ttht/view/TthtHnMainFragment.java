@@ -152,10 +152,15 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
         mListener = null;
     }
 
-    public TthtHnMainFragment switchMenu(TagMenuNaviLeft tagMenuNaviLeft) {
+    public TthtHnMainFragment setTagMenuNaviLeft(TagMenuNaviLeft tagMenuNaviLeft) {
         this.tagMenuNaviLeft = tagMenuNaviLeft;
         return this;
     }
+
+    public TagMenuNaviLeft getTagMenuNaviLeft() {
+        return tagMenuNaviLeft;
+    }
+
 
     private void fillDataChungLoai() {
         //get Data and apdater

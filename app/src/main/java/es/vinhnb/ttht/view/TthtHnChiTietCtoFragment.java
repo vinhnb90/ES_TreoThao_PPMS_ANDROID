@@ -407,12 +407,15 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment{
         super.onDestroy();
     }
 
+    public TagMenuNaviLeft getTagMenuNaviLeft() {
+        return tagMenuNaviLeft;
+    }
+
     public TthtHnChiTietCtoFragment refresh(TagMenuNaviLeft tagMenuNaviLeft, int pos) {
         this.pos = pos;
         this.tagMenuNaviLeft = tagMenuNaviLeft;
         return this;
     }
-
 
     //region TthtHnBaseFragment
     @Override
