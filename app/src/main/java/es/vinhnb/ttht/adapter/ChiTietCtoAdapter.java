@@ -177,14 +177,14 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
 
 
                     posClick = pos;
-                    onIChiTietCtoAdapter.clickRowChiTietCtoAdapter(pos);
+                    onIChiTietCtoAdapter.clickRowChiTietCtoAdapter(pos, listData.size());
                 }
             });
         }
     }
 
     public interface OnIChiTietCtoAdapter {
-        void clickRowChiTietCtoAdapter(int pos);
+        void clickRowChiTietCtoAdapter(int pos, int sizeFitle);
     }
 
     public static class DataChiTietCtoAdapter {

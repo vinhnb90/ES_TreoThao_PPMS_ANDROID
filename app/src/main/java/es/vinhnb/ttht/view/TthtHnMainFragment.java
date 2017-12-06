@@ -24,14 +24,15 @@ import es.vinhnb.ttht.adapter.TramAdapter;
 import es.vinhnb.ttht.adapter.TramAdapter.DataTramAdapter;
 import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.database.dao.TthtHnSQLDAO;
+import es.vinhnb.ttht.entity.sharedpref.MainSharePref;
+import es.vinhnb.ttht.entity.sharedpref.MenuTopSearchSharePref;
 import es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft;
+import esolutions.com.esdatabaselib.baseSharedPref.SharePrefManager;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 
 import static es.vinhnb.ttht.adapter.ChiTietCtoAdapter.*;
-import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_MESSAGE_SEARCH;
 import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_POS;
 import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_TAG_MENU;
-import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_TYPE_SEARCH_STORE;
 
 public class TthtHnMainFragment extends TthtHnBaseFragment {
 
@@ -49,9 +50,10 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     private List<DataTramAdapter> dataTramAdapterList = new ArrayList<>();
 
     //save data cho fragment bien ban
-    private String typeSearchString;
-    private String messageSearch;
     private int posRecylerClick = -1;
+    private int sizeList = 0;
+
+    private SharePrefManager sharePrefManager;
 
     public TthtHnMainFragment() {
         // Required empty public constructor
@@ -68,7 +70,6 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         //getBundle
         Bundle bundle = getArguments();
@@ -125,26 +126,20 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (savedInstanceState != null) {
-            tagMenuNaviLeft = (TagMenuNaviLeft) savedInstanceState.getSerializable(BUNDLE_MESSAGE_SEARCH);
-            typeSearchString = savedInstanceState.getString(BUNDLE_TYPE_SEARCH_STORE);
-            messageSearch = savedInstanceState.getString(BUNDLE_MESSAGE_SEARCH);
-            posRecylerClick = savedInstanceState.getInt(BUNDLE_POS);
+        try {
+            if (tagMenuNaviLeft == TagMenuNaviLeft.CTO_TREO || tagMenuNaviLeft == TagMenuNaviLeft.CTO_THAO) {
+                MainSharePref mainSharePref = (MainSharePref) sharePrefManager.getSharePrefObject(MainSharePref.class);
+                posRecylerClick = mainSharePref.posClicked;
+                sizeList = mainSharePref.sizeList;
+            } else {
+                posRecylerClick = -1;
+                sizeList = 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
         }
     }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        //save
-        if (tagMenuNaviLeft == TagMenuNaviLeft.CTO_TREO || tagMenuNaviLeft == TagMenuNaviLeft.CTO_THAO) {
-            outState.putString(BUNDLE_TYPE_SEARCH_STORE, typeSearchString);
-            outState.putString(BUNDLE_MESSAGE_SEARCH, messageSearch);
-            outState.putSerializable(BUNDLE_TAG_MENU, tagMenuNaviLeft);
-            outState.putInt(BUNDLE_POS, posRecylerClick);
-        }
-    }
-
 
     @Override
     public void onDetach() {
@@ -234,10 +229,11 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     //region TthtHnBaseFragment
     @Override
     public void initDataAndView(View viewRoot) throws Exception {
-        mRvMain = (RecyclerView) viewRoot.findViewById(R.id.rv_tththn_main);
-
+        //share pref
+        sharePrefManager = SharePrefManager.getInstance();
 
         //set Layout mRvMain
+        mRvMain = (RecyclerView) viewRoot.findViewById(R.id.rv_tththn_main);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRvMain.setLayoutManager(layoutManager);
     }
@@ -262,18 +258,24 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
 
 
                 //get Data and apdater
+
                 String[] agrsCto = new String[]{onIDataCommon.getMA_BDONG().code};
                 dataChiTietCtoAdapters = mSqlDAO.getTreoDataChiTietCtoAdapter(agrsCto);
 
+                MenuTopSearchSharePref menuTopSearchSharePref = (MenuTopSearchSharePref) sharePrefManager.getSharePrefObject(MenuTopSearchSharePref.class);
+                String typeSearchString = menuTopSearchSharePref.typeSearchString;
+                String messageSearch = menuTopSearchSharePref.messageSearch;
 
-                //nếu có store data fragment thì restore
-                if (savedInstanceState!=null) {
+                if (!TextUtils.isEmpty(typeSearchString)) {
+                    //nếu có store data fragment thì restore
                     searchCto(typeSearchString, messageSearch);
-                    mRvMain.scrollToPosition(posRecylerClick);
-                    mRvMain.postInvalidate();
+
+                    if (posRecylerClick != -1) {
+                        mRvMain.scrollToPosition(posRecylerClick);
+                        mRvMain.postInvalidate();
+                    }
                 } else
                     fillDataCto(dataChiTietCtoAdapters);
-
 
                 break;
 
@@ -305,6 +307,8 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
         return posNew;
     }
 
+
+    @Deprecated
     public int refreshPreCto(int posOld) throws Exception {
         if (posOld == mRvMain.getAdapter().getItemCount())
             throw new Exception("Không còn công tơ!");
@@ -323,19 +327,16 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     }
 
     public void searchData(String typeSearchString, String messageSearch) {
-        this.typeSearchString = typeSearchString;
-        this.messageSearch = messageSearch;
 
         switch (tagMenuNaviLeft) {
             case BBAN_CTO:
                 searchBBan(typeSearchString, messageSearch);
                 break;
             case TRAM:
-                searchCto(typeSearchString, messageSearch);
                 break;
             case CTO_TREO:
-                break;
             case CTO_THAO:
+                searchCto(typeSearchString, messageSearch);
                 break;
             case CHUNG_LOAI:
                 break;
@@ -363,8 +364,6 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     }
 
     private void searchCto(String typeSearchString, String messageSearch) {
-        this.typeSearchString = typeSearchString;
-        this.messageSearch = messageSearch;
 
 
         Common.TYPE_SEARCH_CTO typeSearch = Common.TYPE_SEARCH_CTO.findTYPE_SEARCH(typeSearchString);
@@ -451,8 +450,15 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
         fillDataBBanCto(dataFilter);
     }
 
-    public void savePosClick(int pos, TagMenuNaviLeft tagMenuNaviLeft) {
+
+    public void savePosClick(int pos, int sizeFitle) throws Exception {
+        if (pos < 0 || pos >= sizeFitle)
+            throw new Exception("Không còn công tơ!");
+
         this.posRecylerClick = pos;
+        this.sizeList = sizeFitle;
+        MainSharePref mainSharePref = new MainSharePref(pos, sizeFitle);
+        sharePrefManager.writeDataSharePref(MainSharePref.class, mainSharePref);
     }
 
 

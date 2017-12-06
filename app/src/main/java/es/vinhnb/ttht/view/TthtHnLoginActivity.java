@@ -38,6 +38,8 @@ import es.vinhnb.ttht.database.table.TABLE_TRAM;
 import es.vinhnb.ttht.entity.api.D_DVIQLYModel;
 import es.vinhnb.ttht.entity.api.UserMtb;
 import es.vinhnb.ttht.entity.sharedpref.LoginSharePref;
+import es.vinhnb.ttht.entity.sharedpref.MainSharePref;
+import es.vinhnb.ttht.entity.sharedpref.MenuTopSearchSharePref;
 import es.vinhnb.ttht.server.TthtHnApi;
 import es.vinhnb.ttht.server.TthtHnApiInterface;
 import esolutions.com.esdatabaselib.baseSharedPref.SharePrefManager;
@@ -332,6 +334,8 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         //create shared pref
         ArrayList<Class<?>> setClassSharedPrefConfig = new ArrayList<Class<?>>();
         setClassSharedPrefConfig.add(LoginSharePref.class);
+        setClassSharedPrefConfig.add(MenuTopSearchSharePref.class);
+        setClassSharedPrefConfig.add(MainSharePref.class);
         mPrefManager = SharePrefManager.getInstance(this, setClassSharedPrefConfig);
 
 

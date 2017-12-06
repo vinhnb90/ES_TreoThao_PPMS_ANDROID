@@ -208,6 +208,16 @@ public class Common {
             }
             return null;
         }
+
+        public static int getPosInArray(String content) {
+            int i = 0;
+            for (String s : TYPE_SEARCH_BBAN.getArray()) {
+                if (s.equalsIgnoreCase(content))
+                    break;
+                i++;
+            }
+            return i;
+        }
     }
 
     public enum TYPE_SEARCH_CTO {
@@ -239,6 +249,16 @@ public class Common {
                     return typeSearchCto;
             }
             return null;
+        }
+
+        public static int getPosInArray(String content) {
+            int i = 0;
+            for (String s : TYPE_SEARCH_CTO.getArray()) {
+                if (s.equalsIgnoreCase(content))
+                    break;
+                i++;
+            }
+            return i;
         }
     }
 

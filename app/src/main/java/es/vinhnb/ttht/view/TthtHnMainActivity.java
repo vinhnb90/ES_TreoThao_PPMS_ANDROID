@@ -31,7 +31,9 @@ import java.util.ArrayList;
 import es.vinhnb.ttht.adapter.ChiTietCtoAdapter;
 import es.vinhnb.ttht.adapter.NaviMenuAdapter;
 import es.vinhnb.ttht.common.Common;
+import es.vinhnb.ttht.entity.sharedpref.MainSharePref;
 import es.vinhnb.ttht.view.TthtHnMainFragment.OnListenerTthtHnMainFragment;
+import esolutions.com.esdatabaselib.baseSharedPref.SharePrefManager;
 
 import static com.es.tungnv.views.R.layout.activity_ttht_hn_main;
 import static es.vinhnb.ttht.view.TthtHnBBanTutiFragment.IOnTthtHnBBanTutiFragment;
@@ -78,6 +80,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
     private int indexSessionFragment;
     private boolean isAddTop;
     private boolean isAddMain;
+    private SharePrefManager sharePrefManager;
 
 
     public enum TypeFragment {
@@ -202,6 +205,9 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         super.setupFullScreen();
         super.setCoordinatorLayout((CoordinatorLayout) findViewById(R.id.cl_ac_main));
 
+        //get Data sharepref
+        sharePrefManager = SharePrefManager.getInstance();
+
 
         //init nav menu
         naviMenuList.add(new NaviMenuAdapter.NaviMenu(TagMenuNaviLeft.BBAN_CTO));
@@ -256,8 +262,8 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
 
         //replace fragment
         //set fragment
-        fragmentTopSearchFragment = new TthtHnTopSearchFragment().newInstance(TagMenuNaviLeft.BBAN_CTO, TagMenuTop.SEARCH);
         fragmentMain = new TthtHnMainFragment().newInstance(TagMenuNaviLeft.BBAN_CTO);
+        fragmentTopSearchFragment = new TthtHnTopSearchFragment().newInstance(TagMenuNaviLeft.BBAN_CTO, TagMenuTop.SEARCH);
         isAddMain = true;
         isAddTop = true;
         updateSessionBackstackFragment(fragmentTopSearchFragment, fragmentMain);
@@ -372,6 +378,8 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                     }
 
                     Fragment fragmentTop = showTopMenuFragmentTest(tagNew, TagMenuTop.SEARCH);
+
+
                     updateSessionBackstackFragment(fragmentTop, fragmentMain);
                     break;
 
@@ -539,30 +547,45 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
 
     //region ChiTietCtoAdapter.OnIChiTietCtoAdapter
     @Override
-    public void clickRowChiTietCtoAdapter(int pos) {
-        //title
-        if (MA_BDONG == Common.MA_BDONG.B)
-            setMenuNaviAndTitle(TagMenuNaviLeft.CHITIET_CTO_TREO);
-        else
-            setMenuNaviAndTitle(TagMenuNaviLeft.CHITIET_CTO_THAO);
+    public void clickRowChiTietCtoAdapter(int pos, int sizeFitle) {
+        try {
+            //title
+            if (MA_BDONG == Common.MA_BDONG.B)
+                setMenuNaviAndTitle(TagMenuNaviLeft.CHITIET_CTO_TREO);
+            else
+                setMenuNaviAndTitle(TagMenuNaviLeft.CHITIET_CTO_THAO);
 
 
-        //save data posClick
-        Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
-        if (fragmentVisible instanceof TthtHnMainFragment) {
-            ((TthtHnMainFragment) fragmentVisible).savePosClick(pos, MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO : TagMenuNaviLeft.CTO_THAO);
+            //save data posClick
+            Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
+            if (fragmentVisible instanceof TthtHnMainFragment) {
+                ((TthtHnMainFragment) fragmentVisible).savePosClick(pos, sizeFitle);
+            }
+
+
+            //save data search top menu
+            fragmentVisible = getSupportFragmentManager().findFragmentById(mRlTopMenu.getId());
+            if (fragmentVisible instanceof TthtHnTopSearchFragment) {
+                ((TthtHnTopSearchFragment) fragmentVisible).saveInfoSearch();
+            }
+
+            //show body
+            Fragment fragmentMain = showChiTietCtoFragment(pos);
+
+
+            //show top menu
+            Fragment fragmentTop = showTopMenuFragmentTest(MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO : TagMenuNaviLeft.CTO_THAO, CHITIET_CTO);
+
+
+            updateSessionBackstackFragment(fragmentTop, fragmentMain);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            super.showSnackBar(Common.MESSAGE.ex03.getContent(), e.getMessage(), null);
         }
-
-
-        //show body
-        showChiTietCtoFragment(pos);
-
-
-        //show top menu
-        showTopMenuFragment(MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO : TagMenuNaviLeft.CTO_THAO, CHITIET_CTO);
     }
 
-    public void showChiTietCtoFragment(int pos) {
+    public Fragment showChiTietCtoFragment(int pos) {
         try {
             //check fragment
             //nếu cùng kiểu thì chỉ cần nhận biết và gọi thân fragment update
@@ -573,16 +596,20 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                 fragmentChitietCto.refresh(MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CHITIET_CTO_TREO : TagMenuNaviLeft.CHITIET_CTO_THAO, pos);
                 mTransaction.detach(fragmentChitietCto);
                 mTransaction.attach(fragmentChitietCto);
-
                 mTransaction.commit();
+                isAddMain = false;
             } else {
+                isAddMain = true;
                 fragmentChitietCto = new TthtHnChiTietCtoFragment().newInstance(MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CHITIET_CTO_TREO : TagMenuNaviLeft.CHITIET_CTO_THAO, pos);
-                mTransaction.replace(mRlMain.getId(), fragmentChitietCto);
-                mTransaction.commit();
             }
+
+            return fragmentChitietCto;
         } catch (Exception e) {
+            e.printStackTrace();
             super.showSnackBar(Common.MESSAGE.ex03.getContent(), e.getMessage(), null);
         }
+
+        return new Fragment();
     }
 
     private void showBBanTuTiFragment() {
@@ -674,8 +701,11 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
 
 
             //save pos new
-            int posNew = ((TthtHnMainFragment) fragmentVisible).refreshPreCto(posOld);
-            ((TthtHnMainFragment) fragmentVisible).savePosClick(posNew, MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO : TagMenuNaviLeft.CTO_THAO);
+            //kiem tra sharePref
+            int sizeFitle = ((MainSharePref) sharePrefManager.getSharePrefObject(MainSharePref.class)).sizeList;
+            int posNew = posOld++;
+            ((TthtHnMainFragment) fragmentVisible).savePosClick(posNew, sizeFitle);
+
 
 
             //show body
@@ -701,8 +731,10 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
 
 
             //save pos new
-            int posNew = ((TthtHnMainFragment) fragmentVisible).refreshPreCto(posOld);
-            ((TthtHnMainFragment) fragmentVisible).savePosClick(posNew, MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO : TagMenuNaviLeft.CTO_THAO);
+            //kiem tra sharePref
+            int sizeFitle = ((MainSharePref) sharePrefManager.getSharePrefObject(MainSharePref.class)).sizeList;
+            int posNew = posOld--;
+            ((TthtHnMainFragment) fragmentVisible).savePosClick(posNew, sizeFitle);
 
 
             //show body
@@ -897,7 +929,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         } catch (Exception e) {
             super.showSnackBar(Common.MESSAGE.ex03.getContent(), e.getMessage(), null);
         }
-        return null;
+        return new Fragment();
     }
 
     @Override
@@ -925,36 +957,31 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         //update menuNavigation
         //get fragment last
         Fragment f = getSupportFragmentManager().findFragmentById(mRlMain.getId());
-        if (f != null){
-            updateMenuNaviAndTitle(f);
+        if (f != null) {
+            updateMenuNaviAndTitleOnBackPress(f);
         }
     }
 
 
-    private void updateMenuNaviAndTitle(Fragment f) {
-        if(f instanceof TthtHnMainFragment)
-        {
+    private void updateMenuNaviAndTitleOnBackPress(Fragment f) {
+        if (f instanceof TthtHnMainFragment) {
 
-            setMenuNaviAndTitle(((TthtHnMainFragment)f).getTagMenuNaviLeft());
+            setMenuNaviAndTitle(((TthtHnMainFragment) f).getTagMenuNaviLeft());
         }
 
-        if(f instanceof TthtHnDownloadFragment)
-        {
+        if (f instanceof TthtHnDownloadFragment) {
             setMenuNaviAndTitle(TagMenuNaviLeft.DOWNLOAD);
         }
 
-        if(f instanceof TthtHnChiTietCtoFragment || f instanceof TthtHnBBanTutiFragment)
-        {
-            setMenuNaviAndTitle(((TthtHnChiTietCtoFragment)f).getTagMenuNaviLeft());
+        if (f instanceof TthtHnChiTietCtoFragment || f instanceof TthtHnBBanTutiFragment) {
+            setMenuNaviAndTitle(((TthtHnChiTietCtoFragment) f).getTagMenuNaviLeft());
         }
 
-        if(f instanceof TthtHnHistoryFragment)
-        {
+        if (f instanceof TthtHnHistoryFragment) {
             setMenuNaviAndTitle(TagMenuNaviLeft.HISTORY);
         }
 
-        if(f instanceof TthtHnUploadFragment)
-        {
+        if (f instanceof TthtHnUploadFragment) {
             setMenuNaviAndTitle(TagMenuNaviLeft.UPLOAD);
         }
     }
@@ -965,19 +992,20 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         String tagSession1 = String.valueOf(indexSessionFragment);
 
 
-        if (isAddTop && fragmentTopMenu!=null)
+        if (isAddMain && fragmentMain != null)
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(mRlMain.getId(), fragmentMain, fragmentMain.getClass().getSimpleName())
+                    .addToBackStack(tagSession1)
+                    .commit();
+
+        if (isAddTop && fragmentTopMenu != null)
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(mRlTopMenu.getId(), fragmentTopMenu, fragmentTopMenu.getClass().getSimpleName())
                     .addToBackStack(tagSession1)
                     .commit();
 
-        if (isAddMain && fragmentMain!=null)
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(mRlMain.getId(), fragmentMain, fragmentMain.getClass().getSimpleName())
-                    .addToBackStack(tagSession1)
-                    .commit();
     }
 }
 

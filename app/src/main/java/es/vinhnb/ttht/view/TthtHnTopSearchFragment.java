@@ -3,8 +3,10 @@ package es.vinhnb.ttht.view;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,8 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.database.dao.TthtHnSQLDAO;
+import es.vinhnb.ttht.entity.sharedpref.MenuTopSearchSharePref;
+import esolutions.com.esdatabaselib.baseSharedPref.SharePrefManager;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 
 import static es.vinhnb.ttht.common.Common.DELAY_ANIM;
@@ -36,6 +40,12 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
 
     private Unbinder unbinder;
     private IInteractionDataCommon onIDataCommon;
+
+    private String typeSearchString;
+    private String messageSearch;
+
+    private SharePrefManager prefManager;
+
 
     //menu top
     @BindView(R.id.sp_search)
@@ -105,6 +115,25 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        try {
+            if (tagMenuNaviLeft == TthtHnMainActivity.TagMenuNaviLeft.CTO_TREO || tagMenuNaviLeft == TthtHnMainActivity.TagMenuNaviLeft.CTO_THAO) {
+                MenuTopSearchSharePref menuTopSearchSharePref = (MenuTopSearchSharePref) prefManager.getSharePrefObject(MenuTopSearchSharePref.class);
+                typeSearchString = menuTopSearchSharePref.typeSearchString;
+                messageSearch = menuTopSearchSharePref.messageSearch;
+            } else {
+                typeSearchString = messageSearch = "";
+                prefManager.writeDataSharePref(MenuTopSearchSharePref.class, new MenuTopSearchSharePref(typeSearchString, messageSearch));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
+        }
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         drawable10 = ContextCompat.getDrawable(context, R.drawable.xml_tththn_rectangle10);
@@ -142,6 +171,8 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
     //region TthtHnBaseFragment
     @Override
     public void initDataAndView(View viewRoot) throws Exception {
+        //get share pref
+        prefManager = SharePrefManager.getInstance();
 
         //show spinner
         fillSpinner(tagMenuNaviLeft);
@@ -200,6 +231,20 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
     public void setAction(Bundle savedInstanceState) throws Exception {
         //menu top
         catchClick();
+
+
+        if (tagMenuNaviLeft == TthtHnMainActivity.TagMenuNaviLeft.CTO_TREO || tagMenuNaviLeft == TthtHnMainActivity.TagMenuNaviLeft.CTO_THAO) {
+            //fillData save state
+            MenuTopSearchSharePref topSearchSharePref = (MenuTopSearchSharePref) prefManager.getSharePrefObject(MenuTopSearchSharePref.class);
+            this.messageSearch = topSearchSharePref.messageSearch;
+            this.typeSearchString = topSearchSharePref.typeSearchString;
+
+            if (!TextUtils.isEmpty(messageSearch) || !TextUtils.isEmpty(typeSearchString)) {
+                int posInArray = Common.TYPE_SEARCH_CTO.getPosInArray(typeSearchString);
+                spSearch.setSelection(posInArray);
+                etSearch.setText(messageSearch);
+            }
+        }
     }
 
     private void showTopMenu(View view) {
@@ -224,7 +269,23 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
             @Override
             public void onClick(View view) {
                 spSearch.performClick();
+//                if (!TextUtils.isEmpty(typeSearchString))
+//                    etSearch.setText("");
             }
+        });
+
+        spSearch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+//                if (!TextUtils.isEmpty(typeSearchString))
+//                    etSearch.setText("");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
         });
 
         ibtnClear.setOnClickListener(new View.OnClickListener() {
@@ -295,6 +356,11 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
         this.tagMenuNaviLeft = tagMenuNaviLeft;
         this.tagMenuTop = tagMenuTop;
         fillSpinner(tagMenuNaviLeft);
+    }
+
+    public void saveInfoSearch() throws Exception {
+        MenuTopSearchSharePref menuTopSearchSharePref = new MenuTopSearchSharePref(spSearch.getSelectedItem().toString(), etSearch.getText().toString());
+        prefManager.writeDataSharePref(MenuTopSearchSharePref.class, menuTopSearchSharePref);
     }
 
     public interface IOnTthtHnTopSearchFragment {

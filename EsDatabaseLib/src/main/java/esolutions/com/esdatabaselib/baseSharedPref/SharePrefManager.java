@@ -387,7 +387,7 @@ public class SharePrefManager<T> {
         for (Field field : fields) {
             String fieldName = field.getName();
             if (fieldName.equals("$change") || fieldName.equals("serialVersionUID"))
-                break;
+                continue;
 
 
             // get name and type
@@ -427,10 +427,12 @@ public class SharePrefManager<T> {
             for (Constructor ctor : constructors) {
                 //get all annonation of method constructor
                 Annotation[][] annotationss = ctor.getParameterAnnotations();
+                int countAnnotation = 0;
                 for (Annotation[] annotation1 : annotationss) {
                     for (Annotation annotation : annotation1) {
                         if (annotation instanceof Params) {
                             annotations.add(annotation);
+                            countAnnotation++;
                         }
                     }
                 }
@@ -441,6 +443,8 @@ public class SharePrefManager<T> {
                 if (sizeParamsCtor == 0)
                     continue;
 
+                if(countAnnotation != sizeParamsCtor)
+                    continue;
 
                 //create array object
                 //if quantum annotations not same quantum contructor
