@@ -42,6 +42,7 @@ public class TABLE_CHITIET_TUTI {
         TYSO_BIEN,
         MA_BDONG,
         MA_DVIQLY,
+        MA_NVIEN,
 
         TRANG_THAI_DU_LIEU;
 
@@ -127,6 +128,9 @@ public class TABLE_CHITIET_TUTI {
     @Collumn(name = "MA_DVIQLY", type = TYPE.TEXT)
     private String MA_DVIQLY;
 
+    @Collumn(name = "MA_NVIEN", type = TYPE.TEXT)
+    private String MA_NVIEN;
+
     @Collumn(name = "TRANG_THAI_DU_LIEU", type = TYPE.TEXT)
     private String TRANG_THAI_DU_LIEU;
 
@@ -157,6 +161,7 @@ public class TABLE_CHITIET_TUTI {
                               @Params(name = "TYSO_BIEN") String TYSO_BIEN,
                               @Params(name = "MA_BDONG") String MA_BDONG,
                               @Params(name = "MA_DVIQLY") String MA_DVIQLY,
+                              @Params(name = "MA_NVIEN") String MA_NVIEN,
                               @Params(name = "TRANG_THAI_DU_LIEU") String TRANG_THAI_DU_LIEU
                               ) {
         this.ID_TABLE_CHITIET_TUTI = ID_TABLE_CHITIET_TUTI;
@@ -183,6 +188,7 @@ public class TABLE_CHITIET_TUTI {
         this.TYSO_BIEN = TYSO_BIEN;
         this.MA_BDONG = MA_BDONG;
         this.MA_DVIQLY = MA_DVIQLY;
+        this.MA_NVIEN = MA_NVIEN;
         this.TRANG_THAI_DU_LIEU = TRANG_THAI_DU_LIEU;
     }
 
@@ -376,6 +382,15 @@ public class TABLE_CHITIET_TUTI {
 
     public void setMA_DVIQLY(String MA_DVIQLY) {
         this.MA_DVIQLY = MA_DVIQLY;
+    }
+
+
+    public String getMA_NVIEN() {
+        return MA_NVIEN;
+    }
+
+    public void setMA_NVIEN(String MA_NVIEN) {
+        this.MA_NVIEN = MA_NVIEN;
     }
 
     public String getTRANG_THAI_DU_LIEU() {

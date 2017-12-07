@@ -8,8 +8,8 @@
     android:singleLine="true"
     tools:text="đasdsddsdasa"
     android:textSize="@dimen/_10sdp"
-    android:textColor="@color/text_white"
-    android:background="@color/tththn_background_lv4"
+    android:textColor="@color/tththn_text_less_black"
+    android:background="@color/text_white"
     android:padding="@dimen/_1sdp"
     android:gravity="center_vertical"
     android:drawablePadding="@dimen/margin_item_recycle" />

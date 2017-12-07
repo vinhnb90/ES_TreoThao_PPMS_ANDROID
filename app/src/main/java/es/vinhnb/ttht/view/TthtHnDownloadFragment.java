@@ -961,6 +961,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                 tuTiModel.TYSO_BIEN,
                 tuTiModel.MA_BDONG,
                 tuTiModel.MA_DVIQLY,
+                onIDataCommon.getMaNVien(),
                 Common.TRANG_THAI_DU_LIEU.CHUA_GHI.content);
 
 
@@ -974,11 +975,11 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                 case CHUA_GHI:
                     //update full
                     String[] nameCollumnDelete = new String[]{
-                            TABLE_CHITIET_TUTI.table.ID_CHITIET_TUTI.name()
+                            TABLE_CHITIET_TUTI.table.ID_CHITIET_TUTI.name(), TABLE_CHITIET_TUTI.table.MA_NVIEN.name()
                     };
 
                     String[] valuesDelete = new String[]{
-                            String.valueOf(tuTiModel.ID_CHITIET_TUTI)
+                            String.valueOf(tuTiModel.ID_CHITIET_TUTI),  onIDataCommon.getMaNVien()
                     };
 
 

@@ -14,7 +14,6 @@
         android:id="@+id/cl_ac_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/tththn_background_lv1"
         android:fitsSystemWindows="true"
         tools:context="es.vinhnb.ttht.view.TthtHnMainActivity">
 
@@ -51,19 +50,31 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
+                    tools:background="@color/tththn_background_lv1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <RelativeLayout
+                        android:elevation="@dimen/_5sdp"
                         android:id="@+id/rl_topmenu"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_40sdp"
-                        android:background="@drawable/xml_tththn_rectangle12_top"></RelativeLayout>
+                        android:background="@color/tththn_background_lv1">
 
+                    </RelativeLayout>
+
+                    <View
+                        android:visibility="gone"
+                        android:layout_marginLeft="@dimen/_50sdp"
+                        android:layout_marginRight="@dimen/_50sdp"
+                        android:id="@+id/v_22"
+                        android:layout_below="@+id/rl_topmenu"
+                        android:background="@color/text_white"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        />
 
                     <ProgressBar
-                        android:progressBackgroundTint="@color/text_white"
-                        android:background="@color/tththn_background_lv4"
                         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                         android:maxHeight="@dimen/_7sdp"
                         android:minHeight="@dimen/_7sdp"
@@ -72,11 +83,13 @@
                         android:id="@+id/pbar_load"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_7sdp"
-                        android:layout_below="@+id/rl_topmenu"
+                        android:layout_below="@+id/v_22"
                         android:visibility="gone"
                         tools:visibility="visible" />
 
                     <RelativeLayout
+                        android:paddingTop="@dimen/_5sdp"
+                        android:background="@color/tththn_background_lv1"
                         android:id="@+id/rl_content_main"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -117,6 +130,7 @@
 
 
             <GridView
+                android:background="@color/tththn_navi_menu"
                 android:id="@+id/gv_nav_menu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -39,6 +39,8 @@ import static com.es.tungnv.views.R.layout.activity_ttht_hn_main;
 import static es.vinhnb.ttht.view.TthtHnBBanTutiFragment.IOnTthtHnBBanTutiFragment;
 import static es.vinhnb.ttht.view.TthtHnChiTietCtoFragment.OnITthtHnChiTietCtoFragment;
 import static es.vinhnb.ttht.view.TthtHnDownloadFragment.OnListenerTthtHnDownloadFragment;
+import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CHITIET_BBAN_TUTI_THAO;
+import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CHITIET_BBAN_TUTI_TREO;
 import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CHITIET_CTO_THAO;
 import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CHITIET_CTO_TREO;
 import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CTO_THAO;
@@ -498,13 +500,22 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                     break;
 
                 case BBAN_TUTI:
-                    showBBanTuTiFragment();
+                    setMenuNaviAndTitle(MA_BDONG == Common.MA_BDONG.B ? CTO_TREO : CTO_THAO);
+                    setMenuNaviAndTitle(MA_BDONG == Common.MA_BDONG.B ? CHITIET_BBAN_TUTI_TREO : CHITIET_BBAN_TUTI_THAO);
 
 
-                    if (MA_BDONG == Common.MA_BDONG.B)
-                        setMenuNaviAndTitle(TagMenuNaviLeft.CHITIET_BBAN_TUTI_TREO);
-                    else
-                        setMenuNaviAndTitle(TagMenuNaviLeft.CHITIET_BBAN_TUTI_THAO);
+                    fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
+                    if (fragmentVisible instanceof TthtHnBBanTutiFragment) {
+                        mTransaction.detach(fragmentBBanTuTi);
+                        mTransaction.attach(fragmentBBanTuTi);
+                        mTransaction.commit();
+                    }else{
+                        //replace main relative
+                        fragmentBBanTuTi = new TthtHnBBanTutiFragment().newInstance();
+                        mTransaction.replace(mRlMain.getId(), fragmentBBanTuTi);
+                        mTransaction.commit();
+                    }
+
                     break;
             }
 
@@ -584,9 +595,9 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
 
     private void showBBanTuTiFragment() {
         if (MA_BDONG == Common.MA_BDONG.B)
-            callFragment(TagMenuNaviLeft.CHITIET_BBAN_TUTI_TREO);
+            callFragment(CHITIET_BBAN_TUTI_TREO);
         else
-            callFragment(TagMenuNaviLeft.CHITIET_BBAN_TUTI_THAO);
+            callFragment(CHITIET_BBAN_TUTI_THAO);
     }
 
     //endregion

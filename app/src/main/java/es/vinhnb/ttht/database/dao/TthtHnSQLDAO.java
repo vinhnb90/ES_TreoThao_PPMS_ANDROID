@@ -363,6 +363,44 @@ public class TthtHnSQLDAO extends SqlDAO {
         return super.selectAllLazy(TABLE_CHITIET_CTO.class, cursor);
     }
 
+    public List<TABLE_BBAN_TUTI> getBBanTuti(int ID_BBAN_TUTI, String MA_NVIEN) {
+        String[] agrs = new  String[]{String.valueOf(ID_BBAN_TUTI), MA_NVIEN};
+        String query = "SELECT  * " +
+                " FROM " +
+                TABLE_BBAN_TUTI.table.getName() +
+                " WHERE " +
+                TABLE_BBAN_TUTI.table.ID_BBAN_TUTI.name() +
+                " = ?" +
+                " AND " +
+                TABLE_BBAN_TUTI.table.MA_NVIEN.name() +
+                " = ?" +
+                "";
+
+        Cursor cursor = super.mDatabase.rawQuery(query, agrs);
+
+        return super.selectAllLazy(TABLE_BBAN_TUTI.class, cursor);
+    }
+
+
+    public List<TABLE_CHITIET_TUTI> getChitietTuTi(int ID_BBAN_TUTI, String MA_NVIEN) {
+        String[] agrs = new  String[]{String.valueOf(ID_BBAN_TUTI), MA_NVIEN};
+        String query = "SELECT  * " +
+                " FROM " +
+                TABLE_CHITIET_TUTI.table.getName() +
+                " WHERE " +
+                TABLE_CHITIET_TUTI.table.ID_BBAN_TUTI.name() +
+                " = ?" +
+                " AND " +
+                TABLE_BBAN_TUTI.table.MA_NVIEN.name() +
+                " = ?" +
+                "";
+
+        Cursor cursor = super.mDatabase.rawQuery(query, agrs);
+
+        return super.selectAllLazy(TABLE_CHITIET_TUTI.class, cursor);
+    }
+
+
     public List<TABLE_BBAN_CTO> getBBan(String[] agrs) {
         String query = "SELECT  * " +
                 " FROM " +
