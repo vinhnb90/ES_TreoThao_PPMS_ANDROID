@@ -52,14 +52,6 @@ import static es.vinhnb.ttht.server.TthtHnApiInterface.IAsync.BUNDLE_DATA;
 import static es.vinhnb.ttht.server.TthtHnApiInterface.IAsync.ERROR_BODY;
 import static es.vinhnb.ttht.server.TthtHnApiInterface.IAsync.STATUS_CODE;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link OnListenerTthtHnDownloadFragment} interface
- * to handle interaction events.
- * Use the {@link TthtHnDownloadFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
     private TthtHnApiInterface apiInterface;

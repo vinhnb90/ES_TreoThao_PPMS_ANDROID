@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp"
+            android:background="@drawable/xml_tththn_rectangle"
+            android:elevation="@dimen/_5sdp"
+            android:padding="@dimen/_5sdp">
+
+            <RelativeLayout
+
+                android:id="@+id/rl_left"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                tools:background="@color/tththn_button">
+
+                <TextView
+                    android:id="@+id/tv_stt_upload"
+                    style="@style/textStyle4"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/xml_tththn_cricle_type4"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"
+                    tools:text="1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tv_stt_upload"
+                    android:background="@color/text_white"
+
+                    android:gravity="right"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/_5sdp">
+
+                    <TextView
+                        android:id="@+id/tv_dl_tenKH"
+                        style="@style/textStyle4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="Nguyễn Văn A" />
+
+                    <TextView
+                        android:id="@+id/tv_bb_tenKH"
+                        style="@style/textStyle4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="Ha noi" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@color/tththn_text_less_black" />
+
+
+                    <TextView
+                        style="@style/textStyle1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="Ảnh công tơ tháo" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_150sdp"
+                        android:background="@drawable/xml_tththn_rectangle6"
+                        tools:visibility="visible" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_weight="5"
+                        android:orientation="horizontal"
+                        tools:visibility="visible">
+
+                        <RelativeLayout
+                            android:id="@+id/rl_41"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_41a_CS1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
+                                android:text="KT" />
+
+                            <EditText
+                                android:id="@+id/et_41b_CS1"
+                                style="@style/edittextStyle3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_41a_CS1"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:text="" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rl_42"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_42a_CS2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
+                                android:text="KT" />
+
+                            <EditText
+                                android:id="@+id/et_42b_CS2"
+                                style="@style/edittextStyle3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_42a_CS2"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:lines="1" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rl_43"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_43a_CS3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
+                                android:text="KT" />
+
+                            <EditText
+                                android:id="@+id/et_43b_CS3"
+                                style="@style/edittextStyle3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_43a_CS3"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:lines="1" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rl_44"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_44a_CS4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
+                                android:text="KT" />
+
+                            <EditText
+                                android:id="@+id/et_44b_CS4"
+                                style="@style/edittextStyle3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_44a_CS4"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:lines="1" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rl_45"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_45a_CS5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
+                                android:text="KT" />
+
+                            <EditText
+                                android:id="@+id/et_45b_CS5"
+                                style="@style/edittextStyle3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_45a_CS5"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:lines="1" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@color/tththn_text_less_black" />
+
+
+                    <TextView
+                        style="@style/textStyle1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="Ảnh công tơ treo" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_150sdp"
+                        android:background="@drawable/xml_tththn_rectangle6"
+                        tools:visibility="visible" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_weight="5"
+                        android:orientation="horizontal"
+                        tools:visibility="visible">
+
+                        <RelativeLayout
+                            android:id="@+id/rl_41a"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_41a_CS1_a"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
+                                android:text="KT" />
+
+                            <EditText
+                                android:id="@+id/et_41b_CS1_a"
+                                style="@style/edittextStyle3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_41a_CS1_a"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:text="" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rl_42_a"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_42a_CS2_a"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
+                                android:text="KT" />
+
+                            <EditText
+                                android:id="@+id/et_42b_CS2_a"
+                                style="@style/edittextStyle3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_42a_CS2_a"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:lines="1" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rl_43_a"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_43a_CS3_a"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
+                                android:text="KT" />
+
+                            <EditText
+                                android:id="@+id/et_43b_CS3_a"
+                                style="@style/edittextStyle3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_43a_CS3_a"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:lines="1" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rl_44_a"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_44a_CS4_a"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
+                                android:text="KT" />
+
+                            <EditText
+                                android:id="@+id/et_44b_CS4_a"
+                                style="@style/edittextStyle3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_44a_CS4_a"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:lines="1" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rl_45_a"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_45a_CS5_a"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
+                                android:text="KT" />
+
+                            <EditText
+                                android:id="@+id/et_45b_CS5_a"
+                                style="@style/edittextStyle3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_45a_CS5_a"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:lines="1" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@color/tththn_text_less_black" />
+
+                    <Button
+                        style="@style/buttonStyle1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:background="@drawable/xml_tththn_rectangle_orangle"
+                        android:drawableRight="@drawable/ic_tththn_unmark"
+                        android:text="CHỌN GỬI"
+                        android:textColor="@color/tththn_button"
+                        android:textAllCaps="false" />
+                </LinearLayout>
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>
