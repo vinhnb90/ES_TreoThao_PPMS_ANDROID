@@ -930,8 +930,9 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
 
         //Lấy dữ liệu TRANG_THAI_DU_LIEU của biên bản
+        String[] collumnCheck = new String[]{TABLE_CHITIET_TUTI.table.ID_CHITIET_TUTI.name()};
         String[] valueCheck = new String[]{String.valueOf(tuTiModel.ID_CHITIET_TUTI)};
-        List<String> TRANG_THAI_DU_LIEUList = mSqlDAO.getTRANG_THAI_DU_LIEUofTABLE_CHITIET_TUTI(valueCheck);
+        boolean existRows = mSqlDAO.isExistRows(TABLE_CHITIET_TUTI.class, collumnCheck, valueCheck);
 
 
         //casting dữ liệu server MTB_TuTiModel sang dữ liệu sqlite TABLE_CHITIET_TUTI
@@ -961,53 +962,34 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                 tuTiModel.TYSO_BIEN,
                 tuTiModel.MA_BDONG,
                 tuTiModel.MA_DVIQLY,
-                onIDataCommon.getMaNVien(),
-                Common.TRANG_THAI_DU_LIEU.CHUA_GHI.content);
+                onIDataCommon.getMaNVien());
 
 
-        if (TRANG_THAI_DU_LIEUList.isEmpty()) {
+        if (!existRows) {
             //insert
             mSqlDAO.insert(TABLE_CHITIET_TUTI.class, tableChitietTuti);
             availableCanUpdateInfoTuTi = true;
-        } else
-            //check
-            switch (Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(TRANG_THAI_DU_LIEUList.get(0))) {
-                case CHUA_GHI:
-                    //update full
-                    String[] nameCollumnDelete = new String[]{
-                            TABLE_CHITIET_TUTI.table.ID_CHITIET_TUTI.name(), TABLE_CHITIET_TUTI.table.MA_NVIEN.name()
-                    };
+        } else {
+            //update full
+            String[] nameCollumnDelete = new String[]{TABLE_CHITIET_TUTI.table.ID_CHITIET_TUTI.name(), TABLE_CHITIET_TUTI.table.MA_NVIEN.name()};
 
-                    String[] valuesDelete = new String[]{
-                            String.valueOf(tuTiModel.ID_CHITIET_TUTI),  onIDataCommon.getMaNVien()
-                    };
+            String[] valuesDelete = new String[]{String.valueOf(tuTiModel.ID_CHITIET_TUTI), onIDataCommon.getMaNVien()};
 
 
-                    //delete
-                    int rowDeleted = mSqlDAO.deleteRows(TABLE_CHITIET_TUTI.class, nameCollumnDelete, valuesDelete);
-                    availableCanUpdateInfoTuTi = true;
+            //delete
+            int rowDeleted = mSqlDAO.deleteRows(TABLE_CHITIET_TUTI.class, nameCollumnDelete, valuesDelete);
+            availableCanUpdateInfoTuTi = true;
 
 
-                    //log if not success
-                    if (rowDeleted <= 0)
-                        Log.e(TAG, "availableCanUpdateInfoCto: Delete không thành công dữ liệu tu ti có ID_CHITIET_TUTI = " + tuTiModel.ID_CHITIET_TUTI);
+            //log if not success
+            if (rowDeleted <= 0)
+                Log.e(TAG, "availableCanUpdateInfoCto: Delete không thành công dữ liệu tu ti có ID_CHITIET_TUTI = " + tuTiModel.ID_CHITIET_TUTI);
 
 
-                    //insert
-                    mSqlDAO.insert(TABLE_CHITIET_TUTI.class, tableChitietTuti);
+            //insert
+            mSqlDAO.insert(TABLE_CHITIET_TUTI.class, tableChitietTuti);
+        }
 
-                    break;
-
-                case DA_GHI:
-                    //not update or insert
-                    availableCanUpdateInfoTuTi = true;
-                    break;
-
-                case DA_GUI:
-                    //not update or insert
-                    break;
-
-            }
 
         return availableCanUpdateInfoTuTi;
     }

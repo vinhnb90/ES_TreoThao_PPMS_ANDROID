@@ -609,7 +609,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
         //nếu đã ghi
         spLoaihom.setEnabled(true);
-        if (TRANG_THAI_DU_LIEU == Common.TRANG_THAI_DU_LIEU.DA_GHI)
+        if (TRANG_THAI_DU_LIEU == Common.TRANG_THAI_DU_LIEU.DA_GUI)
             spLoaihom.setEnabled(false);
     }
 
@@ -628,7 +628,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
         //set enable
         spSochikiemdinh.setEnabled(true);
-        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_GHI)
+        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_GUI)
             spSochikiemdinh.setEnabled(false);
     }
 
@@ -647,7 +647,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
         //set enable
         spSochihomhop.setEnabled(true);
-        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_GHI)
+        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_GUI)
             spSochihomhop.setEnabled(false);
     }
 
@@ -666,7 +666,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
         //set enable
         spSochibooc.setEnabled(true);
-        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_GHI)
+        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_GUI)
             spSochibooc.setEnabled(false);
     }
 
@@ -692,7 +692,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
         //set enable
         spPhuongthucdoxa.setEnabled(true);
-        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_GHI)
+        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_GUI)
             spPhuongthucdoxa.setEnabled(false);
     }
 

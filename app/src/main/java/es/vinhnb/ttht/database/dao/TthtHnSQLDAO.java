@@ -282,25 +282,6 @@ public class TthtHnSQLDAO extends SqlDAO {
         });
     }
 
-    public List<String> getTRANG_THAI_DU_LIEUofTABLE_CHITIET_TUTI(String[] valueCheck) {
-        String query = "SELECT " +
-                TABLE_CHITIET_TUTI.table.TRANG_THAI_DU_LIEU.name() +
-                " FROM " +
-                TABLE_CHITIET_TUTI.table.getName() +
-                " WHERE " +
-                TABLE_CHITIET_TUTI.table.ID_CHITIET_TUTI.name() +
-                " = ?";
-
-
-        Cursor c = super.mDatabase.rawQuery(query, valueCheck);
-        return super.selectCustomLazy(c, new ItemFactory(String.class) {
-            @Override
-            protected String create(Cursor cursor, int index) {
-                cursor.moveToPosition(index);
-                return cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_TUTI.table.TRANG_THAI_DU_LIEU.name()));
-            }
-        });
-    }
 
 
     public List<HistoryAdapter.DataHistoryAdapter> getTABLE_HISTORYinNDay(int nDay) {

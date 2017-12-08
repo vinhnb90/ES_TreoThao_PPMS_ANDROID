@@ -42,9 +42,8 @@ public class TABLE_CHITIET_TUTI implements Cloneable{
         TYSO_BIEN,
         MA_BDONG,
         MA_DVIQLY,
-        MA_NVIEN,
+        MA_NVIEN;
 
-        TRANG_THAI_DU_LIEU;
 
         public static String getName()
         {
@@ -131,8 +130,6 @@ public class TABLE_CHITIET_TUTI implements Cloneable{
     @Collumn(name = "MA_NVIEN", type = TYPE.TEXT)
     private String MA_NVIEN;
 
-    @Collumn(name = "TRANG_THAI_DU_LIEU", type = TYPE.TEXT)
-    private String TRANG_THAI_DU_LIEU;
 
     public TABLE_CHITIET_TUTI() {
     }
@@ -161,8 +158,7 @@ public class TABLE_CHITIET_TUTI implements Cloneable{
                               @Params(name = "TYSO_BIEN") String TYSO_BIEN,
                               @Params(name = "MA_BDONG") String MA_BDONG,
                               @Params(name = "MA_DVIQLY") String MA_DVIQLY,
-                              @Params(name = "MA_NVIEN") String MA_NVIEN,
-                              @Params(name = "TRANG_THAI_DU_LIEU") String TRANG_THAI_DU_LIEU
+                              @Params(name = "MA_NVIEN") String MA_NVIEN
                               ) {
         this.ID_TABLE_CHITIET_TUTI = ID_TABLE_CHITIET_TUTI;
         this.MA_CLOAI = MA_CLOAI;
@@ -189,7 +185,6 @@ public class TABLE_CHITIET_TUTI implements Cloneable{
         this.MA_BDONG = MA_BDONG;
         this.MA_DVIQLY = MA_DVIQLY;
         this.MA_NVIEN = MA_NVIEN;
-        this.TRANG_THAI_DU_LIEU = TRANG_THAI_DU_LIEU;
     }
 
     public int getID_TABLE_CHITIET_TUTI() {
@@ -393,13 +388,6 @@ public class TABLE_CHITIET_TUTI implements Cloneable{
         this.MA_NVIEN = MA_NVIEN;
     }
 
-    public String getTRANG_THAI_DU_LIEU() {
-        return TRANG_THAI_DU_LIEU;
-    }
-
-    public void setTRANG_THAI_DU_LIEU(String TRANG_THAI_DU_LIEU) {
-        this.TRANG_THAI_DU_LIEU = TRANG_THAI_DU_LIEU;
-    }
 
     @Override
     public Object clone() throws CloneNotSupportedException {

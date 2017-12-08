@@ -1410,7 +1410,7 @@ public class TthtHnBBanTutiFragment extends TthtHnBaseFragment {
 
         String sHesonhanSaulap = etHesonhanSaulap.getText().toString();
 
-        //lấy dữ liệu mới nhất
+        //update TABLE_CHITIET_CTO
         TABLE_CHITIET_CTO tableChitietCtoOld = (TABLE_CHITIET_CTO) tableChitietCto.clone();
         tableChitietCto.setDONG_DIEN_SAULAP_TUTI(sDongdienSaulap);
         tableChitietCto.setDIEN_AP_SAULAP_TUTI(sDienapSaulap);
@@ -1420,8 +1420,12 @@ public class TthtHnBBanTutiFragment extends TthtHnBaseFragment {
         tableChitietCto.setSO_TU_SAULAP_TUTI(sLapquaTuSaulap);
         tableChitietCto.setSO_TI_SAULAP_TUTI(sLapquaTiSaulap);
         tableChitietCto.setHS_NHAN_SAULAP_TUTI(Integer.parseInt(sHesonhanSaulap));
-
         tableChitietCto.setID_CHITIET_CTO((int) mSqlDAO.updateORInsertRows(TABLE_CHITIET_CTO.class, tableChitietCtoOld, tableChitietCto));
+
+        //update TABLE_BBAN_TUTI
+        TABLE_BBAN_TUTI tableBbanTutiOld = (TABLE_BBAN_TUTI) tableBbanTuti.clone();
+        tableBbanTuti.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DA_GHI.content);
+        tableBbanTuti.setID_TABLE_BBAN_TUTI((int) mSqlDAO.updateORInsertRows(TABLE_BBAN_TUTI.class, tableBbanTutiOld, tableBbanTuti));
 
         //reset
         isRefreshAnhTu = false;

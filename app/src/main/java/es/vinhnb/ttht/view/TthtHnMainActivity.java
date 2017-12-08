@@ -391,7 +391,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                     }
 
 
-                    fragmentTopMenuChiTietCto = (TthtHnTopMenuChiTietCtoFragment) showTopMenuFragment(tagNew, TagMenuTop.EMPTY);
+                    fragmentTopSearchFragment = (TthtHnTopSearchFragment) showTopMenuFragment(tagNew, TagMenuTop.SEARCH);
 
 
                     updateSessionBackstackFragment(fragmentTopMenuChiTietCto, fragmentDownload, true);
