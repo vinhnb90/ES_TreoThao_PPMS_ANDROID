@@ -7,6 +7,7 @@
 
     <RelativeLayout
         android:id="@+id/rl_v1"
+        android:background="@color/text_white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -1528,8 +1529,6 @@
                             android:layout_alignParentRight="true"
                             android:layout_alignParentTop="true"
                             android:background="@drawable/xml_tththn_rectangle7"
-                            android:paddingLeft="@dimen/_5sdp"
-                            android:paddingRight="@dimen/_5sdp"
                             android:src="@drawable/ic_tththn_camera"
                             android:visibility="visible" />
 
@@ -1568,8 +1567,6 @@
                             android:layout_alignParentRight="true"
                             android:layout_alignParentTop="true"
                             android:background="@drawable/xml_tththn_rectangle7"
-                            android:paddingLeft="@dimen/_5sdp"
-                            android:paddingRight="@dimen/_5sdp"
                             android:src="@drawable/ic_tththn_camera"
                             android:visibility="visible" />
 
@@ -1608,8 +1605,6 @@
                             android:layout_alignParentRight="true"
                             android:layout_alignParentTop="true"
                             android:background="@drawable/xml_tththn_rectangle7"
-                            android:paddingLeft="@dimen/_5sdp"
-                            android:paddingRight="@dimen/_5sdp"
                             android:src="@drawable/ic_tththn_camera"
                             android:visibility="visible" />
 
@@ -1690,8 +1685,6 @@
                             android:layout_alignParentRight="true"
                             android:layout_alignParentTop="true"
                             android:background="@drawable/xml_tththn_rectangle7"
-                            android:paddingLeft="@dimen/_5sdp"
-                            android:paddingRight="@dimen/_5sdp"
                             android:src="@drawable/ic_tththn_camera"
                             android:visibility="visible" />
 
@@ -1730,8 +1723,6 @@
                             android:layout_alignParentRight="true"
                             android:layout_alignParentTop="true"
                             android:background="@drawable/xml_tththn_rectangle7"
-                            android:paddingLeft="@dimen/_5sdp"
-                            android:paddingRight="@dimen/_5sdp"
                             android:src="@drawable/ic_tththn_camera"
                             android:visibility="visible" />
 
@@ -1770,8 +1761,6 @@
                             android:layout_alignParentRight="true"
                             android:layout_alignParentTop="true"
                             android:background="@drawable/xml_tththn_rectangle7"
-                            android:paddingLeft="@dimen/_5sdp"
-                            android:paddingRight="@dimen/_5sdp"
                             android:src="@drawable/ic_tththn_camera"
                             android:visibility="visible" />
 

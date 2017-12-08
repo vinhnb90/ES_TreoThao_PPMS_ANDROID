@@ -161,17 +161,8 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
             @Override
             public void onClick(final View view) {
                 try {
-                    //clickTopMenuChitietCto
-                    Common.runAnimationClickView(view, R.anim.tththn_scale_view_pull, DELAY_ANIM);
-
-
-                    getView().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            setBackgroundTopMenu(view);
-                            mListener.clickTopMenuChitietCto(TthtHnMainActivity.TagMenuTop.CHITIET_CTO);
-                        }
-                    }, DELAY_ANIM + DELAY_ANIM);
+                    setBackgroundTopMenu(view);
+                    mListener.clickTopMenuChitietCto(TthtHnMainActivity.TagMenuTop.CHITIET_CTO);
                 } catch (Exception e) {
                     e.printStackTrace();
                     ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
@@ -183,32 +174,13 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
             @Override
             public void onClick(View view) {
                 try {
-                    //clickTopMenuChitietCto
-                    Common.runAnimationClickView(view, R.anim.tththn_scale_view_pull, DELAY_ANIM);
+                    onIDataCommon.setVisiblePbarLoad(true);
 
-                    getView().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                onIDataCommon.setVisiblePbarLoad(true);
+                    //refresh data MA_BDONG, ID_BBAN_TUTI
+                    onIDataCommon.setMA_BDONG(onIDataCommon.getMA_BDONG() == Common.MA_BDONG.B ? Common.MA_BDONG.E : Common.MA_BDONG.B);
 
-                                //refresh data MA_BDONG, ID_BBAN_TUTI
-                                onIDataCommon.setMA_BDONG(onIDataCommon.getMA_BDONG() == Common.MA_BDONG.B ? Common.MA_BDONG.E : Common.MA_BDONG.B);
 
-//                                int ID_BBAN_TUTI = 0;
-//                                String[] args = new String[]{String.valueOf(onIDataCommon.getID_BBAN_TRTH()), onIDataCommon.getMA_BDONG().code, onIDataCommon.getMaNVien()};
-//                                List<TABLE_CHITIET_CTO> tableChitietCtoList = mSqlDAO.getChiTietCongto(args);
-//                                if (tableChitietCtoList.size() != 0)
-//                                    ID_BBAN_TUTI = tableChitietCtoList.get(0).getID_BBAN_TUTI();
-//                                onIDataCommon.setID_BBAN_TUTI_CTO(ID_BBAN_TUTI);
-
-                                mListener.clickTopMenuChitietCto(TthtHnMainActivity.TagMenuTop.CHUYEN_LOAI_CTO);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
-                            }
-                        }
-                    }, DELAY_ANIM +DELAY_ANIM);
+                    mListener.clickTopMenuChitietCto(TthtHnMainActivity.TagMenuTop.CHUYEN_LOAI_CTO);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -219,10 +191,11 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
 
         btnBBTuTiMenu.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
+
                 try {
                     //clickTopMenuChitietCto
-                    Common.runAnimationClickView(view, R.anim.tththn_scale_view_pull, DELAY_ANIM);
+                    Common.runAnimationClickView(view, R.anim.tththn_scale_view_push, DELAY_ANIM);
                     setBackgroundTopMenu(view);
 
 
@@ -232,6 +205,7 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
                     e.printStackTrace();
                     ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
                 }
+
             }
         });
     }
@@ -241,14 +215,11 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
         btnBBTuTiMenu.setBackground(drawable10);
         btnChuyenLoaiCtoMenu.setBackground(drawable10);
 
-        if (view.getId() == btnBBTuTiMenu.getId()) {
-            btnBBTuTiMenu.setBackground(drawable11);
-        }
-        if (view.getId() == btnCtoMenu.getId()) {
+        if (tagMenuTop == TthtHnMainActivity.TagMenuTop.CHITIET_CTO) {
             btnCtoMenu.setBackground(drawable11);
         }
-        if (view.getId() == btnChuyenLoaiCtoMenu.getId()) {
-            btnChuyenLoaiCtoMenu.setBackground(drawable11);
+        if (tagMenuTop == TthtHnMainActivity.TagMenuTop.BBAN_TUTI) {
+            btnBBTuTiMenu.setBackground(drawable11);
         }
     }
 

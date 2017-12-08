@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import static android.support.v4.app.ActivityCompat.requestPermissions;
@@ -114,6 +115,24 @@ public class Common {
         File to = new File(pathNew);
         if (from.exists())
             from.renameTo(to);
+    }
+
+    public static HashMap<String,String> spilitCHI_SO(LOAI_CTO loaiCto, String chi_so) {
+        HashMap<String,String> result = new HashMap<>();
+        String[] bochiso = chi_so.split(";");
+
+        for (BO_CHISO boChiso: loaiCto.bochiso) {
+            for (String chiso: bochiso)
+            {
+                if(chiso.contains(boChiso.code))
+                {
+                    String[] values = chiso.split(":");
+                    result.put(values[0], values[1]);
+                }
+            }
+        }
+
+        return result;
     }
 
 
@@ -500,13 +519,13 @@ public class Common {
     //Loai công tơ
     public enum LOAI_CTO {
 
-        D1("D1", "Điện tử 5 biểu giá", new BO_CHISO[]{BO_CHISO.BT, BO_CHISO.CD, BO_CHISO.TD, BO_CHISO.SG, BO_CHISO.VC}),
+        D1("D1", "Điện tử 1 biểu giá", new BO_CHISO[]{BO_CHISO.KT, BO_CHISO.VC}),
 
-        DT("DT", "Điện tử 2 biểu giá", new BO_CHISO[]{BO_CHISO.KT, BO_CHISO.VC}),
+        DT("DT", "Điện tử 5 biểu giá", new BO_CHISO[]{BO_CHISO.KT, BO_CHISO.VC, BO_CHISO.TD, BO_CHISO.SG, BO_CHISO.VC}),
 
-        VC("VC", "Hữu công", new BO_CHISO[]{BO_CHISO.KT, BO_CHISO.VC}),
+        VC("VC", "Vô công", new BO_CHISO[]{BO_CHISO.VC}),
 
-        HC("HC", "Vô công", new BO_CHISO[]{BO_CHISO.KT, BO_CHISO.VC});
+        HC("HC", "Hữu công", new BO_CHISO[]{BO_CHISO.KT});
 
         public String code;
         public String content;
@@ -699,19 +718,22 @@ public class Common {
     }
 
     public enum TYPE_IMAGE {
-        IMAGE_CONG_TO("IMAGE_CONG_TO"),
-        IMAGE_CONG_TO_NIEM_PHONG("IMAGE_CONG_TO_NIEM_PHONG"),
-        IMAGE_TU("IMAGE_TU"),
-        IMAGE_TI("IMAGE_TI"),
-        IMAGE_MACH_NHI_THU_TU("IMAGE_MACH_NHI_THU_TU"),
-        IMAGE_MACH_NHI_THU_TI("IMAGE_MACH_NHI_THU_TI"),
-        IMAGE_NIEM_PHONG_TU("IMAGE_NIEM_PHONG_TU"),
-        IMAGE_NIEM_PHONG_TI("IMAGE_NIEM_PHONG_TI");
+        IMAGE_CONG_TO("IMAGE_CONG_TO", "ẢNH CÔNG TƠ"),
+        IMAGE_CONG_TO_NIEM_PHONG("IMAGE_CONG_TO_NIEM_PHONG", "ẢNH NIÊM PHONG"),
+        IMAGE_TU("IMAGE_TU", "ẢNH TU TREO"),
+        IMAGE_TI("IMAGE_TI", "ẢNH TI TREO"),
+        IMAGE_MACH_NHI_THU_TU("IMAGE_MACH_NHI_THU_TU", "ẢNH NHỊ THỨ TU TREO"),
+        IMAGE_MACH_NHI_THU_TI("IMAGE_MACH_NHI_THU_TI", "ẢNH NHỊ THỨ TI TREO"),
+        IMAGE_NIEM_PHONG_TU("IMAGE_NIEM_PHONG_TU", "ẢNH NIÊM PHONG TU TREO"),
+        IMAGE_NIEM_PHONG_TI("IMAGE_NIEM_PHONG_TI", "ẢNH NIÊM PHONG TI TREO");
 
         public String code;
+        public String nameImage;
 
-        TYPE_IMAGE(String code) {
+
+        TYPE_IMAGE(String code, String nameImage) {
             this.code = code;
+            this.nameImage = nameImage;
         }
 
         public static TYPE_IMAGE findTYPE_IMAGE(String code) {

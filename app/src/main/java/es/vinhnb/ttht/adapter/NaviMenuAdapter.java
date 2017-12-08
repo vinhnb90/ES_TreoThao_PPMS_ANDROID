@@ -94,7 +94,7 @@ public class NaviMenuAdapter extends ArrayAdapter<NaviMenuAdapter.NaviMenu> {
         naviMenuHolder.ibtnIcon.setImageResource(naviMenuData.tagMenuNaviLeft.drawableIconID);
         if(naviMenuData.tagMenuNaviLeft.typeViewMenu == TthtHnMainActivity.TypeViewMenu.VIEW) {
             if (posOldClick != position) {
-                naviMenuHolder.tvText.setTextColor(getContext().getResources().getColor(R.color.tththn_navi_menu_icon_default));
+                naviMenuHolder.tvText.setTextColor(getContext().getResources().getColor(R.color.white_more_dark));
                 naviMenuHolder.ibtnIcon.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.xml_tththn_cricle));
             } else {
                 naviMenuHolder.tvText.setTextColor(getContext().getResources().getColor(R.color.tththn_navi_menu_icon));
