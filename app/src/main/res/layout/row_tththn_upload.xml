@@ -45,7 +45,6 @@
                     android:layout_toRightOf="@+id/tv_stt_upload"
                     android:background="@color/text_white"
 
-                    android:gravity="right"
                     android:orientation="vertical"
                     android:paddingLeft="@dimen/_5sdp">
 
@@ -57,7 +56,7 @@
                         tools:text="Nguyễn Văn A" />
 
                     <TextView
-                        android:id="@+id/tv_bb_tenKH"
+                        android:id="@+id/tv_diachi_tenKH"
                         style="@style/textStyle4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -78,10 +77,11 @@
                         android:text="Ảnh công tơ tháo" />
 
                     <ImageView
+                        android:id="@+id/iv_doisoat_cto_thao"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_150sdp"
                         android:background="@drawable/xml_tththn_rectangle6"
-                        tools:visibility="visible" />
+                        tools:visibility="gone" />
 
 
                     <LinearLayout
@@ -90,7 +90,7 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_weight="5"
                         android:orientation="horizontal"
-                        tools:visibility="visible">
+                        tools:visibility="gone">
 
                         <RelativeLayout
                             android:id="@+id/rl_41"
@@ -99,7 +99,7 @@
                             android:layout_weight="1">
 
                             <TextView
-                                android:id="@+id/tv_41a_CS1"
+                                android:id="@+id/tv_41a_doisoat_CS1_thao"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentTop="true"
@@ -107,11 +107,11 @@
                                 android:text="KT" />
 
                             <EditText
-                                android:id="@+id/et_41b_CS1"
+                                android:id="@+id/et_41b_doisoat_CS1_thao"
                                 style="@style/edittextStyle3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_41a_CS1"
+                                android:layout_below="@+id/tv_41a_doisoat_CS1_thao"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:text="" />
                         </RelativeLayout>
@@ -124,7 +124,7 @@
                             android:layout_weight="1">
 
                             <TextView
-                                android:id="@+id/tv_42a_CS2"
+                                android:id="@+id/tv_42a_doisoat_CS2_thao"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentTop="true"
@@ -132,11 +132,11 @@
                                 android:text="KT" />
 
                             <EditText
-                                android:id="@+id/et_42b_CS2"
+                                android:id="@+id/et_42b_doisoat_CS2_thao"
                                 style="@style/edittextStyle3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_42a_CS2"
+                                android:layout_below="@+id/tv_42a_doisoat_CS2_thao"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:lines="1" />
                         </RelativeLayout>
@@ -149,7 +149,7 @@
                             android:layout_weight="1">
 
                             <TextView
-                                android:id="@+id/tv_43a_CS3"
+                                android:id="@+id/tv_43a_doisoat_CS3_thao"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentTop="true"
@@ -157,11 +157,11 @@
                                 android:text="KT" />
 
                             <EditText
-                                android:id="@+id/et_43b_CS3"
+                                android:id="@+id/et_43b_doisoat_CS3_thao"
                                 style="@style/edittextStyle3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_43a_CS3"
+                                android:layout_below="@+id/tv_43a_doisoat_CS3_thao"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:lines="1" />
                         </RelativeLayout>
@@ -174,7 +174,7 @@
                             android:layout_weight="1">
 
                             <TextView
-                                android:id="@+id/tv_44a_CS4"
+                                android:id="@+id/tv_44a_doisoat_CS4_thao"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentTop="true"
@@ -182,11 +182,11 @@
                                 android:text="KT" />
 
                             <EditText
-                                android:id="@+id/et_44b_CS4"
+                                android:id="@+id/et_44b_doisoat_CS4_thao"
                                 style="@style/edittextStyle3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_44a_CS4"
+                                android:layout_below="@+id/tv_44a_doisoat_CS4_thao"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:lines="1" />
                         </RelativeLayout>
@@ -199,7 +199,7 @@
                             android:layout_weight="1">
 
                             <TextView
-                                android:id="@+id/tv_45a_CS5"
+                                android:id="@+id/tv_45a_doisoat_CS5_thao"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentTop="true"
@@ -207,11 +207,11 @@
                                 android:text="KT" />
 
                             <EditText
-                                android:id="@+id/et_45b_CS5"
+                                android:id="@+id/et_45b_doisoat_CS5_thao"
                                 style="@style/edittextStyle3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_45a_CS5"
+                                android:layout_below="@+id/tv_45a_doisoat_CS5_thao"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:lines="1" />
                         </RelativeLayout>
@@ -233,10 +233,11 @@
                         android:text="Ảnh công tơ treo" />
 
                     <ImageView
+                        android:id="@+id/iv_doisoat_cto_treo"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_150sdp"
                         android:background="@drawable/xml_tththn_rectangle6"
-                        tools:visibility="visible" />
+                        tools:visibility="gone" />
 
 
                     <LinearLayout
@@ -245,7 +246,7 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_weight="5"
                         android:orientation="horizontal"
-                        tools:visibility="visible">
+                        tools:visibility="gone">
 
                         <RelativeLayout
                             android:id="@+id/rl_41a"
@@ -254,7 +255,7 @@
                             android:layout_weight="1">
 
                             <TextView
-                                android:id="@+id/tv_41a_CS1_a"
+                                android:id="@+id/tv_41a_doisoat_CS1_treo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentTop="true"
@@ -262,11 +263,11 @@
                                 android:text="KT" />
 
                             <EditText
-                                android:id="@+id/et_41b_CS1_a"
+                                android:id="@+id/et_41b_doisoat_CS1_treo"
                                 style="@style/edittextStyle3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_41a_CS1_a"
+                                android:layout_below="@+id/tv_41a_doisoat_CS1_treo"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:text="" />
                         </RelativeLayout>
@@ -279,7 +280,7 @@
                             android:layout_weight="1">
 
                             <TextView
-                                android:id="@+id/tv_42a_CS2_a"
+                                android:id="@+id/tv_42a_doisoat_CS2_treo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentTop="true"
@@ -287,11 +288,11 @@
                                 android:text="KT" />
 
                             <EditText
-                                android:id="@+id/et_42b_CS2_a"
+                                android:id="@+id/et_42b_doisoat_CS2_treo"
                                 style="@style/edittextStyle3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_42a_CS2_a"
+                                android:layout_below="@+id/tv_42a_doisoat_CS2_treo"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:lines="1" />
                         </RelativeLayout>
@@ -304,7 +305,7 @@
                             android:layout_weight="1">
 
                             <TextView
-                                android:id="@+id/tv_43a_CS3_a"
+                                android:id="@+id/tv_43a_doisoat_CS3_treo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentTop="true"
@@ -312,11 +313,11 @@
                                 android:text="KT" />
 
                             <EditText
-                                android:id="@+id/et_43b_CS3_a"
+                                android:id="@+id/et_43b_doisoat_CS3_treo"
                                 style="@style/edittextStyle3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_43a_CS3_a"
+                                android:layout_below="@+id/tv_43a_doisoat_CS3_treo"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:lines="1" />
                         </RelativeLayout>
@@ -329,7 +330,7 @@
                             android:layout_weight="1">
 
                             <TextView
-                                android:id="@+id/tv_44a_CS4_a"
+                                android:id="@+id/tv_44a_doisoat_CS4_treo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentTop="true"
@@ -337,11 +338,11 @@
                                 android:text="KT" />
 
                             <EditText
-                                android:id="@+id/et_44b_CS4_a"
+                                android:id="@+id/et_44b_doisoat_CS4_treo"
                                 style="@style/edittextStyle3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_44a_CS4_a"
+                                android:layout_below="@+id/tv_44a_doisoat_CS4_treo"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:lines="1" />
                         </RelativeLayout>
@@ -354,7 +355,7 @@
                             android:layout_weight="1">
 
                             <TextView
-                                android:id="@+id/tv_45a_CS5_a"
+                                android:id="@+id/tv_45a_doisoat_CS5_treo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentTop="true"
@@ -362,11 +363,11 @@
                                 android:text="KT" />
 
                             <EditText
-                                android:id="@+id/et_45b_CS5_a"
+                                android:id="@+id/et_45b_doisoat_CS5_treo"
                                 style="@style/edittextStyle3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_45a_CS5_a"
+                                android:layout_below="@+id/tv_45a_doisoat_CS5_treo"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:lines="1" />
                         </RelativeLayout>
@@ -378,16 +379,37 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:background="@color/tththn_text_less_black" />
 
-                    <Button
-                        style="@style/buttonStyle1"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_2sdp"
-                        android:background="@drawable/xml_tththn_rectangle_orangle"
-                        android:drawableRight="@drawable/ic_tththn_unmark"
-                        android:text="CHỌN GỬI"
-                        android:textColor="@color/tththn_button"
-                        android:textAllCaps="false" />
+                        android:gravity="right"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btn_doisoat_chitiet"
+                            style="@style/buttonStyle1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:drawableRight="@drawable/ic_tththn_edit_2"
+                            android:text="Xem chi tiết"
+                            android:textAllCaps="true"
+                            android:textColor="@color/text_white" />
+
+                        <Button
+                            android:id="@+id/btn_doisoat_chon"
+                            style="@style/buttonStyle1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:background="@drawable/xml_tththn_rectangle_orangle"
+                            android:drawableRight="@drawable/ic_tththn_unmark"
+                            android:text="CHỌN GỬI"
+                            android:textAllCaps="false"
+                            android:textColor="@color/tththn_button" />
+                    </LinearLayout>
+
                 </LinearLayout>
             </RelativeLayout>
 

@@ -1991,8 +1991,8 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
 //            String soNo = adapterKH.listData.get(posSelect).getTthtCtoEntity().getSO_CTO();
 //            String maCongTo = adapterKH.listData.get(posSelect).getTthtCtoEntity().getMA_CTO();
 //            String tenKH = adapterKH.listData.get(posSelect).getTthtBBanEntity().getTEN_KHANG();
-//            tvTenKH.setText(tenKH);
-//            tvDiaChiKH.setText(adapterKH.listData.get(posSelect).getTthtBBanEntity().getDCHI_HDON());
+//            TEN_KH.setText(tenKH);
+//            DIA_CHI_HOADON.setText(adapterKH.listData.get(posSelect).getTthtBBanEntity().getDCHI_HDON());
 //            tvMaGCS.setText(maGCS);
 //            tvSoNo.setText(soNo);
 //            int soVienChiKDinh = 0;
@@ -3009,7 +3009,7 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
 //
 //            setTabColor(tabHost);
 //
-//            TextView tvTenKH = (TextView) dialog.findViewById(R.id.ttht_dialog_detail_tvTenKH);
+//            TextView TEN_KH = (TextView) dialog.findViewById(R.id.ttht_dialog_detail_tvTenKH);
 //            TextView tvDChi = (TextView) dialog.findViewById(R.id.ttht_dialog_detail_tvDChi);
 //            TextView tvSDT = (TextView) dialog.findViewById(R.id.ttht_dialog_detail_tvSDT);
 //            TextView tvMaTram = (TextView) dialog.findViewById(R.id.ttht_dialog_detail_tvMaTram);
@@ -3028,7 +3028,7 @@ public class TthtMainFragment extends Fragment implements View.OnClickListener {
 //            TextView tvLoaiBBan = (TextView) dialog.findViewById(R.id.ttht_dialog_detail_tvLoaiBBan);
 //            TextView tvMaGCSCto = (TextView) dialog.findViewById(R.id.ttht_dialog_detail_tvMaGCSCto);
 //
-//            tvTenKH.setText(adapterKH.listData.get(adapterKH.getPosSelect()).getTthtBBanEntity().getTEN_KHANG());
+//            TEN_KH.setText(adapterKH.listData.get(adapterKH.getPosSelect()).getTthtBBanEntity().getTEN_KHANG());
 //            tvDChi.setText(adapterKH.listData.get(adapterKH.getPosSelect()).getTthtBBanEntity().getDCHI_HDON());
 //            tvSDT.setText(adapterKH.listData.get(adapterKH.getPosSelect()).getTthtBBanEntity().getDTHOAI());
 //            tvMaTram.setText(adapterKH.listData.get(adapterKH.getPosSelect()).getTthtBBanEntity().getMA_TRAM());
@@ -4366,7 +4366,7 @@ public String UploadFileHA(String fFileName,int CONGTO_ID,String GHI_CHU,String 
         @Override
         public void onBindViewHolder(RecyclerViewHolder holder, int position) {
             holder.tvSTT.setText(String.valueOf(listData.get(position).getStt()));
-            holder.tvTenKH.setText(listData.get(position).getTthtBBanEntity().getTEN_KHANG());
+            holder.TEN_KH.setText(listData.get(position).getTthtBBanEntity().getTEN_KHANG());
             holder.tvDiaChi.setText(listData.get(position).getTthtBBanEntity().getDCHI_HDON());
             holder.tvSoNo.setText(listData.get(position).getTthtCtoEntity().getSO_CTO());
             holder.tvMaGCS.setText(listData.get(position).getTthtBBanEntity().getMA_GCS_CTO());
@@ -4403,7 +4403,7 @@ public String UploadFileHA(String fFileName,int CONGTO_ID,String GHI_CHU,String 
 
         public class RecyclerViewHolder extends RecyclerView.ViewHolder implements AdapterView.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
-            public TextView tvSTT, tvTenKH, tvDiaChi, tvSoNo, tvMaGCS, tvChiSo, tvMaTram;
+            public TextView tvSTT, TEN_KH, tvDiaChi, tvSoNo, tvMaGCS, tvChiSo, tvMaTram;
             public ImageButton ibChiTiet, cbCheck;
             public RelativeLayout rlItem;
             public LinearLayout lnCheck;
@@ -4412,7 +4412,7 @@ public String UploadFileHA(String fFileName,int CONGTO_ID,String GHI_CHU,String 
                 super(itemView);
                 tvMaTram = (TextView) itemView.findViewById(R.id.ttht_row_cto_tvMaTram);
                 tvSTT = (TextView) itemView.findViewById(R.id.ttht_row_cto_tvSTT);
-                tvTenKH = (TextView) itemView.findViewById(R.id.ttht_row_cto_tvTenKH);
+                TEN_KH = (TextView) itemView.findViewById(R.id.ttht_row_cto_tvTenKH);
                 tvDiaChi = (TextView) itemView.findViewById(R.id.ttht_row_cto_tvDiaChi);
                 tvSoNo = (TextView) itemView.findViewById(R.id.ttht_row_cto_tvSoNo);
                 tvMaGCS = (TextView) itemView.findViewById(R.id.ttht_row_cto_tvMaGCS);
@@ -4424,7 +4424,7 @@ public String UploadFileHA(String fFileName,int CONGTO_ID,String GHI_CHU,String 
                 ibChiTiet.setOnClickListener(this);
 //trừ margin bottom in xml fixed @dimen/margin_recycle_2
 //                int heightRvKH = rvKH.getMeasuredHeight() / 3 - 2 - 2 - 2 - 2 - 2 - 2;
-//                int heightReal = tvTenKH.getMeasuredHeight() + tvDiaChi.getMeasuredHeight() + tvMaGCS.getMeasuredHeight()+tvSoNo.getMeasuredHeight()+tvChiSo.getMeasuredHeight();
+//                int heightReal = TEN_KH.getMeasuredHeight() + tvDiaChi.getMeasuredHeight() + tvMaGCS.getMeasuredHeight()+tvSoNo.getMeasuredHeight()+tvChiSo.getMeasuredHeight();
 //                if(heightReal<heightRvKH){
 //                    rlItem.getLayoutParams().height = heightRvKH;
 //                }else {
@@ -4597,7 +4597,7 @@ public String UploadFileHA(String fFileName,int CONGTO_ID,String GHI_CHU,String 
                 ibChiTiet.setOnClickListener(this);
 //trừ margin bottom in xml fixed @dimen/margin_recycle_2
 //                int heightRvKH = rvKH.getMeasuredHeight() / 3 - 2 - 2 - 2 - 2 - 2 - 2;
-//                int heightReal = tvTenKH.getMeasuredHeight() + tvDiaChi.getMeasuredHeight() + tvMaGCS.getMeasuredHeight()+tvSoNo.getMeasuredHeight()+tvChiSo.getMeasuredHeight();
+//                int heightReal = TEN_KH.getMeasuredHeight() + tvDiaChi.getMeasuredHeight() + tvMaGCS.getMeasuredHeight()+tvSoNo.getMeasuredHeight()+tvChiSo.getMeasuredHeight();
 //                if(heightReal<heightRvKH){
 //                    rlItem.getLayoutParams().height = heightRvKH;
 //                }else {

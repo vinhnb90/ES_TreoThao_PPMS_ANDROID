@@ -57,11 +57,6 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
     private TthtHnApiInterface apiInterface;
     private IInteractionDataCommon onIDataCommon;
 
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private OnListenerTthtHnDownloadFragment mListener;
     private TthtHnSQLDAO mSqlDAO;
     private TextView tvDateDownload;
@@ -785,7 +780,8 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                 bbanModel.MA_HDONG,
                 bbanModel.MA_KHANG,
                 bbanModel.LY_DO_TREO_THAO,
-                Common.TRANG_THAI_DU_LIEU.CHUA_GHI.content);
+                Common.TRANG_THAI_DU_LIEU.CHUA_GHI.content,
+                Common.TRANG_THAI_DOI_SOAT.CHUA_DOISOAT.content);
 
 
         if (TRANG_THAI_DU_LIEUList.isEmpty()) {

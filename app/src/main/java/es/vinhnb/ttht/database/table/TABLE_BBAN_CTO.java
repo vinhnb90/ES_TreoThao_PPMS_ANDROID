@@ -16,7 +16,7 @@ import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
  */
 
 @Table(name = "TABLE_BBAN_CTO")
-public class TABLE_BBAN_CTO implements Cloneable{
+public class TABLE_BBAN_CTO implements Cloneable {
 
     @EnumNameCollumn()
     public enum table {
@@ -46,7 +46,8 @@ public class TABLE_BBAN_CTO implements Cloneable{
         MA_HDONG,
         MA_KHANG,
         LY_DO_TREO_THAO,
-        TRANG_THAI_DU_LIEU;
+        TRANG_THAI_DU_LIEU,
+        TRANG_THAI_DOI_SOAT;
 
         public static String getName() {
             return "TABLE_BBAN_CTO";
@@ -136,6 +137,10 @@ public class TABLE_BBAN_CTO implements Cloneable{
     @Collumn(name = "TRANG_THAI_DU_LIEU", type = TYPE.TEXT)
     private String TRANG_THAI_DU_LIEU;
 
+    @Collumn(name = "TRANG_THAI_DOI_SOAT", type = TYPE.TEXT)
+    private String TRANG_THAI_DOI_SOAT;
+
+
     public TABLE_BBAN_CTO() {
     }
 
@@ -165,7 +170,9 @@ public class TABLE_BBAN_CTO implements Cloneable{
                           @Params(name = "MA_HDONG") String MA_HDONG,
                           @Params(name = "MA_KHANG") String MA_KHANG,
                           @Params(name = "LY_DO_TREO_THAO") String LY_DO_TREO_THAO,
-                          @Params(name = "LY_DO_TREO_THAO") String TRANG_THAI_DU_LIEU
+                          @Params(name = "TRANG_THAI_DU_LIEU") String TRANG_THAI_DU_LIEU,
+                          @Params(name = "TRANG_THAI_DOI_SOAT") String TRANG_THAI_DOI_SOAT
+
     ) {
         this.ID_TABLE_BBAN_CTO = ID_TABLE_BBAN_CTO;
         this.MA_DVIQLY = MA_DVIQLY;
@@ -194,6 +201,7 @@ public class TABLE_BBAN_CTO implements Cloneable{
         this.MA_KHANG = MA_KHANG;
         this.LY_DO_TREO_THAO = LY_DO_TREO_THAO;
         this.TRANG_THAI_DU_LIEU = TRANG_THAI_DU_LIEU;
+        this.TRANG_THAI_DOI_SOAT = TRANG_THAI_DOI_SOAT;
     }
 
 
@@ -411,6 +419,14 @@ public class TABLE_BBAN_CTO implements Cloneable{
 
     public void setTRANG_THAI_DU_LIEU(String TRANG_THAI_DU_LIEU) {
         this.TRANG_THAI_DU_LIEU = TRANG_THAI_DU_LIEU;
+    }
+
+    public String getTRANG_THAI_DOI_SOAT() {
+        return TRANG_THAI_DOI_SOAT;
+    }
+
+    public void setTRANG_THAI_DOI_SOAT(String TRANG_THAI_DOI_SOAT) {
+        this.TRANG_THAI_DOI_SOAT = TRANG_THAI_DOI_SOAT;
     }
 
     @Override

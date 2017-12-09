@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -160,7 +161,6 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
     @BindView(R.id.tv_22b_lapquaTi)
     TextView tvlapquaTi;
-
 
 
     //spin
@@ -515,9 +515,22 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
         //fill data text view
         //CHISO
+        ViewBO_CHISO viewBOChiso = new ViewBO_CHISO();
+        viewBOChiso.tvCS1 = tvCS1;
+        viewBOChiso.tvCS2 = tvCS2;
+        viewBOChiso.tvCS3 = tvCS3;
+        viewBOChiso.tvCS4 = tvCS4;
+        viewBOChiso.tvCS5 = tvCS5;
+
+        viewBOChiso.etCS1 = etCS1;
+        viewBOChiso.etCS2 = etCS2;
+        viewBOChiso.etCS3 = etCS3;
+        viewBOChiso.etCS4 = etCS4;
+        viewBOChiso.etCS5 = etCS5;
+
         String LOAI_CTO = tableChitietCto.getLOAI_CTO();
         String CHISO = tableChitietCto.getCHI_SO();
-        showChiso(LOAI_CTO, CHISO, trangThaiDuLieu);
+        showChiso(viewBOChiso, LOAI_CTO, CHISO, trangThaiDuLieu);
 
 
         //fill data tv
@@ -773,7 +786,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         }
     }
 
-    private void showChiso(String loai_cto, String chiso, Common.TRANG_THAI_DU_LIEU trangThaiDuLieu) throws Exception {
+    public static void showChiso(ViewBO_CHISO viewBOChiso, String loai_cto, String chiso, Common.TRANG_THAI_DU_LIEU trangThaiDuLieu) throws Exception {
         //split chiso
         HashMap<String, String> dataChiSo = new HashMap<>();
 
@@ -787,114 +800,114 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
 
         //set setEnabled
-        etCS1.setEnabled(true);
-        etCS2.setEnabled(true);
-        etCS3.setEnabled(true);
-        etCS4.setEnabled(true);
-        etCS5.setEnabled(true);
+        viewBOChiso.etCS1.setEnabled(true);
+        viewBOChiso.etCS2.setEnabled(true);
+        viewBOChiso.etCS3.setEnabled(true);
+        viewBOChiso.etCS4.setEnabled(true);
+        viewBOChiso.etCS5.setEnabled(true);
 
         if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_GUI) {
-            etCS1.setEnabled(false);
-            etCS2.setEnabled(false);
-            etCS3.setEnabled(false);
-            etCS4.setEnabled(false);
-            etCS5.setEnabled(false);
+            viewBOChiso.etCS1.setEnabled(false);
+            viewBOChiso.etCS2.setEnabled(false);
+            viewBOChiso.etCS3.setEnabled(false);
+            viewBOChiso.etCS4.setEnabled(false);
+            viewBOChiso.etCS5.setEnabled(false);
         }
 
         //setVisibility
-        tvCS1.setVisibility(View.VISIBLE);
-        tvCS2.setVisibility(View.VISIBLE);
-        tvCS3.setVisibility(View.VISIBLE);
-        tvCS4.setVisibility(View.VISIBLE);
-        tvCS5.setVisibility(View.VISIBLE);
+        viewBOChiso.tvCS1.setVisibility(View.VISIBLE);
+        viewBOChiso.tvCS2.setVisibility(View.VISIBLE);
+        viewBOChiso.tvCS3.setVisibility(View.VISIBLE);
+        viewBOChiso.tvCS4.setVisibility(View.VISIBLE);
+        viewBOChiso.tvCS5.setVisibility(View.VISIBLE);
 
-        etCS1.setVisibility(View.VISIBLE);
-        etCS2.setVisibility(View.VISIBLE);
-        etCS3.setVisibility(View.VISIBLE);
-        etCS4.setVisibility(View.VISIBLE);
-        etCS5.setVisibility(View.VISIBLE);
+        viewBOChiso.etCS1.setVisibility(View.VISIBLE);
+        viewBOChiso.etCS2.setVisibility(View.VISIBLE);
+        viewBOChiso.etCS3.setVisibility(View.VISIBLE);
+        viewBOChiso.etCS4.setVisibility(View.VISIBLE);
+        viewBOChiso.etCS5.setVisibility(View.VISIBLE);
 
 
         Common.LOAI_CTO loaiCto = Common.LOAI_CTO.findLOAI_CTO(loai_cto);
         switch (loaiCto) {
             case D1:
-                tvCS1.setText(D1.bochiso[0].code);
-                tvCS2.setText(D1.bochiso[1].code);
+                viewBOChiso.tvCS1.setText(D1.bochiso[0].code);
+                viewBOChiso.tvCS2.setText(D1.bochiso[1].code);
 
-                etCS1.setText(dataChiSo.get(D1.bochiso[0].code));
-                etCS2.setText(dataChiSo.get(D1.bochiso[1].code));
+                viewBOChiso.etCS1.setText(dataChiSo.get(D1.bochiso[0].code));
+                viewBOChiso.etCS2.setText(dataChiSo.get(D1.bochiso[1].code));
 
-                etCS1.setHint(dataChiSo.get(D1.bochiso[0].code));
-                etCS2.setHint(dataChiSo.get(D1.bochiso[1].code));
+                viewBOChiso.etCS1.setHint(dataChiSo.get(D1.bochiso[0].code));
+                viewBOChiso.etCS2.setHint(dataChiSo.get(D1.bochiso[1].code));
 
 
-                tvCS3.setVisibility(View.GONE);
-                tvCS4.setVisibility(View.GONE);
-                tvCS5.setVisibility(View.GONE);
+                viewBOChiso.tvCS3.setVisibility(View.GONE);
+                viewBOChiso.tvCS4.setVisibility(View.GONE);
+                viewBOChiso.tvCS5.setVisibility(View.GONE);
 
-                etCS3.setVisibility(View.GONE);
-                etCS4.setVisibility(View.GONE);
-                etCS5.setVisibility(View.GONE);
+                viewBOChiso.etCS3.setVisibility(View.GONE);
+                viewBOChiso.etCS4.setVisibility(View.GONE);
+                viewBOChiso.etCS5.setVisibility(View.GONE);
 
                 break;
 
             case DT:
-                tvCS1.setText(DT.bochiso[0].code);
-                tvCS2.setText(DT.bochiso[1].code);
-                tvCS3.setText(DT.bochiso[2].code);
-                tvCS4.setText(DT.bochiso[3].code);
-                tvCS5.setText(DT.bochiso[4].code);
+                viewBOChiso.tvCS1.setText(DT.bochiso[0].code);
+                viewBOChiso.tvCS2.setText(DT.bochiso[1].code);
+                viewBOChiso.tvCS3.setText(DT.bochiso[2].code);
+                viewBOChiso.tvCS4.setText(DT.bochiso[3].code);
+                viewBOChiso.tvCS5.setText(DT.bochiso[4].code);
 
-                etCS1.setText(dataChiSo.get(DT.bochiso[0].code));
-                etCS2.setText(dataChiSo.get(DT.bochiso[1].code));
-                etCS3.setText(dataChiSo.get(DT.bochiso[2].code));
-                etCS4.setText(dataChiSo.get(DT.bochiso[3].code));
-                etCS5.setText(dataChiSo.get(DT.bochiso[4].code));
+                viewBOChiso.etCS1.setText(dataChiSo.get(DT.bochiso[0].code));
+                viewBOChiso.etCS2.setText(dataChiSo.get(DT.bochiso[1].code));
+                viewBOChiso.etCS3.setText(dataChiSo.get(DT.bochiso[2].code));
+                viewBOChiso.etCS4.setText(dataChiSo.get(DT.bochiso[3].code));
+                viewBOChiso.etCS5.setText(dataChiSo.get(DT.bochiso[4].code));
 
-                etCS1.setHint(dataChiSo.get(DT.bochiso[0].code));
-                etCS2.setHint(dataChiSo.get(DT.bochiso[1].code));
-                etCS3.setHint(dataChiSo.get(DT.bochiso[2].code));
-                etCS4.setHint(dataChiSo.get(DT.bochiso[3].code));
-                etCS5.setHint(dataChiSo.get(DT.bochiso[4].code));
+                viewBOChiso.etCS1.setHint(dataChiSo.get(DT.bochiso[0].code));
+                viewBOChiso.etCS2.setHint(dataChiSo.get(DT.bochiso[1].code));
+                viewBOChiso.etCS3.setHint(dataChiSo.get(DT.bochiso[2].code));
+                viewBOChiso.etCS4.setHint(dataChiSo.get(DT.bochiso[3].code));
+                viewBOChiso.etCS5.setHint(dataChiSo.get(DT.bochiso[4].code));
                 break;
 
 
             case VC:
-                tvCS1.setText(VC.bochiso[0].code);
+                viewBOChiso.tvCS1.setText(VC.bochiso[0].code);
 
-                etCS1.setText(dataChiSo.get(VC.bochiso[0].code));
+                viewBOChiso.etCS1.setText(dataChiSo.get(VC.bochiso[0].code));
 
-                etCS1.setHint(dataChiSo.get(VC.bochiso[0].code));
+                viewBOChiso.etCS1.setHint(dataChiSo.get(VC.bochiso[0].code));
 
 
-                tvCS2.setVisibility(View.GONE);
-                tvCS3.setVisibility(View.GONE);
-                tvCS4.setVisibility(View.GONE);
-                tvCS5.setVisibility(View.GONE);
+                viewBOChiso.tvCS2.setVisibility(View.GONE);
+                viewBOChiso.tvCS3.setVisibility(View.GONE);
+                viewBOChiso.tvCS4.setVisibility(View.GONE);
+                viewBOChiso.tvCS5.setVisibility(View.GONE);
 
-                etCS2.setVisibility(View.GONE);
-                etCS3.setVisibility(View.GONE);
-                etCS4.setVisibility(View.GONE);
-                etCS5.setVisibility(View.GONE);
+                viewBOChiso.etCS2.setVisibility(View.GONE);
+                viewBOChiso.etCS3.setVisibility(View.GONE);
+                viewBOChiso.etCS4.setVisibility(View.GONE);
+                viewBOChiso.etCS5.setVisibility(View.GONE);
 
                 break;
             case HC:
-                tvCS1.setText(HC.bochiso[0].code);
+                viewBOChiso.tvCS1.setText(HC.bochiso[0].code);
 
-                etCS1.setText(dataChiSo.get(HC.bochiso[0].code));
+                viewBOChiso.etCS1.setText(dataChiSo.get(HC.bochiso[0].code));
 
-                etCS1.setHint(dataChiSo.get(HC.bochiso[0].code));
+                viewBOChiso.etCS1.setHint(dataChiSo.get(HC.bochiso[0].code));
 
 
-                tvCS2.setVisibility(View.GONE);
-                tvCS3.setVisibility(View.GONE);
-                tvCS4.setVisibility(View.GONE);
-                tvCS5.setVisibility(View.GONE);
+                viewBOChiso.tvCS2.setVisibility(View.GONE);
+                viewBOChiso.tvCS3.setVisibility(View.GONE);
+                viewBOChiso.tvCS4.setVisibility(View.GONE);
+                viewBOChiso.tvCS5.setVisibility(View.GONE);
 
-                etCS2.setVisibility(View.GONE);
-                etCS3.setVisibility(View.GONE);
-                etCS4.setVisibility(View.GONE);
-                etCS5.setVisibility(View.GONE);
+                viewBOChiso.etCS2.setVisibility(View.GONE);
+                viewBOChiso.etCS3.setVisibility(View.GONE);
+                viewBOChiso.etCS4.setVisibility(View.GONE);
+                viewBOChiso.etCS5.setVisibility(View.GONE);
 
                 break;
         }
@@ -974,6 +987,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
             ((TthtHnBaseActivity) getActivity()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
         }
     }
@@ -1089,7 +1103,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
                     Common.zoomImage(getActivity(), bitmap);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    ((TthtHnBaseActivity) getActivity()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
+                    ((TthtHnBaseActivity) getActivity()).showSnackBar(Common.MESSAGE.ex04.getContent(), e.getMessage(), null);
                 }
             }
         });
@@ -1101,7 +1115,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
                     captureAnhNiemPhong();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    ((TthtHnBaseActivity) getActivity()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
+                    ((TthtHnBaseActivity) getActivity()).showSnackBar(Common.MESSAGE.ex04.getContent(), e.getMessage(), null);
                 }
             }
         });
@@ -1418,8 +1432,10 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         tableChitietCto.setMA_SOCHOM(sMaCHiHomHop);
         String sGhiChu = etGhiChu.getText().toString();
         tableChitietCto.setGHI_CHU(sGhiChu);
+        String sTinhTrangNiemPhong = etTinhTrangNiemPhong.getText().toString();
+        tableChitietCto.setTTRANG_NPHONG(sTinhTrangNiemPhong);
 
-        String loaiHom = spLoaihom .getSelectedItem().toString();
+        String loaiHom = spLoaihom.getSelectedItem().toString();
         String phuongThucDoXa = spPhuongthucdoxa.getSelectedItem().toString();
         String soChiBooc = spSochibooc.getSelectedItem().toString();
         String soChiHomHop = spSochihomhop.getSelectedItem().toString();
@@ -1451,6 +1467,8 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         //reset
         isRefreshChiSo = false;
         isRefreshAnhNiemPhong = false;
+
+        ((TthtHnBaseActivity) getActivity()).showSnackBar("Lưu dữ liệu công tơ thành công!", null, null);
     }
 
     private boolean isFullRequireDataCto() throws Exception {
@@ -1533,5 +1551,20 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
     public int getPos() {
         return pos;
+    }
+
+    public class ViewBO_CHISO {
+        public TextView tvCS1;
+        public TextView tvCS2;
+        public TextView tvCS3;
+        public TextView tvCS4;
+        public TextView tvCS5;
+
+
+        public EditText etCS1;
+        public EditText etCS2;
+        public EditText etCS3;
+        public EditText etCS4;
+        public EditText etCS5;
     }
 }

@@ -28,7 +28,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     public HistoryAdapter(Context context, List<DataHistoryAdapter> listData, OnIDataHistoryAdapter iIteractor) {
         this.context = context;
-        this.listData = listData;
+        this.listData.clear();
+        this.listData = Common.cloneList(listData);
         this.iIteractor = iIteractor;
     }
 
@@ -66,8 +67,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
 
     public void refresh(List<DataHistoryAdapter> listData) {
-        listData.clear();
-        this.listData = listData;
+        this.listData.clear();
+        this.listData = Common.cloneList(listData);
         notifyDataSetChanged();
     }
 

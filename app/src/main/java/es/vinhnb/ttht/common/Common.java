@@ -570,6 +570,30 @@ public class Common {
         }
     }
 
+    public enum TRANG_THAI_DOI_SOAT {
+        CHUA_DOISOAT("Chưa đối soát", R.color.tththn_doisoat_chuadoisoat),
+        DA_DOISOAT("Đã đối soát", R.color.tththn_doisoat_dadoisoat),
+        GUI_THAT_BAI("Upload thất bại", R.color.tththn_doisoat_guithatbai),
+        GUI_THANH_CONG("Upload thành công", R.color.tththn_doisoat_guithanhcong);
+
+        public String content;
+        public int color;
+
+        TRANG_THAI_DOI_SOAT(String content, int color) {
+            this.content = content;
+            this.color = color;
+        }
+
+        public static TRANG_THAI_DOI_SOAT findTRANG_THAI_DOI_SOAT(String content) {
+            for (TRANG_THAI_DOI_SOAT trangThaiDoiSoat : values()) {
+                if (trangThaiDoiSoat.content.equalsIgnoreCase(content))
+                    return trangThaiDoiSoat;
+            }
+            return null;
+        }
+    }
+
+
     //trạng thái dữ liệu
     public enum TRANG_THAI_DU_LIEU {
         CHUA_TON_TAI("Chưa tồn tại"),

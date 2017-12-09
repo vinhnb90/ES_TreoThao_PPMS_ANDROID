@@ -87,4 +87,10 @@
     <color name="tththn_background_da_ghi">@color/tththn_button</color>
     <color name="tththn_background_da_gui">#90000000</color>
 
+
+    <color name="tththn_doisoat_chuadoisoat">@color/text_white</color>
+    <color name="tththn_doisoat_dadoisoat">@color/tththn_button</color>
+    <color name="tththn_doisoat_guithanhcong">#448AFF</color>
+    <color name="tththn_doisoat_guithatbai">@color/tththn_text_less_black</color>
+
 </resources>

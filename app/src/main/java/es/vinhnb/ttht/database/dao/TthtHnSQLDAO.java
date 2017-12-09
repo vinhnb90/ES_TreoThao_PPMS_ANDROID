@@ -10,6 +10,7 @@ import java.util.List;
 import es.vinhnb.ttht.adapter.BBanAdapter;
 import es.vinhnb.ttht.adapter.ChiTietCtoAdapter.DataChiTietCtoAdapter;
 import es.vinhnb.ttht.adapter.ChungLoaiAdapter;
+import es.vinhnb.ttht.adapter.DoiSoatAdapter;
 import es.vinhnb.ttht.adapter.HistoryAdapter;
 import es.vinhnb.ttht.adapter.TramAdapter;
 import es.vinhnb.ttht.common.Common;
@@ -322,6 +323,53 @@ public class TthtHnSQLDAO extends SqlDAO {
             }
         });
     }
+
+
+    public List<DoiSoatAdapter.DataDoiSoatAdapter> getDoiSoatAdapterinNDay(int nDay) {
+        String query = "SELECT * FROM " +
+                TABLE_HISTORY.table.getName() +
+                " WHERE " +
+                TABLE_HISTORY.table.DATE_CALL_API.name() +
+                " > (SELECT DATETIME('now', '-" +
+                nDay +
+                " day')) ORDER BY " +
+                TABLE_HISTORY.table.ID_TABLE_HISTORY.name() +
+                " DESC";
+
+
+        Cursor c = super.mDatabase.rawQuery(query, null);
+
+
+        return super.selectCustomLazy(c, new ItemFactory<DoiSoatAdapter.DataDoiSoatAdapter>(DoiSoatAdapter.DataDoiSoatAdapter.class) {
+            @Override
+            protected DoiSoatAdapter.DataDoiSoatAdapter create(Cursor cursor, int index) {
+                cursor.moveToPosition(index);
+
+                DoiSoatAdapter.DataDoiSoatAdapter dataDoiSoatAdapter = new DoiSoatAdapter.DataDoiSoatAdapter();
+                dataDoiSoatAdapter.TEN_KH = cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TEN_KHANG.name()));
+                dataDoiSoatAdapter.DIA_CHI_HOADON = cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.DCHI_HDON.name()));
+                dataDoiSoatAdapter.CHI_SO_THAO = cursor.getString(cursor.getColumnIndex("CHI_SO_THAO"));
+                dataDoiSoatAdapter.CHI_SO_TREO = cursor.getString(cursor.getColumnIndex("CHI_SO_TREO"));
+
+                String sLOAI_CTO_TREO = cursor.getString(cursor.getColumnIndex("LOAI_CTO_TREO"));
+                dataDoiSoatAdapter.LOAI_CTO_TREO = Common.LOAI_CTO.findLOAI_CTO(sLOAI_CTO_TREO);
+
+                String sLOAI_CTO_THAO = cursor.getString(cursor.getColumnIndex("LOAI_CTO_THAO"));
+                dataDoiSoatAdapter.LOAI_CTO_THAO = Common.LOAI_CTO.findLOAI_CTO(sLOAI_CTO_THAO);
+
+
+                dataDoiSoatAdapter.TEN_ANH_THAO = cursor.getString(cursor.getColumnIndex("TEN_ANH_THAO"));
+                dataDoiSoatAdapter.TEN_ANH_TREO = cursor.getString(cursor.getColumnIndex("TEN_ANH_TREO"));
+
+
+                String TRANG_THAI_DOI_SOAT = cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TRANG_THAI_DOI_SOAT.name()));
+                dataDoiSoatAdapter.trangThaiDoiSoat = Common.TRANG_THAI_DOI_SOAT.findTRANG_THAI_DOI_SOAT(TRANG_THAI_DOI_SOAT);
+
+                return dataDoiSoatAdapter;
+            }
+        });
+    }
+
 
 
     public List<TABLE_CHITIET_CTO> getChiTietCongto(String[] agrs) {

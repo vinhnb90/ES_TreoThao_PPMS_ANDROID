@@ -72,6 +72,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
     private ImageButton mIbtnLogout;
     private TthtHnMainFragment fragmentMain;
     private TthtHnDownloadFragment fragmentDownload;
+    private TthtHnUploadFragment fragmentUpload;
     private TthtHnChiTietCtoFragment fragmentChitietCto;
     private TthtHnBBanTutiFragment fragmentBBanTuTi;
     private TthtHnTopMenuChiTietCtoFragment fragmentTopMenuChiTietCto;
@@ -391,13 +392,29 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                     }
 
 
-                    fragmentTopSearchFragment = (TthtHnTopSearchFragment) showTopMenuFragment(tagNew, TagMenuTop.SEARCH);
+                    Fragment emptyFragment = showTopMenuFragment(tagNew, TagMenuTop.EMPTY);
 
 
-                    updateSessionBackstackFragment(fragmentTopMenuChiTietCto, fragmentDownload, true);
+                    updateSessionBackstackFragment(emptyFragment, fragmentDownload, true);
 
                     break;
                 case UPLOAD:
+                    //luu gia tri de su dung khi onBackPress
+                    tagMenuNaviLeftList = tagNew;
+
+
+                    if (fragmentVisible instanceof TthtHnUploadFragment) {
+                        isAddMain = false;
+                    } else {
+                        fragmentUpload = new TthtHnUploadFragment().newInstance();
+                        isAddMain = true;
+                    }
+
+
+                    emptyFragment = showTopMenuFragment(tagNew, TagMenuTop.EMPTY);
+
+
+                    updateSessionBackstackFragment(emptyFragment, fragmentUpload, true);
                     break;
 
 

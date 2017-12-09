@@ -80,7 +80,7 @@ public abstract class TthtHnBaseActivity extends AppCompatActivity implements IB
         }
     }
 
-    protected void showSnackBar(String message, @Nullable String content, @Nullable final ISnackbarIteractions actionOK) {
+    public void showSnackBar(String message, @Nullable String content, @Nullable final ISnackbarIteractions actionOK) {
         try {
             //check
             if (coordinatorLayout == null)
