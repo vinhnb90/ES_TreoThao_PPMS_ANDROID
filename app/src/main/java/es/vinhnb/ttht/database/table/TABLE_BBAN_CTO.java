@@ -98,8 +98,8 @@ public class TABLE_BBAN_CTO implements Cloneable {
     @Collumn(name = "MA_YCAU_KNAI", type = TYPE.TEXT)
     private String MA_YCAU_KNAI;
 
-    @Collumn(name = "TRANG_THAI", type = TYPE.INTEGER)
-    private int TRANG_THAI;
+    @Collumn(name = "TRANG_THAI", type = TYPE.TEXT)
+    private String TRANG_THAI;
 
     @Collumn(name = "GHI_CHU", type = TYPE.TEXT)
     private String GHI_CHU;
@@ -158,7 +158,7 @@ public class TABLE_BBAN_CTO implements Cloneable {
                           @Params(name = "NGUOI_SUA") String NGUOI_SUA,
                           @Params(name = "MA_CNANG") String MA_CNANG,
                           @Params(name = "MA_YCAU_KNAI") String MA_YCAU_KNAI,
-                          @Params(name = "TRANG_THAI") int TRANG_THAI,
+                          @Params(name = "TRANG_THAI") String TRANG_THAI,
                           @Params(name = "GHI_CHU") String GHI_CHU,
                           @Params(name = "ID_BBAN_CONGTO") int ID_BBAN_CONGTO,
                           @Params(name = "LOAI_BBAN") String LOAI_BBAN,
@@ -317,11 +317,11 @@ public class TABLE_BBAN_CTO implements Cloneable {
         this.MA_YCAU_KNAI = MA_YCAU_KNAI;
     }
 
-    public int getTRANG_THAI() {
+    public String getTRANG_THAI() {
         return TRANG_THAI;
     }
 
-    public void setTRANG_THAI(int TRANG_THAI) {
+    public void setTRANG_THAI(String TRANG_THAI) {
         this.TRANG_THAI = TRANG_THAI;
     }
 
@@ -428,6 +428,7 @@ public class TABLE_BBAN_CTO implements Cloneable {
     public void setTRANG_THAI_DOI_SOAT(String TRANG_THAI_DOI_SOAT) {
         this.TRANG_THAI_DOI_SOAT = TRANG_THAI_DOI_SOAT;
     }
+
 
     @Override
     public Object clone() throws CloneNotSupportedException {

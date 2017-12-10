@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import java.util.List;
 
 import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.view.IInteractionDataCommon;
+
+import static es.vinhnb.ttht.common.Common.MA_BDONG.B;
 
 /**
  * Created by VinhNB on 11/22/2017.
@@ -77,8 +80,24 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
             holder.mRlMain.setBackgroundColor(ContextCompat.getColor(context, R.color.tththn_background_lv5));
         }
 
+        Common.TRANG_THAI_DU_LIEU TRANG_THAI = Common.TRANG_THAI_DU_LIEU.CHUA_GHI;
 
-        switch (Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(data.TRANG_THAI_DULIEU)) {
+        //check bban cong to
+        TRANG_THAI = Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(data.getTRANG_THAI_DULIEU());
+
+        //check bb tuti
+        //nếu data.getTRANG_THAI_DULIEU_TUTI() == null thì tức công tơ này ko có bb tu ti
+        if (data.getIdbbantuti() != 0 && !TextUtils.isEmpty(data.getTRANG_THAI_DULIEU_TUTI())) {
+            if (Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(data.getTRANG_THAI_DULIEU_TUTI()) == Common.TRANG_THAI_DU_LIEU.CHUA_GHI)
+                TRANG_THAI = Common.TRANG_THAI_DU_LIEU.CHUA_GHI;
+            else if (Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(data.getTRANG_THAI_DULIEU_TUTI()) == Common.TRANG_THAI_DU_LIEU.DA_GUI)
+                TRANG_THAI = Common.TRANG_THAI_DU_LIEU.DA_GUI;
+            else
+                TRANG_THAI = Common.TRANG_THAI_DU_LIEU.DA_GHI;
+        }
+
+
+        switch (TRANG_THAI) {
             case CHUA_GHI:
                 holder.mLLView.setBackgroundColor(ContextCompat.getColor(context, R.color.tththn_background_chua_ghi));
                 break;
@@ -164,7 +183,10 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
                     int pos = getAdapterPosition();
                     DataChiTietCtoAdapter dataChiTietCtoAdapter = listData.get(pos);
                     OnIDataCommom.setID_BBAN_TRTH(dataChiTietCtoAdapter.getIdbbantrth());
-                    OnIDataCommom.setID_BBAN_TUTI_CTO(dataChiTietCtoAdapter.getIdbbantuti());
+                    if (OnIDataCommom.getMA_BDONG() == B)
+                        OnIDataCommom.setID_BBAN_TUTI_CTO_TREO(dataChiTietCtoAdapter.getIdbbantuti());
+                    else
+                        OnIDataCommom.setID_BBAN_TUTI_CTO_THAO(dataChiTietCtoAdapter.getIdbbantuti());
 
 
                     //get next and pre
@@ -201,6 +223,7 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
         private String sobban;
 
         private String TRANG_THAI_DULIEU;
+        private String TRANG_THAI_DULIEU_TUTI;
 
 
         public String getSobban() {
@@ -297,6 +320,14 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
 
         public void setTRANG_THAI_DULIEU(String TRANG_THAI_DULIEU) {
             this.TRANG_THAI_DULIEU = TRANG_THAI_DULIEU;
+        }
+
+        public void setTRANG_THAI_DULIEU_TUTI(String TRANG_THAI_DULIEU_TUTI) {
+            this.TRANG_THAI_DULIEU_TUTI = TRANG_THAI_DULIEU_TUTI;
+        }
+
+        public String getTRANG_THAI_DULIEU_TUTI() {
+            return TRANG_THAI_DULIEU_TUTI;
         }
     }
 }

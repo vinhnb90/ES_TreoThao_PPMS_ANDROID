@@ -3,19 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/_15sdp"
     android:background="@android:color/transparent">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
             android:background="@drawable/xml_tththn_rectangle"
-            android:elevation="@dimen/_5sdp"
-            android:padding="@dimen/_5sdp">
+            android:elevation="@dimen/_5sdp">
 
             <RelativeLayout
 
@@ -24,35 +25,36 @@
                 android:layout_height="match_parent"
                 tools:background="@color/tththn_button">
 
-                <TextView
-                    android:id="@+id/tv_stt_upload"
-                    style="@style/textStyle4"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginRight="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:background="@drawable/xml_tththn_cricle_type4"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:textSize="@dimen/_10sdp"
-                    android:textStyle="bold"
-                    tools:text="1" />
 
-                <LinearLayout
+                <RelativeLayout
+                    android:id="@+id/rl_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/tv_stt_upload"
-                    android:background="@color/text_white"
+                    android:layout_marginLeft="@dimen/_10sdp">
 
-                    android:orientation="vertical"
-                    android:paddingLeft="@dimen/_5sdp">
+                    <TextView
+                        android:id="@+id/tv_stt_upload"
+                        style="@style/textStyle4"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/xml_tththn_cricle_type4"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold"
+                        tools:text="1" />
 
                     <TextView
                         android:id="@+id/tv_dl_tenKH"
                         style="@style/textStyle4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/tv_stt_upload"
+                        android:paddingLeft="@dimen/_5sdp"
+                        android:textColor="@color/text_white"
                         tools:text="Nguyễn Văn A" />
 
                     <TextView
@@ -60,161 +62,187 @@
                         style="@style/textStyle4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_dl_tenKH"
+                        android:layout_toRightOf="@+id/tv_stt_upload"
+                        android:paddingLeft="@dimen/_5sdp"
+                        android:textColor="@color/text_white"
                         tools:text="Ha noi" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_1sdp"
+                        android:layout_below="@+id/tv_diachi_tenKH"
+                        android:layout_marginBottom="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:background="@color/tththn_text_less_black" />
+                        android:background="@color/text_white"
+                        android:paddingLeft="@dimen/_5sdp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rl_ll"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:background="@color/text_white"
+
+                    android:orientation="vertical"
+                    android:padding="@dimen/_5sdp">
 
 
                     <TextView
                         style="@style/textStyle1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
                         android:text="Ảnh công tơ tháo" />
-
-                    <ImageView
-                        android:id="@+id/iv_doisoat_cto_thao"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_150sdp"
-                        android:background="@drawable/xml_tththn_rectangle6"
-                        tools:visibility="gone" />
-
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_weight="5"
-                        android:orientation="horizontal"
-                        tools:visibility="gone">
+                        android:orientation="horizontal">
 
-                        <RelativeLayout
-                            android:id="@+id/rl_41"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1">
+                        <ImageView
+                            android:id="@+id/iv_doisoat_cto_thao"
+                            android:layout_width="@dimen/_150sdp"
+                            android:padding="@dimen/_5sdp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/xml_tththn_rectangle6"
+                            tools:visibility="gone" />
 
-                            <TextView
-                                android:id="@+id/tv_41a_doisoat_CS1_thao"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
-                                android:layout_centerVertical="true"
-                                android:text="KT" />
 
-                            <EditText
-                                android:id="@+id/et_41b_doisoat_CS1_thao"
-                                style="@style/edittextStyle3"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_41a_doisoat_CS1_thao"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:text="" />
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/rl_42"
-                            android:layout_width="0dp"
+                        <LinearLayout
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_5sdp"
-                            android:layout_weight="1">
+                            android:layout_toRightOf="@+id/iv_doisoat_cto_thao"
+                            android:layout_weight="5"
+                            android:orientation="vertical"
+                            tools:visibility="gone">
 
-                            <TextView
-                                android:id="@+id/tv_42a_doisoat_CS2_thao"
+                            <RelativeLayout
+                                android:id="@+id/rl_41"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
-                                android:layout_centerVertical="true"
-                                android:text="KT" />
+                                android:layout_weight="1">
 
-                            <EditText
-                                android:id="@+id/et_42b_doisoat_CS2_thao"
-                                style="@style/edittextStyle3"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_42a_doisoat_CS2_thao"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:lines="1" />
-                        </RelativeLayout>
+                                <TextView
+                                    android:id="@+id/tv_41a_doisoat_CS1_thao"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="KT" />
 
-                        <RelativeLayout
-                            android:id="@+id/rl_43"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:layout_weight="1">
+                                <EditText
+                                    android:id="@+id/et_41b_doisoat_CS1_thao"
+                                    style="@style/edittextStyle3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tv_41a_doisoat_CS1_thao"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:text="" />
+                            </RelativeLayout>
 
-                            <TextView
-                                android:id="@+id/tv_43a_doisoat_CS3_thao"
+                            <RelativeLayout
+                                android:id="@+id/rl_42"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
-                                android:layout_centerVertical="true"
-                                android:text="KT" />
-
-                            <EditText
-                                android:id="@+id/et_43b_doisoat_CS3_thao"
-                                style="@style/edittextStyle3"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_43a_doisoat_CS3_thao"
                                 android:layout_marginTop="@dimen/_5sdp"
-                                android:lines="1" />
-                        </RelativeLayout>
+                                android:layout_weight="1">
 
-                        <RelativeLayout
-                            android:id="@+id/rl_44"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:layout_weight="1">
+                                <TextView
+                                    android:id="@+id/tv_42a_doisoat_CS2_thao"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="KT" />
 
-                            <TextView
-                                android:id="@+id/tv_44a_doisoat_CS4_thao"
+                                <EditText
+                                    android:id="@+id/et_42b_doisoat_CS2_thao"
+                                    style="@style/edittextStyle3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tv_42a_doisoat_CS2_thao"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:lines="1" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/rl_43"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
-                                android:layout_centerVertical="true"
-                                android:text="KT" />
-
-                            <EditText
-                                android:id="@+id/et_44b_doisoat_CS4_thao"
-                                style="@style/edittextStyle3"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_44a_doisoat_CS4_thao"
                                 android:layout_marginTop="@dimen/_5sdp"
-                                android:lines="1" />
-                        </RelativeLayout>
+                                android:layout_weight="1">
 
-                        <RelativeLayout
-                            android:id="@+id/rl_45"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:layout_weight="1">
+                                <TextView
+                                    android:id="@+id/tv_43a_doisoat_CS3_thao"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="KT" />
 
-                            <TextView
-                                android:id="@+id/tv_45a_doisoat_CS5_thao"
+                                <EditText
+                                    android:id="@+id/et_43b_doisoat_CS3_thao"
+                                    style="@style/edittextStyle3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tv_43a_doisoat_CS3_thao"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:lines="1" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/rl_44"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
-                                android:layout_centerVertical="true"
-                                android:text="KT" />
-
-                            <EditText
-                                android:id="@+id/et_45b_doisoat_CS5_thao"
-                                style="@style/edittextStyle3"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_45a_doisoat_CS5_thao"
                                 android:layout_marginTop="@dimen/_5sdp"
-                                android:lines="1" />
-                        </RelativeLayout>
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:id="@+id/tv_44a_doisoat_CS4_thao"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="KT" />
+
+                                <EditText
+                                    android:id="@+id/et_44b_doisoat_CS4_thao"
+                                    style="@style/edittextStyle3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tv_44a_doisoat_CS4_thao"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:lines="1" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/rl_45"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:id="@+id/tv_45a_doisoat_CS5_thao"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="KT" />
+
+                                <EditText
+                                    android:id="@+id/et_45b_doisoat_CS5_thao"
+                                    style="@style/edittextStyle3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tv_45a_doisoat_CS5_thao"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:lines="1" />
+                            </RelativeLayout>
+                        </LinearLayout>
                     </LinearLayout>
 
 
@@ -232,146 +260,154 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:text="Ảnh công tơ treo" />
 
-                    <ImageView
-                        android:id="@+id/iv_doisoat_cto_treo"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_150sdp"
-                        android:background="@drawable/xml_tththn_rectangle6"
-                        tools:visibility="gone" />
-
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_weight="5"
-                        android:orientation="horizontal"
-                        tools:visibility="gone">
+                        android:orientation="horizontal">
 
-                        <RelativeLayout
-                            android:id="@+id/rl_41a"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1">
+                        <ImageView
+                            android:padding="@dimen/_5sdp"
+                            android:id="@+id/iv_doisoat_cto_treo"
+                            android:layout_width="@dimen/_150sdp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/xml_tththn_rectangle6"
+                            tools:visibility="visible" />
 
-                            <TextView
-                                android:id="@+id/tv_41a_doisoat_CS1_treo"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
-                                android:layout_centerVertical="true"
-                                android:text="KT" />
 
-                            <EditText
-                                android:id="@+id/et_41b_doisoat_CS1_treo"
-                                style="@style/edittextStyle3"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_41a_doisoat_CS1_treo"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:text="" />
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/rl_42_a"
-                            android:layout_width="0dp"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_5sdp"
-                            android:layout_weight="1">
+                            android:layout_weight="5"
+                            android:orientation="vertical"
+                            tools:visibility="visible">
 
-                            <TextView
-                                android:id="@+id/tv_42a_doisoat_CS2_treo"
+                            <RelativeLayout
+                                android:id="@+id/rl_41a"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
-                                android:layout_centerVertical="true"
-                                android:text="KT" />
+                                android:layout_weight="1">
 
-                            <EditText
-                                android:id="@+id/et_42b_doisoat_CS2_treo"
-                                style="@style/edittextStyle3"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_42a_doisoat_CS2_treo"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:lines="1" />
-                        </RelativeLayout>
+                                <TextView
+                                    android:id="@+id/tv_41a_doisoat_CS1_treo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="KT" />
 
-                        <RelativeLayout
-                            android:id="@+id/rl_43_a"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:layout_weight="1">
+                                <EditText
+                                    android:id="@+id/et_41b_doisoat_CS1_treo"
+                                    style="@style/edittextStyle3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tv_41a_doisoat_CS1_treo"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:text="" />
+                            </RelativeLayout>
 
-                            <TextView
-                                android:id="@+id/tv_43a_doisoat_CS3_treo"
+                            <RelativeLayout
+                                android:id="@+id/rl_42_a"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
-                                android:layout_centerVertical="true"
-                                android:text="KT" />
-
-                            <EditText
-                                android:id="@+id/et_43b_doisoat_CS3_treo"
-                                style="@style/edittextStyle3"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_43a_doisoat_CS3_treo"
                                 android:layout_marginTop="@dimen/_5sdp"
-                                android:lines="1" />
-                        </RelativeLayout>
+                                android:layout_weight="1">
 
-                        <RelativeLayout
-                            android:id="@+id/rl_44_a"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:layout_weight="1">
+                                <TextView
+                                    android:id="@+id/tv_42a_doisoat_CS2_treo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="KT" />
 
-                            <TextView
-                                android:id="@+id/tv_44a_doisoat_CS4_treo"
+                                <EditText
+                                    android:id="@+id/et_42b_doisoat_CS2_treo"
+                                    style="@style/edittextStyle3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tv_42a_doisoat_CS2_treo"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:lines="1" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/rl_43_a"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
-                                android:layout_centerVertical="true"
-                                android:text="KT" />
-
-                            <EditText
-                                android:id="@+id/et_44b_doisoat_CS4_treo"
-                                style="@style/edittextStyle3"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_44a_doisoat_CS4_treo"
                                 android:layout_marginTop="@dimen/_5sdp"
-                                android:lines="1" />
-                        </RelativeLayout>
+                                android:layout_weight="1">
 
-                        <RelativeLayout
-                            android:id="@+id/rl_45_a"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:layout_weight="1">
+                                <TextView
+                                    android:id="@+id/tv_43a_doisoat_CS3_treo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="KT" />
 
-                            <TextView
-                                android:id="@+id/tv_45a_doisoat_CS5_treo"
+                                <EditText
+                                    android:id="@+id/et_43b_doisoat_CS3_treo"
+                                    style="@style/edittextStyle3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tv_43a_doisoat_CS3_treo"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:lines="1" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/rl_44_a"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
-                                android:layout_centerVertical="true"
-                                android:text="KT" />
-
-                            <EditText
-                                android:id="@+id/et_45b_doisoat_CS5_treo"
-                                style="@style/edittextStyle3"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/tv_45a_doisoat_CS5_treo"
                                 android:layout_marginTop="@dimen/_5sdp"
-                                android:lines="1" />
-                        </RelativeLayout>
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:id="@+id/tv_44a_doisoat_CS4_treo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="KT" />
+
+                                <EditText
+                                    android:id="@+id/et_44b_doisoat_CS4_treo"
+                                    style="@style/edittextStyle3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tv_44a_doisoat_CS4_treo"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:lines="1" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/rl_45_a"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:id="@+id/tv_45a_doisoat_CS5_treo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="KT" />
+
+                                <EditText
+                                    android:id="@+id/et_45b_doisoat_CS5_treo"
+                                    style="@style/edittextStyle3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tv_45a_doisoat_CS5_treo"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:lines="1" />
+                            </RelativeLayout>
+                        </LinearLayout>
                     </LinearLayout>
+
 
                     <View
                         android:layout_width="match_parent"
@@ -379,36 +415,48 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:background="@color/tththn_text_less_black" />
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="right"
+                        android:layout_marginTop="@dimen/_2sdp"
                         android:orientation="horizontal">
 
-                        <Button
-                            android:id="@+id/btn_doisoat_chitiet"
-                            style="@style/buttonStyle1"
+                        <TextView
+                            android:id="@+id/tv_doisoat_trangthai"
+                            style="@style/edittextStyle1"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
                             android:layout_marginTop="@dimen/_2sdp"
-                            android:drawableRight="@drawable/ic_tththn_edit_2"
-                            android:text="Xem chi tiết"
+                            android:background="@color/tththn_doisoat_chuadoisoat"
+                            android:gravity="center_vertical"
+                            android:text="CHƯA ĐỐI SOÁT"
                             android:textAllCaps="true"
-                            android:textColor="@color/text_white" />
+                            android:textColor="@color/text_white"
+                            android:visibility="visible" />
 
                         <Button
+
                             android:id="@+id/btn_doisoat_chon"
-                            style="@style/buttonStyle1"
+                            style="@style/buttonStyle_menu_bottom"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_24sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/xml_tththn_rectangle_orangle"
-                            android:drawableRight="@drawable/ic_tththn_unmark"
-                            android:text="CHỌN GỬI"
+                            android:background="@drawable/xml_tththn_rectangle11"
+                            android:drawableRight="@drawable/ic_tththn_mark"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:paddingRight="@dimen/_5sdp"
+                            android:text="ĐÃ CHỌN GỬI"
                             android:textAllCaps="false"
-                            android:textColor="@color/tththn_button" />
-                    </LinearLayout>
+                            android:textColor="@color/text_white"
+                            tools:background="@drawable/xml_tththn_rectangle11_type1"
+                            tools:textColor="@color/tththn_button"
+                            tools:text="CHỌN GỬI"
+                            tools:drawableRight="@drawable/ic_tththn_unmark"
+                            />
+                    </RelativeLayout>
 
                 </LinearLayout>
             </RelativeLayout>

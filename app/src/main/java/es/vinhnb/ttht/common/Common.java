@@ -26,6 +26,8 @@ import android.os.Build;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -36,7 +38,10 @@ import com.es.tungnv.utils.TthtCommon;
 import com.es.tungnv.views.R;
 import com.es.tungnv.zoomImage.ImageViewTouch;
 
+import org.w3c.dom.Text;
+
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -51,6 +56,7 @@ import java.util.List;
 
 import static android.support.v4.app.ActivityCompat.requestPermissions;
 import static android.support.v4.content.PermissionChecker.checkSelfPermission;
+import static es.vinhnb.ttht.common.Common.LOAI_CTO.D1;
 
 /**
  * Created by VinhNB on 8/9/2017.
@@ -117,15 +123,13 @@ public class Common {
             from.renameTo(to);
     }
 
-    public static HashMap<String,String> spilitCHI_SO(LOAI_CTO loaiCto, String chi_so) {
-        HashMap<String,String> result = new HashMap<>();
+    public static HashMap<String, String> spilitCHI_SO(LOAI_CTO loaiCto, String chi_so) {
+        HashMap<String, String> result = new HashMap<>();
         String[] bochiso = chi_so.split(";");
 
-        for (BO_CHISO boChiso: loaiCto.bochiso) {
-            for (String chiso: bochiso)
-            {
-                if(chiso.contains(boChiso.code))
-                {
+        for (BO_CHISO boChiso : loaiCto.bochiso) {
+            for (String chiso : bochiso) {
+                if (chiso.contains(boChiso.code)) {
                     String[] values = chiso.split(":");
                     result.put(values[0], values[1]);
                 }
@@ -142,23 +146,14 @@ public class Common {
 
     public static String getStringChiSo(String etCS1Text, String etCS2Text, String etCS3Text, String etCS4Text, String etCS5Text, LOAI_CTO loaiCongTo) {
         StringBuilder CHI_SO = new StringBuilder();
-        switch (loaiCongTo) {
-            case D1:
-            case DT:
-                return CHI_SO.append("BT:").append(etCS1Text.isEmpty() ? "0" : etCS1Text).append(";").
-                        append("CD:").append(etCS2Text.isEmpty() ? "0" : etCS2Text).append(";").
-                        append("TD:").append(etCS3Text.isEmpty() ? "0" : etCS3Text).append(";").
-                        append("SG:").append(etCS4Text.isEmpty() ? "0" : etCS4Text).append(";").
-                        append("VC:").append(etCS5Text.isEmpty() ? "0" : etCS5Text).toString();
+        String[] sEtCS = new String[]{etCS1Text == null ? "0" : etCS1Text, etCS2Text == null ? "0" : etCS2Text, etCS3Text == null ? "0" : etCS3Text, etCS4Text == null ? "0" : etCS4Text, etCS5Text == null ? "0" : etCS5Text};
 
-            case HC:
-            case VC:
-                return CHI_SO.append("KT:").append(etCS1Text.isEmpty() ? "0" : etCS1Text).append(";").
-                        append("VC:").append(etCS2Text.isEmpty() ? "0" : etCS2Text).append(";").toString();
-
-            default:
-                return CHI_SO.toString();
+        for (int i = 0; i < loaiCongTo.bochiso.length; i++) {
+            CHI_SO.append(loaiCongTo.bochiso[i].code + ":").append(TextUtils.isEmpty(sEtCS[i]) ? "0" : sEtCS[i]).append(";");
         }
+
+        CHI_SO.replace(CHI_SO.length() - ";".length(), CHI_SO.length(), "");
+        return CHI_SO.toString();
     }
 
     public static String getImageName(String TYPE_IMAGE, String DATETIME, String MA_DVIQLY, String MA_TRAM, int ID_BBAN_TRTH, String MA_CTO) {
@@ -183,6 +178,8 @@ public class Common {
         ex06("Gặp vấn đề kết nối, vui lòng thử lại!"),
         ex07("Gặp vấn đề khi ghi dữ liệu!"),
         ex08("Gặp vấn đề khi chụp ảnh!"),
+        ex09("Gặp vấn đề khi xử lý dữ liệu để gửi!"),
+        ex10("Gặp vấn đề trong quá trình gửi dữ liệu!"),
         ex0x("Xảy ra lỗi bất ngờ!");
 
         private String content;
@@ -238,6 +235,40 @@ public class Common {
             return i;
         }
     }
+
+
+    public enum TYPE_TRANG_THAI_MTB_ResultModel_NEW {
+        GUI_CMIS_THATBAI("2"),
+        DANG_CHO_CMIS_XACNHAN("3"),
+        DA_TON_TAI_GUI_TRUOC_DO("31"),
+        CMIS_XACNHAN_OK("4"),
+        HET_HIEU_LUC("21"),
+        LOI_BAT_NGO("");
+
+        private String content;
+
+        TYPE_TRANG_THAI_MTB_ResultModel_NEW(String content) {
+            this.content = content;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+
+        public static TYPE_TRANG_THAI_MTB_ResultModel_NEW find(String content) {
+            if (TextUtils.isEmpty(content))
+                return LOI_BAT_NGO;
+
+            for (TYPE_TRANG_THAI_MTB_ResultModel_NEW typeSearchCto : values()) {
+                if (typeSearchCto.content.equalsIgnoreCase(content))
+                    return typeSearchCto;
+            }
+            return null;
+        }
+
+    }
+
 
     public enum TYPE_SEARCH_CTO {
         MA_TRAM("Mã trạm"), NGAY_TRTH("Ngày treo tháo"), TEN_KH("Tên KH"), MA_GCS("Mã GCS"), SO_BBAN("Số Biên bản"), MA_CTO("Mã công tơ"), SO_CTO("Số công tơ");
@@ -507,9 +538,17 @@ public class Common {
             this.code = code;
         }
 
-        public static MA_BDONG findMA_BDONG(String content) {
+        public static MA_BDONG findMA_BDONGByContent(String content) {
             for (MA_BDONG maBdong : values()) {
                 if (maBdong.content.equalsIgnoreCase(content))
+                    return maBdong;
+            }
+            return null;
+        }
+
+        public static MA_BDONG findMA_BDONGByCode(String code) {
+            for (MA_BDONG maBdong : values()) {
+                if (maBdong.code.equalsIgnoreCase(code))
                     return maBdong;
             }
             return null;
@@ -571,10 +610,12 @@ public class Common {
     }
 
     public enum TRANG_THAI_DOI_SOAT {
-        CHUA_DOISOAT("Chưa đối soát", R.color.tththn_doisoat_chuadoisoat),
-        DA_DOISOAT("Đã đối soát", R.color.tththn_doisoat_dadoisoat),
-        GUI_THAT_BAI("Upload thất bại", R.color.tththn_doisoat_guithatbai),
-        GUI_THANH_CONG("Upload thành công", R.color.tththn_doisoat_guithanhcong);
+        CHUA_DOISOAT("CHƯA ĐỐI SOÁT", R.color.tththn_doisoat_chuadoisoat),
+        DA_DOISOAT("ĐÃ ĐỐI SOÁT", R.color.tththn_doisoat_dadoisoat),
+        GUI_THAT_BAI("UPLOAD THẤT BẠI", R.color.tththn_doisoat_guithatbai),
+        GUI_THANH_CONG("UPLOAD THÀNH CÔNG", R.color.tththn_doisoat_guithanhcong),
+        HET_HIEU_LUC("HẾT HIỆU LỰC", R.color.text_black),
+        DA_TON_TAI_GUI_TRUOC_DO("ĐÃ ĐƯỢC GỬI TỪ TRƯỚC", R.color.text_black);
 
         public String content;
         public int color;
@@ -594,12 +635,49 @@ public class Common {
     }
 
 
-    //trạng thái dữ liệu
+    //trạng thái dữ liệu của web, chỉ sửa khi update mới từ web về
+    public enum TRANG_THAI {
+        CHUA_TON_TAI("Chưa tồn tại - 0", 0),
+        DA_XUAT_RA_WEB("Đã xuất ra web - 1", 1),
+        DA_XUAT_RA_MTB("Đã xuất ra máy tính bảng - 2", 2),
+        DA_DAY_LEN_CMIS("Đã đẩy lên CMIS - 3", 3),
+        XAC_NHAN_TREN_CMIS("Xác nhận trên CMIS - 4", 4),
+        HET_HIEU_LUC("Hết hiệu lực - 21", 21);
+
+        public String content;
+        public int code;
+
+        TRANG_THAI(String content, int code) {
+            this.content = content;
+            this.code = code;
+        }
+
+        public static TRANG_THAI findTRANG_THAI(int code) {
+            for (TRANG_THAI trangThai : values()) {
+                if (trangThai.code == code)
+                    return trangThai;
+            }
+            return null;
+        }
+
+        public static TRANG_THAI findTRANG_THAI(String content) {
+            for (TRANG_THAI trangThai : values()) {
+                if (trangThai.content.equalsIgnoreCase(content))
+                    return trangThai;
+            }
+            return null;
+        }
+    }
+
+
+    //trạng thái dữ liệu của MTB
     public enum TRANG_THAI_DU_LIEU {
         CHUA_TON_TAI("Chưa tồn tại"),
         CHUA_GHI("Chưa ghi"),
         DA_GHI("Đã ghi"),
-        DA_GUI("Đã gửi");
+        DA_GUI("Đã gửi"),
+        DA_XAC_NHAN_TREN_CMIS("Đã xác nhận trên CMIS"),
+        HET_HIEU_LUC("Hết hiệu lực");
 
         public String content;
 
@@ -676,6 +754,7 @@ public class Common {
         type6("dd/MM/yyyy"),
         type7("dd/MM/yyyy HH:mm:ss"),
         type8("dd/MM/yyyy HH:mm"),
+        //UI
         type9("dd/MM/yyyy HH'h'mm"),
         type10("MM/dd/yyyy HH:mm:ss a"),
         type11("yyyy-MM-dd HH:mm:ss"),
@@ -683,7 +762,6 @@ public class Common {
         //2017-11-23T22:18
         sqlite1("yyyy-MM-dd'T'HH:mm"),
         sqlite2("yyyy-MM-dd'T'HH:mm:ss"),
-
 
         typeEx("typeEx");
 
@@ -1113,4 +1191,17 @@ public class Common {
 
         return newArrayList;
     }
+
+
+    public static String convertBitmapToByte64(String pathImage) {
+        Bitmap imageBitmap = BitmapFactory.decodeFile(pathImage);
+
+        Bitmap immagex = imageBitmap;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        immagex.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageByte = baos.toByteArray();
+        String byteBimap = Base64.encodeToString(imageByte, Base64.NO_WRAP);
+        return byteBimap;
+    }
+
 }

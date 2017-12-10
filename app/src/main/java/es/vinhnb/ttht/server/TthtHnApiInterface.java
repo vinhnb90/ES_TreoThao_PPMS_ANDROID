@@ -8,6 +8,8 @@ import java.util.List;
 
 import es.vinhnb.ttht.entity.api.CHUNG_LOAI_CONGTO;
 import es.vinhnb.ttht.entity.api.D_DVIQLYModel;
+import es.vinhnb.ttht.entity.api.MTBModelNew;
+import es.vinhnb.ttht.entity.api.MTB_ResultModel_NEW;
 import es.vinhnb.ttht.entity.api.MTB_TuTiModel;
 import es.vinhnb.ttht.entity.api.MtbBbanModel;
 import es.vinhnb.ttht.entity.api.MtbBbanTutiModel;
@@ -16,7 +18,9 @@ import es.vinhnb.ttht.entity.api.TRAMVIEW;
 import es.vinhnb.ttht.entity.api.UpdateStatus;
 import es.vinhnb.ttht.entity.api.UserMtb;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 import static android.content.ContentValues.TAG;
@@ -50,8 +54,11 @@ public interface TthtHnApiInterface {
     Call<List<CHUNG_LOAI_CONGTO>> LayDuLieuLoaiCongTo();
 
 
-    public static class AsyncApi extends AsyncTask<Void, Void, Bundle>
-    {
+    @POST("PostMTBWithImage")
+    Call<List<MTB_ResultModel_NEW>> PostMTBWithImage(@Body List<MTBModelNew> list);
+
+
+    public static class AsyncApi extends AsyncTask<Void, Void, Bundle> {
         IAsync iAsync;
 
         public AsyncApi(IAsync iAsync) {
@@ -83,12 +90,14 @@ public interface TthtHnApiInterface {
 
 
     }
-    abstract class IAsync{
+
+    abstract class IAsync {
         public static final String STATUS_CODE = "STATUS_CODE";
         public static final String BUNDLE_DATA = "BUNDLE_DATA";
         public static final String ERROR_BODY = "ERROR_BODY";
 
         public abstract void onPreExecute() throws Exception;
+
         public abstract Bundle doInBackground();
 //        public abstract void onPostExecute(Bundle result);
     }

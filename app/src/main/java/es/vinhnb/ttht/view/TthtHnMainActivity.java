@@ -33,6 +33,7 @@ import es.vinhnb.ttht.adapter.NaviMenuAdapter;
 import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.entity.sharedpref.MainSharePref;
 import es.vinhnb.ttht.view.TthtHnMainFragment.OnListenerTthtHnMainFragment;
+import es.vinhnb.ttht.view.TthtHnUploadFragment.IOnTthtHnUploadFragment;
 import esolutions.com.esdatabaselib.baseSharedPref.SharePrefManager;
 
 import static com.es.tungnv.views.R.layout.activity_ttht_hn_main;
@@ -48,7 +49,6 @@ import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CTO_TREO;
 import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.TRAM;
 import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuTop.BBAN_TUTI;
 import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuTop.CHITIET_CTO;
-import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuTop.CHUYEN_LOAI_CTO;
 import static es.vinhnb.ttht.view.TthtHnTopMenuChiTietCtoFragment.IOnTthtHnTopMenuChiTietCtoFragment;
 import static es.vinhnb.ttht.view.TthtHnTopSearchFragment.IOnTthtHnTopSearchFragment;
 
@@ -62,7 +62,8 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         IOnTthtHnTopMenuChiTietCtoFragment,
         IOnTthtHnBBanTutiFragment,
         IOnTthtHnTopSearchFragment,
-        IInteractionDataCommon {
+        IInteractionDataCommon,
+        IOnTthtHnUploadFragment {
 
     private LoginFragment.LoginData mLoginData;
     private DrawerLayout mDrawerLayout;
@@ -81,13 +82,14 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
 
 
     private int ID_BBAN_TRTH;
-    private int ID_BBAN_TUTI_CTO;
     private Common.MA_BDONG MA_BDONG;
     private ProgressBar mPbarload;
     private int indexSessionFragment;
     private boolean isAddTop;
     private boolean isAddMain;
     private SharePrefManager sharePrefManager;
+    private int ID_BBAN_TUTI_CTO_TREO;
+    private int ID_BBAN_TUTI_CTO_THAO;
 
 
     public enum TypeFragment {
@@ -132,7 +134,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         LINE2("", null, "", 0, TypeViewMenu.LINE),
 
         DOWNLOAD("DOWNLOAD", TypeFragment.TthtHnDownloadFragment, "Đồng bộ dữ liệu", R.drawable.ic_tththn_download_white, TypeViewMenu.VIEW),
-        UPLOAD("UPLOAD", TypeFragment.TthtHnUploadFragment, "Gửi dữ liệu", R.drawable.ic_tththn_upload, TypeViewMenu.VIEW),
+        UPLOAD("UPLOAD", TypeFragment.TthtHnUploadFragment, "Gửi dữ liệu", R.drawable.ic_tththn_upload_2, TypeViewMenu.VIEW),
         HISTORY("HISTORY", TypeFragment.TthtHnHistoryFragment, "Lịch sử đồng bộ/Gửi", R.drawable.ic_tththn_history, TypeViewMenu.VIEW);
 
 
@@ -395,7 +397,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                     Fragment emptyFragment = showTopMenuFragment(tagNew, TagMenuTop.EMPTY);
 
 
-                    updateSessionBackstackFragment(emptyFragment, fragmentDownload, true);
+                    updateSessionBackstackFragment(emptyFragment, fragmentDownload, false);
 
                     break;
                 case UPLOAD:
@@ -414,7 +416,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                     emptyFragment = showTopMenuFragment(tagNew, TagMenuTop.EMPTY);
 
 
-                    updateSessionBackstackFragment(emptyFragment, fragmentUpload, true);
+                    updateSessionBackstackFragment(emptyFragment, fragmentUpload, false);
                     break;
 
 
@@ -525,6 +527,9 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                     fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
                     if (fragmentVisible instanceof TthtHnChiTietCtoFragment)
                         pos = ((TthtHnChiTietCtoFragment) fragmentVisible).getPos();
+
+                    if (fragmentVisible instanceof TthtHnBBanTutiFragment)
+                        pos = ((TthtHnBBanTutiFragment) fragmentVisible).getPos();
 
                     if (pos == -1)
                         return;
@@ -668,9 +673,15 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         return ID_BBAN_TRTH;
     }
 
+
     @Override
-    public int getID_BBAN_TUTI_CTO() {
-        return ID_BBAN_TUTI_CTO;
+    public int getID_BBAN_TUTI_CTO_TREO() {
+        return ID_BBAN_TUTI_CTO_TREO;
+    }
+
+    @Override
+    public int getID_BBAN_TUTI_CTO_THAO() {
+        return ID_BBAN_TUTI_CTO_THAO;
     }
 
     @Override
@@ -694,9 +705,12 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
     }
 
 
-    @Override
-    public void setID_BBAN_TUTI_CTO(int ID_BBAN_TUTI_CTO) {
-        this.ID_BBAN_TUTI_CTO = ID_BBAN_TUTI_CTO;
+    public void setID_BBAN_TUTI_CTO_THAO(int ID_BBAN_TUTI_CTO_THAO) {
+        this.ID_BBAN_TUTI_CTO_THAO = ID_BBAN_TUTI_CTO_THAO;
+    }
+
+    public void setID_BBAN_TUTI_CTO_TREO(int ID_BBAN_TUTI_CTO_TREO) {
+        this.ID_BBAN_TUTI_CTO_TREO = ID_BBAN_TUTI_CTO_TREO;
     }
 
     @Override
@@ -985,7 +999,8 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
 
     private void updateSessionBackstackFragment(@Nullable android.support.v4.app.Fragment fragmentTopMenu, @Nullable android.support.v4.app.Fragment fragmentMain, boolean isAddToBackStack) {
         //create name
-        indexSessionFragment++;
+        if (isAddToBackStack)
+            indexSessionFragment++;
         String tagSession1 = String.valueOf(indexSessionFragment);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

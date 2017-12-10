@@ -18,14 +18,14 @@ import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.database.dao.TthtHnSQLDAO;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 
-import static es.vinhnb.ttht.common.Common.DELAY_ANIM;
 import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_TYPE_TOPMENU;
 
 public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
 
     private IOnTthtHnTopMenuChiTietCtoFragment mListener;
 
-    private Drawable drawable10, drawable11;
+    private Drawable xml_tththn_rectangle11, xml_tththn_rectangle11_type1;
+    private Drawable ic_tththn_unmark, ic_tththn_mark;
 
     private Unbinder unbinder;
     private IInteractionDataCommon onIDataCommon;
@@ -93,8 +93,18 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        drawable10 = ContextCompat.getDrawable(context, R.drawable.xml_tththn_rectangle10);
-        drawable11 = ContextCompat.getDrawable(context, R.drawable.xml_tththn_rectangle11);
+
+        if (xml_tththn_rectangle11 == null)
+            xml_tththn_rectangle11 = ContextCompat.getDrawable(context, R.drawable.xml_tththn_rectangle11);
+
+        if (xml_tththn_rectangle11_type1 == null)
+            xml_tththn_rectangle11_type1 = ContextCompat.getDrawable(context, R.drawable.xml_tththn_rectangle11_type1);
+
+        if (ic_tththn_unmark == null)
+            ic_tththn_unmark = ContextCompat.getDrawable(context, R.drawable.ic_tththn_unmark);
+
+        if (ic_tththn_mark == null)
+            ic_tththn_mark = ContextCompat.getDrawable(context, R.drawable.ic_tththn_mark);
 
 
         if (context instanceof IOnTthtHnTopMenuChiTietCtoFragment) {
@@ -151,7 +161,10 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
 
 
         //get info bban tu ti
-        if (onIDataCommon.getID_BBAN_TUTI_CTO() == 0) {
+        if (onIDataCommon.getMA_BDONG() == Common.MA_BDONG.B && onIDataCommon.getID_BBAN_TUTI_CTO_TREO() == 0) {
+            btnBBTuTiMenu.setVisibility(View.GONE);
+        }
+        if (onIDataCommon.getMA_BDONG() == Common.MA_BDONG.E && onIDataCommon.getID_BBAN_TUTI_CTO_THAO() == 0) {
             btnBBTuTiMenu.setVisibility(View.GONE);
         }
     }
@@ -195,7 +208,6 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
 
                 try {
                     //clickTopMenuChitietCto
-                    Common.runAnimationClickView(view, R.anim.tththn_scale_view_push, DELAY_ANIM);
                     setBackgroundTopMenu(view);
 
 
@@ -211,15 +223,22 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
     }
 
     private void setBackgroundTopMenu(View view) {
-        btnCtoMenu.setBackground(drawable10);
-        btnBBTuTiMenu.setBackground(drawable10);
-        btnChuyenLoaiCtoMenu.setBackground(drawable10);
+        btnCtoMenu.setBackground(xml_tththn_rectangle11);
+        btnBBTuTiMenu.setBackground(xml_tththn_rectangle11);
+        btnChuyenLoaiCtoMenu.setBackground(xml_tththn_rectangle11);
+
+        btnCtoMenu.setCompoundDrawablesWithIntrinsicBounds(null, null, ic_tththn_unmark, null);
+        btnBBTuTiMenu.setCompoundDrawablesWithIntrinsicBounds(null, null, ic_tththn_unmark, null);
+        btnChuyenLoaiCtoMenu.setCompoundDrawablesWithIntrinsicBounds(null, null, ic_tththn_unmark, null);
+
 
         if (tagMenuTop == TthtHnMainActivity.TagMenuTop.CHITIET_CTO) {
-            btnCtoMenu.setBackground(drawable11);
+            btnCtoMenu.setBackground(xml_tththn_rectangle11_type1);
+            btnCtoMenu.setCompoundDrawablesWithIntrinsicBounds(null, null, ic_tththn_mark, null);
         }
         if (tagMenuTop == TthtHnMainActivity.TagMenuTop.BBAN_TUTI) {
-            btnBBTuTiMenu.setBackground(drawable11);
+            btnBBTuTiMenu.setBackground(xml_tththn_rectangle11_type1);
+            btnBBTuTiMenu.setCompoundDrawablesWithIntrinsicBounds(null, null, ic_tththn_mark, null);
         }
     }
 

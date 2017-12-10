@@ -1,6 +1,7 @@
 package es.vinhnb.ttht.database.table;
 
 
+import es.vinhnb.ttht.common.Common;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.AutoIncrement;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.Collumn;
 import esolutions.com.esdatabaselib.baseSqlite.anonation.EnumNameCollumn;
@@ -43,7 +44,6 @@ public class TABLE_CHITIET_TUTI implements Cloneable{
         MA_BDONG,
         MA_DVIQLY,
         MA_NVIEN;
-
 
         public static String getName()
         {

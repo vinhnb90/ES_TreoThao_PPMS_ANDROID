@@ -633,7 +633,6 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
         //casting dữ liệu server MtbCtoModel sang dữ liệu sqlite TABLE_CHITIET_CTO
 
-
         TABLE_CHITIET_CTO tableBbanTuti = new TABLE_CHITIET_CTO(
                 0,
                 mtbCtoModel.MA_DVIQLY,
@@ -753,6 +752,14 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
         //server ko trả về dữ liệu
         String MA_NVIEN = TextUtils.isEmpty(bbanModel.MA_NVIEN) ? onIDataCommon.getMaNVien() : bbanModel.MA_NVIEN;
 
+        //check trang thai web
+        Common.TRANG_THAI trangThai = Common.TRANG_THAI.findTRANG_THAI(bbanModel.TRANG_THAI);
+        Common.TRANG_THAI_DU_LIEU trangThaiDuLieu = Common.TRANG_THAI_DU_LIEU.CHUA_GHI;
+        if(trangThai == Common.TRANG_THAI.HET_HIEU_LUC)
+            trangThaiDuLieu=  Common.TRANG_THAI_DU_LIEU.HET_HIEU_LUC;
+        if(trangThai == Common.TRANG_THAI.XAC_NHAN_TREN_CMIS)
+            trangThaiDuLieu=  Common.TRANG_THAI_DU_LIEU.DA_XAC_NHAN_TREN_CMIS;
+
         TABLE_BBAN_CTO tableBbanCto = new TABLE_BBAN_CTO(
                 0,
                 bbanModel.MA_DVIQLY,
@@ -768,7 +775,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                 bbanModel.NGUOI_SUA,
                 bbanModel.MA_CNANG,
                 bbanModel.MA_YCAU_KNAI,
-                bbanModel.TRANG_THAI,
+                trangThai.content,
                 bbanModel.GHI_CHU,
                 bbanModel.ID_BBAN_CONGTO,
                 bbanModel.LOAI_BBAN,
@@ -780,7 +787,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                 bbanModel.MA_HDONG,
                 bbanModel.MA_KHANG,
                 bbanModel.LY_DO_TREO_THAO,
-                Common.TRANG_THAI_DU_LIEU.CHUA_GHI.content,
+                trangThaiDuLieu.content,
                 Common.TRANG_THAI_DOI_SOAT.CHUA_DOISOAT.content);
 
 

@@ -7,7 +7,8 @@ import es.vinhnb.ttht.common.Common;
 public interface IInteractionDataCommon {
     int getID_BBAN_TRTH();
 
-    int getID_BBAN_TUTI_CTO();
+    int getID_BBAN_TUTI_CTO_TREO();
+    int getID_BBAN_TUTI_CTO_THAO();
 
     Common.MA_BDONG getMA_BDONG();
 
@@ -16,9 +17,10 @@ public interface IInteractionDataCommon {
     String getMaNVien();
 
 
-    void setID_BBAN_TRTH(int ID_BBAN_TRTH);
+    void setID_BBAN_TUTI_CTO_TREO(int ID_BBAN_TUTI_CTO_TREO);
+    void setID_BBAN_TUTI_CTO_THAO(int ID_BBAN_TUTI_CTO_THAO);
 
-    void setID_BBAN_TUTI_CTO(int ID_BBAN_TUTI_CTO);
+    void setID_BBAN_TRTH(int ID_BBAN_TRTH);
 
     void setMA_BDONG(Common.MA_BDONG MA_BDONG);
 

@@ -35,7 +35,10 @@ public class TthtHnSQLDAO extends SqlDAO {
     }
 
     public List<DataChiTietCtoAdapter> getTreoDataChiTietCtoAdapter(String[] agrs) {
-        String query = "SELECT * FROM (SELECT " +
+
+        String query = "SELECT * FROM(\n" +
+                "SELECT * FROM (\n" +
+                "SELECT " +
                 TABLE_BBAN_CTO.table.ID_BBAN_TRTH.name() +
                 " AS ID_BBAN_TRTH_BB, " +
                 TABLE_BBAN_CTO.table.TEN_KHANG.name() +
@@ -51,8 +54,10 @@ public class TthtHnSQLDAO extends SqlDAO {
                 TABLE_BBAN_CTO.table.SO_BBAN.name() +
                 " FROM " +
                 TABLE_BBAN_CTO.table.getName() +
-                ") AS BBAN JOIN " +
-                "(SELECT " +
+                "\n" +
+                ") \n" +
+                "AS BBAN JOIN (\n" +
+                "SELECT " +
                 TABLE_CHITIET_CTO.table.ID_BBAN_TRTH.name() +
                 " AS ID_BBAN_TRTH_CTO, " +
                 TABLE_CHITIET_CTO.table.MA_CTO.name() +
@@ -68,10 +73,15 @@ public class TthtHnSQLDAO extends SqlDAO {
                 TABLE_CHITIET_CTO.table.getName() +
                 " WHERE " +
                 TABLE_CHITIET_CTO.table.MA_BDONG.name() +
-                " = " +
-                "?" +
-                " )AS CONGTO ON " +
-                "BBAN.ID_BBAN_TRTH_BB = CONGTO.ID_BBAN_TRTH_CTO";
+                " = ? \n" +
+                ")\n" +
+                "AS CONGTO ON BBAN.ID_BBAN_TRTH_BB = CONGTO.ID_BBAN_TRTH_CTO \n" +
+                ") AS BBAN_CTO\n" +
+                "left JOIN(\n" +
+                "SELECT ID_BBAN_TUTI , TRANG_THAI_DU_LIEU AS TRANG_THAI_DULIEU_TUTI FROM\n" +
+                "TABLE_BBAN_TUTI) tuti\n" +
+                "ON BBAN_CTO.ID_BBAN_TUTI = tuti.ID_BBAN_TUTI";
+
 
         Cursor cursor = super.mDatabase.rawQuery(query, agrs);
 
@@ -93,6 +103,8 @@ public class TthtHnSQLDAO extends SqlDAO {
                 dataChiTietCtoAdapter.setTRANG_THAI_DULIEU(cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.TRANG_THAI_DU_LIEU.name())));
                 dataChiTietCtoAdapter.setNgaytrth(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.NGAY_TRTH.name())));
                 dataChiTietCtoAdapter.setSobban(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.SO_BBAN.name())));
+                dataChiTietCtoAdapter.setTRANG_THAI_DULIEU_TUTI(cursor.getString(cursor.getColumnIndex("TRANG_THAI_DULIEU_TUTI")));
+
 
                 return dataChiTietCtoAdapter;
             }
@@ -284,7 +296,6 @@ public class TthtHnSQLDAO extends SqlDAO {
     }
 
 
-
     public List<HistoryAdapter.DataHistoryAdapter> getTABLE_HISTORYinNDay(int nDay) {
         String query = "SELECT * FROM " +
                 TABLE_HISTORY.table.getName() +
@@ -325,51 +336,98 @@ public class TthtHnSQLDAO extends SqlDAO {
     }
 
 
-    public List<DoiSoatAdapter.DataDoiSoatAdapter> getDoiSoatAdapterinNDay(int nDay) {
-        String query = "SELECT * FROM " +
-                TABLE_HISTORY.table.getName() +
+    public List<DoiSoatAdapter.DataDoiSoat> getDoiSoatAdapter(String args[]) {
+        String query = "SELECT *\n" +
+                "FROM\n" +
+                "\n" +
+                "(\n" +
+                "\n" +
+                "\t\t(\n" +
+                "\t\t\tSELECT *\n" +
+                "\t\t\tFROM \n" +
+                "\t\t\t(\n" +
+                "\t\t\t(SELECT  " +
+                TABLE_BBAN_CTO.table.ID_BBAN_TRTH.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.TEN_KHANG.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.DCHI_HDON.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.TRANG_THAI_DOI_SOAT.name() +
+                " FROM " +
+                TABLE_BBAN_CTO.table.getName() +
                 " WHERE " +
-                TABLE_HISTORY.table.DATE_CALL_API.name() +
-                " > (SELECT DATETIME('now', '-" +
-                nDay +
-                " day')) ORDER BY " +
-                TABLE_HISTORY.table.ID_TABLE_HISTORY.name() +
-                " DESC";
+                TABLE_BBAN_CTO.table.MA_NVIEN.name() +
+                " = ? " +
+                " ) A\n" +
+                "\t\t\tJOIN\n" +
+                "\t\t\t(SELECT " +
+                TABLE_CHITIET_CTO.table.ID_BBAN_TRTH.name() +
+                " AS ID_BBAN_TRTH_CTO, " +
+                TABLE_CHITIET_CTO.table.MA_BDONG.name() +
+                ", " +
+                TABLE_CHITIET_CTO.table.CHI_SO.name() +
+                ", " +
+                TABLE_CHITIET_CTO.table.LOAI_CTO.name() +
+                " , " +
+                TABLE_CHITIET_CTO.table.ID_CHITIET_CTO.name() +
+                " FROM " +
+                TABLE_CHITIET_CTO.table.getName() +
+                " ) B\n" +
+                "\t\t\tON\n" +
+                "\t\t\tA.ID_BBAN_TRTH = B.ID_BBAN_TRTH_CTO\n" +
+                "\t\t\t)\n" +
+                "\t\t)\n" +
+                "\t\tC\n" +
+                "\n" +
+                "\n" +
+                "JOIN\n" +
+                "(SELECT " +
+                TABLE_ANH_HIENTRUONG.table.ID_CHITIET_CTO.name() +
+                " AS ID_CHITIET_CTO_D, " +
+                TABLE_ANH_HIENTRUONG.table.TEN_ANH.name() +
+                " FROM " +
+                TABLE_ANH_HIENTRUONG.table.getName() +
+                " WHERE " +
+                TABLE_ANH_HIENTRUONG.table.TYPE.name() +
+                " = ? " +
+                ") D\n" +
+                "\n" +
+                "ON\n" +
+                "C.ID_CHITIET_CTO = D.ID_CHITIET_CTO_D\n" +
+                ")\n";
 
 
-        Cursor c = super.mDatabase.rawQuery(query, null);
+        Cursor c = super.mDatabase.rawQuery(query, args);
 
 
-        return super.selectCustomLazy(c, new ItemFactory<DoiSoatAdapter.DataDoiSoatAdapter>(DoiSoatAdapter.DataDoiSoatAdapter.class) {
+        return super.selectCustomLazy(c, new ItemFactory<DoiSoatAdapter.DataDoiSoat>(DoiSoatAdapter.DataDoiSoat.class) {
             @Override
-            protected DoiSoatAdapter.DataDoiSoatAdapter create(Cursor cursor, int index) {
+            protected DoiSoatAdapter.DataDoiSoat create(Cursor cursor, int index) {
                 cursor.moveToPosition(index);
 
-                DoiSoatAdapter.DataDoiSoatAdapter dataDoiSoatAdapter = new DoiSoatAdapter.DataDoiSoatAdapter();
-                dataDoiSoatAdapter.TEN_KH = cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TEN_KHANG.name()));
-                dataDoiSoatAdapter.DIA_CHI_HOADON = cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.DCHI_HDON.name()));
-                dataDoiSoatAdapter.CHI_SO_THAO = cursor.getString(cursor.getColumnIndex("CHI_SO_THAO"));
-                dataDoiSoatAdapter.CHI_SO_TREO = cursor.getString(cursor.getColumnIndex("CHI_SO_TREO"));
+                DoiSoatAdapter.DataDoiSoat dataDoiSoat = new DoiSoatAdapter.DataDoiSoat();
+                dataDoiSoat.TEN_KH = cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TEN_KHANG.name()));
+                dataDoiSoat.DIA_CHI_HOADON = cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.DCHI_HDON.name()));
+                dataDoiSoat.CHI_SO = cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.CHI_SO.name()));
 
-                String sLOAI_CTO_TREO = cursor.getString(cursor.getColumnIndex("LOAI_CTO_TREO"));
-                dataDoiSoatAdapter.LOAI_CTO_TREO = Common.LOAI_CTO.findLOAI_CTO(sLOAI_CTO_TREO);
+                String sLOAI_CTO = cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.LOAI_CTO.name()));
+                dataDoiSoat.LOAI_CTO = Common.LOAI_CTO.findLOAI_CTO(sLOAI_CTO);
 
-                String sLOAI_CTO_THAO = cursor.getString(cursor.getColumnIndex("LOAI_CTO_THAO"));
-                dataDoiSoatAdapter.LOAI_CTO_THAO = Common.LOAI_CTO.findLOAI_CTO(sLOAI_CTO_THAO);
+                String MA_BDONG = cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.MA_BDONG.name()));
+                dataDoiSoat.MA_BDONG = Common.MA_BDONG.findMA_BDONGByCode(MA_BDONG);
 
+                dataDoiSoat.ID_BBAN_TRTH = cursor.getInt(cursor.getColumnIndex(TABLE_BBAN_CTO.table.ID_BBAN_TRTH.name()));
 
-                dataDoiSoatAdapter.TEN_ANH_THAO = cursor.getString(cursor.getColumnIndex("TEN_ANH_THAO"));
-                dataDoiSoatAdapter.TEN_ANH_TREO = cursor.getString(cursor.getColumnIndex("TEN_ANH_TREO"));
-
+                dataDoiSoat.TEN_ANH = cursor.getString(cursor.getColumnIndex(TABLE_ANH_HIENTRUONG.table.TEN_ANH.name()));
 
                 String TRANG_THAI_DOI_SOAT = cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TRANG_THAI_DOI_SOAT.name()));
-                dataDoiSoatAdapter.trangThaiDoiSoat = Common.TRANG_THAI_DOI_SOAT.findTRANG_THAI_DOI_SOAT(TRANG_THAI_DOI_SOAT);
+                dataDoiSoat.TRANG_THAI_DOISOAT = Common.TRANG_THAI_DOI_SOAT.findTRANG_THAI_DOI_SOAT(TRANG_THAI_DOI_SOAT);
 
-                return dataDoiSoatAdapter;
+                return dataDoiSoat;
             }
         });
     }
-
 
 
     public List<TABLE_CHITIET_CTO> getChiTietCongto(String[] agrs) {
@@ -393,7 +451,7 @@ public class TthtHnSQLDAO extends SqlDAO {
     }
 
     public List<TABLE_BBAN_TUTI> getBBanTuti(int ID_BBAN_TUTI, String MA_NVIEN) {
-        String[] agrs = new  String[]{String.valueOf(ID_BBAN_TUTI), MA_NVIEN};
+        String[] agrs = new String[]{String.valueOf(ID_BBAN_TUTI), MA_NVIEN};
         String query = "SELECT  * " +
                 " FROM " +
                 TABLE_BBAN_TUTI.table.getName() +
@@ -412,7 +470,7 @@ public class TthtHnSQLDAO extends SqlDAO {
 
 
     public List<TABLE_CHITIET_TUTI> getChitietTuTi(int ID_BBAN_TUTI, String MA_NVIEN) {
-        String[] agrs = new  String[]{String.valueOf(ID_BBAN_TUTI), MA_NVIEN};
+        String[] agrs = new String[]{String.valueOf(ID_BBAN_TUTI), MA_NVIEN};
         String query = "SELECT  * " +
                 " FROM " +
                 TABLE_CHITIET_TUTI.table.getName() +

@@ -29,6 +29,7 @@ import esolutions.com.esdatabaselib.baseSharedPref.SharePrefManager;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 
 import static es.vinhnb.ttht.common.Common.DELAY_ANIM;
+import static es.vinhnb.ttht.common.Common.MA_BDONG.B;
 import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_TAG_MENU;
 import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_TYPE_TOPMENU;
 
@@ -264,8 +265,14 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
 
 
         //get info bban tu ti
-        if (onIDataCommon.getID_BBAN_TUTI_CTO() == 0) {
-            etSearch.setVisibility(View.GONE);
+        if (onIDataCommon.getMA_BDONG() == B) {
+            if (onIDataCommon.getID_BBAN_TUTI_CTO_TREO() == 0) {
+                etSearch.setVisibility(View.GONE);
+            }
+        } else {
+            if (onIDataCommon.getID_BBAN_TUTI_CTO_THAO() == 0) {
+                etSearch.setVisibility(View.GONE);
+            }
         }
     }
 

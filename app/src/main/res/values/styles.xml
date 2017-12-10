@@ -239,6 +239,14 @@
         <item name="android:paddingRight">@dimen/_5sdp</item>
     </style>
 
+    <style name="buttonStyle4" parent="buttonStyle1">
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingLeft">@dimen/_5sdp</item>
+        <item name="android:paddingRight">0dp</item>
+    </style>
+
+
     <style name="buttonStyle_menu_top">
         <item name="android:drawablePadding">@dimen/_2sdp</item>
         <item name="android:textSize">@dimen/_9sdp</item>

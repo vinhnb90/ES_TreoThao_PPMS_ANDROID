@@ -75,7 +75,7 @@ public class TABLE_ANH_HIENTRUONG implements Cloneable{
         this.ID_TABLE_ANH_HIENTRUONG = ID_TABLE_ANH_HIENTRUONG;
         this.ID_CHITIET_TUTI = ID_CHITIET_TUTI;
         this.TEN_ANH = TEN_ANH;
-        this.MA_NVIEN = this.MA_NVIEN;
+        this.MA_NVIEN = MA_NVIEN;
         this.ID_BBAN_TUTI = ID_BBAN_TUTI;
         this.ID_CHITIET_CTO = ID_CHITIET_CTO;
         this.TYPE = TYPE;

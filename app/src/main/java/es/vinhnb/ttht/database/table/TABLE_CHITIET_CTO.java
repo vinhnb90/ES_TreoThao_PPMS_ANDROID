@@ -254,6 +254,7 @@ public class TABLE_CHITIET_CTO implements Cloneable{
     @Collumn(name = "TRANG_THAI_DU_LIEU", type = TYPE.TEXT)
     private String TRANG_THAI_DU_LIEU;
 
+
     public TABLE_CHITIET_CTO() {
     }
 
@@ -313,7 +314,8 @@ public class TABLE_CHITIET_CTO implements Cloneable{
             @Params(name = "DONG_DIEN_SAULAP_TUTI") String DONG_DIEN_SAULAP_TUTI,
             @Params(name = "HANGSO_K_SAULAP_TUTI") String HANGSO_K_SAULAP_TUTI,
             @Params(name = "CAP_CX_SAULAP_TUTI") int CAP_CX_SAULAP_TUTI,
-            @Params(name = "TRANG_THAI_DU_LIEU") String TRANG_THAI_DU_LIEU) {
+            @Params(name = "TRANG_THAI_DU_LIEU") String TRANG_THAI_DU_LIEU
+            ) {
         this.ID_TABLE_CHITIET_CTO = ID_TABLE_CHITIET_CTO;
         this.MA_DVIQLY = MA_DVIQLY;
         this.MA_NVIEN = MA_NVIEN;
@@ -370,6 +372,7 @@ public class TABLE_CHITIET_CTO implements Cloneable{
         this.HANGSO_K_SAULAP_TUTI = HANGSO_K_SAULAP_TUTI;
         this.CAP_CX_SAULAP_TUTI = CAP_CX_SAULAP_TUTI;
         this.TRANG_THAI_DU_LIEU = TRANG_THAI_DU_LIEU;
+
     }
 
     public int getID_TABLE_CHITIET_CTO() {
