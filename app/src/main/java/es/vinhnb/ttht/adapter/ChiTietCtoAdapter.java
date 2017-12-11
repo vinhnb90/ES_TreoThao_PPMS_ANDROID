@@ -90,8 +90,8 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
         if (data.getIdbbantuti() != 0 && !TextUtils.isEmpty(data.getTRANG_THAI_DULIEU_TUTI())) {
             if (Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(data.getTRANG_THAI_DULIEU_TUTI()) == Common.TRANG_THAI_DU_LIEU.CHUA_GHI)
                 TRANG_THAI = Common.TRANG_THAI_DU_LIEU.CHUA_GHI;
-            else if (Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(data.getTRANG_THAI_DULIEU_TUTI()) == Common.TRANG_THAI_DU_LIEU.DA_GUI)
-                TRANG_THAI = Common.TRANG_THAI_DU_LIEU.DA_GUI;
+            else if (Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(data.getTRANG_THAI_DULIEU_TUTI()) == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS)
+                TRANG_THAI = Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS;
             else
                 TRANG_THAI = Common.TRANG_THAI_DU_LIEU.DA_GHI;
         }
@@ -106,7 +106,7 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
                 holder.mLLView.setBackgroundColor(ContextCompat.getColor(context, R.color.tththn_background_da_ghi));
                 break;
 
-            case DA_GUI:
+            case DANG_CHO_XAC_NHAN_CMIS:
                 holder.mLLView.setBackgroundColor(ContextCompat.getColor(context, R.color.tththn_background_da_gui));
                 break;
 

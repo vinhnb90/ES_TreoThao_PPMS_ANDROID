@@ -2,19 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/_15sdp"
-    android:background="@android:color/transparent">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/_25sdp"
+    android:background="@android:color/white">
 
     <ScrollView
+        android:elevation="@dimen/_2sdp"
+        android:layout_margin="@dimen/_5sdp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_5sdp"
             android:background="@drawable/xml_tththn_rectangle"
             android:elevation="@dimen/_5sdp">
 
@@ -75,15 +75,15 @@
                         android:layout_marginBottom="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:background="@color/text_white"
-                        android:paddingLeft="@dimen/_5sdp" />
+                        android:paddingLeft="@dimen/_5sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        />
                 </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/rl_ll"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    android:layout_marginLeft="@dimen/_10sdp"
                     android:background="@color/text_white"
 
                     android:orientation="vertical"
@@ -104,9 +104,9 @@
                         <ImageView
                             android:id="@+id/iv_doisoat_cto_thao"
                             android:layout_width="@dimen/_150sdp"
-                            android:padding="@dimen/_5sdp"
                             android:layout_height="match_parent"
                             android:background="@drawable/xml_tththn_rectangle6"
+                            android:padding="@dimen/_5sdp"
                             tools:visibility="gone" />
 
 
@@ -266,11 +266,11 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:padding="@dimen/_5sdp"
                             android:id="@+id/iv_doisoat_cto_treo"
                             android:layout_width="@dimen/_150sdp"
                             android:layout_height="match_parent"
                             android:background="@drawable/xml_tththn_rectangle6"
+                            android:padding="@dimen/_5sdp"
                             tools:visibility="visible" />
 
 
@@ -428,7 +428,7 @@
                             android:layout_height="match_parent"
                             android:layout_centerVertical="true"
                             android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@color/tththn_doisoat_chuadoisoat"
+                            android:background="@color/tththn_trangthai_dulieu_chuaghi"
                             android:gravity="center_vertical"
                             android:text="CHƯA ĐỐI SOÁT"
                             android:textAllCaps="true"
@@ -452,10 +452,9 @@
                             android:textAllCaps="false"
                             android:textColor="@color/text_white"
                             tools:background="@drawable/xml_tththn_rectangle11_type1"
-                            tools:textColor="@color/tththn_button"
-                            tools:text="CHỌN GỬI"
                             tools:drawableRight="@drawable/ic_tththn_unmark"
-                            />
+                            tools:text="CHỌN GỬI"
+                            tools:textColor="@color/tththn_button" />
                     </RelativeLayout>
 
                 </LinearLayout>

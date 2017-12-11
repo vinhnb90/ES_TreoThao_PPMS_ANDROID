@@ -766,42 +766,42 @@ public class TthtHnBBanTutiFragment extends TthtHnBaseFragment {
         //fill data ảnh tu treo
         ivAnhTu.setImageBitmap(getAnh(tuTreo, IMAGE_TU));
         btnChupAnhTu.setEnabled(true);
-        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_GUI)
+        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS)
             btnChupAnhTu.setEnabled(false);
 
 
         //fill data ảnh tu treo nhi thứ
         ivAnhNhiThuTu.setImageBitmap(getAnh(tuTreo, Common.TYPE_IMAGE.IMAGE_MACH_NHI_THU_TU));
         btnChupAnhNhiThuTu.setEnabled(true);
-        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_GUI)
+        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS)
             btnChupAnhNhiThuTu.setEnabled(false);
 
 
         //fill data ảnh tu treo niêm phong
         ivAnhNiemPhongTu.setImageBitmap(getAnh(tuTreo, Common.TYPE_IMAGE.IMAGE_NIEM_PHONG_TU));
         btnChupAnhNiemPhongTu.setEnabled(true);
-        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_GUI)
+        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS)
             btnChupAnhNiemPhongTu.setEnabled(false);
 
 
         //fill data ảnh ti treo
         ivAnhTi.setImageBitmap(getAnh(tiTreo, Common.TYPE_IMAGE.IMAGE_TI));
         btnChupAnhTi.setEnabled(true);
-        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_GUI)
+        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS)
             btnChupAnhTi.setEnabled(false);
 
 
         //fill data ảnh ti treo nhi thứ
         ivAnhNhiThuTi.setImageBitmap(getAnh(tiTreo, Common.TYPE_IMAGE.IMAGE_MACH_NHI_THU_TI));
         btnChupAnhNhiThuTi.setEnabled(true);
-        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_GUI)
+        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS)
             btnChupAnhNhiThuTi.setEnabled(false);
 
 
         //fill data ảnh ti treo niêm phong
         ivAnhNiemPhongTi.setImageBitmap(getAnh(tiTreo, Common.TYPE_IMAGE.IMAGE_NIEM_PHONG_TI));
         btnChupAnhNiemPhongTi.setEnabled(true);
-        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_GUI)
+        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS)
             btnChupAnhNiemPhongTi.setEnabled(false);
 
 
@@ -848,7 +848,7 @@ public class TthtHnBBanTutiFragment extends TthtHnBaseFragment {
             etTongPSaulap.setEnabled(true);
             etTongQSaulap.setEnabled(true);
 
-            if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_GUI) {
+            if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS) {
                 etDongdienSaulap.setEnabled(false);
                 etDienapSaulap.setEnabled(false);
                 etHesoKSaulap.setEnabled(false);

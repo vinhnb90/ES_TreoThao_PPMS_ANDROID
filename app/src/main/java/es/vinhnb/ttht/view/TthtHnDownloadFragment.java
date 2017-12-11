@@ -3,7 +3,6 @@ package es.vinhnb.ttht.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -731,7 +730,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                     availableCanUpdateInfoCto = true;
                     break;
 
-                case DA_GUI:
+                case DANG_CHO_XAC_NHAN_CMIS:
                     //not update or insert
                     break;
             }
@@ -746,21 +745,34 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
         //Lấy dữ liệu TRANG_THAI_DU_LIEU của biên bản
         String[] valueCheck = new String[]{String.valueOf(bbanModel.ID_BBAN_TRTH)};
         List<String> TRANG_THAI_DU_LIEUList = mSqlDAO.getTRANG_THAI_DU_LIEUofTABLE_BBAN_CTO(valueCheck);
-
         //casting dữ liệu server bbanModel sang dữ liệu sqlite TABLE_BBAN_CTO
 
         //server ko trả về dữ liệu
         String MA_NVIEN = TextUtils.isEmpty(bbanModel.MA_NVIEN) ? onIDataCommon.getMaNVien() : bbanModel.MA_NVIEN;
 
         //check trang thai web
-        Common.TRANG_THAI trangThai = Common.TRANG_THAI.findTRANG_THAI(bbanModel.TRANG_THAI);
-        Common.TRANG_THAI_DU_LIEU trangThaiDuLieu = Common.TRANG_THAI_DU_LIEU.CHUA_GHI;
-        if(trangThai == Common.TRANG_THAI.HET_HIEU_LUC)
-            trangThaiDuLieu=  Common.TRANG_THAI_DU_LIEU.HET_HIEU_LUC;
-        if(trangThai == Common.TRANG_THAI.XAC_NHAN_TREN_CMIS)
-            trangThaiDuLieu=  Common.TRANG_THAI_DU_LIEU.DA_XAC_NHAN_TREN_CMIS;
+        //khi check về chỉ có những biên bản có giá trị TRANG_THAI là DA_XUAT_RA_WEB - 1 và HET_HIEU_LUC - 21
+        Common.TRANG_THAI trangThaiWebNew = Common.TRANG_THAI.findTRANG_THAI(bbanModel.TRANG_THAI);
+        Common.TRANG_THAI_DU_LIEU trangThaiDuLieuMTBNew = Common.TRANG_THAI_DU_LIEU.CHUA_GHI;
+        switch (trangThaiWebNew) {
+            case CHUA_TON_TAI:
+                break;
+            case DA_XUAT_RA_WEB:
+                trangThaiDuLieuMTBNew = Common.TRANG_THAI_DU_LIEU.CHUA_GHI;
+                break;
+            case DA_XUAT_RA_MTB:
+                break;
+            case DA_DAY_LEN_CMIS:
+                break;
+            case XAC_NHAN_TREN_CMIS:
+                break;
+            case HET_HIEU_LUC:
+                trangThaiDuLieuMTBNew = Common.TRANG_THAI_DU_LIEU.HET_HIEU_LUC;
+                break;
+        }
 
-        TABLE_BBAN_CTO tableBbanCto = new TABLE_BBAN_CTO(
+
+        TABLE_BBAN_CTO tableBbanCtoNewData = new TABLE_BBAN_CTO(
                 0,
                 bbanModel.MA_DVIQLY,
                 bbanModel.ID_BBAN_TRTH,
@@ -775,7 +787,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                 bbanModel.NGUOI_SUA,
                 bbanModel.MA_CNANG,
                 bbanModel.MA_YCAU_KNAI,
-                trangThai.content,
+                trangThaiWebNew.content,
                 bbanModel.GHI_CHU,
                 bbanModel.ID_BBAN_CONGTO,
                 bbanModel.LOAI_BBAN,
@@ -787,54 +799,72 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                 bbanModel.MA_HDONG,
                 bbanModel.MA_KHANG,
                 bbanModel.LY_DO_TREO_THAO,
-                trangThaiDuLieu.content,
+                trangThaiDuLieuMTBNew.content,
                 Common.TRANG_THAI_DOI_SOAT.CHUA_DOISOAT.content);
 
 
         if (TRANG_THAI_DU_LIEUList.isEmpty()) {
             //CHUA_TON_TAI
             //insert
-            mSqlDAO.insert(TABLE_BBAN_CTO.class, tableBbanCto);
+            mSqlDAO.insert(TABLE_BBAN_CTO.class, tableBbanCtoNewData);
             availableCanUpdateInfoBBan = true;
-        } else
+        } else {
+            Common.TRANG_THAI_DU_LIEU TRANG_THAI_DU_LIEUmtbHienTai = Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(TRANG_THAI_DU_LIEUList.get(0));
             //check
-            switch (Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(TRANG_THAI_DU_LIEUList.get(0))) {
+            //nếu đã có dữ liệu tồn tại
+            //hiện tại dữ liệu nhận về có trangThaiDuLieu là CHUA_GHI-2 (mới toanh), và HET_HIEU_LUC -21 (những biên bản có thể cũ hoặc mới toanh nhưng hết hạn)
+            //CHUA_GHI-2 (mới toanh) thì nếu dữ liệu ở MTB đang ở kiểu chưa ghi, đã ghi tức đang có dữ liệu thì không update,
+            // còn nếu ở DANG_CHO_XAC_NHAN_CMIS, DA_XAC_NHAN_TREN_CMIS, HET_HIEU_LUC thì xóa hẳn row và insert mới
+            //HET_HIEU_LUC -21 thì update trạng thái dữ liệu là HET_HIEU_LUC,
+            switch (trangThaiDuLieuMTBNew) {
+                case CHUA_TON_TAI:
+                    break;
                 case CHUA_GHI:
-                    //update full
-                    String[] nameCollumnDelete = new String[]{
-                            TABLE_BBAN_CTO.table.ID_BBAN_TRTH.name()
-                    };
+                    if (TRANG_THAI_DU_LIEUmtbHienTai == Common.TRANG_THAI_DU_LIEU.CHUA_GHI || TRANG_THAI_DU_LIEUmtbHienTai == Common.TRANG_THAI_DU_LIEU.DA_GHI) {
+                        //không update gì, để nguyên dữ liệu hiện tại để gửi lên server
+                        //thông báo bên ngoài ko có update bban này, bỏ qua gọi API lấy công tơ của bb này
+                        availableCanUpdateInfoBBan = false;
+                    } else {
+                        //thì xóa hẳn row và insert mới
+                        String[] nameCollumnDelete = new String[]{
+                                TABLE_BBAN_CTO.table.ID_BBAN_TRTH.name(),
+                                TABLE_BBAN_CTO.table.MA_NVIEN.name()
+                        };
 
-                    String[] valuesDelete = new String[]{
-                            String.valueOf(bbanModel.ID_BBAN_TRTH)
-                    };
-
-
-                    //delete
-                    int rowDeleted = mSqlDAO.deleteRows(TABLE_BBAN_CTO.class, nameCollumnDelete, valuesDelete);
-                    availableCanUpdateInfoBBan = true;
-
-
-                    //insert
-                    mSqlDAO.insert(TABLE_BBAN_CTO.class, tableBbanCto);
+                        String[] valuesDelete = new String[]{
+                                String.valueOf(bbanModel.ID_BBAN_TRTH),
+                                onIDataCommon.getMaNVien()
+                        };
 
 
-                    //log if not success
-                    if (rowDeleted <= 0)
-                        Log.e(TAG, "availableCanUpdateInfoCto: Delete không thành công dữ công tơ có ID_BBAN_TRTH = " + bbanModel.ID_BBAN_TRTH);
+                        //delete
+                        int rowDeleted = mSqlDAO.deleteRows(TABLE_BBAN_CTO.class, nameCollumnDelete, valuesDelete);
+                        availableCanUpdateInfoBBan = true;
+
+                        //insert
+                        mSqlDAO.insert(TABLE_BBAN_CTO.class, tableBbanCtoNewData);
+                    }
+
                     break;
-
                 case DA_GHI:
-                    //not update or insert
-                    availableCanUpdateInfoBBan = true;
                     break;
-
-                case DA_GUI:
-                    //not update or insert
+                case DANG_CHO_XAC_NHAN_CMIS:
                     break;
+                case DA_XAC_NHAN_TREN_CMIS:
+                    break;
+                case HET_HIEU_LUC:
+                    //update trạng thái dữ liệu là HET_HIEU_LUC,
+                    String[] args = new String[]{
+                            String.valueOf(bbanModel.ID_BBAN_TRTH),
+                            onIDataCommon.getMaNVien()
+                    };
 
+                    TABLE_BBAN_CTO tableBbanCtoOld = (TABLE_BBAN_CTO) mSqlDAO.getBBan(args);
+
+                    tableBbanCtoNewData.setID_TABLE_BBAN_CTO((int) mSqlDAO.updateRows(TABLE_BBAN_CTO.class, tableBbanCtoOld, tableBbanCtoNewData));
+                    break;
             }
-
+        }
         return availableCanUpdateInfoBBan;
     }
 
@@ -911,7 +941,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                     availableCanUpdateInfoBBanTuTi = true;
                     break;
 
-                case DA_GUI:
+                case DANG_CHO_XAC_NHAN_CMIS:
                     //not update or insert
                     break;
 

@@ -88,7 +88,14 @@
     <color name="tththn_background_da_gui">#90000000</color>
 
 
-    <color name="tththn_doisoat_chuadoisoat">#448AFF</color>
+    <color name="tththn_trangthai_dulieu_chuaghi">@color/text_white</color>
+    <color name="tththn_trangthai_dulieu_da_ghi">#448AFF</color>
+    <color name="tththn_trangthai_dulieu_dangcho_xacnhan">#95FF5722</color>
+    <color name="tththn_trangthai_dulieu_da_tontai_truocdo">@color/text_black</color>
+    <color name="tththn_trangthai_dulieu_da_xacnhan_cmis">@color/tththn_button</color>
+    <color name="tththn_trangthai_dulieu_het_hieuluc">@color/tththn_trangthai_dulieu_da_tontai_truocdo</color>
+
+
     <color name="tththn_doisoat_dadoisoat">@color/tththn_button</color>
     <color name="tththn_doisoat_guithanhcong">#99e600</color>
     <color name="tththn_doisoat_guithatbai">@color/tththn_text_less_black</color>

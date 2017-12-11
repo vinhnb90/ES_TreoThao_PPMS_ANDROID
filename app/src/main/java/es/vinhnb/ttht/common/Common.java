@@ -38,8 +38,6 @@ import com.es.tungnv.utils.TthtCommon;
 import com.es.tungnv.views.R;
 import com.es.tungnv.zoomImage.ImageViewTouch;
 
-import org.w3c.dom.Text;
-
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -56,7 +54,6 @@ import java.util.List;
 
 import static android.support.v4.app.ActivityCompat.requestPermissions;
 import static android.support.v4.content.PermissionChecker.checkSelfPermission;
-import static es.vinhnb.ttht.common.Common.LOAI_CTO.D1;
 
 /**
  * Created by VinhNB on 8/9/2017.
@@ -609,20 +606,15 @@ public class Common {
         }
     }
 
+
     public enum TRANG_THAI_DOI_SOAT {
-        CHUA_DOISOAT("CHƯA ĐỐI SOÁT", R.color.tththn_doisoat_chuadoisoat),
-        DA_DOISOAT("ĐÃ ĐỐI SOÁT", R.color.tththn_doisoat_dadoisoat),
-        GUI_THAT_BAI("UPLOAD THẤT BẠI", R.color.tththn_doisoat_guithatbai),
-        GUI_THANH_CONG("UPLOAD THÀNH CÔNG", R.color.tththn_doisoat_guithanhcong),
-        HET_HIEU_LUC("HẾT HIỆU LỰC", R.color.text_black),
-        DA_TON_TAI_GUI_TRUOC_DO("ĐÃ ĐƯỢC GỬI TỪ TRƯỚC", R.color.text_black);
+        CHUA_DOISOAT("CHƯA ĐỐI SOÁT"),
+        DA_DOISOAT("ĐÃ ĐỐI SOÁT");
 
         public String content;
-        public int color;
 
-        TRANG_THAI_DOI_SOAT(String content, int color) {
+        TRANG_THAI_DOI_SOAT(String content) {
             this.content = content;
-            this.color = color;
         }
 
         public static TRANG_THAI_DOI_SOAT findTRANG_THAI_DOI_SOAT(String content) {
@@ -671,18 +663,24 @@ public class Common {
 
 
     //trạng thái dữ liệu của MTB
+//    DA_DOISOAT("ĐÃ ĐỐI SOÁT", R.color.tththn_doisoat_dadoisoat),
+
+
     public enum TRANG_THAI_DU_LIEU {
-        CHUA_TON_TAI("Chưa tồn tại"),
-        CHUA_GHI("Chưa ghi"),
-        DA_GHI("Đã ghi"),
-        DA_GUI("Đã gửi"),
-        DA_XAC_NHAN_TREN_CMIS("Đã xác nhận trên CMIS"),
-        HET_HIEU_LUC("Hết hiệu lực");
+        CHUA_TON_TAI("CHƯA TỒN TẠI", R.color.text_white),
+        CHUA_GHI("CHƯA GHI", R.color.tththn_trangthai_dulieu_chuaghi),
+        DA_GHI("ĐÃ GHI", R.color.tththn_trangthai_dulieu_da_ghi),
+        DANG_CHO_XAC_NHAN_CMIS("ĐANG CHỜ XÁC NHẬN CMIS", R.color.tththn_trangthai_dulieu_dangcho_xacnhan),
+        DA_TON_TAI_GUI_TRUOC_DO("ĐÃ TỒN TẠI TRƯỚC ĐÓ", R.color.tththn_trangthai_dulieu_da_tontai_truocdo),
+        DA_XAC_NHAN_TREN_CMIS("ĐÃ XÁC NHẬN TRÊN CMIS", R.color.tththn_trangthai_dulieu_da_xacnhan_cmis),
+        HET_HIEU_LUC("HẾT HIỆU LỰC", R.color.tththn_trangthai_dulieu_het_hieuluc);
 
         public String content;
+        public int color;
 
-        TRANG_THAI_DU_LIEU(String content) {
+        TRANG_THAI_DU_LIEU(String content, int color) {
             this.content = content;
+            this.color = color;
         }
 
         public static TRANG_THAI_DU_LIEU findTRANG_THAI_DU_LIEU(String content) {

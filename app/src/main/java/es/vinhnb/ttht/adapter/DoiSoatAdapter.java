@@ -2,7 +2,6 @@ package es.vinhnb.ttht.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
@@ -86,7 +85,7 @@ public class DoiSoatAdapter extends RecyclerView.Adapter<DoiSoatAdapter.ViewHold
         try {
             DataDoiSoatAdapter doiSoatAdapter = listData.get(position);
 
-            holder.rlRow.setBackgroundColor(ContextCompat.getColor(context, doiSoatAdapter.TRANG_THAI_DOISOAT.color));
+            holder.rlRow.setBackgroundColor(ContextCompat.getColor(context, doiSoatAdapter.TRANG_THAI_DU_LIEU.color));
             holder.tvStt.setText(String.valueOf(position + 1));
 
             holder.tvTenKH.setText(doiSoatAdapter.TEN_KH);
@@ -98,9 +97,27 @@ public class DoiSoatAdapter extends RecyclerView.Adapter<DoiSoatAdapter.ViewHold
             holder.btnSelectUpload.setTextColor(tththn_button);
             holder.btnSelectUpload.setText("CHỌN GỬI");
             holder.btnSelectUpload.setCompoundDrawablesWithIntrinsicBounds(null, null, ic_tththn_unmark, null);
-            holder.tvDoiSoatTrangThai.setText(doiSoatAdapter.TRANG_THAI_DOISOAT.content);
-            holder.tvDoiSoatTrangThai.setBackgroundColor(ContextCompat.getColor(context, doiSoatAdapter.TRANG_THAI_DOISOAT.color));
-            switch (doiSoatAdapter.TRANG_THAI_DOISOAT) {
+            holder.tvDoiSoatTrangThai.setText(doiSoatAdapter.TRANG_THAI_DU_LIEU.content);
+            holder.tvDoiSoatTrangThai.setBackgroundColor(ContextCompat.getColor(context, doiSoatAdapter.TRANG_THAI_DU_LIEU.color));
+
+            switch (doiSoatAdapter.TRANG_THAI_DU_LIEU) {
+                case CHUA_TON_TAI:
+                    break;
+                case CHUA_GHI:
+                    break;
+                case DA_GHI:
+                    break;
+                case DANG_CHO_XAC_NHAN_CMIS:
+                    break;
+                case DA_TON_TAI_GUI_TRUOC_DO:
+                    break;
+                case DA_XAC_NHAN_TREN_CMIS:
+                    break;
+                case HET_HIEU_LUC:
+                    break;
+            }
+
+            switch (doiSoatAdapter.TRANG_THAI_DU_LIEU) {
                 case CHUA_DOISOAT:
                     break;
                 case GUI_THAT_BAI:
@@ -124,7 +141,7 @@ public class DoiSoatAdapter extends RecyclerView.Adapter<DoiSoatAdapter.ViewHold
             if (bitmap != null)
                 holder.ivDoiSoatThao.setImageBitmap(bitmap);
 
-            showChiso(holder.viewBOChisoThao, doiSoatAdapter.LOAI_CTO_THAO.code, doiSoatAdapter.CHI_SO_THAO, Common.TRANG_THAI_DU_LIEU.DA_GUI, false);
+            showChiso(holder.viewBOChisoThao, doiSoatAdapter.LOAI_CTO_THAO.code, doiSoatAdapter.CHI_SO_THAO, Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS, false);
 
 
             pathAnh = Common.getRecordDirectoryFolder(Common.FOLDER_NAME.FOLDER_ANH_CONG_TO.name()) + "/" + doiSoatAdapter.TEN_ANH_TREO;
@@ -132,7 +149,7 @@ public class DoiSoatAdapter extends RecyclerView.Adapter<DoiSoatAdapter.ViewHold
             if (bitmap != null)
                 holder.ivDoiSoatTreo.setImageBitmap(bitmap);
 
-            showChiso(holder.viewBOChisoTreo, doiSoatAdapter.LOAI_CTO_TREO.code, doiSoatAdapter.CHI_SO_TREO, Common.TRANG_THAI_DU_LIEU.DA_GUI, false);
+            showChiso(holder.viewBOChisoTreo, doiSoatAdapter.LOAI_CTO_TREO.code, doiSoatAdapter.CHI_SO_TREO, Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS, false);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -315,7 +332,7 @@ public class DoiSoatAdapter extends RecyclerView.Adapter<DoiSoatAdapter.ViewHold
         public String TEN_ANH_TREO;
         public String TEN_ANH_THAO;
 
-        public Common.TRANG_THAI_DOI_SOAT TRANG_THAI_DOISOAT;
+        public Common.TRANG_THAI_DU_LIEU TRANG_THAI_DU_LIEU;
         public int ID_BBAN_TRTH;
 
         @Override

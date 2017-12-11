@@ -25,6 +25,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -50,7 +51,7 @@ import retrofit2.Response;
 import static es.vinhnb.ttht.common.Common.DELAY;
 import static es.vinhnb.ttht.common.Common.DELAY_PROGESS_PBAR;
 import static es.vinhnb.ttht.common.Common.TRANG_THAI_DOI_SOAT.CHUA_DOISOAT;
-import static es.vinhnb.ttht.common.Common.TRANG_THAI_DOI_SOAT.GUI_THAT_BAI;
+import static es.vinhnb.ttht.common.Common.TYPE_IMAGE.IMAGE_TI;
 import static es.vinhnb.ttht.common.Common.TYPE_IMAGE.IMAGE_TU;
 import static es.vinhnb.ttht.server.TthtHnApiInterface.IAsync.BUNDLE_DATA;
 import static es.vinhnb.ttht.server.TthtHnApiInterface.IAsync.ERROR_BODY;
@@ -311,10 +312,6 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
 
 
                     //region init data commom
-                    int ID_CHITIET_CTO_TREO = 0;
-                    int ID_BBAN_TUTI_CTO_TREO = 0;
-                    int ID_CHITIET_TUTI_TU_CTO_TREO = 0;
-                    int ID_CHITIET_TUTI_TI_CTO_TREO = 0;
 
                     String TEN_ANH_CTO_TREO = "";
                     String TEN_ANH_NIEMPHONG_CTO_TREO = "";
@@ -347,25 +344,12 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                     String ANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO = "";
                     String ANH_TI_ANH_MACH_NHI_THU_CTO_TREO = "";
 
-                    int ID_CHITIET_CTO_THAO = 0;
-                    int ID_BBAN_TUTI_CTO_THAO = 0;
-                    int ID_CHITIET_TUTI_TU_CTO_THAO = 0;
-                    int ID_CHITIET_TUTI_TI_CTO_THAO = 0;
                     String TEN_ANH_CTO_THAO = "";
                     String TEN_ANH_NIEMPHONG_CTO_THAO = "";
-                    String TEN_ANH_TU_CTO_THAO = "";
-                    String TEN_ANH_TU_ANH_MACH_NHI_THU_CTO_THAO = "";
-                    String TEN_ANH_TU_ANH_MACH_NIEM_PHONG_CTO_THAO = "";
                     String ANH_CTO_THAO = "";
                     String ANH_NIEMPHONG_CTO_THAO = "";
                     String CREATE_DAY_ANH_CTO_THAO = "";
                     String CREATE_DAY_ANH_NIEMPHONG_CTO_THAO = "";
-                    String CREATE_DAY_ANH_TU_CTO_THAO = "";
-                    String CREATE_DAY_ANH_MACH_NHI_THU_TU_CTO_THAO = "";
-                    String CREATE_DAY_ANH_MACH_NIEM_PHONG_TU_CTO_THAO = "";
-                    String ANH_TU_CTO_THAO = "";
-                    String ANH_TU_ANH_MACH_NHI_THU_CTO_THAO = "";
-                    String ANH_TU_ANH_MACH_NIEM_PHONG_CTO_THAO = "";
                     //endregion
 
                     //region collect data
@@ -390,13 +374,16 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                             if (tableBbanCtoList.size() != 0)
                                 tableBbanCto = tableBbanCtoList.get(0);
 
+                            MTBModelNew mtbModelNew = new MTBModelNew();
 
                             //TODO bien ban
-                            int ID_BBAN_CONGTO = tableBbanCto.getID_BBAN_CONGTO();
-                            String MA_DVIQLY = tableBbanCto.getMA_DVIQLY();
-                            String SO_BBAN = tableBbanCto.getSO_BBAN();
+                            mtbModelNew.setID_BBAN_CONGTO(tableBbanCto.getID_BBAN_CONGTO());
+                            mtbModelNew.setMA_DVIQLY(tableBbanCto.getMA_DVIQLY());
+                            mtbModelNew.setSO_BBAN(tableBbanCto.getSO_BBAN());
                             String sTRANG_THAI = tableBbanCto.getTRANG_THAI();
                             Common.TRANG_THAI TRANG_THAI = Common.TRANG_THAI.findTRANG_THAI(sTRANG_THAI);
+                            mtbModelNew.setTRANG_THAI(TRANG_THAI.code);
+
 
                             //TODO cong to treo
                             //get Data Chi tiet cong to
@@ -405,27 +392,32 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                             if (tableChitietCtoList.size() != 0)
                                 tableChitietCtoTreo = tableChitietCtoList.get(0);
 
-                            int LAN_CTO_TREO = tableChitietCtoTreo.getLAN();
-                            int VTRI_TREO_THAO_CTO_TREO = tableChitietCtoTreo.getVTRI_TREO();
-                            int SOVIEN_CBOOC_CTO_TREO = tableChitietCtoTreo.getSO_VIENCBOOC();
-                            int LOAI_HOM_CTO_TREO = tableChitietCtoTreo.getLOAI_HOM();
-                            int SOVIEN_CHOM_CTO_TREO = tableChitietCtoTreo.getSO_VIENCHOM();
-                            int HS_NHAN_CTO_TREO = tableChitietCtoTreo.getHS_NHAN();
-                            int SOVIEN_CHIKDINH_CTO_TREO = tableChitietCtoTreo.getSOVIEN_CHIKDINH();
-                            String TEM_CQUANG_CTO_TREO = tableChitietCtoTreo.getTEM_CQUANG();
-                            String SO_KIM_NIEM_CHI_CTO_TREO = tableChitietCtoTreo.getSO_KIM_NIEM_CHI();
-                            String TTRANG_NPHONG_CTO_TREO = tableChitietCtoTreo.getTTRANG_NPHONG();
-                            String TEN_LOAI_CTO_CTO_TREO = tableChitietCtoTreo.getTEN_LOAI_CTO();
-                            String PHUONG_THUC_DO_XA_CTO_TREO = tableChitietCtoTreo.getPHUONG_THUC_DO_XA();
-                            String GHI_CHU_CTO_TREO = tableChitietCtoTreo.getGHI_CHU();
+                            mtbModelNew.setID_BBAN_CONGTO(tableBbanCto.getID_BBAN_CONGTO());
+                            mtbModelNew.setID_BBAN_CONGTO(tableBbanCto.getID_BBAN_CONGTO());
+                            mtbModelNew.setID_BBAN_CONGTO(tableBbanCto.getID_BBAN_CONGTO());
 
-                            String DIEN_AP_SAULAP_TUTI_CTO_TREO = tableChitietCtoTreo.getDIEN_AP_SAULAP_TUTI();
-                            String DONG_DIEN_SAULAP_TUTI_CTO_TREO = tableChitietCtoTreo.getDONG_DIEN_SAULAP_TUTI();
-                            String HANGSO_K_SAULAP_TUTI_CTO_TREO = tableChitietCtoTreo.getHANGSO_K_SAULAP_TUTI();
-                            String SO_TU_SAULAP_TUTI_CTO_TREO = tableChitietCtoTreo.getSO_TU_SAULAP_TUTI();
-                            String SO_TI_SAULAP_TUTI_CTO_TREO = tableChitietCtoTreo.getSO_TI_SAULAP_TUTI();
-                            String CHI_SO_SAULAP_TUTI_CTO_TREO = tableChitietCtoTreo.getCHI_SO_SAULAP_TUTI();
-                            int CAP_CX_SAULAP_TUTI_CTO_TREO = tableChitietCtoTreo.getCAP_CX_SAULAP_TUTI();
+
+                            mtbModelNew.setLAN_CTO_TREO(tableChitietCtoTreo.getLAN());
+                            mtbModelNew.setVTRI_TREO_THAO_CTO_TREO(tableChitietCtoTreo.getVTRI_TREO());
+                            mtbModelNew.setSOVIEN_CBOOC_CTO_TREO(tableChitietCtoTreo.getSO_VIENCBOOC());
+                            mtbModelNew.setLOAI_HOM_CTO_TREO(tableChitietCtoTreo.getLOAI_HOM());
+                            mtbModelNew.setSOVIEN_CHOM_CTO_TREO(tableChitietCtoTreo.getSO_VIENCHOM());
+                            mtbModelNew.setHS_NHAN_CTO_TREO(tableChitietCtoTreo.getHS_NHAN());
+                            mtbModelNew.setSOVIEN_CHIKDINH_CTO_TREO(tableChitietCtoTreo.getSOVIEN_CHIKDINH());
+                            mtbModelNew.setTEM_CQUANG_CTO_TREO(tableChitietCtoTreo.getTEM_CQUANG());
+                            mtbModelNew.setSO_KIM_NIEM_CHI_CTO_TREO(tableChitietCtoTreo.getSO_KIM_NIEM_CHI());
+                            mtbModelNew.setTTRANG_NPHONG_CTO_TREO(tableChitietCtoTreo.getTTRANG_NPHONG());
+                            mtbModelNew.setTEN_LOAI_CTO_CTO_TREO(tableChitietCtoTreo.getTEN_LOAI_CTO());
+                            mtbModelNew.setPHUONG_THUC_DO_XA_CTO_TREO(tableChitietCtoTreo.getPHUONG_THUC_DO_XA());
+                            mtbModelNew.setGHI_CHU_CTO_TREO(tableChitietCtoTreo.getGHI_CHU());
+
+                            mtbModelNew.setDIEN_AP_CTO_TREO(tableChitietCtoTreo.getDIEN_AP());
+                            mtbModelNew.setDONG_DIEN_CTO_TREO(tableChitietCtoTreo.getDONG_DIEN());
+                            mtbModelNew.setHANGSO_K_CTO_TREO(tableChitietCtoTreo.getHANGSO_K());
+                            mtbModelNew.setSO_TU_CTO_TREO(tableChitietCtoTreo.getSO_TU());
+                            mtbModelNew.setSO_TI_CTO_TREO(tableChitietCtoTreo.getSO_TI());
+                            mtbModelNew.setCHI_SO_CTO_TREO(tableChitietCtoTreo.getCHI_SO());
+                            mtbModelNew.setCCX_CTO_TREO(tableChitietCtoTreo.getCAP_CX_SAULAP_TUTI());
 
 
                             //TODO update bang DU_LIEU_HIEN_TRUONG
@@ -443,6 +435,10 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                                     ANH_CTO_TREO = (Common.convertBitmapToByte64(PATH_ANH).isEmpty()) ? "" : Common.convertBitmapToByte64(PATH_ANH);
                                     CREATE_DAY_ANH_CTO_TREO = tableAnhCongtoTreo.getCREATE_DAY();
                                 }
+
+                                mtbModelNew.setTEN_ANH_CTO_TREO(TEN_ANH_CTO_TREO);
+                                mtbModelNew.setANH_CTO_TREO(ANH_CTO_TREO);
+                                mtbModelNew.setCREATE_DAY_ANH_CTO_TREO(CREATE_DAY_ANH_CTO_TREO);
                             }
 
 
@@ -460,6 +456,11 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                                     ANH_NIEMPHONG_CTO_TREO = (Common.convertBitmapToByte64(PATH_ANH).isEmpty()) ? "" : Common.convertBitmapToByte64(PATH_ANH);
                                     CREATE_DAY_ANH_NIEMPHONG_CTO_TREO = tableAnhNiemPhongTreo.getCREATE_DAY();
                                 }
+
+
+                                mtbModelNew.setTEN_ANH_NIEMPHONG_CTO_TREO(TEN_ANH_NIEMPHONG_CTO_TREO);
+                                mtbModelNew.setANH_NIEMPHONG_CTO_TREO(ANH_NIEMPHONG_CTO_TREO);
+                                mtbModelNew.setCREATE_DAY_ANH_NIEMPHONG_CTO_TREO(CREATE_DAY_ANH_NIEMPHONG_CTO_TREO);
                             }
 
 
@@ -468,11 +469,14 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
 
                             //TODO anh TU TI Treo
-                            ID_CHITIET_CTO_TREO = tableChitietCtoTreo.getID_CHITIET_CTO();
-                            ID_BBAN_TUTI_CTO_TREO = tableChitietCtoTreo.getID_BBAN_TUTI();
-                            if (ID_BBAN_TUTI_CTO_TREO != 0) {
+
+                            mtbModelNew.setID_CHITIET_CTO_TREO(tableChitietCtoTreo.getID_CHITIET_CTO());
+                            mtbModelNew.setID_BBAN_TUTI_CTO_TREO(tableChitietCtoTreo.getID_BBAN_TUTI());
+
+
+                            if (tableChitietCtoTreo.getID_BBAN_TUTI() != 0) {
                                 //get Data chi tiet tuti
-                                List<TABLE_CHITIET_TUTI> tableChitietTutiList = mSqlDAO.getChitietTuTi(ID_BBAN_TUTI_CTO_TREO, onIDataCommon.getMaNVien());
+                                List<TABLE_CHITIET_TUTI> tableChitietTutiList = mSqlDAO.getChitietTuTi(tableChitietCtoTreo.getID_BBAN_TUTI(), onIDataCommon.getMaNVien());
                                 for (int j = 0; j < tableChitietTutiList.size(); j++) {
                                     TABLE_CHITIET_TUTI tableChitietTuti = tableChitietTutiList.get(j);
 
@@ -482,7 +486,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                                         //MA_BDONG cho biết là TU Treo hay tháo
                                         if (tableChitietTuti.getMA_BDONG().equals(Common.MA_BDONG.B.code)) {
                                             tuTreo = tableChitietTuti;
-                                            ID_CHITIET_TUTI_TU_CTO_TREO = tuTreo.getID_CHITIET_TUTI();
+                                            mtbModelNew.setID_CHITIET_TUTI_TU_CTO_TREO(tuTreo.getID_CHITIET_TUTI());
                                         }
                                     }
 
@@ -493,7 +497,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
 
                                         if (tableChitietTuti.getMA_BDONG().equals(Common.MA_BDONG.B.code)) {
                                             tiTreo = tableChitietTuti;
-                                            ID_CHITIET_TUTI_TI_CTO_TREO = tiTreo.getID_CHITIET_TUTI();
+                                            mtbModelNew.setID_CHITIET_TUTI_TI_CTO_TREO(tiTreo.getID_CHITIET_TUTI());
                                         }
                                     }
                                 }
@@ -513,6 +517,11 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                                             ANH_TU_CTO_TREO = (Common.convertBitmapToByte64(PATH_ANH).isEmpty()) ? "" : Common.convertBitmapToByte64(PATH_ANH);
                                             CREATE_DAY_ANH_TU_CTO_TREO = anhTU.getCREATE_DAY();
                                         }
+
+                                        mtbModelNew.setTEN_ANH_TU_CTO_TREO(TEN_ANH_TU_CTO_TREO);
+                                        mtbModelNew.setANH_TU_CTO_TREO(ANH_TU_CTO_TREO);
+                                        mtbModelNew.setCREATE_DAY_ANH_TU_CTO_TREO(CREATE_DAY_ANH_TU_CTO_TREO);
+
                                     }
 
 
@@ -530,6 +539,9 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                                             CREATE_DAY_ANH_MACH_NHI_THU_TU_CTO_TREO = anhNhiThuTU.getCREATE_DAY();
                                         }
 
+                                        mtbModelNew.setTEN_ANH_TU_ANH_MACH_NHI_THU_CTO_TREO(TEN_ANH_TU_ANH_MACH_NHI_THU_CTO_TREO);
+                                        mtbModelNew.setANH_TU_ANH_MACH_NHI_THU_CTO_TREO(ANH_TU_ANH_MACH_NHI_THU_CTO_TREO);
+                                        mtbModelNew.setCREATE_DAY_ANH_MACH_NHI_THU_TU_CTO_TREO(CREATE_DAY_ANH_MACH_NHI_THU_TU_CTO_TREO);
                                     }
 
 
@@ -545,6 +557,11 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                                             ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO = (Common.convertBitmapToByte64(PATH_ANH).isEmpty()) ? "" : Common.convertBitmapToByte64(PATH_ANH);
                                             CREATE_DAY_ANH_MACH_NIEM_PHONG_TU_CTO_TREO = anhNiemPhongTU.getCREATE_DAY();
                                         }
+
+
+                                        mtbModelNew.setTEN_ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO(TEN_ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO);
+                                        mtbModelNew.setANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO(ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO);
+                                        mtbModelNew.setCREATE_DAY_ANH_MACH_NIEM_PHONG_TU_CTO_TREO(CREATE_DAY_ANH_MACH_NIEM_PHONG_TU_CTO_TREO);
                                     }
                                 }
 
@@ -552,7 +569,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                                 //get ảnh ti treo
                                 if (tiTreo != null) {
                                     String[] argsAnh = new String[]{onIDataCommon.getMaNVien(), String.valueOf(tiTreo.getID_BBAN_TUTI()), String.valueOf(tiTreo.getID_CHITIET_TUTI())};
-                                    List<TABLE_ANH_HIENTRUONG> tableAnhHientruongList = mSqlDAO.getAnhHienTruong(argsAnh, IMAGE_TU);
+                                    List<TABLE_ANH_HIENTRUONG> tableAnhHientruongList = mSqlDAO.getAnhHienTruong(argsAnh, IMAGE_TI);
                                     if (tableAnhHientruongList.size() != 0) {
                                         anhTi = tableAnhHientruongList.get(0);
 
@@ -563,6 +580,10 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                                             ANH_TI_CTO_TREO = (Common.convertBitmapToByte64(PATH_ANH).isEmpty()) ? "" : Common.convertBitmapToByte64(PATH_ANH);
                                             CREATE_DAY_ANH_TI_CTO_TREO = anhTi.getCREATE_DAY();
                                         }
+
+                                        mtbModelNew.setTEN_ANH_TI_CTO_TREO(TEN_ANH_TI_CTO_TREO);
+                                        mtbModelNew.setANH_TI_CTO_TREO(ANH_TI_CTO_TREO);
+                                        mtbModelNew.setCREATE_DAY_ANH_TI_CTO_TREO(CREATE_DAY_ANH_TI_CTO_TREO);
                                     }
 
 
@@ -571,14 +592,17 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                                     if (tableAnhHientruongList.size() != 0) {
                                         anhNhiThuTI = tableAnhHientruongList.get(0);
 
-
                                         //anh TI mach nhi thu
                                         TEN_ANH_TI_ANH_MACH_NHI_THU_CTO_TREO = anhNhiThuTI.getTEN_ANH();
                                         if (!TextUtils.isEmpty(TEN_ANH_TI_ANH_MACH_NHI_THU_CTO_TREO)) {
                                             PATH_ANH = Common.getRecordDirectoryFolder(Common.FOLDER_NAME.FOLDER_ANH_TI.name()) + "/" + TEN_ANH_TI_ANH_MACH_NHI_THU_CTO_TREO;
                                             ANH_TI_ANH_MACH_NHI_THU_CTO_TREO = (Common.convertBitmapToByte64(PATH_ANH).isEmpty()) ? "" : Common.convertBitmapToByte64(PATH_ANH);
-                                            CREATE_DAY_ANH_MACH_NHI_THU_TU_CTO_TREO = anhNhiThuTI.getCREATE_DAY();
+                                            CREATE_DAY_ANH_MACH_NHI_THU_TI_CTO_TREO = anhNhiThuTI.getCREATE_DAY();
                                         }
+
+                                        mtbModelNew.setTEN_ANH_TI_ANH_MACH_NHI_THU_CTO_TREO(TEN_ANH_TI_ANH_MACH_NHI_THU_CTO_TREO);
+                                        mtbModelNew.setANH_TI_ANH_MACH_NHI_THU_CTO_TREO(ANH_TI_ANH_MACH_NHI_THU_CTO_TREO);
+                                        mtbModelNew.setCREATE_DAY_ANH_MACH_NHI_THU_TI_CTO_TREO(CREATE_DAY_ANH_MACH_NHI_THU_TI_CTO_TREO);
 
                                     }
 
@@ -593,8 +617,13 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                                         if (!TextUtils.isEmpty(TEN_ANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO)) {
                                             PATH_ANH = Common.getRecordDirectoryFolder(Common.FOLDER_NAME.FOLDER_ANH_TI.name()) + "/" + TEN_ANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO;
                                             ANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO = (Common.convertBitmapToByte64(PATH_ANH).isEmpty()) ? "" : Common.convertBitmapToByte64(PATH_ANH);
-                                            CREATE_DAY_ANH_MACH_NIEM_PHONG_TU_CTO_TREO = anhNiemPhongTI.getCREATE_DAY();
+                                            CREATE_DAY_ANH_MACH_NIEM_PHONG_TI_CTO_TREO = anhNiemPhongTI.getCREATE_DAY();
                                         }
+
+
+                                        mtbModelNew.setTEN_ANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO(TEN_ANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO);
+                                        mtbModelNew.setANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO(ANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO);
+                                        mtbModelNew.setCREATE_DAY_ANH_MACH_NIEM_PHONG_TI_CTO_TREO(CREATE_DAY_ANH_MACH_NIEM_PHONG_TI_CTO_TREO);
                                     }
                                 }
                             }
@@ -607,30 +636,38 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                                 tableChitietCtoThao = tableChitietCtoList.get(0);
 
 
-                            int LAN_CTO_THAO = tableChitietCtoThao.getLAN();
-                            int VTRI_TREO_THAO_CTO_THAO = tableChitietCtoThao.getVTRI_TREO();
-                            int SOVIEN_CBOOC_CTO_THAO = tableChitietCtoThao.getSO_VIENCBOOC();
-                            int LOAI_HOM_CTO_THAO = tableChitietCtoThao.getLOAI_HOM();
-                            int SOVIEN_CHOM_CTO_THAO = tableChitietCtoThao.getSO_VIENCHOM();
-                            String TEM_CQUANG_CTO_THAO = tableChitietCtoThao.getTEM_CQUANG();
-                            int SOVIEN_CHIKDINH_CTO_THAO = tableChitietCtoThao.getSOVIEN_CHIKDINH();
-                            String SO_KIM_NIEM_CHI_CTO_THAO = tableChitietCtoThao.getSO_KIM_NIEM_CHI();
-                            String TTRANG_NPHONG_CTO_THAO = tableChitietCtoThao.getTTRANG_NPHONG();
-                            String TEN_LOAI_CTO_CTO_THAO = tableChitietCtoThao.getTEN_LOAI_CTO();
-                            String PHUONG_THUC_DO_XA_CTO_THAO = tableChitietCtoThao.getPHUONG_THUC_DO_XA();
-                            String GHI_CHU_CTO_THAO = tableChitietCtoThao.getGHI_CHU();
+                            mtbModelNew.setID_CHITIET_CTO_THAO(tableChitietCtoThao.getID_CHITIET_CTO());
 
-                            int HS_NHAN_CTO_THAO = tableChitietCtoThao.getHS_NHAN();
-                            String DIEN_AP_SAULAP_TUTI_CTO_THAO = tableChitietCtoThao.getDIEN_AP_SAULAP_TUTI();
-                            String DONG_DIEN_SAULAP_TUTI_CTO_THAO = tableChitietCtoThao.getDONG_DIEN_SAULAP_TUTI();
-                            String HANGSO_K_SAULAP_TUTI_CTO_THAO = tableChitietCtoThao.getHANGSO_K_SAULAP_TUTI();
-                            String SO_TU_SAULAP_TUTI_CTO_THAO = tableChitietCtoThao.getSO_TU_SAULAP_TUTI();
-                            String SO_TI_SAULAP_TUTI_CTO_THAO = tableChitietCtoThao.getSO_TI_SAULAP_TUTI();
-                            String CHI_SO_SAULAP_TUTI_CTO_THAO = tableChitietCtoThao.getCHI_SO_SAULAP_TUTI();
-                            int CAP_CX_SAULAP_TUTI_CTO_THAO = tableChitietCtoThao.getCAP_CX_SAULAP_TUTI();
+                            mtbModelNew.setTEN_ANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO(TEN_ANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO);
+                            mtbModelNew.setANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO(ANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO);
+                            mtbModelNew.setCREATE_DAY_ANH_MACH_NIEM_PHONG_TU_CTO_TREO(CREATE_DAY_ANH_MACH_NIEM_PHONG_TU_CTO_TREO);
+
+
+                            mtbModelNew.setLAN_CTO_THAO(tableChitietCtoThao.getLAN());
+                            mtbModelNew.setVTRI_TREO_THAO_CTO_THAO(tableChitietCtoThao.getVTRI_TREO());
+                            mtbModelNew.setSOVIEN_CBOOC_CTO_THAO(tableChitietCtoThao.getSO_VIENCBOOC());
+                            mtbModelNew.setLOAI_HOM_CTO_THAO(tableChitietCtoThao.getLOAI_HOM());
+                            mtbModelNew.setSOVIEN_CHOM_CTO_THAO(tableChitietCtoThao.getSO_VIENCHOM());
+                            mtbModelNew.setTEM_CQUANG_CTO_THAO(tableChitietCtoThao.getTEM_CQUANG());
+                            mtbModelNew.setSOVIEN_CHIKDINH_CTO_THAO(tableChitietCtoThao.getSOVIEN_CHIKDINH());
+                            mtbModelNew.setSO_KIM_NIEM_CHI_CTO_THAO(tableChitietCtoThao.getSO_KIM_NIEM_CHI());
+                            mtbModelNew.setTTRANG_NPHONG_CTO_THAO(tableChitietCtoThao.getTTRANG_NPHONG());
+                            mtbModelNew.setTEN_LOAI_CTO_CTO_THAO(tableChitietCtoThao.getTEN_LOAI_CTO());
+                            mtbModelNew.setPHUONG_THUC_DO_XA_CTO_THAO(tableChitietCtoThao.getPHUONG_THUC_DO_XA());
+                            mtbModelNew.setGHI_CHU_CTO_THAO(tableChitietCtoThao.getGHI_CHU());
+
+
+                            mtbModelNew.setHS_NHAN_CTO_THAO(tableChitietCtoThao.getHS_NHAN());
+                            mtbModelNew.setDIEN_AP_CTO_THAO(tableChitietCtoThao.getDIEN_AP());
+                            mtbModelNew.setDONG_DIEN_CTO_THAO(tableChitietCtoThao.getDONG_DIEN());
+                            mtbModelNew.setHANGSO_K_CTO_THAO(tableChitietCtoThao.getHANGSO_K());
+                            mtbModelNew.setSO_TU_CTO_THAO(tableChitietCtoThao.getSO_TU());
+                            mtbModelNew.setSO_TI_CTO_THAO(tableChitietCtoThao.getSO_TI());
+                            mtbModelNew.setCHI_SO_CTO_THAO(tableChitietCtoThao.getCHI_SO());
+                            mtbModelNew.setCCX_CTO_THAO(tableChitietCtoThao.getCAP_CX_SAULAP_TUTI());
+
 
                             //TODO lấy ảnh bên công tơ tháo
-
                             agrs = new String[]{onIDataCommon.getMaNVien(), String.valueOf(tableChitietCtoThao.getID_CHITIET_CTO())};
                             tableAnhList = mSqlDAO.getAnhHienTruong(agrs, Common.TYPE_IMAGE.IMAGE_CONG_TO);
                             if (tableAnhList.size() != 0) {
@@ -644,6 +681,10 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                                     ANH_CTO_THAO = (Common.convertBitmapToByte64(PATH_ANH).isEmpty()) ? "" : Common.convertBitmapToByte64(PATH_ANH);
                                     CREATE_DAY_ANH_CTO_THAO = tableAnhCongtoThao.getCREATE_DAY();
                                 }
+
+                                mtbModelNew.setTEN_ANH_CTO_THAO(TEN_ANH_CTO_THAO);
+                                mtbModelNew.setANH_CTO_THAO(ANH_CTO_THAO);
+                                mtbModelNew.setCREATE_DAY_ANH_CTO_THAO(CREATE_DAY_ANH_CTO_THAO);
                             }
 
                             //get info ẢNH niêm phong THAO
@@ -660,139 +701,15 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                                     ANH_NIEMPHONG_CTO_THAO = (Common.convertBitmapToByte64(PATH_ANH).isEmpty()) ? "" : Common.convertBitmapToByte64(PATH_ANH);
                                     CREATE_DAY_ANH_NIEMPHONG_CTO_THAO = tableAnhNiemPhongThao.getCREATE_DAY();
                                 }
+
+
+                                mtbModelNew.setTEN_ANH_NIEMPHONG_CTO_THAO(TEN_ANH_NIEMPHONG_CTO_THAO);
+                                mtbModelNew.setANH_NIEMPHONG_CTO_THAO(ANH_NIEMPHONG_CTO_THAO);
+                                mtbModelNew.setCREATE_DAY_ANH_NIEMPHONG_CTO_THAO(CREATE_DAY_ANH_NIEMPHONG_CTO_THAO);
                             }
 
 
                             //create object upload
-                            MTBModelNew mtbModelNew = new MTBModelNew(
-                                    //TODO bien ban
-                                    ID_BBAN_CONGTO,
-                                    MA_DVIQLY,
-                                    SO_BBAN,
-                                    TRANG_THAI.code,
-
-                                    //TODO cong to treo
-                                    LAN_CTO_TREO,
-                                    VTRI_TREO_THAO_CTO_TREO,
-                                    SOVIEN_CBOOC_CTO_TREO,
-                                    LOAI_HOM_CTO_TREO,
-                                    SOVIEN_CHOM_CTO_TREO,
-                                    HS_NHAN_CTO_TREO,
-                                    SO_TU_SAULAP_TUTI_CTO_TREO,
-                                    SO_TI_SAULAP_TUTI_CTO_TREO,
-                                    CHI_SO_SAULAP_TUTI_CTO_TREO,
-                                    CAP_CX_SAULAP_TUTI_CTO_TREO,
-                                    TEM_CQUANG_CTO_TREO,
-                                    SOVIEN_CHIKDINH_CTO_TREO,
-                                    DIEN_AP_SAULAP_TUTI_CTO_TREO,
-                                    DONG_DIEN_SAULAP_TUTI_CTO_TREO,
-                                    HANGSO_K_SAULAP_TUTI_CTO_TREO,
-                                    SO_KIM_NIEM_CHI_CTO_TREO,
-                                    TTRANG_NPHONG_CTO_TREO,
-                                    TEN_LOAI_CTO_CTO_TREO,
-                                    PHUONG_THUC_DO_XA_CTO_TREO,
-                                    GHI_CHU_CTO_TREO,
-
-                                    //TODO cong to thao
-                                    LAN_CTO_THAO,
-                                    VTRI_TREO_THAO_CTO_THAO,
-                                    SOVIEN_CBOOC_CTO_THAO,
-                                    LOAI_HOM_CTO_THAO,
-                                    SOVIEN_CHOM_CTO_THAO,
-                                    HS_NHAN_CTO_THAO,
-                                    SO_TU_SAULAP_TUTI_CTO_THAO,
-                                    SO_TI_SAULAP_TUTI_CTO_THAO,
-                                    CHI_SO_SAULAP_TUTI_CTO_THAO,
-                                    CAP_CX_SAULAP_TUTI_CTO_THAO,
-                                    TEM_CQUANG_CTO_THAO,
-                                    SOVIEN_CHIKDINH_CTO_THAO,
-                                    DIEN_AP_SAULAP_TUTI_CTO_THAO,
-                                    DONG_DIEN_SAULAP_TUTI_CTO_THAO,
-                                    HANGSO_K_SAULAP_TUTI_CTO_THAO,
-                                    SO_KIM_NIEM_CHI_CTO_THAO,
-                                    TTRANG_NPHONG_CTO_THAO,
-                                    TEN_LOAI_CTO_CTO_THAO,
-                                    PHUONG_THUC_DO_XA_CTO_THAO,
-                                    GHI_CHU_CTO_THAO,
-
-                                    //TODO update bang DU_LIEU_HIEN_TRUONG
-                                    //TODO anh Cong To Treo
-                                    ID_BBAN_TUTI_CTO_TREO,
-                                    ID_CHITIET_TUTI_TU_CTO_TREO,
-                                    ID_CHITIET_TUTI_TI_CTO_TREO,
-
-                                    ID_CHITIET_CTO_TREO,
-                                    //anh cong to
-                                    TEN_ANH_CTO_TREO,
-
-                                    //anh
-                                    TEN_ANH_NIEMPHONG_CTO_TREO,
-
-                                    ANH_CTO_TREO,
-
-                                    ANH_NIEMPHONG_CTO_TREO,
-
-                                    CREATE_DAY_ANH_CTO_TREO,
-
-                                    CREATE_DAY_ANH_NIEMPHONG_CTO_TREO,
-                                    //anh TU
-                                    TEN_ANH_TU_CTO_TREO,
-                                    ANH_TU_CTO_TREO,
-                                    CREATE_DAY_ANH_TU_CTO_TREO,
-                                    //anh TU mach nhi thu
-                                    TEN_ANH_TU_ANH_MACH_NHI_THU_CTO_TREO,
-                                    ANH_TU_ANH_MACH_NHI_THU_CTO_TREO,
-                                    CREATE_DAY_ANH_MACH_NHI_THU_TU_CTO_TREO,
-                                    //anh TU mach niem phong
-                                    TEN_ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO,
-                                    ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO,
-                                    CREATE_DAY_ANH_MACH_NIEM_PHONG_TU_CTO_TREO,
-
-                                    //anh TI
-                                    TEN_ANH_TI_CTO_TREO,
-                                    ANH_TI_CTO_TREO,
-                                    CREATE_DAY_ANH_TI_CTO_TREO,
-                                    //anh TI mach nhi thu
-                                    TEN_ANH_TI_ANH_MACH_NHI_THU_CTO_TREO,
-                                    ANH_TI_ANH_MACH_NHI_THU_CTO_TREO,
-                                    CREATE_DAY_ANH_MACH_NHI_THU_TI_CTO_TREO,
-                                    //anh TI mach niem phong
-                                    TEN_ANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO,
-                                    ANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO,
-                                    CREATE_DAY_ANH_MACH_NIEM_PHONG_TI_CTO_TREO,
-
-                                    //TODO anh Cong To Thao
-                                    ID_BBAN_TUTI_CTO_THAO,
-                                    ID_CHITIET_TUTI_TU_CTO_THAO,
-                                    String.valueOf(ID_CHITIET_TUTI_TI_CTO_THAO),
-
-                                    ID_CHITIET_CTO_THAO,
-                                    //anh cong to
-                                    TEN_ANH_CTO_THAO,
-                                    //anh
-                                    TEN_ANH_NIEMPHONG_CTO_THAO,
-
-                                    ANH_CTO_THAO,
-
-                                    ANH_NIEMPHONG_CTO_THAO,
-
-                                    CREATE_DAY_ANH_CTO_THAO,
-
-                                    CREATE_DAY_ANH_NIEMPHONG_CTO_THAO,
-
-                                    //anh TU
-                                    TEN_ANH_TU_CTO_THAO,
-                                    ANH_TU_CTO_THAO,
-                                    CREATE_DAY_ANH_TU_CTO_THAO,
-                                    //anh TU mach nhi thu
-                                    TEN_ANH_TU_ANH_MACH_NHI_THU_CTO_THAO,
-                                    ANH_TU_ANH_MACH_NHI_THU_CTO_THAO,
-                                    CREATE_DAY_ANH_MACH_NHI_THU_TU_CTO_THAO,
-                                    //anh TU mach niem phong
-                                    TEN_ANH_TU_ANH_MACH_NIEM_PHONG_CTO_THAO,
-                                    ANH_TU_ANH_MACH_NIEM_PHONG_CTO_THAO,
-                                    CREATE_DAY_ANH_MACH_NIEM_PHONG_TU_CTO_THAO
-                            );
                             //endregion
 
 
@@ -960,17 +877,26 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                         }
                     }, DELAY_PROGESS_PBAR);
 
-                    messageServer.append("Hoàn thành quá trình xử lý dữ liệu để gửi ...");
+                    messageServer.append("--Hoàn thành quá trình xử lý dữ liệu để gửi ...--");
 
                     //region upload
                     resultUpload = callPostMTBWithImage(dataUpload);
 
                     //nếu null = có lỗi khi gửi dữ liệu treo tháo
                     if (resultUpload == null) {
+                        //gửi thất bại
                         resultUpload = new ArrayList<>();
+                        messageServer.append("--Không kết nối được máy chủ. Timeout...---");
+                        isHasErrorServer = true;
+                        sobbUploadError = dataUpload.size();
+
                     } else if (resultUpload.size() == 0) {
+                        //kết nối gửi thành công nhưng ko có dữ liệu trả về nên quy là thất bại
                         //nếu rỗng thì hiện tại có biên bản nhưng không có công tơ, vẫn cho tiếp tục thực hiện call các api khác
-                        messageServer.append("-Không nhận được dữ liệu trả về từ máy chủ khi gửi dữ liệu biên bản lên!-");
+                        messageServer.append("--Không nhận được dữ liệu trả về từ máy chủ khi gửi dữ liệu biên bản lên!--");
+                        isHasErrorServer = true;
+                        sobbUploadError = dataUpload.size();
+
                     }
 
                     final int finalResultUpload = resultUpload.size();
@@ -1079,39 +1005,35 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
         TABLE_BBAN_CTO tableBbanCtoOld = (TABLE_BBAN_CTO) tableBbanCto.clone();
         switch (trangThai) {
             case GUI_CMIS_THATBAI:
-                tableBbanCto.setTRANG_THAI(Common.TRANG_THAI.DA_XUAT_RA_MTB.content);
-                tableBbanCto.setTRANG_THAI_DOI_SOAT(GUI_THAT_BAI.content);
+                tableBbanCto.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DA_GHI.content);
                 sobbUploadError++;
                 break;
             case DANG_CHO_CMIS_XACNHAN:
-                tableBbanCto.setTRANG_THAI(Common.TRANG_THAI.DA_DAY_LEN_CMIS.content);
-                tableBbanCto.setTRANG_THAI_DOI_SOAT(Common.TRANG_THAI_DOI_SOAT.GUI_THANH_CONG.content);
+                tableBbanCto.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS.content);
                 sobbUploadOK++;
                 break;
             case DA_TON_TAI_GUI_TRUOC_DO:
-                tableBbanCto.setTRANG_THAI(Common.TRANG_THAI.DA_DAY_LEN_CMIS.content);
-                tableBbanCto.setTRANG_THAI_DOI_SOAT(Common.TRANG_THAI_DOI_SOAT.DA_TON_TAI_GUI_TRUOC_DO.content);
+                tableBbanCto.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DA_TON_TAI_GUI_TRUOC_DO.content);
                 sobbUploadError++;
                 break;
             case CMIS_XACNHAN_OK:
                 sobbUploadError++;
-                tableBbanCto.setTRANG_THAI(Common.TRANG_THAI.XAC_NHAN_TREN_CMIS.content);
-                tableBbanCto.setTRANG_THAI_DOI_SOAT(Common.TRANG_THAI_DOI_SOAT.DA_TON_TAI_GUI_TRUOC_DO.content);
+                tableBbanCto.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DA_XAC_NHAN_TREN_CMIS.content);
                 break;
             case HET_HIEU_LUC:
                 sobbUploadError++;
-                tableBbanCto.setTRANG_THAI(Common.TRANG_THAI.XAC_NHAN_TREN_CMIS.content);
-                tableBbanCto.setTRANG_THAI_DOI_SOAT(Common.TRANG_THAI_DOI_SOAT.GUI_THANH_CONG.content);
+                tableBbanCto.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.HET_HIEU_LUC.content);
                 break;
             case LOI_BAT_NGO:
-                tableBbanCto.setTRANG_THAI_DOI_SOAT(GUI_THAT_BAI.content);
+                sobbUploadError++;
+                tableBbanCto.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DA_GHI.content);
                 break;
         }
 
         //update table BBAN
         tableBbanCto.setID_TABLE_BBAN_CTO((int) mSqlDAO.updateRows(TABLE_BBAN_CTO.class, tableBbanCtoOld, tableBbanCto));
 
-        hashMapData.get(tableBbanCto.getID_BBAN_TRTH()).TRANG_THAI_DOISOAT = Common.TRANG_THAI_DOI_SOAT.findTRANG_THAI_DOI_SOAT(tableBbanCto.getTRANG_THAI_DOI_SOAT());
+        hashMapData.get(tableBbanCto.getID_BBAN_TRTH()).TRANG_THAI_DU_LIEU = Common.TRANG_THAI_DOI_SOAT.findTRANG_THAI_DOI_SOAT(tableBbanCto.getTRANG_THAI_DOI_SOAT());
 
 
         getView().post(new Runnable() {
@@ -1247,7 +1169,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
         tvUploadBBError.setText(sobbUploadError + " biên bản");
     }
 
-    private void fillDataDoiSoat() {
+    private void fillDataDoiSoat() throws Exception {
         listID_BBAN_TRTH.clear();
 
         //get anh treo
@@ -1263,7 +1185,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                 element.TEN_KH = data.get(i).TEN_KH;
                 element.LOAI_CTO_TREO = data.get(i).LOAI_CTO;
                 element.TEN_ANH_TREO = data.get(i).TEN_ANH;
-                element.TRANG_THAI_DOISOAT = data.get(i).TRANG_THAI_DOISOAT;
+                element.TRANG_THAI_DU_LIEU = data.get(i).TRANG_THAI_DOISOAT;
                 element.ID_BBAN_TRTH = data.get(i).ID_BBAN_TRTH;
 
                 hashMapData.put(data.get(i).ID_BBAN_TRTH, element);
@@ -1305,13 +1227,13 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                         try {
                             if (listDataDoiSoatAdapter.size() != 0 && pos < listDataDoiSoatAdapter.size()) {
 
-                                switch (listDataDoiSoatAdapter.get(pos).TRANG_THAI_DOISOAT) {
+                                switch (listDataDoiSoatAdapter.get(pos).TRANG_THAI_DU_LIEU) {
                                     case CHUA_DOISOAT:
-                                        listDataDoiSoatAdapter.get(pos).TRANG_THAI_DOISOAT = Common.TRANG_THAI_DOI_SOAT.DA_DOISOAT;
+                                        listDataDoiSoatAdapter.get(pos).TRANG_THAI_DU_LIEU = Common.TRANG_THAI_DOI_SOAT.DA_DOISOAT;
                                         break;
                                     case GUI_THAT_BAI:
                                     case DA_DOISOAT:
-                                        listDataDoiSoatAdapter.get(pos).TRANG_THAI_DOISOAT = CHUA_DOISOAT;
+                                        listDataDoiSoatAdapter.get(pos).TRANG_THAI_DU_LIEU = CHUA_DOISOAT;
                                         break;
 
                                     case GUI_THANH_CONG:
@@ -1327,9 +1249,9 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                                     TABLE_BBAN_CTO tableBbanCto = tableBbanCtoList.get(0);
                                     TABLE_BBAN_CTO tableBbanCtoOld = (TABLE_BBAN_CTO) tableBbanCto.clone();
 
-                                    tableBbanCto.setTRANG_THAI_DOI_SOAT(listDataDoiSoatAdapter.get(pos).TRANG_THAI_DOISOAT.content);
+                                    tableBbanCto.setTRANG_THAI_DOI_SOAT(listDataDoiSoatAdapter.get(pos).TRANG_THAI_DU_LIEU.content);
 
-                                    mSqlDAO.updateORInsertRows(TABLE_BBAN_CTO.class, tableBbanCtoOld, tableBbanCto);
+                                    mSqlDAO.updateRows(TABLE_BBAN_CTO.class, tableBbanCtoOld, tableBbanCto);
 
                                     doiSoatAdapters.refresh(listDataDoiSoatAdapter);
                                     rvDoiSoat.invalidate();
@@ -1337,12 +1259,17 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
 
 
                                 //update so bien ban
-                                if (listDataDoiSoatAdapter.get(pos).TRANG_THAI_DOISOAT == Common.TRANG_THAI_DOI_SOAT.DA_DOISOAT || listDataDoiSoatAdapter.get(pos).TRANG_THAI_DOISOAT == GUI_THAT_BAI) {
+                                if (listDataDoiSoatAdapter.get(pos).TRANG_THAI_DU_LIEU == Common.TRANG_THAI_DOI_SOAT.DA_DOISOAT || listDataDoiSoatAdapter.get(pos).TRANG_THAI_DU_LIEU == GUI_THAT_BAI) {
                                     sobbUpload++;
                                     listID_BBAN_TRTH.add(listDataDoiSoatAdapter.get(pos).ID_BBAN_TRTH);
                                 } else {
                                     sobbUpload--;
-                                    listID_BBAN_TRTH.remove(listDataDoiSoatAdapter.get(pos).ID_BBAN_TRTH);
+                                    for (Iterator<Integer> iter = listID_BBAN_TRTH.listIterator(); iter.hasNext(); ) {
+                                        Integer a = iter.next();
+                                        if (listDataDoiSoatAdapter.get(pos).ID_BBAN_TRTH == a.intValue()) {
+                                            iter.remove();
+                                        }
+                                    }
                                 }
                                 tvSoBBUpload.setText(sobbUpload + " biên bản");
 
