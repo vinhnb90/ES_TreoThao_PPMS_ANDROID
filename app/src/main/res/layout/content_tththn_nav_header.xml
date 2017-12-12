@@ -6,30 +6,38 @@
     android:orientation="vertical"
     android:visibility="visible"
     android:padding="@dimen/_5sdp"
-    tools:background="@color/tththn_navi_menu_bottom"
+    tools:background="@color/tththn_background_da_gui"
     >
 
-    <ImageButton
-        android:id="@+id/ibtn_logout"
-        android:layout_width="@dimen/_24sdp"
-        android:layout_height="@dimen/_24sdp"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:background="@android:color/transparent"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_logout" />
-
-    <TextView
-        android:textStyle="bold"
-        android:id="@+id/tv_email"
+    <LinearLayout
+        android:id="@+id/ll_ibtn_logout"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/_5sdp"
-        android:layout_toRightOf="@id/ibtn_logout"
-        android:text="Đăng xuất"
-        android:textColor="@color/text_white"
-        android:textSize="@dimen/_12sdp" />
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/ibtn_logout"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_logout" />
+
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_toRightOf="@id/ibtn_logout"
+            android:text="Đăng xuất"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/_12sdp" />
+    </LinearLayout>
+
 </RelativeLayout>

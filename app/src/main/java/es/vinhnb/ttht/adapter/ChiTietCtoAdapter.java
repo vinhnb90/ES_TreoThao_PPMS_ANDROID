@@ -72,6 +72,8 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
         holder.tvmaGCS.setText(data.maGCS);
         holder.tvmaTram.setText(data.maTram);
         holder.tvchiso.setText(data.chiso);
+        holder.tvNgayTrth.setText(Common.convertDateToDate(data.ngaytrth, Common.DATE_TIME_TYPE.sqlite2, Common.DATE_TIME_TYPE.type6));
+
 
 
         //background select
@@ -152,6 +154,7 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView tvNgayTrth;
         public TextView tvstt;
         public TextView tvmaCto;
         public TextView tvsoCto;
@@ -173,6 +176,7 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
             tvdiachiKH = itemView.findViewById(R.id.tv_diachi);
             tvmaGCS = itemView.findViewById(R.id.tv_magcs);
             tvmaTram = itemView.findViewById(R.id.tv_matram);
+            tvNgayTrth = itemView.findViewById(R.id.tv_ngaytreothao);
             tvchiso = itemView.findViewById(R.id.tv_chiso);
             mRlMain = itemView.findViewById(R.id.rl_main_row_chitiet_cto);
             mLLView = itemView.findViewById(R.id.ll_main_row_chitiet_cto);

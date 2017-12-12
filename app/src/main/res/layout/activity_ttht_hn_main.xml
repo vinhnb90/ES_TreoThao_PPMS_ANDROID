@@ -59,7 +59,7 @@
                         android:id="@+id/rl_topmenu"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_40sdp"
-                        android:background="@color/tththn_background_lv1">
+                        android:background="@color/tththn_background_lv3">
 
                     </RelativeLayout>
 
@@ -109,7 +109,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/tththn_navi_menu"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -121,9 +121,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:background="@color/tththn_navi_menu_bottom"
-                android:paddingLeft="@dimen/_10sdp"
-                android:paddingRight="@dimen/_10sdp">
+                android:background="@color/white_more_dark"
+                >
 
                 <include layout="@layout/content_tththn_nav_header" />
             </RelativeLayout>

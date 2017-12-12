@@ -65,8 +65,8 @@ public class TABLE_BBAN_TUTI implements Cloneable{
     @Collumn(name = "MA_NVIEN", type = TYPE.TEXT)
     private String MA_NVIEN;
 
-    @Collumn(name = "TRANG_THAI", type = TYPE.INTEGER)
-    private int TRANG_THAI;
+    @Collumn(name = "TRANG_THAI", type = TYPE.TEXT)
+    private String TRANG_THAI;
 
     @Collumn(name = "TEN_KHANG", type = TYPE.TEXT)
     private String TEN_KHANG;
@@ -110,7 +110,7 @@ public class TABLE_BBAN_TUTI implements Cloneable{
                            @Params(name = "SO_BBAN") String SO_BBAN,
                            @Params(name = "NGAY_TRTH") String NGAY_TRTH,
                            @Params(name = "MA_NVIEN") String MA_NVIEN,
-                           @Params(name = "TRANG_THAI") int TRANG_THAI,
+                           @Params(name = "TRANG_THAI") String TRANG_THAI,
                            @Params(name = "TEN_KHANG") String TEN_KHANG,
                            @Params(name = "DCHI_HDON") String DCHI_HDON,
                            @Params(name = "DTHOAI") String DTHOAI,
@@ -199,11 +199,11 @@ public class TABLE_BBAN_TUTI implements Cloneable{
         this.MA_NVIEN = MA_NVIEN;
     }
 
-    public int getTRANG_THAI() {
+    public String getTRANG_THAI() {
         return TRANG_THAI;
     }
 
-    public void setTRANG_THAI(int TRANG_THAI) {
+    public void setTRANG_THAI(String TRANG_THAI) {
         this.TRANG_THAI = TRANG_THAI;
     }
 

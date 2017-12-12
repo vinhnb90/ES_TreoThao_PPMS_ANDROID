@@ -11,7 +11,7 @@ import es.vinhnb.ttht.adapter.BBanAdapter;
 import es.vinhnb.ttht.adapter.ChiTietCtoAdapter.DataChiTietCtoAdapter;
 import es.vinhnb.ttht.adapter.ChungLoaiAdapter;
 import es.vinhnb.ttht.adapter.DoiSoatAdapter;
-import es.vinhnb.ttht.adapter.HistoryAdapter;
+import es.vinhnb.ttht.adapter.DownloadAdapter;
 import es.vinhnb.ttht.adapter.TramAdapter;
 import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.database.table.TABLE_ANH_HIENTRUONG;
@@ -317,7 +317,7 @@ public class TthtHnSQLDAO extends SqlDAO {
     }
 
 
-    public List<HistoryAdapter.DataHistoryAdapter> getTABLE_HISTORYinNDay(int nDay) {
+    public List<DownloadAdapter.DataHistoryAdapter> getTABLE_HISTORYinNDay(int nDay) {
         String query = "SELECT * FROM " +
                 TABLE_HISTORY.table.getName() +
                 " WHERE " +
@@ -332,12 +332,12 @@ public class TthtHnSQLDAO extends SqlDAO {
         Cursor c = super.mDatabase.rawQuery(query, null);
 
 
-        return super.selectCustomLazy(c, new ItemFactory<HistoryAdapter.DataHistoryAdapter>(HistoryAdapter.DataHistoryAdapter.class) {
+        return super.selectCustomLazy(c, new ItemFactory<DownloadAdapter.DataHistoryAdapter>(DownloadAdapter.DataHistoryAdapter.class) {
             @Override
-            protected HistoryAdapter.DataHistoryAdapter create(Cursor cursor, int index) {
+            protected DownloadAdapter.DataHistoryAdapter create(Cursor cursor, int index) {
                 cursor.moveToPosition(index);
 
-                HistoryAdapter.DataHistoryAdapter tableHistory = new HistoryAdapter.DataHistoryAdapter();
+                DownloadAdapter.DataHistoryAdapter tableHistory = new DownloadAdapter.DataHistoryAdapter();
                 tableHistory.date = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.DATE_CALL_API.name()));
                 tableHistory.notify = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.TYPE_RESULT.name()));
                 tableHistory.message = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.MESSAGE_RESULT.name()));

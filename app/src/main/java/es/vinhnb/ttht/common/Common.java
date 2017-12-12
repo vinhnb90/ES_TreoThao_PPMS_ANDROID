@@ -632,7 +632,7 @@ public class Common {
         CHUA_TON_TAI("Chưa tồn tại - 0", 0),
         DA_XUAT_RA_WEB("Đã xuất ra web - 1", 1),
         DA_XUAT_RA_MTB("Đã xuất ra máy tính bảng - 2", 2),
-        DA_DAY_LEN_CMIS("Đã đẩy lên CMIS - 3", 3),
+        DANG_CHO_XAC_NHAN_CMIS("Đã đẩy lên CMIS - 3", 3),
         XAC_NHAN_TREN_CMIS("Xác nhận trên CMIS - 4", 4),
         HET_HIEU_LUC("Hết hiệu lực - 21", 21);
 

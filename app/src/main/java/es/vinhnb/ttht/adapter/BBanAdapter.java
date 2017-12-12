@@ -5,15 +5,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.es.tungnv.views.R;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import es.vinhnb.ttht.common.Common;
+
+import static es.vinhnb.ttht.common.Common.DATE_TIME_TYPE.type6;
 
 /**
  * Created by VinhNB on 11/22/2017.
@@ -21,13 +23,19 @@ import es.vinhnb.ttht.common.Common;
 
 public class BBanAdapter extends RecyclerView.Adapter<BBanAdapter.ViewHolder> {
 
+    private static IOnBBanAdapter iOnBBanAdapter;
     private Context context;
-    private List<DataBBanAdapter> listData = new ArrayList<>();
+    private static List<DataBBanAdapter> listData = new ArrayList<>();
 
     public BBanAdapter(Context context, List<DataBBanAdapter> listData) {
         this.context = context;
         //clone
         this.listData = Common.cloneList(listData);
+
+        if (context instanceof IOnBBanAdapter) {
+            iOnBBanAdapter = (IOnBBanAdapter) context;
+        } else
+            throw new ClassCastException("must be implement IOnBBanAdapter!");
     }
 
     @Override
@@ -41,13 +49,11 @@ public class BBanAdapter extends RecyclerView.Adapter<BBanAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         DataBBanAdapter data = listData.get(position);
         holder.tvstt.setText(String.valueOf(position + 1));
-        holder.tvmaKH.setText(data.maKH);
-        holder.tvmaHopDong.setText(data.maHopDong);
         holder.tvtenKH.setText(data.tenKH);
         holder.tvdiachiKH.setText(data.diachiKH);
         holder.tvmaGCS.setText(data.maGCS);
         holder.tvmaTramCapDien.setText(data.maTramcapdien);
-        holder.tvlydo.setText(data.lydo);
+        holder.ngayTreothao.setText(Common.convertDateToDate(data.ngayTrth, Common.DATE_TIME_TYPE.sqlite2, type6));
     }
 
     @Override
@@ -69,20 +75,27 @@ public class BBanAdapter extends RecyclerView.Adapter<BBanAdapter.ViewHolder> {
         public TextView tvdiachiKH;
         public TextView tvmaGCS;
         public TextView tvmaTramCapDien;
-        public TextView tvmaKH;
-        public TextView tvmaHopDong;
-        public TextView tvlydo;
+        public TextView ngayTreothao;
+        public Button btnMore;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvstt = itemView.findViewById(R.id.tv_bb_stt);
-            tvmaKH = itemView.findViewById(R.id.tv_bb_maKH);
-            tvmaHopDong = itemView.findViewById(R.id.tv_bb_ma_hopdong);
             tvtenKH = itemView.findViewById(R.id.tv_bb_tenKH);
             tvdiachiKH = itemView.findViewById(R.id.tv_bb_diachi);
             tvmaGCS = itemView.findViewById(R.id.tv_bb_magcs);
             tvmaTramCapDien = itemView.findViewById(R.id.tv_bb_tramcapdien);
-            tvlydo = itemView.findViewById(R.id.tv_bb_lydo);
+            ngayTreothao = itemView.findViewById(R.id.tv_bb_ngaytreothao);
+
+            btnMore = itemView.findViewById(R.id.btn_bban_more);
+
+            btnMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int pos = getAdapterPosition();
+                    iOnBBanAdapter.clickBtnBBanMore(pos, listData.get(pos));
+                }
+            });
         }
     }
 
@@ -168,5 +181,9 @@ public class BBanAdapter extends RecyclerView.Adapter<BBanAdapter.ViewHolder> {
         public void setLydo(String lydo) {
             this.lydo = lydo;
         }
+    }
+
+    public interface IOnBBanAdapter {
+        void clickBtnBBanMore(int pos, DataBBanAdapter dataBBanAdapter);
     }
 }

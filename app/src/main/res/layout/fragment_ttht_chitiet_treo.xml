@@ -650,7 +650,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    tools:visibility="visible">
+                    tools:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_2"
@@ -676,7 +676,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    tools:visibility="visible">
+                    tools:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_lydo"
@@ -1363,7 +1363,7 @@
                     android:background="@drawable/xml_tththn_rectangle6"
                     android:orientation="horizontal"
                     android:weightSum="2"
-                    tools:visibility="gone">
+                    tools:visibility="visible">
 
                     <RelativeLayout
                         android:id="@+id/rl_37"
@@ -1390,7 +1390,7 @@
                             android:paddingLeft="@dimen/_5sdp"
                             android:paddingRight="@dimen/_5sdp"
                             android:src="@drawable/ic_tththn_camera"
-                            android:visibility="gone" />
+                            android:visibility="visible" />
 
                         <Button
                             android:id="@+id/btn_37_save_anh_niemphong"

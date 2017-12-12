@@ -19,13 +19,13 @@ import es.vinhnb.ttht.common.Common;
  * Created by VinhNB on 11/22/2017.
  */
 
-public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
+public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHolder> {
 
     private Context context;
     private List<DataHistoryAdapter> listData = new ArrayList<>();
     private OnIDataHistoryAdapter iIteractor;
 
-    public HistoryAdapter(Context context, List<DataHistoryAdapter> listData, OnIDataHistoryAdapter iIteractor) {
+    public DownloadAdapter(Context context, List<DataHistoryAdapter> listData, OnIDataHistoryAdapter iIteractor) {
         this.context = context;
         this.listData.clear();
         this.listData = Common.cloneList(listData);

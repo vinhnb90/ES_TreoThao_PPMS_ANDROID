@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import es.vinhnb.ttht.adapter.HistoryAdapter;
+import es.vinhnb.ttht.adapter.DownloadAdapter;
 import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.database.dao.TthtHnSQLDAO;
 import es.vinhnb.ttht.database.table.TABLE_BBAN_CTO;
@@ -46,7 +45,6 @@ import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 import retrofit2.Call;
 import retrofit2.Response;
 
-import static android.content.ContentValues.TAG;
 import static es.vinhnb.ttht.common.Common.DELAY;
 import static es.vinhnb.ttht.common.Common.DELAY_PROGESS_PBAR;
 import static es.vinhnb.ttht.server.TthtHnApiInterface.IAsync.BUNDLE_DATA;
@@ -70,8 +68,8 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
     private TABLE_HISTORY infoSessionDownload = new TABLE_HISTORY();
     //tạo 1 string messageServer để lưu trữ thông báo của từng thời điểm phục vụ history infoSessionDownload
     private StringBuilder messageServer = new StringBuilder();
-    private HistoryAdapter historyAdapter;
-    private HistoryAdapter.OnIDataHistoryAdapter iDataHistoryAdapter;
+    private DownloadAdapter downloadAdapter;
+    private DownloadAdapter.OnIDataHistoryAdapter iDataHistoryAdapter;
 
 
     public TthtHnDownloadFragment() {
@@ -160,9 +158,9 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
 
         //fill data history 2Day
-        iDataHistoryAdapter = new HistoryAdapter.OnIDataHistoryAdapter() {
+        iDataHistoryAdapter = new DownloadAdapter.OnIDataHistoryAdapter() {
             @Override
-            public void doClickBtnMessageHistory(int pos, final HistoryAdapter.DataHistoryAdapter historyAdapter) {
+            public void doClickBtnMessageHistory(int pos, final DownloadAdapter.DataHistoryAdapter historyAdapter) {
 
                 IDialog iDialog = new IDialog() {
                     @Override
@@ -317,41 +315,41 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                     }, DELAY_PROGESS_PBAR);
 
 
-                                    //kiểm tra trạng thái biên bản trong database, ngừng thực hiện update biên bản nếu nó đã gửi
-                                    if (availableCanUpdateInfoBBan(bbanModel)) {
-                                        //call Get_cto
-                                        resultGet_cto = callGet_cto(bbanModel.ID_BBAN_TRTH);
+                                    //có phải update dữ liệu công tơ không
+                                    saveDataBBan(bbanModel);
+
+                                    //call Get_cto
+                                    resultGet_cto = callGet_cto(bbanModel.ID_BBAN_TRTH);
 
 
-                                        //nếu null = có lỗi khi đồng bộ các công tơ của biên bản
-                                        //vẫn cho tiếp tục với các biên bản khác
-                                        if (resultGet_cto == null) {
-                                            resultGet_cto = new ArrayList<>();
-                                        } else if (resultGet_cto.size() == 0) {
-                                            //nếu rỗng thì hiện tại có biên bản nhưng không có công tơ, vẫn cho tiếp tục thực hiện call các api khác
-                                            messageServer.append("-ID_BBAN_TRTH [" + bbanModel.ID_BBAN_TRTH + "] hiện không có công tơ!-");
-                                        }
+                                    //nếu null = có lỗi khi đồng bộ các công tơ của biên bản
+                                    //vẫn cho tiếp tục với các biên bản khác
+                                    if (resultGet_cto == null) {
+                                        resultGet_cto = new ArrayList<>();
+                                    } else if (resultGet_cto.size() == 0) {
+                                        //nếu rỗng thì hiện tại có biên bản nhưng không có công tơ, vẫn cho tiếp tục thực hiện call các api khác
+                                        messageServer.append("-ID_BBAN_TRTH [" + bbanModel.ID_BBAN_TRTH + "] hiện không có công tơ!-");
+                                    }
 
 
-                                        //nếu có dữ liệu
-                                        //update công tơ
-                                        for (int j = 0; j < resultGet_cto.size(); j++) {
-                                            MtbCtoModel mtbCtoModel = resultGet_cto.get(j);
+                                    //nếu có dữ liệu
+                                    //update công tơ
+                                    for (int j = 0; j < resultGet_cto.size(); j++) {
+                                        MtbCtoModel mtbCtoModel = resultGet_cto.get(j);
 
 
-                                            //nếu là treo
-                                            if (mtbCtoModel.MA_BDONG.equalsIgnoreCase(Common.MA_BDONG.B.code))
-                                                countCtoTreo++;
+                                        //nếu là treo
+                                        if (mtbCtoModel.MA_BDONG.equalsIgnoreCase(Common.MA_BDONG.B.code))
+                                            countCtoTreo++;
 
-                                            //nếu là tháo
-                                            if (mtbCtoModel.MA_BDONG.equalsIgnoreCase(Common.MA_BDONG.E.code))
-                                                countCtoThao++;
+                                        //nếu là tháo
+                                        if (mtbCtoModel.MA_BDONG.equalsIgnoreCase(Common.MA_BDONG.E.code))
+                                            countCtoThao++;
 
 
-                                            //cập nhật dữ liệu vào TABLE_CHITIET_CTO dựa vào trạng thái dữ liệu
-                                            //kiểm tra trạng thái và cập nhật công tơ vào database
-                                            availableCanUpdateInfoCto(mtbCtoModel);
-                                        }
+                                        //cập nhật dữ liệu vào TABLE_CHITIET_CTO dựa vào trạng thái dữ liệu
+                                        //kiểm tra trạng thái và cập nhật công tơ vào database
+                                        saveDataCto(mtbCtoModel);
                                     }
                                 }
                                 //kết thúc đồng bộ công tơ
@@ -410,8 +408,8 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                 }, DELAY_PROGESS_PBAR);
 
 
-                                //kiểm tra trạng thái biên bản tu ti trong database, ngừng thực hiện update biên bản tu ti nếu nó đã gửi
-                                if (availableCanUpdateInfoBBanTuTi(bbanTutiModel)) {
+                                saveDataBBanTuti(bbanTutiModel);
+
                                     //call get
                                     resultGet_TUTI = callGet_TUTI(bbanTutiModel.ID_BBAN_TUTI);
 
@@ -443,11 +441,8 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
                                         //cập nhật dữ liệu vào TABLE_CHITIET_TUTI dựa vào trạng thái dữ liệu
                                         //kiểm tra trạng thái công tơ trong database
-                                        if (availableCanUpdateInfoTuTi(tuTiModel)) {
-
-                                        }
+                                        saveDataTuti(tuTiModel);
                                     }
-                                }
                             }
 
 
@@ -702,21 +697,21 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
     private void fillDataHistory2Day() {
         //listDataHistory
-        List<HistoryAdapter.DataHistoryAdapter> tableHistories2Day = mSqlDAO.getTABLE_HISTORYinNDay(2);
+        List<DownloadAdapter.DataHistoryAdapter> tableHistories2Day = mSqlDAO.getTABLE_HISTORYinNDay(2);
 
 
         //fill data history
-        if (historyAdapter == null) {
-            historyAdapter = new HistoryAdapter(getContext(), tableHistories2Day, iDataHistoryAdapter);
-            rvHistory.setAdapter(historyAdapter);
+        if (downloadAdapter == null) {
+            downloadAdapter = new DownloadAdapter(getContext(), tableHistories2Day, iDataHistoryAdapter);
+            rvHistory.setAdapter(downloadAdapter);
         } else
-            historyAdapter.refresh(tableHistories2Day);
+            downloadAdapter.refresh(tableHistories2Day);
 
 
         rvHistory.invalidate();
     }
 
-    private boolean availableCanUpdateInfoCto(MtbCtoModel mtbCtoModel) throws Exception {
+    private boolean saveDataCto(MtbCtoModel mtbCtoModel) throws Exception {
         boolean availableCanUpdateInfoCto = false;
 
 
@@ -727,7 +722,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
         //casting dữ liệu server MtbCtoModel sang dữ liệu sqlite TABLE_CHITIET_CTO
 
-        TABLE_CHITIET_CTO tableBbanTuti = new TABLE_CHITIET_CTO(
+        TABLE_CHITIET_CTO tableChitietCtoNew = new TABLE_CHITIET_CTO(
                 0,
                 mtbCtoModel.MA_DVIQLY,
                 onIDataCommon.getMaNVien(),
@@ -788,59 +783,100 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
         if (TRANG_THAI_DU_LIEUList.isEmpty()) {
             //insert
-            mSqlDAO.insert(TABLE_CHITIET_CTO.class, tableBbanTuti);
+            mSqlDAO.insert(TABLE_CHITIET_CTO.class, tableChitietCtoNew);
             availableCanUpdateInfoCto = true;
-        } else
-            //check
-            switch (Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(TRANG_THAI_DU_LIEUList.get(0))) {
-                case CHUA_GHI:
-                    //update full
-                    String[] nameCollumnDelete = new String[]{
-                            TABLE_CHITIET_CTO.table.ID_BBAN_TRTH.name(),
-                            TABLE_CHITIET_CTO.table.MA_CTO.name()
-                    };
+        } else {
+            String[] args = new String[]{String.valueOf(mtbCtoModel.ID_BBAN_TRTH), mtbCtoModel.MA_BDONG, onIDataCommon.getMaNVien()};
+            TABLE_CHITIET_CTO tableChitietCtoHienTai = mSqlDAO.getChiTietCongto(args).get(0);
 
-                    String[] valuesDelete = new String[]{
-                            String.valueOf(mtbCtoModel.ID_BBAN_TRTH),
-                            mtbCtoModel.MA_CTO
-                    };
+            //check trạng thái biên bản và trạng thái dữ liệu biên bản
+            args = new String[]{String.valueOf(mtbCtoModel.ID_BBAN_TRTH), onIDataCommon.getMaNVien()};
+            TABLE_BBAN_CTO tableBbanCto = mSqlDAO.getBBan(args).get(0);
 
 
-                    //delete
-                    int rowDeleted = mSqlDAO.deleteRows(TABLE_CHITIET_CTO.class, nameCollumnDelete, valuesDelete);
-                    availableCanUpdateInfoCto = true;
+            //không quan tâm tới trạng thái của công tơ trên server, chỉ quan tâm trạng thái của biên bản trên server, đã đc cập nhật mới
+            boolean isMustUpdateData = false;
+            switch (Common.TRANG_THAI.findTRANG_THAI(tableBbanCto.getTRANG_THAI())) {
+                case CHUA_TON_TAI:
+                case DA_XUAT_RA_WEB:
 
-
-                    //insert
-                    mSqlDAO.insert(TABLE_CHITIET_CTO.class, tableBbanTuti);
-
-
-                    //log if not success
-                    if (rowDeleted <= 0)
-                        Log.e(TAG, "availableCanUpdateInfoCto: Delete không thành công dữ công tơ có ID_BBAN_TRTH = " + mtbCtoModel.ID_BBAN_TRTH + " và mã công tơ = " + mtbCtoModel.MA_CTO);
+                    //ko co
                     break;
+                case DA_XUAT_RA_MTB:
+                    //nếu dữ liệu đã ghi, đang chờ xác nhân, gửi thất bại, dã tồn tại, đã xác nhận chuyển thành đã ghi
+                    //còn lại thì thành chưa ghi
+                    switch (Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(tableChitietCtoHienTai.getTRANG_THAI_DU_LIEU())) {
+                        case CHUA_TON_TAI:
+                        case CHUA_GHI:
+                        case HET_HIEU_LUC:
+                            tableChitietCtoNew.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.CHUA_GHI.content);
+                            break;
+                        case DA_GHI:
+                        case GUI_THAT_BAI:
+                        case DANG_CHO_XAC_NHAN_CMIS:
+                        case DA_TON_TAI_GUI_TRUOC_DO:
+                        case DA_XAC_NHAN_TREN_CMIS:
+                            tableChitietCtoNew.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DA_GHI.content);
+                            break;
+                    }
 
-                case DA_GHI:
-                    //not update or insert
-                    availableCanUpdateInfoCto = true;
+
+                    isMustUpdateData = true;
                     break;
-
                 case DANG_CHO_XAC_NHAN_CMIS:
-                    //not update or insert
+                    tableChitietCtoNew.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS.content);
+                    break;
+                case XAC_NHAN_TREN_CMIS:
+                    tableChitietCtoNew.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DA_XAC_NHAN_TREN_CMIS.content);
+                    break;
+                case HET_HIEU_LUC:
+                    tableChitietCtoNew.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.HET_HIEU_LUC.content);
                     break;
             }
 
+
+            //nếu phải update thì lưu các thông tin đã được ghi ngoài hiện trường
+            if (isMustUpdateData) {
+                tableChitietCtoNew.setGHI_CHU(tableChitietCtoHienTai.getGHI_CHU());
+                tableChitietCtoNew.setTTRANG_NPHONG(tableChitietCtoHienTai.getTTRANG_NPHONG());
+                tableChitietCtoNew.setCHI_SO(tableChitietCtoHienTai.getCHI_SO());
+                tableChitietCtoNew.setCHI_SO_SAULAP_TUTI(tableChitietCtoHienTai.getCHI_SO_SAULAP_TUTI());
+                tableChitietCtoNew.setDIEN_AP_SAULAP_TUTI(tableChitietCtoHienTai.getDIEN_AP_SAULAP_TUTI());
+                tableChitietCtoNew.setCHI_SO_SAULAP_TUTI(tableChitietCtoHienTai.getCHI_SO_SAULAP_TUTI());
+                tableChitietCtoNew.setCAP_CX_SAULAP_TUTI(tableChitietCtoHienTai.getCAP_CX_SAULAP_TUTI());
+                tableChitietCtoNew.setDONG_DIEN_SAULAP_TUTI(tableChitietCtoHienTai.getDONG_DIEN_SAULAP_TUTI());
+                tableChitietCtoNew.setHANGSO_K_SAULAP_TUTI(tableChitietCtoHienTai.getHANGSO_K_SAULAP_TUTI());
+                tableChitietCtoNew.setHS_NHAN_SAULAP_TUTI(tableChitietCtoHienTai.getHS_NHAN_SAULAP_TUTI());
+                tableChitietCtoNew.setSO_TI_SAULAP_TUTI(tableChitietCtoHienTai.getSO_TI_SAULAP_TUTI());
+                tableChitietCtoNew.setSO_TU_SAULAP_TUTI(tableChitietCtoHienTai.getSO_TU_SAULAP_TUTI());
+
+                tableChitietCtoNew.setSO_KIM_NIEM_CHI(tableChitietCtoHienTai.getSO_KIM_NIEM_CHI());
+                tableChitietCtoNew.setTEM_CQUANG(tableChitietCtoHienTai.getTEM_CQUANG());
+                tableChitietCtoNew.setLAN(tableChitietCtoHienTai.getLAN());
+
+                tableChitietCtoNew.setMA_CHIKDINH(tableChitietCtoHienTai.getMA_CHIKDINH());
+                tableChitietCtoNew.setMA_CHIKDINH(tableChitietCtoHienTai.getMA_CHIKDINH());
+                tableChitietCtoNew.setMA_SOCBOOC(tableChitietCtoHienTai.getMA_SOCBOOC());
+                tableChitietCtoNew.setMA_SOCHOM(tableChitietCtoHienTai.getMA_SOCHOM());
+                tableChitietCtoNew.setLOAI_HOM(tableChitietCtoHienTai.getLOAI_HOM());
+                tableChitietCtoNew.setSOVIEN_CHIKDINH(tableChitietCtoHienTai.getSOVIEN_CHIKDINH());
+                tableChitietCtoNew.setSO_VIENCBOOC(tableChitietCtoHienTai.getSO_VIENCBOOC());
+                tableChitietCtoNew.setSO_VIENCHOM(tableChitietCtoHienTai.getSO_VIENCHOM());
+                tableChitietCtoNew.setPHUONG_THUC_DO_XA(tableChitietCtoHienTai.getPHUONG_THUC_DO_XA());
+            }
+
+            mSqlDAO.updateRows(TABLE_CHITIET_CTO.class, tableChitietCtoHienTai, tableChitietCtoNew);
+
+
+        }
         return availableCanUpdateInfoCto;
     }
 
-    private boolean availableCanUpdateInfoBBan(MtbBbanModel bbanModel) throws Exception {
-        boolean availableCanUpdateInfoBBan = false;
+    private void saveDataBBan(MtbBbanModel bbanModel) throws Exception {
 
         //Lấy dữ liệu TRANG_THAI_DU_LIEU của biên bản
         String[] valueCheck = new String[]{String.valueOf(bbanModel.ID_BBAN_TRTH)};
         List<String> TRANG_THAI_DU_LIEUList = mSqlDAO.getTRANG_THAI_DU_LIEUofTABLE_BBAN_CTO(valueCheck);
-
-        //casting dữ liệu server bbanModel sang dữ liệu sqlite TABLE_BBAN_CTO
 
         //server ko trả về dữ liệu
         String MA_NVIEN = TextUtils.isEmpty(bbanModel.MA_NVIEN) ? onIDataCommon.getMaNVien() : bbanModel.MA_NVIEN;
@@ -849,25 +885,6 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
         //khi check về chỉ có những biên bản có giá trị TRANG_THAI là DA_XUAT_RA_WEB - 1 và HET_HIEU_LUC - 21
         Common.TRANG_THAI trangThaiWebNew = Common.TRANG_THAI.findTRANG_THAI(bbanModel.TRANG_THAI);
         Common.TRANG_THAI_DU_LIEU trangThaiDuLieuMTBNew = Common.TRANG_THAI_DU_LIEU.CHUA_GHI;
-//        switch (trangThaiWebNew) {
-//            case CHUA_TON_TAI:
-//                //khong bao gio nhận
-//                break;
-//            case DA_XUAT_RA_WEB:
-//                break;
-//            case DA_XUAT_RA_MTB:
-//                //nếu đã ghi
-//
-//                //nếu đã gửi
-//                break;
-//            case DA_DAY_LEN_CMIS:
-//                break;
-//            case XAC_NHAN_TREN_CMIS:
-//                break;
-//            case HET_HIEU_LUC:
-//                //hết hiệu lực thì ko cần update, vì nó đã all update hết hiệu lực r
-//                break;
-//        }
 
 
         TABLE_BBAN_CTO tableBbanCtoNewData = new TABLE_BBAN_CTO(
@@ -905,82 +922,67 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
             //CHUA_TON_TAI
             //insert
             mSqlDAO.insert(TABLE_BBAN_CTO.class, tableBbanCtoNewData);
-            availableCanUpdateInfoBBan = true;
         } else {
+
             trangThaiDuLieuMTBNew = Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(TRANG_THAI_DU_LIEUList.get(0));
 
+            boolean isMustUpdate = false;
 
-            List<String> TRANG_THAIList = mSqlDAO.getTRANG_THAIofTABLE_BBAN_CTO(valueCheck);
-            Common.TRANG_THAI TRANG_THAImtbHienTai = Common.TRANG_THAI.findTRANG_THAI(TRANG_THAIList.get(0));
-
-
-            //trường hợp reset trạng thái ở web về 1 cho những biên bản có trạng thái 2
-            //thì chuyển trạng thái về 2
-            //chuyển trạng thái dữ liệu về chưa ghi ở TABLE_BBAN_CTO
-            trangThaiWebNew = Common.TRANG_THAI.DA_XUAT_RA_MTB;
-
-
-            //check TRANG_THAI_DU_LIEUmtbHienTai
-            switch (trangThaiDuLieuMTBNew) {
+            switch (trangThaiWebNew) {
                 case CHUA_TON_TAI:
+                    //ko nhận
                     break;
-                case CHUA_GHI:
-                    trangThaiDuLieuMTBNew = Common.TRANG_THAI_DU_LIEU.CHUA_GHI;
+                case DA_XUAT_RA_WEB:
+                    //ko nhận
                     break;
-                case DA_GHI:
+                case DA_XUAT_RA_MTB:
+                    //nếu dữ liệu đã ghi, đang chờ xác nhân, gửi thất bại, dã tồn tại, đã xác nhận chuyển thành đã ghi
+                    //còn lại thì thành chưa ghi
+                    switch (trangThaiDuLieuMTBNew) {
+                        case CHUA_TON_TAI:
+                        case CHUA_GHI:
+                        case HET_HIEU_LUC:
+                            tableBbanCtoNewData.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.CHUA_GHI.content);
+                            break;
+                        case DA_GHI:
+                        case GUI_THAT_BAI:
+                        case DANG_CHO_XAC_NHAN_CMIS:
+                        case DA_TON_TAI_GUI_TRUOC_DO:
+                        case DA_XAC_NHAN_TREN_CMIS:
+                            tableBbanCtoNewData.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DA_GHI.content);
+                            break;
+                    }
+                    isMustUpdate = true;
                     break;
                 case DANG_CHO_XAC_NHAN_CMIS:
+                    tableBbanCtoNewData.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS.content);
                     break;
-                case DA_XAC_NHAN_TREN_CMIS:
+                case XAC_NHAN_TREN_CMIS:
+                    tableBbanCtoNewData.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DA_XAC_NHAN_TREN_CMIS.content);
                     break;
                 case HET_HIEU_LUC:
-                    //update trạng thái dữ liệu là HET_HIEU_LUC,
-                    String[] args = new String[]{
-                            String.valueOf(bbanModel.ID_BBAN_TRTH),
-                            onIDataCommon.getMaNVien()
-                    };
-
-                    TABLE_BBAN_CTO tableBbanCtoOld = (TABLE_BBAN_CTO) mSqlDAO.getBBan(args);
-
-                    tableBbanCtoNewData.setID_TABLE_BBAN_CTO((int) mSqlDAO.updateRows(TABLE_BBAN_CTO.class, tableBbanCtoOld, tableBbanCtoNewData));
+                    tableBbanCtoNewData.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.HET_HIEU_LUC.content);
                     break;
             }
+
+            //update tất cả các trường
+            String[] args = new String[]{String.valueOf(bbanModel.ID_BBAN_TRTH), onIDataCommon.getMaNVien()};
+            TABLE_BBAN_CTO tableBbanCtoHienTai = mSqlDAO.getBBan(args).get(0);
+            if (isMustUpdate) {
+                tableBbanCtoNewData.setMA_LDO(tableBbanCtoHienTai.getMA_LDO());
+                tableBbanCtoNewData.setGHI_CHU(tableBbanCtoHienTai.getGHI_CHU());
+                tableBbanCtoNewData.setMA_LDO(tableBbanCtoHienTai.getMA_LDO());
+                tableBbanCtoNewData.setLY_DO_TREO_THAO(tableBbanCtoHienTai.getLY_DO_TREO_THAO());
+                tableBbanCtoNewData.setMA_LDO(tableBbanCtoHienTai.getMA_LDO());
+                tableBbanCtoNewData.setMA_LDO(tableBbanCtoHienTai.getMA_LDO());
+                tableBbanCtoNewData.setMA_LDO(tableBbanCtoHienTai.getMA_LDO());
+            }
+
+            mSqlDAO.updateRows(TABLE_BBAN_CTO.class, tableBbanCtoHienTai, tableBbanCtoNewData);
         }
-
-
-        if (TRANG_THAI_DU_LIEUmtbHienTai == Common.TRANG_THAI_DU_LIEU.CHUA_GHI || TRANG_THAI_DU_LIEUmtbHienTai == Common.TRANG_THAI_DU_LIEU.DA_GHI) {
-            //không update gì, để nguyên dữ liệu hiện tại để gửi lên server
-            //thông báo bên ngoài ko có update bban này, bỏ qua gọi API lấy công tơ của bb này
-
-        } else {
-            //thì xóa hẳn row và insert mới
-            String[] nameCollumnDelete = new String[]{
-                    TABLE_BBAN_CTO.table.ID_BBAN_TRTH.name(),
-                    TABLE_BBAN_CTO.table.MA_NVIEN.name()
-            };
-
-            String[] valuesDelete = new String[]{
-                    String.valueOf(bbanModel.ID_BBAN_TRTH),
-                    onIDataCommon.getMaNVien()
-            };
-
-
-            //delete
-            int rowDeleted = mSqlDAO.deleteRows(TABLE_BBAN_CTO.class, nameCollumnDelete, valuesDelete);
-            availableCanUpdateInfoBBan = true;
-
-            //insert
-            mSqlDAO.insert(TABLE_BBAN_CTO.class, tableBbanCtoNewData);
-        }
-
-
-        
-        return availableCanUpdateInfoBBan;
     }
 
-    private boolean availableCanUpdateInfoBBanTuTi(MtbBbanTutiModel bbanTutiModel) throws Exception {
-        boolean availableCanUpdateInfoBBanTuTi = false;
-
+    private void saveDataBBanTuti(MtbBbanTutiModel bbanTutiModel) throws Exception {
 
         //Lấy dữ liệu TRANG_THAI_DU_LIEU của biên bản tu ti
         String[] valueCheck = new String[]{String.valueOf(bbanTutiModel.ID_BBAN_TUTI)};
@@ -992,7 +994,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
         String MA_NVIEN = TextUtils.isEmpty(bbanTutiModel.MA_NVIEN) ? onIDataCommon.getMaNVien() : bbanTutiModel.MA_NVIEN;
 
 
-        TABLE_BBAN_TUTI tableBbanTuti = new TABLE_BBAN_TUTI(
+        TABLE_BBAN_TUTI tableBbanTutiNew = new TABLE_BBAN_TUTI(
                 0,
                 bbanTutiModel.MA_DVIQLY,
                 bbanTutiModel.ID_BBAN_TUTI,
@@ -1000,7 +1002,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                 bbanTutiModel.SO_BBAN,
                 bbanTutiModel.NGAY_TRTH,
                 MA_NVIEN,
-                bbanTutiModel.TRANG_THAI,
+                Common.TRANG_THAI.findTRANG_THAI(bbanTutiModel.TRANG_THAI).content,
                 bbanTutiModel.TEN_KHANG,
                 bbanTutiModel.DCHI_HDON,
                 bbanTutiModel.DTHOAI,
@@ -1015,53 +1017,63 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
         if (TRANG_THAI_DU_LIEUList.isEmpty()) {
             //insert
-            mSqlDAO.insert(TABLE_BBAN_TUTI.class, tableBbanTuti);
-            availableCanUpdateInfoBBanTuTi = true;
-        } else
-            //check
-            switch (Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(TRANG_THAI_DU_LIEUList.get(0))) {
-                case CHUA_GHI:
-                    //update full
-                    String[] nameCollumnDelete = new String[]{
-                            TABLE_BBAN_TUTI.table.ID_BBAN_TUTI.name()
-                    };
+            mSqlDAO.insert(TABLE_BBAN_TUTI.class, tableBbanTutiNew);
+        } else {
 
-                    String[] valuesDelete = new String[]{
-                            String.valueOf(bbanTutiModel.ID_BBAN_TUTI)
-                    };
+            TABLE_BBAN_TUTI tableBbanTutiHienTai = mSqlDAO.getBBanTuti(tableBbanTutiNew.getID_BBAN_TUTI(), onIDataCommon.getMaNVien()).get(0);
 
 
-                    //delete
-                    int rowDeleted = mSqlDAO.deleteRows(TABLE_BBAN_TUTI.class, nameCollumnDelete, valuesDelete);
-                    availableCanUpdateInfoBBanTuTi = true;
+            boolean isMustUpdateData = false;
+            switch (Common.TRANG_THAI.findTRANG_THAI(bbanTutiModel.TRANG_THAI)) {
+                case CHUA_TON_TAI:
+                case DA_XUAT_RA_WEB:
 
-
-                    //log if not success
-                    if (rowDeleted <= 0)
-                        Log.e(TAG, "availableCanUpdateInfoCto: Delete không thành công dữ liệu biên bản tu ti có ID_BBAN_TUTI = " + bbanTutiModel.ID_BBAN_TUTI);
-
-
-                    //insert
-                    mSqlDAO.insert(TABLE_BBAN_TUTI.class, tableBbanTuti);
-
+                    //ko co
                     break;
+                case DA_XUAT_RA_MTB:
+                    //nếu dữ liệu đã ghi, đang chờ xác nhân, gửi thất bại, dã tồn tại, đã xác nhận chuyển thành đã ghi
+                    //còn lại thì thành chưa ghi
+                    switch (Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(tableBbanTutiHienTai.getTRANG_THAI_DU_LIEU())) {
+                        case CHUA_TON_TAI:
+                        case CHUA_GHI:
+                        case HET_HIEU_LUC:
+                            tableBbanTutiNew.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.CHUA_GHI.content);
+                            break;
+                        case DA_GHI:
+                        case GUI_THAT_BAI:
+                        case DANG_CHO_XAC_NHAN_CMIS:
+                        case DA_TON_TAI_GUI_TRUOC_DO:
+                        case DA_XAC_NHAN_TREN_CMIS:
+                            tableBbanTutiNew.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DA_GHI.content);
+                            break;
+                    }
 
-                case DA_GHI:
-                    //not update or insert
-                    availableCanUpdateInfoBBanTuTi = true;
+
+                    isMustUpdateData = true;
                     break;
-
                 case DANG_CHO_XAC_NHAN_CMIS:
-                    //not update or insert
+                    tableBbanTutiNew.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS.content);
                     break;
-
+                case XAC_NHAN_TREN_CMIS:
+                    tableBbanTutiNew.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DA_XAC_NHAN_TREN_CMIS.content);
+                    break;
+                case HET_HIEU_LUC:
+                    tableBbanTutiNew.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.HET_HIEU_LUC.content);
+                    break;
             }
 
-        return availableCanUpdateInfoBBanTuTi;
+
+            //nếu phải update thì lưu các thông tin đã được ghi ngoài hiện trường
+            if (isMustUpdateData) {
+                tableBbanTutiNew.setLY_DO_TREO_THAO(tableBbanTutiHienTai.getLY_DO_TREO_THAO());
+            }
+
+            mSqlDAO.updateRows(TABLE_BBAN_TUTI.class, tableBbanTutiHienTai, tableBbanTutiNew);
+        }
+
     }
 
-    private boolean availableCanUpdateInfoTuTi(MTB_TuTiModel tuTiModel) throws Exception {
-        boolean availableCanUpdateInfoTuTi = false;
+    private void saveDataTuti(MTB_TuTiModel tuTiModel) throws Exception {
 
 
         //Lấy dữ liệu TRANG_THAI_DU_LIEU của biên bản
@@ -1072,7 +1084,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
         //casting dữ liệu server MTB_TuTiModel sang dữ liệu sqlite TABLE_CHITIET_TUTI
 
-        TABLE_CHITIET_TUTI tableChitietTuti = new TABLE_CHITIET_TUTI(
+        TABLE_CHITIET_TUTI tableChitietTutiNew = new TABLE_CHITIET_TUTI(
                 0,
                 tuTiModel.MA_CLOAI,
                 tuTiModel.LOAI_TU_TI,
@@ -1102,31 +1114,14 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
         if (!existRows) {
             //insert
-            mSqlDAO.insert(TABLE_CHITIET_TUTI.class, tableChitietTuti);
-            availableCanUpdateInfoTuTi = true;
+            mSqlDAO.insert(TABLE_CHITIET_TUTI.class, tableChitietTutiNew);
         } else {
-            //update full
-            String[] nameCollumnDelete = new String[]{TABLE_CHITIET_TUTI.table.ID_CHITIET_TUTI.name(), TABLE_CHITIET_TUTI.table.MA_NVIEN.name()};
+            //update toan bo
+            TABLE_CHITIET_TUTI tableChitietTutiHienTai = mSqlDAO.getChitietTuTi(tuTiModel.ID_BBAN_TUTI, onIDataCommon.getMaNVien()).get(0);
 
-            String[] valuesDelete = new String[]{String.valueOf(tuTiModel.ID_CHITIET_TUTI), onIDataCommon.getMaNVien()};
+            mSqlDAO.updateRows(TABLE_CHITIET_TUTI.class, tableChitietTutiHienTai, tableChitietTutiNew);
 
-
-            //delete
-            int rowDeleted = mSqlDAO.deleteRows(TABLE_CHITIET_TUTI.class, nameCollumnDelete, valuesDelete);
-            availableCanUpdateInfoTuTi = true;
-
-
-            //log if not success
-            if (rowDeleted <= 0)
-                Log.e(TAG, "availableCanUpdateInfoCto: Delete không thành công dữ liệu tu ti có ID_CHITIET_TUTI = " + tuTiModel.ID_CHITIET_TUTI);
-
-
-            //insert
-            mSqlDAO.insert(TABLE_CHITIET_TUTI.class, tableChitietTuti);
         }
-
-
-        return availableCanUpdateInfoTuTi;
     }
 
     private List<D_LY_DO_MODEL> callLayDuLieuLyDoTreothao() throws ExecutionException, InterruptedException {

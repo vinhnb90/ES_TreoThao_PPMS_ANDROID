@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="@dimen/_10sdp"
+    android:layout_margin="@dimen/_10sdp"
+    android:background="@drawable/xml_tththn_rectangle"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_t_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/v_t_1"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_bb_t_maKH"
+                style="@style/textStyle1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mã khách hàng" />
+
+            <TextView
+                android:id="@+id/tv_bb_maKH"
+                style="@style/textStyle2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_bb_t_maKH"
+                tools:text="3464679" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_t_ma_hdong"
+                style="@style/textStyle1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="Mã hợp đồng" />
+
+            <TextView
+                android:id="@+id/tv_bb_ma_hopdong"
+                style="@style/textStyle2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_t_ma_hdong"
+                android:gravity="right"
+                tools:text="3464679" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary">
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/v_t_1"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_bb_t_sobban"
+                style="@style/textStyle1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Số biên bản" />
+
+            <TextView
+                android:id="@+id/tv_bb_sobb"
+                style="@style/textStyle2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_bb_t_sobban"
+                tools:text="3464679" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_t_51"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_t_4_1"
+        android:layout_marginBottom="@dimen/_1sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_bb_t_lydo"
+            style="@style/textStyle1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lý do treo tháo" />
+
+        <TextView
+            android:id="@+id/tv_bb_lydo"
+            style="@style/textStyle2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_t_chiso"
+            tools:text="Thanh lý hợp đồng" />
+    </LinearLayout>
+</LinearLayout>

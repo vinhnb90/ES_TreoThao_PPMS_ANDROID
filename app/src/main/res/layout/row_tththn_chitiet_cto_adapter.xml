@@ -42,8 +42,7 @@
             android:id="@+id/rl_main_row_chitiet_cto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_1sdp"
-            android:background="@color/tththn_background_lv3"
+            android:background="@drawable/xml_tththn_rectangle"
             android:paddingLeft="@dimen/_5sdp"
             android:paddingRight="@dimen/_5sdp"
             android:paddingTop="@dimen/_5sdp">
@@ -222,11 +221,38 @@
 
             </LinearLayout>
 
+
+            <LinearLayout
+                android:id="@+id/ll_t_5_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_t_4"
+                android:layout_marginBottom="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_t_ngaytreothao"
+                    style="@style/textStyle1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ngày treo tháo" />
+
+                <TextView
+                    android:gravity="right"
+                    android:id="@+id/tv_ngaytreothao"
+                    style="@style/textStyle2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_t_ngaytreothao"
+                    tools:text="25/12/2017" />
+            </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_t_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_t_4"
+                android:layout_below="@+id/ll_t_5_1"
                 android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_marginTop="@dimen/_1sdp"
                 android:orientation="vertical">
@@ -239,6 +265,7 @@
                     android:text="Bộ chỉ số ghi" />
 
                 <TextView
+                    android:gravity="right"
                     android:id="@+id/tv_chiso"
                     style="@style/textStyle2"
                     android:layout_width="match_parent"

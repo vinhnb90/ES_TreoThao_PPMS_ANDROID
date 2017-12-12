@@ -1,6 +1,8 @@
 package es.vinhnb.ttht.view;
 
+import android.app.Dialog;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -8,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
@@ -17,10 +20,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.es.tungnv.views.R;
@@ -37,6 +45,7 @@ import es.vinhnb.ttht.view.TthtHnUploadFragment.IOnTthtHnUploadFragment;
 import esolutions.com.esdatabaselib.baseSharedPref.SharePrefManager;
 
 import static com.es.tungnv.views.R.layout.activity_ttht_hn_main;
+import static es.vinhnb.ttht.adapter.BBanAdapter.*;
 import static es.vinhnb.ttht.view.TthtHnBBanTutiFragment.IOnTthtHnBBanTutiFragment;
 import static es.vinhnb.ttht.view.TthtHnChiTietCtoFragment.OnITthtHnChiTietCtoFragment;
 import static es.vinhnb.ttht.view.TthtHnDownloadFragment.OnListenerTthtHnDownloadFragment;
@@ -63,14 +72,15 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         IOnTthtHnBBanTutiFragment,
         IOnTthtHnTopSearchFragment,
         IInteractionDataCommon,
-        IOnTthtHnUploadFragment {
+        IOnTthtHnUploadFragment,
+        IOnBBanAdapter {
 
     private LoginFragment.LoginData mLoginData;
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
     private String mMaNVien;
     private GridView mGridView;
-    private ImageButton mIbtnLogout;
+    private LinearLayout mllLogout;
     private TthtHnMainFragment fragmentMain;
     private TthtHnDownloadFragment fragmentDownload;
     private TthtHnUploadFragment fragmentUpload;
@@ -263,7 +273,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
 
 
         //click
-        mIbtnLogout.setOnClickListener(new View.OnClickListener() {
+        mllLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -336,7 +346,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
     public void initNavigationDrawer() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mIbtnLogout = (ImageButton) findViewById(R.id.ibtn_logout);
+        mllLogout = (LinearLayout) findViewById(R.id.ll_ibtn_logout);
         mGridView = (GridView) findViewById(R.id.gv_nav_menu);
         mRlMain = (RelativeLayout) findViewById(R.id.rl_content_main);
         mRlTopMenu = (RelativeLayout) findViewById(R.id.rl_topmenu);
@@ -1029,8 +1039,36 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
             }
             ft.commit();
         }
-
-
     }
+
+
+    //region IOnBBanAdapter
+    @Override
+    public void clickBtnBBanMore(int pos, DataBBanAdapter dataBBanAdapter) {
+        //show dialog
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.row_tththn_bban_more);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.getWindow().setLayout(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        Window window = dialog.getWindow();
+        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
+
+        final TextView maKH = (TextView) dialog.findViewById(R.id.tv_bb_maKH);
+        final TextView maHopDong = (TextView) dialog.findViewById(R.id.tv_bb_ma_hopdong);
+        final TextView sobban = (Button) dialog.findViewById(R.id.tv_bb_sobb);
+        final TextView lydo = (Button) dialog.findViewById(R.id.tv_bb_lydo);
+
+
+        //fill data
+        maKH.setText(dataBBanAdapter.getMaKH());
+        maHopDong.setText(dataBBanAdapter.getMaHopDong());
+        sobban.setText(dataBBanAdapter.getSobban());
+        lydo.setText(dataBBanAdapter.getLydo());
+    }
+    //endregion
 }
 
