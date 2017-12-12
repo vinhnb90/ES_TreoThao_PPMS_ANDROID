@@ -252,6 +252,26 @@ public class TthtHnSQLDAO extends SqlDAO {
         });
     }
 
+    public List<String> getTRANG_THAIofTABLE_BBAN_CTO(String[] valueCheck) {
+        String query = "SELECT " +
+                TABLE_BBAN_CTO.table.TRANG_THAI.name() +
+                " FROM " +
+                TABLE_BBAN_CTO.table.getName() +
+                " WHERE " +
+                TABLE_BBAN_CTO.table.ID_BBAN_TRTH.name() +
+                " = ?";
+
+        Cursor c = super.mDatabase.rawQuery(query, valueCheck);
+        return super.selectCustomLazy(c, new ItemFactory(String.class) {
+            @Override
+            protected String create(Cursor cursor, int index) {
+                cursor.moveToPosition(index);
+                return cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TRANG_THAI.name()));
+            }
+        });
+    }
+
+
     public List<String> getTRANG_THAI_DU_LIEUofTABLE_CHITIET_CTO(String[] valueCheck) {
         String query = "SELECT " +
                 TABLE_CHITIET_CTO.table.TRANG_THAI_DU_LIEU.name() +
@@ -595,5 +615,22 @@ public class TthtHnSQLDAO extends SqlDAO {
         Cursor cursor = super.mDatabase.rawQuery(query.toString(), argsAnhHienTruong);
 
         return super.selectAllLazy(TABLE_ANH_HIENTRUONG.class, cursor);
+    }
+
+    public List<TABLE_BBAN_CTO> getBBanHetHieuLuc(String[] args) {
+
+        String query = "SELECT  * " +
+                " FROM " +
+                TABLE_BBAN_CTO.table.getName() +
+                " WHERE " +
+                TABLE_BBAN_CTO.table.MA_NVIEN +
+                " = ?" +
+                " AND " +
+                TABLE_BBAN_CTO.table.TRANG_THAI_DU_LIEU +
+                " != ?";
+
+        Cursor cursor = super.mDatabase.rawQuery(query, args);
+
+        return super.selectAllLazy(TABLE_BBAN_CTO.class, cursor);
     }
 }

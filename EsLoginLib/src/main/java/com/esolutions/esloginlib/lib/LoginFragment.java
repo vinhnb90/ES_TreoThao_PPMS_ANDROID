@@ -398,7 +398,7 @@ public class LoginFragment extends Fragment {
 
                                                 Common.showDialog(getContext(), "Đăng nhập chế độ offline", iDialog);
                                             }else
-                                                showSnackBar("Đăng nhập không thành công.", resultCheckServerLogin.message, null);
+                                                showSnackBar(resultCheckServerLogin.message, null, null);
                                         }
                                     } catch (Exception e) {
                                         e.printStackTrace();
@@ -683,9 +683,8 @@ public class LoginFragment extends Fragment {
             //set value
             etContent.setVisibility(View.GONE);
             tvMessage.setText(message);
-            if (content == null) content = "";
-            etContent.setText(content);
-
+            if (content == null)
+                etContent.setVisibility(View.GONE);
 
             //catch action
             btnContent.setOnClickListener(new View.OnClickListener() {
