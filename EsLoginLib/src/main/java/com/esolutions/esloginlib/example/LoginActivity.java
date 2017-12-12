@@ -116,8 +116,8 @@ public class LoginActivity extends AppCompatActivity implements LoginInteface<De
     }
 
     @Override
-    public boolean checkServerLogin(LoginFragment.LoginData loginData) {
-        return true;
+    public LoginFragment.ResultLogin checkServerLogin(LoginFragment.LoginData loginData) {
+        return null;
     }
 
     @Override

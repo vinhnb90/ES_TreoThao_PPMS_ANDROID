@@ -37,7 +37,8 @@ public class TABLE_HISTORY {
         SO_TU_API,
         SO_TI_API,
         SO_TRAM_API,
-        SO_CHUNGLOAI_API;
+        SO_CHUNGLOAI_API,
+        SO_LYDO_TREOTHAO;
 
 
         public static String getName() {
@@ -92,6 +93,9 @@ public class TABLE_HISTORY {
     @Collumn(name = "SO_CHUNGLOAI_API", type = TYPE.INTEGER)
     private int SO_CHUNGLOAI_API;
 
+    @Collumn(name = "SO_LYDO_TREOTHAO", type = TYPE.INTEGER)
+    private int SO_LYDO_TREOTHAO;
+
 
     public TABLE_HISTORY() {
     }
@@ -112,7 +116,8 @@ public class TABLE_HISTORY {
                          @Params(name = "SO_TU_API") int SO_TU_API,
                          @Params(name = "SO_TI_API") int SO_TI_API,
                          @Params(name = "SO_TRAM_API") int SO_TRAM_API,
-                         @Params(name = "SO_CHUNGLOAI_API") int SO_CHUNGLOAI_API
+                         @Params(name = "SO_CHUNGLOAI_API") int SO_CHUNGLOAI_API,
+                         @Params(name = "SO_LYDO_TREOTHAO") int SO_LYDO_TREOTHAO
     ) {
         this.ID_TABLE_HISTORY = ID_TABLE_HISTORY;
         this.MA_DVIQLY = MA_DVIQLY;
@@ -132,6 +137,7 @@ public class TABLE_HISTORY {
         this.SO_TI_API = SO_TI_API;
         this.SO_TRAM_API = SO_TRAM_API;
         this.SO_CHUNGLOAI_API = SO_CHUNGLOAI_API;
+        this.SO_LYDO_TREOTHAO = SO_LYDO_TREOTHAO;
     }
 
     public int getID_TABLE_HISTORY() {
@@ -252,5 +258,13 @@ public class TABLE_HISTORY {
 
     public void setSO_CHUNGLOAI_API(int SO_CHUNGLOAI_API) {
         this.SO_CHUNGLOAI_API = SO_CHUNGLOAI_API;
+    }
+
+    public int getSO_LYDO_TREOTHAO() {
+        return SO_LYDO_TREOTHAO;
+    }
+
+    public void setSO_LYDO_TREOTHAO(int SO_LYDO_TREOTHAO) {
+        this.SO_LYDO_TREOTHAO = SO_LYDO_TREOTHAO;
     }
 }

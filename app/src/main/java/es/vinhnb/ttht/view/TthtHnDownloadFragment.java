@@ -30,8 +30,10 @@ import es.vinhnb.ttht.database.table.TABLE_CHITIET_CTO;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_TUTI;
 import es.vinhnb.ttht.database.table.TABLE_HISTORY;
 import es.vinhnb.ttht.database.table.TABLE_LOAI_CONG_TO;
+import es.vinhnb.ttht.database.table.TABLE_LYDO_TREOTHAO;
 import es.vinhnb.ttht.database.table.TABLE_TRAM;
 import es.vinhnb.ttht.entity.api.CHUNG_LOAI_CONGTO;
+import es.vinhnb.ttht.entity.api.D_LY_DO_MODEL;
 import es.vinhnb.ttht.entity.api.MTB_TuTiModel;
 import es.vinhnb.ttht.entity.api.MtbBbanModel;
 import es.vinhnb.ttht.entity.api.MtbBbanTutiModel;
@@ -198,7 +200,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                             List<MTB_TuTiModel> resultGet_TUTI = null;
                             List<TRAMVIEW> resultGetTram = null;
                             List<CHUNG_LOAI_CONGTO> resultLayDuLieuLoaiCongTo = null;
-
+                            List<D_LY_DO_MODEL> resultLayDuLieuLyDoTreothao = null;
 
                             //set default
                             infoSessionDownload.setMA_DVIQLY(onIDataCommon.getLoginData().getmMaDvi());
@@ -538,12 +540,66 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                             }
 
 
-                            //Kết thúc đồng bộ nhà cung cấp
-                            infoSessionDownload.setSO_CHUNGLOAI_API(resultLayDuLieuLoaiCongTosize);
+                            //Kết thúc đồng bộ trạm
+                            infoSessionDownload.setSO_TRAM_API(resultGetTramsize);
                             getView().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    updateInfoDownload("Kết thúc nhà cung cấp, chủng loại công tơ!", 100);
+                                    updateInfoDownload("Kết thúc đồng bộ Chủng loại...", 100);
+                                }
+                            }, DELAY);
+
+
+                            //TODO Get Nhà cung cấp dữ liệu đo xa
+                            resultLayDuLieuLyDoTreothao = callLayDuLieuLyDoTreothao();
+                            //nếu null = có lỗi khi đồng bộ các dữ liệu Chủng loại
+                            if (resultLayDuLieuLoaiCongTo == null) {
+                                resultLayDuLieuLoaiCongTo = new ArrayList<>();
+                            } else if (resultLayDuLieuLoaiCongTo.size() == 0) {
+                                //nếu rỗng thì hiện tại có biên bản nhưng không có công tơ, vẫn cho tiếp tục thực hiện call các api khác
+                                messageServer.append("-Danh mục lý do treo tháo  hiện không có lý do nào!-");
+                            }
+
+
+                            //mỗi dữ liệu lý do treo tháo sẽ được cập nhật toàn bộ
+                            final int resultLayDuLieuLyDoTreothaosize = resultLayDuLieuLyDoTreothao.size();
+                            for (int i = 0; i < resultLayDuLieuLyDoTreothao.size(); i++) {
+                                D_LY_DO_MODEL object = resultLayDuLieuLyDoTreothao.get(i);
+                                final int finalI = i;
+                                getView().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        updateInfoDownload("Đang đồng bộ lý do treo tháo...", finalI * 100 / resultLayDuLieuLyDoTreothaosize);
+                                    }
+                                }, DELAY_PROGESS_PBAR);
+
+
+                                //delete row
+                                String[] nameCollumnCheck = new String[]{TABLE_LYDO_TREOTHAO.table.MA_LDO.name()};
+                                String[] valuesCheck = new String[]{object.MA_LDO};
+                                mSqlDAO.deleteRows(TABLE_LYDO_TREOTHAO.class, nameCollumnCheck, valuesCheck);
+
+
+                                //insert row
+                                //Lọc dữ liệu từ service to dữ liệu insert
+
+                                TABLE_LYDO_TREOTHAO tableLydo = new TABLE_LYDO_TREOTHAO(
+                                        0,
+                                        object.MA_DVIQLY,
+                                        object.MA_LDO,
+                                        object.TEN_LDO,
+                                        object.NHOM);
+
+                                mSqlDAO.insert(TABLE_LYDO_TREOTHAO.class, tableLydo);
+                            }
+
+
+                            //Kết thúc đồng bộ lý do
+                            infoSessionDownload.setSO_LYDO_TREOTHAO(resultLayDuLieuLyDoTreothaosize);
+                            getView().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    updateInfoDownload("Kết thúc đồng bộ lý do treo tháo!", 100);
                                 }
                             }, DELAY);
 
@@ -1019,6 +1075,107 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
         return availableCanUpdateInfoTuTi;
     }
 
+    private List<D_LY_DO_MODEL> callLayDuLieuLyDoTreothao() throws ExecutionException, InterruptedException {
+        TthtHnApiInterface.IAsync iAsync = new TthtHnApiInterface.IAsync() {
+            @Override
+            public void onPreExecute() {
+                try {
+                    //init protocol server
+                    apiInterface = TthtHnApi.getClient().create(TthtHnApiInterface.class);
+
+
+                    //check internet
+                    if (!Common.isNetworkConnected(getContext())) {
+                        throw new Exception("Mất kết nối internet, vui lòng kiểm tra lại!");
+                    }
+
+
+                    //update
+                    getView().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            updateInfoDownload("Đang đồng bộ dữ liệu Lý do treo tháo...", 0);
+                        }
+                    });
+                } catch (final Exception e) {
+                    e.printStackTrace();
+                    getView().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex05.getContent(), e.getMessage(), null);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public Bundle doInBackground() {
+                //ghi vào buldle
+                Bundle result = new Bundle();
+                List<D_LY_DO_MODEL> dataServer = null;
+
+
+                try {
+                    //call check CMIS connect
+                    Call<List<D_LY_DO_MODEL>> LayDuLieuLyDoTreoThaoCall = apiInterface.GET_LY_DO_TREO_THAO(onIDataCommon.getLoginData().getmMaDvi());
+                    Response<List<D_LY_DO_MODEL>> LayDuLieuLoaiCongToResponse = LayDuLieuLyDoTreoThaoCall.execute();
+
+
+                    //nếu có response về thì check code 200 (OK) hoặc code khác 200 (FAIL)
+                    int statusCode = LayDuLieuLoaiCongToResponse.code();
+                    String errorBody = "";
+                    if (LayDuLieuLoaiCongToResponse.errorBody() != null) {
+                        errorBody = LayDuLieuLoaiCongToResponse.errorBody().string();
+                    }
+                    if (LayDuLieuLoaiCongToResponse.isSuccessful() && statusCode == 200) {
+                        dataServer = LayDuLieuLoaiCongToResponse.body();
+                    }
+
+
+                    result.putInt(STATUS_CODE, statusCode);
+                    result.putParcelableArrayList(BUNDLE_DATA, (ArrayList<? extends Parcelable>) dataServer);
+                    result.putString(ERROR_BODY, errorBody);
+                    return result;
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+
+                    //return result
+                    result.putInt(STATUS_CODE, 0);
+                    result.putParcelableArrayList(BUNDLE_DATA, null);
+                    result.putString(ERROR_BODY, "Mất kết nối tới máy chủ!");
+                    return result;
+                }
+            }
+        };
+
+
+        //call
+        TthtHnApiInterface.AsyncApi asyncApi = new TthtHnApiInterface.AsyncApi(iAsync);
+        asyncApi.execute();
+
+        Bundle resultGetLyDoTreothao = asyncApi.get();
+
+        int statusCode = resultGetLyDoTreothao.getInt(STATUS_CODE, 0);
+        String errorBody = resultGetLyDoTreothao.getString(ERROR_BODY, "");
+        List<D_LY_DO_MODEL> dataServer = null;
+
+
+        //check case
+        if (statusCode == 0) {
+            ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex06.getContent(), null, null);
+        } else if (statusCode == 200) {
+            //process to next async
+            dataServer = resultGetLyDoTreothao.getParcelableArrayList(BUNDLE_DATA);
+        } else {
+            ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex02.getContent(), "Mã lỗi: " + statusCode + "\nNội dung:" + errorBody, null);
+        }
+
+
+        return dataServer;
+    }
+
     private List<CHUNG_LOAI_CONGTO> callLayDuLieuLoaiCongTo() throws ExecutionException, InterruptedException {
         TthtHnApiInterface.IAsync iAsync = new TthtHnApiInterface.IAsync() {
             @Override
@@ -1119,6 +1276,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
         return dataServer;
     }
+
 
     private List<TRAMVIEW> callGetTram() throws ExecutionException, InterruptedException {
         TthtHnApiInterface.IAsync iAsync = new TthtHnApiInterface.IAsync() {
@@ -1751,4 +1909,6 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
     public interface OnListenerTthtHnDownloadFragment {
     }
+
+
 }

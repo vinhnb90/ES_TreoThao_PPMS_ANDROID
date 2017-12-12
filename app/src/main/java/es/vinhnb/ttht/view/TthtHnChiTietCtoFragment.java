@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -28,6 +29,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.es.tungnv.views.R;
+import com.esolutions.esloginlib.example.DepartEntity;
+import com.esolutions.esloginlib.lib.DepartUpdateFragment;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
@@ -46,6 +49,7 @@ import es.vinhnb.ttht.database.table.TABLE_ANH_HIENTRUONG;
 import es.vinhnb.ttht.database.table.TABLE_BBAN_CTO;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_CTO;
 import es.vinhnb.ttht.database.table.TABLE_LOAI_CONG_TO;
+import es.vinhnb.ttht.database.table.TABLE_LYDO_TREOTHAO;
 import es.vinhnb.ttht.database.table.TABLE_TRAM;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 
@@ -106,9 +110,6 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
     @BindView(R.id.tv_3a_diachi)
     TextView tvDiaChi;
 
-    @BindView(R.id.tv_4a_lydo)
-    TextView tvLydo;
-
     @BindView(R.id.tv_5b_magcs)
     TextView tvMaGCS;
 
@@ -159,6 +160,12 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
 
     //spin
+
+    @BindView(R.id.sp_lydo)
+    Spinner spLydo;
+    @BindView(R.id.iv_sp_lydo)
+    ImageButton ibtnLydo;
+
     @BindView(R.id.sp_30_1b_loaihom)
     Spinner spLoaihom;
     @BindView(R.id.iv_30a_sp_loaihom)
@@ -284,6 +291,8 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
     private TABLE_LOAI_CONG_TO tableLoaiCongTo;
     private TABLE_BBAN_CTO tableBbanCto;
     private TABLE_CHITIET_CTO tableChitietCto;
+    private TABLE_LYDO_TREOTHAO tableLydoTreothao;
+    private List<TABLE_LYDO_TREOTHAO> tableLydoTreothaos;
     private boolean isRefreshAnhNiemPhong;
     private boolean isRefreshChiSo;
     private TABLE_ANH_HIENTRUONG tableAnhChiso;
@@ -292,6 +301,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
     private String timeFileCaptureAnhNiemPhong;
     private String cs1, cs2, cs3, cs4, cs5;
     private int pos = -1;
+    ;
 
 
     public TthtHnChiTietCtoFragment() {
@@ -446,17 +456,18 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         List<TABLE_CHITIET_CTO> tableChitietCtoList = mSqlDAO.getChiTietCongto(agrs);
         if (tableChitietCtoList.size() != 0)
             tableChitietCto = tableChitietCtoList.get(0);
-        else
-            tableChitietCto = new TABLE_CHITIET_CTO();
-
 
         //get Data bien ban
         String[] agrsBB = new String[]{String.valueOf(onIDataCommom.getID_BBAN_TRTH()), onIDataCommom.getMaNVien()};
         List<TABLE_BBAN_CTO> tableBbanCtoList = mSqlDAO.getBBan(agrsBB);
         if (tableBbanCtoList.size() != 0)
             tableBbanCto = tableBbanCtoList.get(0);
-        else
-            tableBbanCto = new TABLE_BBAN_CTO();
+
+
+        //getInfo LyDo
+        String MA_DVIQLY = onIDataCommom.getLoginData().getmMaDvi();
+        String[] args = new String[]{MA_DVIQLY};
+        tableLydoTreothaos = mSqlDAO.getLydoTreothao(args);
 
 
         //getInfo Chung loai
@@ -475,8 +486,6 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         List<TABLE_TRAM> tableTramList = mSqlDAO.getTRAM(argsTram);
         if (tableTramList.size() != 0)
             tableTram = tableTramList.get(0);
-        else
-            tableTram = new TABLE_TRAM();
 
 
         //get TRANG_THAI_DU_LIEU
@@ -495,8 +504,6 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         tableAnhHientruongList = mSqlDAO.getAnhHienTruong(argsAnh, Common.TYPE_IMAGE.IMAGE_CONG_TO);
         if (tableAnhHientruongList.size() != 0)
             tableAnhChiso = tableAnhHientruongList.get(0);
-        else
-            tableAnhChiso = new TABLE_ANH_HIENTRUONG();
 
 
         //get Ảnh niêm phong
@@ -504,8 +511,6 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         tableAnhHientruongList = mSqlDAO.getAnhHienTruong(argsAnh, Common.TYPE_IMAGE.IMAGE_CONG_TO_NIEM_PHONG);
         if (tableAnhHientruongList.size() != 0)
             tableAnhNiemPhong = tableAnhHientruongList.get(0);
-        else
-            tableAnhNiemPhong = new TABLE_ANH_HIENTRUONG();
 
 
         //fill data text view
@@ -537,6 +542,8 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
 
         //fill spin
+        fillSpinLyDo(trangThaiDuLieu);
+
         fillSpinLoaiHom(trangThaiDuLieu);
 
         fillSpinPhuongthucdoxa(trangThaiDuLieu);
@@ -602,6 +609,43 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
     }
 
+    private void fillSpinLyDo(Common.TRANG_THAI_DU_LIEU TRANG_THAI_DU_LIEU) throws Exception {
+        if (tableLydoTreothaos == null)
+            return;
+
+        String LY_DO_TREO_THAO = tableBbanCto.getLY_DO_TREO_THAO();
+        int pos = -1;
+        for (int i = 0; i < tableLydoTreothaos.size(); i++) {
+            if (tableLydoTreothaos.get(i).getMA_LDO().equalsIgnoreCase(LY_DO_TREO_THAO)) {
+                pos = i;
+                break;
+            }
+        }
+
+
+        if (pos < 0)
+            return;
+
+
+        //set adapter
+        ArrayAdapter<TABLE_LYDO_TREOTHAO> adapterLydo = new ArrayAdapter<>(getActivity(),
+                R.layout.row_tththn_spin, tableLydoTreothaos);
+        adapterLydo.setDropDownViewResource(R.layout.row_tththn_spin_dropdown_select);
+        spLoaihom.setAdapter(adapterLydo);
+
+        spLydo.setSelection(pos);
+        spLydo.invalidate();
+
+        //nếu đã ghi
+        spLoaihom.setEnabled(true);
+        ibtnLoaihom.setEnabled(true);
+        if (TRANG_THAI_DU_LIEU == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS || TRANG_THAI_DU_LIEU == Common.TRANG_THAI_DU_LIEU.DA_XAC_NHAN_TREN_CMIS) {
+            spLoaihom.setEnabled(false);
+            ibtnLoaihom.setEnabled(false);
+        }
+    }
+
+
     private void fillSpinLoaiHom(Common.TRANG_THAI_DU_LIEU TRANG_THAI_DU_LIEU) throws Exception {
         //set adapter
         ArrayAdapter<String> adapterSoVien = new ArrayAdapter<>(getActivity(),
@@ -618,8 +662,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         //nếu đã ghi
         spLoaihom.setEnabled(true);
         ibtnLoaihom.setEnabled(true);
-        if (TRANG_THAI_DU_LIEU == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS || TRANG_THAI_DU_LIEU == Common.TRANG_THAI_DU_LIEU.DA_XAC_NHAN_TREN_CMIS)
-        {
+        if (TRANG_THAI_DU_LIEU == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS || TRANG_THAI_DU_LIEU == Common.TRANG_THAI_DU_LIEU.DA_XAC_NHAN_TREN_CMIS) {
             spLoaihom.setEnabled(false);
             ibtnLoaihom.setEnabled(false);
         }
@@ -641,8 +684,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         //set enable
         spSochikiemdinh.setEnabled(true);
         ibtnSochikiemdinh.setEnabled(true);
-        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS || trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_XAC_NHAN_TREN_CMIS)
-        {
+        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS || trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_XAC_NHAN_TREN_CMIS) {
             spSochikiemdinh.setEnabled(false);
             ibtnSochikiemdinh.setEnabled(false);
         }
@@ -664,8 +706,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         //set enable
         spSochihomhop.setEnabled(true);
         ibtnSochihomhop.setEnabled(true);
-        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS || trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_XAC_NHAN_TREN_CMIS)
-        {
+        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS || trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_XAC_NHAN_TREN_CMIS) {
             spSochihomhop.setEnabled(false);
             ibtnSochihomhop.setEnabled(false);
         }
@@ -687,8 +728,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         //set enable
         spSochibooc.setEnabled(true);
         ibtnSochibooc.setEnabled(true);
-        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS || trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_XAC_NHAN_TREN_CMIS)
-        {
+        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS || trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_XAC_NHAN_TREN_CMIS) {
             spSochibooc.setEnabled(false);
             ibtnSochibooc.setEnabled(false);
         }
@@ -717,8 +757,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         //set enable
         spPhuongthucdoxa.setEnabled(true);
         ibtnPhuongthucdoxa.setEnabled(true);
-        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS || trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_XAC_NHAN_TREN_CMIS)
-        {
+        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS || trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_XAC_NHAN_TREN_CMIS) {
             spPhuongthucdoxa.setEnabled(false);
             ibtnPhuongthucdoxa.setEnabled(false);
         }
@@ -726,7 +765,6 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
     private void showTextView() {
         tvLoaicto.setText(tableLoaiCongTo.getTEN_LOAI_CTO());
-        tvLydo.setText(tableBbanCto.getLY_DO_TREO_THAO());
         tvKH.setText(tableBbanCto.getTEN_KHANG());
         tvNhacungcap.setText(tableLoaiCongTo.getMA_HANG());
         tvMaGCS.setText(tableBbanCto.getMA_GCS_CTO());
@@ -864,8 +902,8 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
         for (int i = (loaiCto.bochiso.length); i < textViews.length; i++) {
 
-            textViews[i].setVisibility(isGoneNotVisible?View.GONE:View.INVISIBLE);
-            editTexts[i].setVisibility(isGoneNotVisible?View.GONE:View.INVISIBLE);
+            textViews[i].setVisibility(isGoneNotVisible ? View.GONE : View.INVISIBLE);
+            editTexts[i].setVisibility(isGoneNotVisible ? View.GONE : View.INVISIBLE);
         }
     }
 
@@ -1132,6 +1170,13 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
     }
 
     private void catchSelectSpinner() {
+        ibtnLydo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spLydo.performClick();
+            }
+        });
+
         ibtnLoaihom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

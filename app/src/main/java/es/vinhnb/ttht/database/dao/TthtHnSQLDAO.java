@@ -21,6 +21,7 @@ import es.vinhnb.ttht.database.table.TABLE_CHITIET_CTO;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_TUTI;
 import es.vinhnb.ttht.database.table.TABLE_HISTORY;
 import es.vinhnb.ttht.database.table.TABLE_LOAI_CONG_TO;
+import es.vinhnb.ttht.database.table.TABLE_LYDO_TREOTHAO;
 import es.vinhnb.ttht.database.table.TABLE_TRAM;
 import esolutions.com.esdatabaselib.baseSqlite.ItemFactory;
 import esolutions.com.esdatabaselib.baseSqlite.SqlDAO;
@@ -504,6 +505,20 @@ public class TthtHnSQLDAO extends SqlDAO {
         Log.d(TAG, "getBBan: " + cursor.getCount());
 
         return super.selectAllLazy(TABLE_BBAN_CTO.class, cursor);
+    }
+
+    public List<TABLE_LYDO_TREOTHAO> getLydoTreothao(String[] args) {
+        String query = "SELECT  * " +
+                " FROM " +
+                TABLE_LYDO_TREOTHAO.table.getName() +
+                " WHERE " +
+                TABLE_LYDO_TREOTHAO.table.MA_DVIQLY.name() +
+                " = ?" +
+                "";
+
+        Cursor cursor = super.mDatabase.rawQuery(query, args);
+
+        return super.selectAllLazy(TABLE_LYDO_TREOTHAO.class, cursor);
     }
 
     public List<TABLE_LOAI_CONG_TO> getLoaiCongto(String[] argsCloai) {

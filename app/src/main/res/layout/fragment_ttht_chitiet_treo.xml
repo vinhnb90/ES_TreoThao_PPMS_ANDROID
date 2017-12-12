@@ -103,29 +103,6 @@
                         tools:text="abcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabc" />
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/rv_4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    tools:visibility="gone">
-
-                    <TextView
-                        android:id="@+id/tv_4a"
-                        style="@style/textStyle1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Lý do treo tháo" />
-
-                    <EditText
-                        android:id="@+id/tv_4a_lydo"
-                        style="@style/textStyle6"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv_4a"
-                        tools:text="abcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabc" />
-                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -690,6 +667,70 @@
                         android:layout_marginLeft="@dimen/_5sdp"
                         android:layout_toRightOf="@+id/tv_2"
                         android:background="@color/tththn_text_more_less_black" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/rv_lydotreothao"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/tv_lydo"
+                        style="@style/textStyle1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lý do treo tháo" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_24sdp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_below="@+id/tv_lydo"
+                        android:background="@drawable/xml_tththn_spin"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_2sdp">
+
+                        <ImageButton
+                            android:id="@+id/iv_sp_lydo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:minHeight="@dimen/_24sdp"
+                            android:src="@drawable/ic_arrow_down" />
+
+                        <View
+                            android:id="@+id/v_sp_lydo"
+                            android:layout_width="1dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_toLeftOf="@+id/iv_sp_lydo"
+                            android:background="@color/tththn_text_less_black"
+                            android:minHeight="@dimen/_24sdp" />
+
+                        <Spinner
+                            android:id="@+id/sp_lydo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:layout_toRightOf="@+id/v_sp_lydo"
+                            android:background="@null"
+                            android:gravity="center"
+                            android:minHeight="@dimen/_24sdp"
+                            android:spinnerMode="dropdown" />
+                    </RelativeLayout>
+
+
                 </RelativeLayout>
 
                 <RelativeLayout

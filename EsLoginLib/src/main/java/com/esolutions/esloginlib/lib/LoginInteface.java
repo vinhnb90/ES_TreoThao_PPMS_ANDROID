@@ -9,7 +9,7 @@ import java.util.List;
 public interface LoginInteface<T> {
     void openMainView(LoginFragment.LoginData mLoginData);
 
-    boolean checkServerLogin(LoginFragment.LoginData loginData) throws Exception;
+    LoginFragment.ResultLogin checkServerLogin(LoginFragment.LoginData loginData) throws Exception;
 
     List<T> callServerDepart() throws Exception;
 

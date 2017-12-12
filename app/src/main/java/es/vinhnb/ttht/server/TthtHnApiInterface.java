@@ -8,6 +8,7 @@ import java.util.List;
 
 import es.vinhnb.ttht.entity.api.CHUNG_LOAI_CONGTO;
 import es.vinhnb.ttht.entity.api.D_DVIQLYModel;
+import es.vinhnb.ttht.entity.api.D_LY_DO_MODEL;
 import es.vinhnb.ttht.entity.api.MTBModelNew;
 import es.vinhnb.ttht.entity.api.MTB_ResultModel_NEW;
 import es.vinhnb.ttht.entity.api.MTB_TuTiModel;
@@ -53,6 +54,8 @@ public interface TthtHnApiInterface {
     @GET("LayDuLieuLoaiCongTo")
     Call<List<CHUNG_LOAI_CONGTO>> LayDuLieuLoaiCongTo();
 
+    @GET("GET_LY_DO_TREO_THAO")
+    Call<List<D_LY_DO_MODEL>> GET_LY_DO_TREO_THAO(@Query("maDonVi") String maDonVi);
 
     @POST("PostMTBWithImage")
     Call<List<MTB_ResultModel_NEW>> PostMTBWithImage(@Body List<MTBModelNew> list);

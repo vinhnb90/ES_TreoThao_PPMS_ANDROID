@@ -51,6 +51,7 @@ import retrofit2.Response;
 import static es.vinhnb.ttht.common.Common.DELAY;
 import static es.vinhnb.ttht.common.Common.DELAY_PROGESS_PBAR;
 import static es.vinhnb.ttht.common.Common.TRANG_THAI_DOI_SOAT.CHUA_DOISOAT;
+import static es.vinhnb.ttht.common.Common.TRANG_THAI_DU_LIEU.GUI_THAT_BAI;
 import static es.vinhnb.ttht.common.Common.TYPE_IMAGE.IMAGE_TI;
 import static es.vinhnb.ttht.common.Common.TYPE_IMAGE.IMAGE_TU;
 import static es.vinhnb.ttht.server.TthtHnApiInterface.IAsync.BUNDLE_DATA;
@@ -1005,7 +1006,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
         TABLE_BBAN_CTO tableBbanCtoOld = (TABLE_BBAN_CTO) tableBbanCto.clone();
         switch (trangThai) {
             case GUI_CMIS_THATBAI:
-                tableBbanCto.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DA_GHI.content);
+                tableBbanCto.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.GUI_THAT_BAI.content);
                 sobbUploadError++;
                 break;
             case DANG_CHO_CMIS_XACNHAN:
@@ -1033,7 +1034,9 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
         //update table BBAN
         tableBbanCto.setID_TABLE_BBAN_CTO((int) mSqlDAO.updateRows(TABLE_BBAN_CTO.class, tableBbanCtoOld, tableBbanCto));
 
-        hashMapData.get(tableBbanCto.getID_BBAN_TRTH()).TRANG_THAI_DU_LIEU = Common.TRANG_THAI_DOI_SOAT.findTRANG_THAI_DOI_SOAT(tableBbanCto.getTRANG_THAI_DOI_SOAT());
+        hashMapData.get(tableBbanCto.getID_BBAN_TRTH()).TRANG_THAI_DU_LIEU = Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(tableBbanCto.getTRANG_THAI_DU_LIEU());
+
+        //vẫn để đối soát để hiển thị khi vào lại
 
 
         getView().post(new Runnable() {
@@ -1185,7 +1188,8 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                 element.TEN_KH = data.get(i).TEN_KH;
                 element.LOAI_CTO_TREO = data.get(i).LOAI_CTO;
                 element.TEN_ANH_TREO = data.get(i).TEN_ANH;
-                element.TRANG_THAI_DU_LIEU = data.get(i).TRANG_THAI_DOISOAT;
+                element.TRANG_THAI_DU_LIEU = data.get(i).TRANG_THAI_DU_LIEU;
+                element.TRANG_THAI_DOISOAT = data.get(i).TRANG_THAI_DOISOAT;
                 element.ID_BBAN_TRTH = data.get(i).ID_BBAN_TRTH;
 
                 hashMapData.put(data.get(i).ID_BBAN_TRTH, element);
@@ -1205,9 +1209,9 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                     hashMapData.get(data.get(i).ID_BBAN_TRTH).LOAI_CTO_THAO = data.get(i).LOAI_CTO;
                     hashMapData.get(data.get(i).ID_BBAN_TRTH).CHI_SO_THAO = data.get(i).CHI_SO;
                     hashMapData.get(data.get(i).ID_BBAN_TRTH).TEN_ANH_THAO = data.get(i).TEN_ANH;
-
+                    hashMapData.get(data.get(i).ID_BBAN_TRTH).TRANG_THAI_DU_LIEU = data.get(i).TRANG_THAI_DU_LIEU;
                     //tăng số biên bản có thể upload
-                    if (data.get(i).TRANG_THAI_DOISOAT == Common.TRANG_THAI_DOI_SOAT.DA_DOISOAT || data.get(i).TRANG_THAI_DOISOAT == GUI_THAT_BAI) {
+                    if (data.get(i).TRANG_THAI_DU_LIEU == Common.TRANG_THAI_DU_LIEU.DA_GHI || data.get(i).TRANG_THAI_DU_LIEU == GUI_THAT_BAI) {
                         sobbUpload++;
                         listID_BBAN_TRTH.add(data.get(i).ID_BBAN_TRTH);
                     }
@@ -1227,16 +1231,12 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                         try {
                             if (listDataDoiSoatAdapter.size() != 0 && pos < listDataDoiSoatAdapter.size()) {
 
-                                switch (listDataDoiSoatAdapter.get(pos).TRANG_THAI_DU_LIEU) {
+                                switch (listDataDoiSoatAdapter.get(pos).TRANG_THAI_DOISOAT) {
                                     case CHUA_DOISOAT:
-                                        listDataDoiSoatAdapter.get(pos).TRANG_THAI_DU_LIEU = Common.TRANG_THAI_DOI_SOAT.DA_DOISOAT;
+                                        listDataDoiSoatAdapter.get(pos).TRANG_THAI_DOISOAT = Common.TRANG_THAI_DOI_SOAT.DA_DOISOAT;
                                         break;
-                                    case GUI_THAT_BAI:
                                     case DA_DOISOAT:
-                                        listDataDoiSoatAdapter.get(pos).TRANG_THAI_DU_LIEU = CHUA_DOISOAT;
-                                        break;
-
-                                    case GUI_THANH_CONG:
+                                        listDataDoiSoatAdapter.get(pos).TRANG_THAI_DOISOAT = Common.TRANG_THAI_DOI_SOAT.CHUA_DOISOAT;
                                         break;
                                 }
 
@@ -1259,7 +1259,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
 
 
                                 //update so bien ban
-                                if (listDataDoiSoatAdapter.get(pos).TRANG_THAI_DU_LIEU == Common.TRANG_THAI_DOI_SOAT.DA_DOISOAT || listDataDoiSoatAdapter.get(pos).TRANG_THAI_DU_LIEU == GUI_THAT_BAI) {
+                                if (listDataDoiSoatAdapter.get(pos).TRANG_THAI_DOISOAT == Common.TRANG_THAI_DOI_SOAT.DA_DOISOAT) {
                                     sobbUpload++;
                                     listID_BBAN_TRTH.add(listDataDoiSoatAdapter.get(pos).ID_BBAN_TRTH);
                                 } else {

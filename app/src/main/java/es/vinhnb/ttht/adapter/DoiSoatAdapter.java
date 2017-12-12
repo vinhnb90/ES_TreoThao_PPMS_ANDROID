@@ -91,49 +91,61 @@ public class DoiSoatAdapter extends RecyclerView.Adapter<DoiSoatAdapter.ViewHold
             holder.tvTenKH.setText(doiSoatAdapter.TEN_KH);
             holder.tvDiaChiKH.setText(doiSoatAdapter.DIA_CHI_HOADON);
 
-            //default set chua doi soat
+            //default set button doi soat
             holder.btnSelectUpload.setVisibility(View.VISIBLE);
             holder.btnSelectUpload.setBackground(xml_tththn_rectangle11_type1);
             holder.btnSelectUpload.setTextColor(tththn_button);
             holder.btnSelectUpload.setText("CHỌN GỬI");
             holder.btnSelectUpload.setCompoundDrawablesWithIntrinsicBounds(null, null, ic_tththn_unmark, null);
-            holder.tvDoiSoatTrangThai.setText(doiSoatAdapter.TRANG_THAI_DU_LIEU.content);
-            holder.tvDoiSoatTrangThai.setBackgroundColor(ContextCompat.getColor(context, doiSoatAdapter.TRANG_THAI_DU_LIEU.color));
+            holder.btnSelectUpload.setVisibility(View.VISIBLE);
 
-            switch (doiSoatAdapter.TRANG_THAI_DU_LIEU) {
-                case CHUA_TON_TAI:
-                    break;
-                case CHUA_GHI:
-                    break;
-                case DA_GHI:
-                    break;
-                case DANG_CHO_XAC_NHAN_CMIS:
-                    break;
-                case DA_TON_TAI_GUI_TRUOC_DO:
-                    break;
-                case DA_XAC_NHAN_TREN_CMIS:
-                    break;
-                case HET_HIEU_LUC:
-                    break;
-            }
 
-            switch (doiSoatAdapter.TRANG_THAI_DU_LIEU) {
+            switch (doiSoatAdapter.TRANG_THAI_DOISOAT) {
                 case CHUA_DOISOAT:
                     break;
-                case GUI_THAT_BAI:
                 case DA_DOISOAT:
                     holder.btnSelectUpload.setVisibility(View.VISIBLE);
                     holder.btnSelectUpload.setBackground(xml_tththn_rectangle11);
                     holder.btnSelectUpload.setTextColor(text_white);
                     holder.btnSelectUpload.setText("ĐÃ CHỌN GỬI");
-
-
                     holder.btnSelectUpload.setCompoundDrawablesWithIntrinsicBounds(null, null, ic_tththn_mark, null);
                     break;
-                case GUI_THANH_CONG:
+            }
+
+
+            switch (doiSoatAdapter.TRANG_THAI_DU_LIEU) {
+
+                case CHUA_TON_TAI:
+                    holder.btnSelectUpload.setVisibility(View.GONE);
+                    break;
+                case CHUA_GHI:
+                    holder.btnSelectUpload.setVisibility(View.GONE);
+                    break;
+                case DA_GHI:
+                    holder.btnSelectUpload.setVisibility(View.GONE);
+                    break;
+                case GUI_THAT_BAI:
+                    holder.btnSelectUpload.setVisibility(View.VISIBLE);
+                    break;
+                case DANG_CHO_XAC_NHAN_CMIS:
+                    holder.btnSelectUpload.setVisibility(View.GONE);
+                    break;
+                case DA_TON_TAI_GUI_TRUOC_DO:
+                    holder.btnSelectUpload.setVisibility(View.GONE);
+                    break;
+                case DA_XAC_NHAN_TREN_CMIS:
+                    holder.btnSelectUpload.setVisibility(View.GONE);
+                    break;
+                case HET_HIEU_LUC:
                     holder.btnSelectUpload.setVisibility(View.GONE);
                     break;
             }
+
+
+            //default set text doi soat
+            holder.tvDoiSoatTrangThai.setText(doiSoatAdapter.TRANG_THAI_DU_LIEU.content);
+            holder.tvDoiSoatTrangThai.setBackgroundColor(ContextCompat.getColor(context, doiSoatAdapter.TRANG_THAI_DU_LIEU.color));
+
 
 
             String pathAnh = Common.getRecordDirectoryFolder(Common.FOLDER_NAME.FOLDER_ANH_CONG_TO.name()) + "/" + doiSoatAdapter.TEN_ANH_THAO;
@@ -333,6 +345,7 @@ public class DoiSoatAdapter extends RecyclerView.Adapter<DoiSoatAdapter.ViewHold
         public String TEN_ANH_THAO;
 
         public Common.TRANG_THAI_DU_LIEU TRANG_THAI_DU_LIEU;
+        public Common.TRANG_THAI_DOI_SOAT TRANG_THAI_DOISOAT;
         public int ID_BBAN_TRTH;
 
         @Override
@@ -354,6 +367,7 @@ public class DoiSoatAdapter extends RecyclerView.Adapter<DoiSoatAdapter.ViewHold
         public Common.MA_BDONG MA_BDONG;
         public int ID_BBAN_TRTH;
 
+        public Common.TRANG_THAI_DU_LIEU TRANG_THAI_DU_LIEU;
         public Common.TRANG_THAI_DOI_SOAT TRANG_THAI_DOISOAT;
 
         @Override

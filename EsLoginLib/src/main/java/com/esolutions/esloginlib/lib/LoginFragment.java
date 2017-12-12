@@ -364,77 +364,46 @@ public class LoginFragment extends Fragment {
                                 @Override
                                 public void run() {
                                     try {
-                                        final boolean resultCheckServerLogin = mLoginInteface.checkServerLogin(mLoginData);
+                                        final ResultLogin resultCheckServerLogin = mLoginInteface.checkServerLogin(mLoginData);
+                                        //nếu server trả về
+                                        if (resultCheckServerLogin.isLoginSuccess) {
+                                            processLogin();
+                                        } else {
+                                            //ko login đc server
+                                            //check login ofline
 
-
-                                        //check login offline,
-                                        // nếu có mode login thì lấy kết quả seesion, ngược lại bỏ qua phần này resultCheckSessionLogin = true;
-                                        boolean resultCheckSessionLogin = true;
-                                        if (mILoginOffline != null) {
-                                            resultCheckSessionLogin = mILoginOffline.checkSessionLogin(mLoginData);
-                                        }
-
-
-                                        //login offline
-                                        //Hiển thị message thông báo nếu đang chế độ ofline gọi main
-                                        if (!resultCheckServerLogin) {
-                                            //nếu có mạng thì  không cho login offline
-                                            if (Common.isNetworkConnected(getContext())) {
-                                                showSnackBar("Thông báo", "Đăng nhập không thành công!", null);
-                                                return;
+                                            boolean resultCheckOfflineLogin = false;
+                                            if (mILoginOffline != null) {
+                                                resultCheckOfflineLogin = mILoginOffline.checkSessionLogin(mLoginData);
                                             }
 
-                                            if (resultCheckSessionLogin) {
-                                                ISnackbarIteractions snackbarIteractions = new ISnackbarIteractions() {
+                                            //check kết quả
+                                            if (resultCheckOfflineLogin) {
+                                                //nếu ofline ok
+                                                Common.IDialog iDialog = new Common.IDialog() {
                                                     @Override
-                                                    public void doIfPressOK() {
+                                                    public void clickOK() {
                                                         try {
-                                                            //process login
                                                             processLogin();
                                                         } catch (Exception e) {
-                                                            mLoginViewEntity.getViewLayout().post(new Runnable() {
-                                                                @Override
-                                                                public void run() {
-                                                                    try {
-                                                                        //enable again all view in login
-                                                                        if (mDepartModule != null) {
-                                                                            mEtUser.setEnabled(true);
-                                                                            mEtPass.setEnabled(true);
-                                                                            mCbSaveInfo.setEnabled(true);
-
-
-                                                                            mDepartModule.getViewEntity().getSpDvi().setEnabled(true);
-                                                                            mDepartModule.getViewEntity().getIbtnDownloadDvi().setEnabled(true);
-
-
-                                                                            //hide progressbar
-                                                                            mLoginViewEntity.getBtnLogin().setVisibility(View.VISIBLE);
-                                                                            mLoginViewEntity.getPbarLogin().setVisibility(View.GONE);
-
-                                                                        }
-                                                                    } catch (Exception e) {
-                                                                        e.printStackTrace();
-                                                                        showSnackBar("Lỗi đăng nhập", e.getMessage(), null);
-                                                                    }
-                                                                }
-                                                            });
+                                                            showSnackBar("Đăng nhập chế độ offline thất bại!", null, null);
                                                         }
                                                     }
-                                                };
-                                                showSnackBar("Thông báo", "Đăng nhập chế độ offline!", snackbarIteractions);
-                                            } else {
-                                                showSnackBar("Thông báo", "Đăng nhập thất bại. Yêu cầu có kết nối mạng!", null);
-                                            }
-                                        } else {
-                                            //open main
-                                            //login online
-                                            //set data login
-                                            processLogin();
+
+                                                    @Override
+                                                    public void clickCancel() {
+
+                                                    }
+                                                }.setTextBtnOK("Đăng nhập OFFLINE");
+
+                                                Common.showDialog(getContext(), "Đăng nhập chế độ offline", iDialog);
+                                            }else
+                                                showSnackBar("Đăng nhập không thành công.", resultCheckServerLogin.message, null);
                                         }
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                         if (TextUtils.isEmpty(e.getMessage()))
-                                            showSnackBar("Lỗi đăng nhập", "Time out", null);
+                                            showSnackBar("Time out", null , null);
                                         else
                                             showSnackBar("Lỗi đăng nhập", e.getMessage(), null);
                                     } finally {
@@ -894,6 +863,16 @@ public class LoginFragment extends Fragment {
 
     private interface ISnackbarIteractions {
         void doIfPressOK();
+    }
+
+    public static class ResultLogin {
+         boolean isLoginSuccess;
+         String message;
+
+        public ResultLogin(boolean isLoginSuccess, String message) {
+            this.isLoginSuccess = isLoginSuccess;
+            this.message = message;
+        }
     }
 
 

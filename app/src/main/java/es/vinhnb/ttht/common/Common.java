@@ -670,6 +670,7 @@ public class Common {
         CHUA_TON_TAI("CHƯA TỒN TẠI", R.color.text_white),
         CHUA_GHI("CHƯA GHI", R.color.tththn_trangthai_dulieu_chuaghi),
         DA_GHI("ĐÃ GHI", R.color.tththn_trangthai_dulieu_da_ghi),
+        GUI_THAT_BAI("GỬI THẤT BẠI", R.color.tththn_trangthai_dulieu_da_ghi),
         DANG_CHO_XAC_NHAN_CMIS("ĐANG CHỜ XÁC NHẬN CMIS", R.color.tththn_trangthai_dulieu_dangcho_xacnhan),
         DA_TON_TAI_GUI_TRUOC_DO("ĐÃ TỒN TẠI TRƯỚC ĐÓ", R.color.tththn_trangthai_dulieu_da_tontai_truocdo),
         DA_XAC_NHAN_TREN_CMIS("ĐÃ XÁC NHẬN TRÊN CMIS", R.color.tththn_trangthai_dulieu_da_xacnhan_cmis),

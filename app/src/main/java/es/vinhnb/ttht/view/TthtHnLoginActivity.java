@@ -33,6 +33,7 @@ import es.vinhnb.ttht.database.table.TABLE_CHITIET_TUTI;
 import es.vinhnb.ttht.database.table.TABLE_DVIQLY;
 import es.vinhnb.ttht.database.table.TABLE_HISTORY;
 import es.vinhnb.ttht.database.table.TABLE_LOAI_CONG_TO;
+import es.vinhnb.ttht.database.table.TABLE_LYDO_TREOTHAO;
 import es.vinhnb.ttht.database.table.TABLE_SESSION;
 import es.vinhnb.ttht.database.table.TABLE_TRAM;
 import es.vinhnb.ttht.entity.api.D_DVIQLYModel;
@@ -208,7 +209,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
     }
 
     @Override
-    public boolean checkServerLogin(LoginFragment.LoginData data) throws Exception {
+    public LoginFragment.ResultLogin checkServerLogin(LoginFragment.LoginData data) throws Exception {
         //cài đặt đường dẫn máy chủ
         //create api server
         //get list depart
@@ -238,19 +239,16 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         if (userMtbResponse.isSuccessful()) {
             if (statusCode == 200) {
                 userMtb = userMtbResponse.body();
-                mMaNVien = userMtb.MA_NHAN_VIEN;
-                if (TextUtils.isEmpty(mMaNVien) || mMaNVien.equalsIgnoreCase("error")) {
-                    showSnackBar(Common.MESSAGE.ex02.getContent(), "Không lấy được dữ liệu nhân viên, vui lòng xem địa lại thông tin đăng nhập, đăng kí imei máy tính bảng!", null);
-                    return false;
-                }
-                return true;
+                if (!TextUtils.isEmpty(userMtb.MA_NHAN_VIEN)) {
+                    mMaNVien = userMtb.MA_NHAN_VIEN;
+                    return new LoginFragment.ResultLogin(true, userMtb.ERROR);
+                } else
+                    return new LoginFragment.ResultLogin(false, userMtb.ERROR);
             } else {
-                showSnackBar(Common.MESSAGE.ex02.getContent(), "Mã lỗi: " + statusCode + "\nNội dung:" + userMtbResponse.errorBody().string(), null);
-                return false;
+                return new LoginFragment.ResultLogin(false, "Mã lỗi: " + statusCode + "\nNội dung:" + userMtbResponse.errorBody().string());
             }
         } else {
-            showSnackBar(Common.MESSAGE.ex06.getContent(), null, null);
-            return false;
+            return new LoginFragment.ResultLogin(false, "Không kết nối được máy chủ");
         }
     }
 
@@ -323,7 +321,8 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
                         TABLE_LOAI_CONG_TO.class,
                         TABLE_SESSION.class,
                         TABLE_TRAM.class,
-                        TABLE_HISTORY.class
+                        TABLE_HISTORY.class,
+                        TABLE_LYDO_TREOTHAO.class
                 });
 
 
@@ -388,10 +387,10 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
 
             @Override
             public String getCodeDepart(int pos) {
-                if(listDepart.size() ==0)
+                if (listDepart.size() == 0)
                     listDepart = mSqlDAO.selectAllLazy(TABLE_DVIQLY.class, null);
 
-                if(pos>=listDepart.size())
+                if (pos >= listDepart.size())
                     return "";
 
                 return listDepart.get(pos).getMA_DVIQLY();
