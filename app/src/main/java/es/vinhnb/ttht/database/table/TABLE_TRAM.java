@@ -14,7 +14,7 @@ import esolutions.com.esdatabaselib.baseSqlite.anonation.Table;
  */
 
 @Table(name = "TABLE_TRAM")
-public class TABLE_TRAM {
+public class TABLE_TRAM implements Cloneable{
     @EnumNameCollumn()
     public enum table {
         ID_TABLE_TRAM,
@@ -155,5 +155,10 @@ public class TABLE_TRAM {
 
     public void setDINH_DANH(String DINH_DANH) {
         this.DINH_DANH = DINH_DANH;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

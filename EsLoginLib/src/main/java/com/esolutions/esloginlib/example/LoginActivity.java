@@ -82,6 +82,11 @@ public class LoginActivity extends AppCompatActivity implements LoginInteface<De
                 }
 
                 @Override
+                public void deleteSessionDatabaseLogin(LoginFragment.LoginData dataLoginSession) throws Exception {
+
+                }
+
+                @Override
                 public String getCodeDepart(int pos) {
                     return null;
                 }

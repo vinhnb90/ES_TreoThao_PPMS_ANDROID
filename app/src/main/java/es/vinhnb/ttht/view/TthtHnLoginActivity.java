@@ -167,6 +167,8 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         LoginFragment.LoginData loginData = loginFragment.getmLoginData();
         bundle.putParcelable(BUNDLE_LOGIN, loginData);
         bundle.putString(BUNDLE_MA_NVIEN, mMaNVien);
+
+        Common.setURLServer(loginData.getmURL());
         startActivity(new Intent(TthtHnLoginActivity.this, TthtHnMainActivity.class).putExtras(bundle));
     }
 
@@ -387,6 +389,32 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
 
                 //save data
                 mSqlDAO.insert(TABLE_SESSION.class, dataCheck);
+            }
+
+            @Override
+            public void deleteSessionDatabaseLogin(LoginFragment.LoginData loginData) throws Exception {
+                TABLE_SESSION dataCheck = new TABLE_SESSION();
+                dataCheck.setMA_DVIQLY(listDepart.get(loginData.getmPosDvi()).getMA_DVIQLY());
+                dataCheck.setUSERNAME(loginData.getmUser());
+                dataCheck.setPASSWORD(loginData.getmPass());
+
+
+                //check row in TABLE_SESSION
+                String[] collumnCheck = new String[]{
+                        TABLE_SESSION.declared.MA_DVIQLY.name(),
+                        TABLE_SESSION.declared.USERNAME.name(),
+                        TABLE_SESSION.declared.PASSWORD.name()};
+
+                String[] valuesCheck = new String[]{
+                        dataCheck.getMA_DVIQLY(),
+                        dataCheck.getUSERNAME(),
+                        dataCheck.getPASSWORD()
+                };
+
+                mSqlDAO.deleteRows(TABLE_SESSION.class, collumnCheck, valuesCheck);
+
+
+
             }
 
             @Override

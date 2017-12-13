@@ -398,7 +398,7 @@
         android:textStyle="bold"
         android:id="@+id/tv_nodata2"
         android:layout_centerInParent="true"
-        android:text="Không có dữ liệu"
+        android:text="Không có dữ liệu đối soát"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

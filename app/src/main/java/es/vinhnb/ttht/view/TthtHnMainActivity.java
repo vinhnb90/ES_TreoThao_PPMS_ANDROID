@@ -355,7 +355,6 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                                 mSqlDao.deleteAll(TABLE_BBAN_TUTI.class);
                                 mSqlDao.deleteAll(TABLE_CHITIET_TUTI.class);
                                 mSqlDao.deleteAll(TABLE_CHITIET_CTO.class);
-                                mSqlDao.deleteAll(TABLE_DVIQLY.class);
                                 mSqlDao.deleteAll(TABLE_LOAI_CONG_TO.class);
                                 mSqlDao.deleteAll(TABLE_TRAM.class);
                                 mSqlDao.deleteAll(TABLE_HISTORY.class);
@@ -363,7 +362,10 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 showSnackBar(Common.MESSAGE.ex0x.getContent(), e.getMessage(), null);
+                            }finally {
+                                finish();
                             }
+
 
                         }
 
@@ -371,9 +373,8 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                         void clickCancel() {
 
                         }
-                    }.setTextBtnOK("CHÉP NỘI DUNG");
-                    TthtHnBaseFragment.showDialog(this, "Bạn có chắc muốn xóa tất cả dữ liệu!", iDialog);
-                    Toast.makeText(this, "menu1", Toast.LENGTH_SHORT).show();
+                    }.setTextBtnOK("XÓA DỮ LIỆU").setTextBtnCancel("HỦY THAO TÁC");
+                    TthtHnBaseFragment.showDialog(this, "Bạn có chắc muốn xóa tất cả dữ liệu!. Màn hình sẽ quay về đăng nhập", iDialog);
                     break;
 
                 default:
