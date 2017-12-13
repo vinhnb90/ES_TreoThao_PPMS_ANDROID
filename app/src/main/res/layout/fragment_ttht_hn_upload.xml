@@ -388,7 +388,20 @@
         android:layout_marginTop="@dimen/_5sdp"
         android:background="@drawable/xml_tththn_retangle_bottom_more"
         android:paddingBottom="@dimen/_15sdp"
+        android:visibility="visible"
         tools:background="@drawable/xml_tththn_retangle_bottom_more"></android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:visibility="gone"
+        android:layout_below="@+id/rl_upload3"
+        android:textSize="@dimen/_12sdp"
+        android:textStyle="bold"
+        android:id="@+id/tv_nodata2"
+        android:layout_centerInParent="true"
+        android:text="Không có dữ liệu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 
 
     <Button

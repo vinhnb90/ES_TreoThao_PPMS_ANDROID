@@ -43,18 +43,25 @@
                 android:src="@mipmap/ic_download_2"
                 android:visibility="visible" />
 
-            <ProgressBar
 
-                android:id="@+id/pbar_download_dvi"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/xml_button_cricle_type2"
-                android:indeterminateTint="@color/colorPriText"
-                android:padding="@dimen/_2sdp"
+                <ProgressBar
+                    android:background="@drawable/xml_button_cricle_type2"
+                    style="@style/Base.Widget.AppCompat.ProgressBar"
+                    android:progressBackgroundTint="#fff"
+                    android:layout_toRightOf="@+id/rl_cb"
+                    android:id="@+id/pbar_download_dvi"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:indeterminateTint="@color/colorPriText"
+                    android:indeterminateTintMode="src_in"
 
-                android:scaleType="centerCrop"
-                android:src="@mipmap/ic_download_2"
-                android:visibility="gone" />
+                    android:padding="@dimen/_2sdp"
+                    android:textSize="@dimen/_10sdp"
+                    android:visibility="gone" />
+
+
+
 
         </LinearLayout>
 

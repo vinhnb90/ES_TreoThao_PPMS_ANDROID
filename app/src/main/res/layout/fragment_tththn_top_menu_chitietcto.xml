@@ -8,7 +8,7 @@
     android:orientation="horizontal"
     android:paddingLeft="@dimen/_5sdp"
     android:paddingRight="@dimen/_5sdp"
-    tools:background="#403F51B5">
+    tools:background="@color/tththn_background_lv4">
 
 
     <Button

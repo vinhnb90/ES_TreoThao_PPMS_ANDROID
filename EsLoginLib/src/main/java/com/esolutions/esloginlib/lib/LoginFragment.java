@@ -225,7 +225,7 @@ public class LoginFragment extends Fragment {
                                                 }
                                             });
 
-                                        } catch (Exception e) {
+                                        } catch (final Exception e) {
                                             e.printStackTrace();
 
 
@@ -234,6 +234,7 @@ public class LoginFragment extends Fragment {
                                                 @Override
                                                 public void run() {
                                                     try {
+                                                        showSnackBar(e.getMessage(), null, null);
                                                         mDepartModule.getViewEntity().getIbtnDownloadDvi().setVisibility(View.VISIBLE);
                                                         mDepartModule.getViewEntity().getPbarDownloadDvi().setVisibility(View.GONE);
                                                     } catch (Exception e) {
@@ -243,18 +244,17 @@ public class LoginFragment extends Fragment {
                                                 }
                                             });
 
-                                            showSnackBar("Lỗi hiển thị", e.getMessage(), null);
+
                                         }
                                     }
                                 }).start();
-                            } catch (Exception e) {
+                            } catch (final Exception e) {
                                 e.printStackTrace();
-                            } finally {
-                                //hide progressbar
                                 mDepartModule.getViewEntity().getViewLayout().post(new Runnable() {
                                     @Override
                                     public void run() {
                                         try {
+                                            showSnackBar(e.getMessage(), null, null);
                                             mDepartModule.getViewEntity().getIbtnDownloadDvi().setVisibility(View.VISIBLE);
                                             mDepartModule.getViewEntity().getPbarDownloadDvi().setVisibility(View.GONE);
                                         } catch (Exception e) {

@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.es.tungnv.views.R;
 import com.es.tungnv.views.TthtMainActivity;
@@ -43,6 +44,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     private TthtHnSQLDAO mSqlDAO;
 
     private RecyclerView mRvMain;
+    private TextView tvNodata;
     private ChiTietCtoAdapter treoCtoAdapter;
     private List<DataBBanAdapter> dataBBanAdaptersList = new ArrayList<>();
     private List<DataChiTietCtoAdapter> dataChiTietCtoAdaptersList = new ArrayList<>();
@@ -158,6 +160,9 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
 
 
     private void fillDataChungLoai(List<DataChungLoaiAdapter> dataChungLoaiAdapters) {
+        if (isShowNoDataText(dataChungLoaiAdapters.size()))
+            return;
+
         if (mRvMain.getAdapter() instanceof ChiTietCtoAdapter) {
             ((ChungLoaiAdapter) mRvMain.getAdapter()).refresh(dataChungLoaiAdapters);
         } else {
@@ -172,6 +177,8 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
 
 
     private void fillDataCto(List<DataChiTietCtoAdapter> dataTreoChiTietCtoAdapters) {
+        if (isShowNoDataText(dataTreoChiTietCtoAdapters.size()))
+            return;
 
         if (mRvMain.getAdapter() instanceof ChiTietCtoAdapter) {
             ((ChiTietCtoAdapter) mRvMain.getAdapter()).refresh(dataTreoChiTietCtoAdapters);
@@ -186,6 +193,9 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     }
 
     private void fillDataTram(List<DataTramAdapter> dataTramAdapterList) {
+        if (isShowNoDataText(dataTramAdapterList.size()))
+            return;
+
         if (mRvMain.getAdapter() instanceof TramAdapter) {
             ((TramAdapter) mRvMain.getAdapter()).refresh(dataTramAdapterList);
         } else {
@@ -199,6 +209,9 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     }
 
     private void fillDataBBanCto(List<DataBBanAdapter> dataBBanAdapters) {
+        if (isShowNoDataText(dataBBanAdapters.size()))
+            return;
+
 
         if (mRvMain.getAdapter() instanceof BBanAdapter) {
             ((BBanAdapter) mRvMain.getAdapter()).refresh(dataBBanAdapters);
@@ -211,6 +224,17 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
 
 
         mRvMain.invalidate();
+
+    }
+
+    private boolean isShowNoDataText(int size) {
+        mRvMain.setVisibility(size == 0 ? View.GONE : View.VISIBLE);
+        tvNodata.setVisibility(size == 0 ? View.VISIBLE : View.GONE);
+
+        if (size == 0)
+            return true;
+        else
+            return false;
     }
 
 
@@ -222,6 +246,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
 
         //set Layout mRvMain
         mRvMain = (RecyclerView) viewRoot.findViewById(R.id.rv_tththn_main);
+        tvNodata = (TextView) viewRoot.findViewById(R.id.tv_nodata);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRvMain.setLayoutManager(layoutManager);
     }
@@ -232,7 +257,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
         switch (tagMenuNaviLeft) {
             case BBAN_CTO:
                 //get Data and apdater
-                String[] agrs = new String[]{};
+                String[] agrs = new String[]{onIDataCommon.getMaNVien()};
                 dataBBanAdaptersList = mSqlDAO.getBBanAdapter(agrs);
 
 
@@ -246,8 +271,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
                 //nếu ở lần sau chuyển cto thì lấy dữ liệu liệu ở sharepref
 
                 MainSharePref mainSharePref = (MainSharePref) sharePrefManager.getSharePrefObject(MainSharePref.class);
-                if(!TextUtils.isEmpty(mainSharePref.tagMenuNaviLeft))
-                {
+                if (!TextUtils.isEmpty(mainSharePref.tagMenuNaviLeft)) {
                     this.tagMenuNaviLeft = TagMenuNaviLeft.findTagMenu(mainSharePref.tagMenuNaviLeft);
                 }
                 onIDataCommon.setMA_BDONG(tagMenuNaviLeft == TagMenuNaviLeft.CTO_TREO ? Common.MA_BDONG.B : Common.MA_BDONG.E);
@@ -258,9 +282,9 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
                 String messageSearch = menuTopSearchSharePref.messageSearch;
 
                 //get Data and apdater
-                tagMenuNaviLeft = onIDataCommon.getMA_BDONG() == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO:TagMenuNaviLeft.CTO_THAO;
+                tagMenuNaviLeft = onIDataCommon.getMA_BDONG() == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO : TagMenuNaviLeft.CTO_THAO;
 
-                String[] agrsCto = new String[]{onIDataCommon.getMA_BDONG().code};
+                String[] agrsCto = new String[]{onIDataCommon.getMaNVien(), onIDataCommon.getMA_BDONG().code};
                 dataChiTietCtoAdaptersList = mSqlDAO.getTreoDataChiTietCtoAdapter(agrsCto);
 
                 if (!TextUtils.isEmpty(typeSearchString)) {
@@ -497,7 +521,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
 
         this.posRecylerClick = pos;
         this.sizeList = sizeFitle;
-        MainSharePref mainSharePref = new MainSharePref(pos, sizeFitle, onIDataCommon.getMA_BDONG() == Common.MA_BDONG.B? TagMenuNaviLeft.CTO_TREO.tagFrag: TagMenuNaviLeft.CTO_THAO.tagFrag);
+        MainSharePref mainSharePref = new MainSharePref(pos, sizeFitle, onIDataCommon.getMA_BDONG() == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO.tagFrag : TagMenuNaviLeft.CTO_THAO.tagFrag);
         sharePrefManager.writeDataSharePref(MainSharePref.class, mainSharePref);
     }
 

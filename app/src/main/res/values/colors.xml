@@ -77,9 +77,9 @@
     <color name="tththn_transparent">#40000000</color>
 
 
-    <color name="tththn_background_lv1">#20448AFF</color>
+    <color name="tththn_background_lv1">#FFFFFF</color>
     <color name="tththn_background_lv2">#EEEEEE</color>
-    <color name="tththn_background_lv3">#FFFFFF</color>
+    <color name="tththn_background_lv3">#70448AFF</color>
     <color name="tththn_background_lv4">#448AFF</color>
     <color name="tththn_background_lv5">#90FFFF</color>
 

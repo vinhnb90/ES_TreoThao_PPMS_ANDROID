@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.es.tungnv.views.R;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +48,7 @@ import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 import retrofit2.Call;
 import retrofit2.Response;
 
+import static android.content.ContentValues.TAG;
 import static es.vinhnb.ttht.common.Common.DELAY;
 import static es.vinhnb.ttht.common.Common.DELAY_PROGESS_PBAR;
 import static es.vinhnb.ttht.server.TthtHnApiInterface.IAsync.BUNDLE_DATA;
@@ -64,6 +68,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
     private TextView tvDownload;
     private Button btnDownload;
     private RecyclerView rvHistory;
+    private TextView tvNodata;
 
     private TABLE_HISTORY infoSessionDownload = new TABLE_HISTORY();
     //tạo 1 string messageServer để lưu trữ thông báo của từng thời điểm phục vụ history infoSessionDownload
@@ -142,7 +147,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
         pbarDownload = (ProgressBar) viewRoot.findViewById(R.id.pbar_download);
         tvDownload = (TextView) viewRoot.findViewById(R.id.tv_download);
         btnDownload = (Button) viewRoot.findViewById(R.id.btn_download);
-
+        tvNodata = (TextView) viewRoot.findViewById(R.id.tv_nodata1);
 
         //set layout ngược
         rvHistory = (RecyclerView) viewRoot.findViewById(R.id.rv_download_history);
@@ -306,6 +311,10 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                     MtbBbanModel bbanModel = resultGeT_BBAN.get(i);
                                     final int finalI = i;
 
+                                    if(i == 10 * (i/10))
+                                    {
+                                        Log.e(TAG, "run: " );
+                                    }
 
                                     getView().postDelayed(new Runnable() {
                                         @Override
@@ -397,7 +406,6 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                             int countTU = 0;
                             for (int i = 0; i < resultGet_bban_TUTIsize; i++) {
                                 MtbBbanTutiModel bbanTutiModel = resultGet_bban_TUTI.get(i);
-
 
                                 final int finalI = i;
                                 getView().postDelayed(new Runnable() {
@@ -575,7 +583,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
 
                             //Kết thúc đồng bộ trạm
-                            infoSessionDownload.setSO_TRAM_API(resultGetTramsize);
+                            infoSessionDownload.setSO_CHUNGLOAI_API(resultLayDuLieuLoaiCongTosize);
                             getView().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -696,9 +704,13 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
 
     private void fillDataHistory2Day() {
-        //listDataHistory
-        List<DownloadAdapter.DataHistoryAdapter> tableHistories2Day = mSqlDAO.getTABLE_HISTORYinNDay(2);
 
+
+        //listDataHistory
+        List<DownloadAdapter.DataHistoryAdapter> tableHistories2Day = mSqlDAO.getTABLE_HISTORYinNDay(onIDataCommon.getMaNVien(), 7);
+
+        if (isShowNoDataText(tableHistories2Day.size()))
+            return;
 
         //fill data history
         if (downloadAdapter == null) {
@@ -716,7 +728,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
 
         //Lấy dữ liệu TRANG_THAI_DU_LIEU của biên bản gồm mã công tơ, ID bban treo tháo, mã biến động
-        String[] valueCheck = new String[]{String.valueOf(mtbCtoModel.MA_CTO), String.valueOf(mtbCtoModel.ID_BBAN_TRTH), mtbCtoModel.MA_BDONG};
+        String[] valueCheck = new String[]{String.valueOf(mtbCtoModel.MA_CTO), String.valueOf(mtbCtoModel.ID_BBAN_TRTH), mtbCtoModel.MA_BDONG, onIDataCommon.getMaNVien()};
         List<String> TRANG_THAI_DU_LIEUList = mSqlDAO.getTRANG_THAI_DU_LIEUofTABLE_CHITIET_CTO(valueCheck);
 
 
@@ -875,7 +887,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
     private void saveDataBBan(MtbBbanModel bbanModel) throws Exception {
 
         //Lấy dữ liệu TRANG_THAI_DU_LIEU của biên bản
-        String[] valueCheck = new String[]{String.valueOf(bbanModel.ID_BBAN_TRTH)};
+        String[] valueCheck = new String[]{String.valueOf(bbanModel.ID_BBAN_TRTH), onIDataCommon.getMaNVien()};
         List<String> TRANG_THAI_DU_LIEUList = mSqlDAO.getTRANG_THAI_DU_LIEUofTABLE_BBAN_CTO(valueCheck);
 
         //server ko trả về dữ liệu
@@ -985,7 +997,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
     private void saveDataBBanTuti(MtbBbanTutiModel bbanTutiModel) throws Exception {
 
         //Lấy dữ liệu TRANG_THAI_DU_LIEU của biên bản tu ti
-        String[] valueCheck = new String[]{String.valueOf(bbanTutiModel.ID_BBAN_TUTI)};
+        String[] valueCheck = new String[]{String.valueOf(bbanTutiModel.ID_BBAN_TUTI), onIDataCommon.getMaNVien()};
         List<String> TRANG_THAI_DU_LIEUList = mSqlDAO.getTRANG_THAI_DU_LIEUofTABLE_BBAN_TUTI(valueCheck);
 
 
@@ -1947,6 +1959,16 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
 
         return dataServer;
+    }
+
+    private boolean isShowNoDataText(int size) {
+        rvHistory.setVisibility(size == 0 ? View.GONE : View.VISIBLE);
+        tvNodata.setVisibility(size == 0 ? View.VISIBLE : View.GONE);
+
+        if (size == 0)
+            return true;
+        else
+            return false;
     }
 
     //endregion

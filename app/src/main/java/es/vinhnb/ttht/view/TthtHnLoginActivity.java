@@ -174,6 +174,10 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
     public List<TABLE_DVIQLY> callServerDepart() throws Exception {
         //cài đặt đường dẫn máy chủ
         //create api server
+
+        if (!Common.isNetworkConnected(this))
+            throw new Exception("Không có kết nối internet!");
+
         Common.setURLServer(loginFragment.getmLoginViewEntity().getEtURL().getText().toString());
         apiInterface = TthtHnApi.getClient().create(TthtHnApiInterface.class);
         List<TABLE_DVIQLY> dataMTB = new ArrayList<>();
@@ -201,7 +205,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
                 showSnackBar(Common.MESSAGE.ex02.getContent(), "Mã lỗi: " + statusCode + "\nNội dung:" + dviResponse.errorBody().string(), null);
             }
         } else {
-            showSnackBar(Common.MESSAGE.ex06.getContent(), null, null);
+            showSnackBar(Common.MESSAGE.ex06.getContent(), "Mã lỗi: " + statusCode + new String(dviResponse.errorBody() != null ? "\nNội dung:" + dviResponse.errorBody().string() : "").toString(), null);
         }
 
 

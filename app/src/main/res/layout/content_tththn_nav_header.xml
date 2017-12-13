@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:visibility="visible"
     android:padding="@dimen/_5sdp"
-    tools:background="@color/tththn_background_da_gui"
+    android:background="@color/tththn_background_da_gui"
     >
 
     <LinearLayout

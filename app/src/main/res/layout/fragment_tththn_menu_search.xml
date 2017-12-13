@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/_40sdp"
-    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center_vertical"
-    android:background="@color/tththn_background_lv1"
-    tools:background="@color/tththn_background_lv1"
     android:paddingBottom="@dimen/_2sdp"
     android:paddingTop="@dimen/_2sdp"
-    >
+    tools:background="@color/tththn_background_lv4">
 
     <RelativeLayout
-        android:layout_marginRight="@dimen/_7sdp"
-        android:layout_marginLeft="@dimen/_7sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginBottom="@dimen/_5sdp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_2sdp"
+        android:layout_marginRight="@dimen/_2sdp"
+        >
 
         <RelativeLayout
-            android:elevation="@dimen/_10sdp"
             android:id="@+id/rl_spin_search"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_30sdp"
@@ -27,7 +23,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/_3sdp"
             android:layout_marginRight="@dimen/_2sdp"
-            android:background="@color/text_white"
+            android:background="@drawable/xml_tththn_rectangle11_empty"
             android:orientation="horizontal">
 
             <ImageButton
@@ -37,12 +33,11 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
-                android:background="@android:color/transparent"
+                android:background="@null"
                 android:minHeight="@dimen/_24sdp"
-                android:src="@drawable/ic_arrow_down" />
+                android:src="@drawable/ic_arrow_down_white" />
 
             <View
-                android:visibility="visible"
                 android:id="@+id/v_32_sp_loaihom"
                 android:layout_width="1dp"
                 android:layout_height="wrap_content"
@@ -50,77 +45,77 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_toLeftOf="@+id/iv_spin_search"
-                android:background="@color/tththn_text_less_black"
-                android:minHeight="@dimen/_24sdp" />
-
-            <Spinner
-                android:layout_marginLeft="@dimen/_2sdp"
-                android:layout_marginTop="@dimen/_1sdp"
-                android:layout_marginBottom="@dimen/_3sdp"
-                android:id="@+id/sp_search"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
-                android:layout_toLeftOf="@+id/v_32_sp_loaihom"
                 android:background="@color/text_white"
                 android:minHeight="@dimen/_24sdp"
+                android:visibility="visible" />
+
+            <Spinner
+                android:id="@+id/sp_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:layout_marginLeft="@dimen/_2sdp"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_toLeftOf="@+id/v_32_sp_loaihom"
+                android:background="@null"
                 android:clickable="false"
+                android:minHeight="@dimen/_24sdp"
                 android:spinnerMode="dropdown" />
         </RelativeLayout>
 
         <View
-            android:visibility="gone"
             android:layout_width="@dimen/_1sdp"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_toRightOf="@id/rl_spin_search"
-            android:background="@color/text_white"></View>
+            android:background="@color/text_white"
+            android:visibility="gone"></View>
 
         <RelativeLayout
-            android:layout_marginLeft="@dimen/_2sdp"
-            android:elevation="@dimen/_5sdp"
-            android:layout_marginRight="@dimen/_2sdp"
-            android:layout_toRightOf="@+id/rl_spin_search"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@color/text_white"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp">
+            android:layout_marginLeft="@dimen/_2sdp"
+            android:layout_marginRight="@dimen/_2sdp"
+            android:layout_toRightOf="@+id/rl_spin_search"
+            android:background="@drawable/xml_tththn_rectangle11_empty"
+            >
             <!--android:background="@drawable/xml_tththn_edittext"-->
             <ImageButton
-                android:background="@color/text_white"
-                android:layout_marginBottom="@dimen/_1sdp"
-                android:layout_marginRight="@dimen/_1sdp"
-                android:layout_marginTop="@dimen/_1sdp"
                 android:id="@+id/ibtn_clearsearch"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_marginBottom="@dimen/_1sdp"
+                android:layout_marginRight="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:background="@android:color/transparent"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_tththn_clear" />
+                android:src="@drawable/ic_clear_white" />
 
             <EditText
-                android:background="@null"
-                android:textColor="@color/text_white"
-                style="@style/edittextStyle3"
                 android:id="@+id/et_search"
+                style="@style/edittextStyle3"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/ibtn_clearsearch"
+                android:background="@null"
                 android:hint="Tìm..."
-                android:textColorHint="@color/text_white"
                 android:lines="1"
                 android:maxLines="1"
                 android:scrollHorizontally="true"
                 android:scrollbars="horizontal"
                 android:singleLine="true"
+                android:textColor="@color/text_white"
+                android:textColorHint="@color/text_white"
                 android:textSize="@dimen/_10sdp" />
         </RelativeLayout>
-
 
 
     </RelativeLayout>

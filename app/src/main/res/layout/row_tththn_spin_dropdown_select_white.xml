@@ -22,9 +22,9 @@
     android:checkMark="?android:attr/listChoiceIndicatorSingle"
     android:checkMarkTint="@color/text_white"
     android:ellipsize="marquee"
-    android:backgroundTint="@color/tththn_background_lv1"
-    android:background="@color/tththn_background_lv1"
+    android:backgroundTint="@color/tththn_background_lv4"
     android:textColor="@color/text_white"
     android:gravity="center_vertical"
+    android:background="@color/tththn_background_lv4"
     android:text="đâsdasdasdsaasdsadasdsaas"
     android:textSize="@dimen/_10sdp" />

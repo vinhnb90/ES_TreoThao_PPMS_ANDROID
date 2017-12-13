@@ -55,7 +55,9 @@ public class TthtHnSQLDAO extends SqlDAO {
                 TABLE_BBAN_CTO.table.SO_BBAN.name() +
                 " FROM " +
                 TABLE_BBAN_CTO.table.getName() +
-                "\n" +
+                " WHERE " +
+                TABLE_BBAN_CTO.table.MA_NVIEN.name() +
+                " =?" +
                 ") \n" +
                 "AS BBAN JOIN (\n" +
                 "SELECT " +
@@ -207,6 +209,9 @@ public class TthtHnSQLDAO extends SqlDAO {
                 TABLE_BBAN_CTO.table.SO_BBAN.name() +
                 " FROM " +
                 TABLE_BBAN_CTO.table.getName() +
+                " WHERE " +
+                TABLE_BBAN_CTO.table.MA_NVIEN.name() +
+                " = ?" +
                 "";
 
         Cursor cursor = super.mDatabase.rawQuery(query, agrs);
@@ -240,7 +245,11 @@ public class TthtHnSQLDAO extends SqlDAO {
                 TABLE_BBAN_CTO.table.getName() +
                 " WHERE " +
                 TABLE_BBAN_CTO.table.ID_BBAN_TRTH.name() +
-                " = ?";
+                " = ?" +
+                " AND " +
+                TABLE_BBAN_CTO.table.MA_NVIEN.name() +
+                " =?" +
+                "";
 
         Cursor c = super.mDatabase.rawQuery(query, valueCheck);
         return super.selectCustomLazy(c, new ItemFactory(String.class) {
@@ -285,7 +294,11 @@ public class TthtHnSQLDAO extends SqlDAO {
                 " = ? " +
                 " AND " +
                 TABLE_CHITIET_CTO.table.MA_BDONG.name() +
-                " = ? ";
+                " = ? " +
+                " AND " +
+                TABLE_CHITIET_CTO.table.MA_NVIEN.name() +
+                " =?" +
+                "";
 
         Cursor c = super.mDatabase.rawQuery(query, valueCheck);
         return super.selectCustomLazy(c, new ItemFactory(String.class) {
@@ -304,7 +317,11 @@ public class TthtHnSQLDAO extends SqlDAO {
                 TABLE_BBAN_TUTI.table.getName() +
                 " WHERE " +
                 TABLE_BBAN_TUTI.table.ID_BBAN_TUTI.name() +
-                " = ?";
+                " = ?" +
+                " AND " +
+                TABLE_BBAN_TUTI.table.MA_NVIEN.name() +
+                " =?" +
+                "";
 
         Cursor c = super.mDatabase.rawQuery(query, valueCheck);
         return super.selectCustomLazy(c, new ItemFactory(String.class) {
@@ -317,10 +334,16 @@ public class TthtHnSQLDAO extends SqlDAO {
     }
 
 
-    public List<DownloadAdapter.DataHistoryAdapter> getTABLE_HISTORYinNDay(int nDay) {
+    public List<DownloadAdapter.DataHistoryAdapter> getTABLE_HISTORYinNDay(String MA_NVIEN, int nDay) {
         String query = "SELECT * FROM " +
                 TABLE_HISTORY.table.getName() +
                 " WHERE " +
+                TABLE_HISTORY.table.MA_NVIEN +
+                " = " +
+                "'" +
+                MA_NVIEN +
+                "'" +
+                " AND " +
                 TABLE_HISTORY.table.DATE_CALL_API.name() +
                 " > (SELECT DATETIME('now', '-" +
                 nDay +

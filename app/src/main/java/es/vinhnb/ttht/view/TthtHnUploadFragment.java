@@ -96,6 +96,8 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
     @BindView(R.id.tv_upload_bb_tv_so_bb_error)
     TextView tvUploadBBError;
 
+    @BindView(R.id.tv_nodata2)
+    TextView tvNodata;
 
     private int sobbUpload;
     private Unbinder unbinder;
@@ -125,6 +127,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
     private TABLE_ANH_HIENTRUONG anhNiemPhongTI;
     private int sobbUploadOK;
     private int sobbUploadError;
+
 
 
     public TthtHnUploadFragment() {
@@ -1290,6 +1293,19 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
 
 
         rvDoiSoat.invalidate();
+
+        if (isShowNoDataText(listDataDoiSoatAdapter.size()))
+            return;
+
+    }
+    private boolean isShowNoDataText(int size) {
+        rvDoiSoat.setVisibility(size == 0 ? View.GONE : View.VISIBLE);
+        tvNodata.setVisibility(size == 0 ? View.VISIBLE : View.GONE);
+
+        if (size == 0)
+            return true;
+        else
+            return false;
     }
 
     //endregion

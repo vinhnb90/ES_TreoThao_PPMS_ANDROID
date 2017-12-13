@@ -50,16 +50,16 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
-                    tools:background="@color/tththn_background_lv1"
+                    tools:background="@color/tththn_background_lv4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <RelativeLayout
-                        android:elevation="@dimen/_5sdp"
+                        android:background="@color/tththn_background_lv4"
+                        android:elevation="@dimen/_2sdp"
                         android:id="@+id/rl_topmenu"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_40sdp"
-                        android:background="@color/tththn_background_lv3">
+                        android:layout_height="@dimen/_40sdp">
 
                     </RelativeLayout>
 
@@ -109,7 +109,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/tththn_navi_menu"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -121,7 +121,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:background="@color/white_more_dark"
+                android:background="@color/tththn_background_da_gui"
                 >
 
                 <include layout="@layout/content_tththn_nav_header" />

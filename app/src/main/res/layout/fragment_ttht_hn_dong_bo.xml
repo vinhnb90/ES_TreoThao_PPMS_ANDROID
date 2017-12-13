@@ -266,9 +266,22 @@
 
 
     <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/rv_download_history"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/vLine_1"
         android:layout_marginTop="@dimen/_5sdp"></android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:layout_marginTop="@dimen/_100sdp"
+        android:layout_below="@+id/vLine_1"
+        android:textSize="@dimen/_12sdp"
+        android:textStyle="bold"
+        android:id="@+id/tv_nodata1"
+        android:layout_centerInParent="true"
+        android:text="Không có dữ liệu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </RelativeLayout>

@@ -39,10 +39,22 @@ import java.util.ArrayList;
 import es.vinhnb.ttht.adapter.ChiTietCtoAdapter;
 import es.vinhnb.ttht.adapter.NaviMenuAdapter;
 import es.vinhnb.ttht.common.Common;
+import es.vinhnb.ttht.database.dao.TthtHnSQLDAO;
+import es.vinhnb.ttht.database.table.TABLE_ANH_HIENTRUONG;
+import es.vinhnb.ttht.database.table.TABLE_BBAN_CTO;
+import es.vinhnb.ttht.database.table.TABLE_BBAN_TUTI;
+import es.vinhnb.ttht.database.table.TABLE_CHITIET_CTO;
+import es.vinhnb.ttht.database.table.TABLE_CHITIET_TUTI;
+import es.vinhnb.ttht.database.table.TABLE_DVIQLY;
+import es.vinhnb.ttht.database.table.TABLE_HISTORY;
+import es.vinhnb.ttht.database.table.TABLE_LOAI_CONG_TO;
+import es.vinhnb.ttht.database.table.TABLE_LYDO_TREOTHAO;
+import es.vinhnb.ttht.database.table.TABLE_TRAM;
 import es.vinhnb.ttht.entity.sharedpref.MainSharePref;
 import es.vinhnb.ttht.view.TthtHnMainFragment.OnListenerTthtHnMainFragment;
 import es.vinhnb.ttht.view.TthtHnUploadFragment.IOnTthtHnUploadFragment;
 import esolutions.com.esdatabaselib.baseSharedPref.SharePrefManager;
+import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 
 import static com.es.tungnv.views.R.layout.activity_ttht_hn_main;
 import static es.vinhnb.ttht.adapter.BBanAdapter.*;
@@ -100,6 +112,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
     private SharePrefManager sharePrefManager;
     private int ID_BBAN_TUTI_CTO_TREO;
     private int ID_BBAN_TUTI_CTO_THAO;
+    private TthtHnSQLDAO mSqlDao;
 
 
     public enum TypeFragment {
@@ -218,6 +231,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
 
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -235,6 +249,9 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
     public void initDataAndView(View viewRoot) throws Exception {
         super.setupFullScreen();
         super.setCoordinatorLayout((CoordinatorLayout) findViewById(R.id.cl_ac_main));
+
+        //sqldao
+        mSqlDao = new TthtHnSQLDAO(SqlHelper.getIntance().openDB(), this);
 
         //get Data sharepref
         sharePrefManager = SharePrefManager.getInstance();
@@ -328,6 +345,34 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                     break;
 
                 case R.id.menu_2:
+                    TthtHnBaseFragment.IDialog iDialog = new TthtHnBaseFragment.IDialog() {
+                        @Override
+                        void clickOK() {
+                            //delete
+                            try {
+                                mSqlDao.deleteAll(TABLE_BBAN_CTO.class);
+                                mSqlDao.deleteAll(TABLE_ANH_HIENTRUONG.class);
+                                mSqlDao.deleteAll(TABLE_BBAN_TUTI.class);
+                                mSqlDao.deleteAll(TABLE_CHITIET_TUTI.class);
+                                mSqlDao.deleteAll(TABLE_CHITIET_CTO.class);
+                                mSqlDao.deleteAll(TABLE_DVIQLY.class);
+                                mSqlDao.deleteAll(TABLE_LOAI_CONG_TO.class);
+                                mSqlDao.deleteAll(TABLE_TRAM.class);
+                                mSqlDao.deleteAll(TABLE_HISTORY.class);
+                                mSqlDao.deleteAll(TABLE_LYDO_TREOTHAO.class);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                showSnackBar(Common.MESSAGE.ex0x.getContent(), e.getMessage(), null);
+                            }
+
+                        }
+
+                        @Override
+                        void clickCancel() {
+
+                        }
+                    }.setTextBtnOK("CHÉP NỘI DUNG");
+                    TthtHnBaseFragment.showDialog(this, "Bạn có chắc muốn xóa tất cả dữ liệu!", iDialog);
                     Toast.makeText(this, "menu1", Toast.LENGTH_SHORT).show();
                     break;
 
@@ -1059,8 +1104,8 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
 
         final TextView maKH = (TextView) dialog.findViewById(R.id.tv_bb_maKH);
         final TextView maHopDong = (TextView) dialog.findViewById(R.id.tv_bb_ma_hopdong);
-        final TextView sobban = (Button) dialog.findViewById(R.id.tv_bb_sobb);
-        final TextView lydo = (Button) dialog.findViewById(R.id.tv_bb_lydo);
+        final TextView sobban = (TextView) dialog.findViewById(R.id.tv_bb_sobb);
+        final TextView lydo = (TextView) dialog.findViewById(R.id.tv_bb_lydo);
 
 
         //fill data
@@ -1068,6 +1113,8 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         maHopDong.setText(dataBBanAdapter.getMaHopDong());
         sobban.setText(dataBBanAdapter.getSobban());
         lydo.setText(dataBBanAdapter.getLydo());
+
+        dialog.show();
     }
     //endregion
 }
