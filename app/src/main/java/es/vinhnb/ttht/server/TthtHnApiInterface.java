@@ -15,6 +15,7 @@ import es.vinhnb.ttht.entity.api.MTB_TuTiModel;
 import es.vinhnb.ttht.entity.api.MtbBbanModel;
 import es.vinhnb.ttht.entity.api.MtbBbanTutiModel;
 import es.vinhnb.ttht.entity.api.MtbCtoModel;
+import es.vinhnb.ttht.entity.api.ResponseGetSuccessPostRequest;
 import es.vinhnb.ttht.entity.api.TRAMVIEW;
 import es.vinhnb.ttht.entity.api.UpdateStatus;
 import es.vinhnb.ttht.entity.api.UserMtb;
@@ -59,6 +60,9 @@ public interface TthtHnApiInterface {
 
     @POST("PostMTBWithImage")
     Call<List<MTB_ResultModel_NEW>> PostMTBWithImage(@Body List<MTBModelNew> list);
+
+    @POST("ResponseGetSuccess")
+    Call<Boolean> ResponseGetSuccess(@Body ResponseGetSuccessPostRequest request);
 
 
     public static class AsyncApi extends AsyncTask<Void, Void, Bundle> {

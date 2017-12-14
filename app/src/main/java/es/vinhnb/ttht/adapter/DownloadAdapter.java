@@ -22,10 +22,10 @@ import es.vinhnb.ttht.common.Common;
 public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHolder> {
 
     private Context context;
-    private List<DataHistoryAdapter> listData = new ArrayList<>();
+    private List<DataDownloadAdapter> listData = new ArrayList<>();
     private OnIDataHistoryAdapter iIteractor;
 
-    public DownloadAdapter(Context context, List<DataHistoryAdapter> listData, OnIDataHistoryAdapter iIteractor) {
+    public DownloadAdapter(Context context, List<DataDownloadAdapter> listData, OnIDataHistoryAdapter iIteractor) {
         this.context = context;
         this.listData.clear();
         this.listData = Common.cloneList(listData);
@@ -41,7 +41,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        DataHistoryAdapter history = listData.get(position);
+        DataDownloadAdapter history = listData.get(position);
 
         String dateUI = Common.convertDateToDate(String.valueOf(history.date), Common.DATE_TIME_TYPE.sqlite2, Common.DATE_TIME_TYPE.type7);
         holder.tvDate.setText(dateUI);
@@ -65,7 +65,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
     }
 
 
-    public void refresh(List<DataHistoryAdapter> listData) {
+    public void refresh(List<DataDownloadAdapter> listData) {
         this.listData.clear();
         this.listData = Common.cloneList(listData);
         notifyDataSetChanged();
@@ -111,10 +111,10 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
     }
 
     public interface OnIDataHistoryAdapter {
-        void doClickBtnMessageHistory(int pos, DataHistoryAdapter historyAdapter);
+        void doClickBtnMessageHistory(int pos, DataDownloadAdapter historyAdapter);
     }
 
-    public static class DataHistoryAdapter {
+    public static class DataDownloadAdapter {
         public String date;
         public String notify;
         public int soBB;

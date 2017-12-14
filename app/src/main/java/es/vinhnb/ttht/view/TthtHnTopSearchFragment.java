@@ -8,16 +8,21 @@ import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.es.tungnv.views.R;
+import com.esolutions.esloginlib.example.MainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -288,17 +293,75 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
 
         spSearch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-//                if (!TextUtils.isEmpty(typeSearchString))
-//                    etSearch.setText("");
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (tagMenuNaviLeft) {
+                    case BBAN_CTO:
+                        break;
+                    case TRAM:
+                        break;
+                    case CTO_TREO:
+                        break;
+                    case CTO_THAO:
+                        break;
+                    case CHUNG_LOAI:
+                        break;
+                    case CHITIET_CTO_TREO:
+                        break;
+                    case CHITIET_CTO_THAO:
+                        break;
+                    case CHITIET_BBAN_TUTI_TREO:
+                        break;
+                    case CHITIET_BBAN_TUTI_THAO:
+                        break;
+                    case EMPTY1:
+                        break;
+                    case LINE1:
+                        break;
+                    case LINE2:
+                        break;
+                    case DOWNLOAD:
+                        break;
+                    case UPLOAD:
+                        break;
+
+                    case HISTORY:
+                        Common.TYPE_SEARCH_HISTORY spClickItem = Common.TYPE_SEARCH_HISTORY.findTYPE_SEARCH(spSearch.getSelectedItem().toString());
+                        switch (spClickItem) {
+                            case TYPE_CALL_API:
+                                spSearch.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //showdialog type call
+                                        //Khởi tạo 1 popupmenu
+                                        PopupMenu popupMenu = new PopupMenu(getContext().getApplicationContext(), spSearch.getSelectedView());
+                                        //đẩy layout của mình vừa tạo ở trên vào ứng dụng
+                                        popupMenu.getMenuInflater().inflate(R.menu.popup_menu_layout, popupMenu.getMenu());
+                                        //Sự kiện click vào item của menu
+                                        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                                            @Override
+                                            public boolean onMenuItemClick(MenuItem menuItem) {
+                                                Toast.makeText(getContext(), "You Clicked : " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
+                                                return true;
+                                            }
+                                        });
+                                        popupMenu.show();
+                                    }
+                                });
+                                break;
+                            case DATE_CALL_API:
+                                //show dialog date
+                                break;
+                        }
+                        break;
+                }
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
         });
+
 
         ibtnClear.setOnClickListener(new View.OnClickListener() {
             @Override

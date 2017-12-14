@@ -216,8 +216,6 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
         fillDataDoiSoat();
 
         catchButton();
-
-
     }
 
     private void catchButton() {

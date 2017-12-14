@@ -17,8 +17,6 @@ import android.widget.Toast;
 
 import com.es.tungnv.views.R;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -40,6 +38,7 @@ import es.vinhnb.ttht.entity.api.MTB_TuTiModel;
 import es.vinhnb.ttht.entity.api.MtbBbanModel;
 import es.vinhnb.ttht.entity.api.MtbBbanTutiModel;
 import es.vinhnb.ttht.entity.api.MtbCtoModel;
+import es.vinhnb.ttht.entity.api.ResponseGetSuccessPostRequest;
 import es.vinhnb.ttht.entity.api.TRAMVIEW;
 import es.vinhnb.ttht.entity.api.UpdateStatus;
 import es.vinhnb.ttht.server.TthtHnApi;
@@ -67,7 +66,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
     private ProgressBar pbarDownload;
     private TextView tvDownload;
     private Button btnDownload;
-    private RecyclerView rvHistory;
+    private RecyclerView rvDownload;
     private TextView tvNodata;
 
     private TABLE_HISTORY infoSessionDownload = new TABLE_HISTORY();
@@ -101,7 +100,6 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         // Inflate the layout for this fragment
         View viewRoot = inflater.inflate(R.layout.fragment_ttht_hn_dong_bo, container, false);
         try {
@@ -150,8 +148,8 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
         tvNodata = (TextView) viewRoot.findViewById(R.id.tv_nodata1);
 
         //set layout ngược
-        rvHistory = (RecyclerView) viewRoot.findViewById(R.id.rv_download_history);
-        rvHistory.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        rvDownload = (RecyclerView) viewRoot.findViewById(R.id.rv_download_history);
+        rvDownload.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
     }
 
@@ -165,7 +163,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
         //fill data history 2Day
         iDataHistoryAdapter = new DownloadAdapter.OnIDataHistoryAdapter() {
             @Override
-            public void doClickBtnMessageHistory(int pos, final DownloadAdapter.DataHistoryAdapter historyAdapter) {
+            public void doClickBtnMessageHistory(int pos, final DownloadAdapter.DataDownloadAdapter historyAdapter) {
 
                 IDialog iDialog = new IDialog() {
                     @Override
@@ -195,6 +193,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                     @Override
                     public void run() {
                         try {
+                            //region init
                             //init data
                             List<UpdateStatus> resultLayDuLieuCmis = null;
                             List<MtbBbanModel> resultGeT_BBAN = null;
@@ -230,9 +229,10 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                     tvDateDownload.setTextColor(getResources().getColor(R.color.tththn_button));
                                 }
                             });
+                            //endregion
 
 
-                            //TODO LayDuLieuCmis
+                            //region LayDuLieuCmis
                             resultLayDuLieuCmis = callLayDuLieuCmis();
 
 
@@ -246,8 +246,10 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                 messageServer.append("-Máy chủ kết nối CMIS thất bại!-");
                                 throw new Exception("Kết nối CMIS thất bại. Liên hệ với quản trị viên");
                             }
+                            //endregion
 
 
+                            //region get bban và cto
                             //TODO nếu OK thì đồng bộ biên bản
                             //TODO với mỗi biên bản thì đồng bộ chi tiết công tơ tương ứng biên bản đó
                             resultGeT_BBAN = callGeT_BBAN();
@@ -296,12 +298,15 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                 }
 
 
-                                getView().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        updateInfoDownload("Kết thúc xử lý dữ liệu biên bản trên thiết bị...", 100);
-                                    }
-                                }, Common.DELAY);
+                                if (sizetableBbanCtoHetHieuLucList != 0) {
+                                    getView().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            updateInfoDownload("Kết thúc xử lý dữ liệu biên bản trên thiết bị...", 100);
+                                        }
+                                    }, Common.DELAY);
+
+                                }
 
 
                                 final int resultGeT_BBANsize = resultGeT_BBAN.size();
@@ -379,8 +384,10 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                     updateInfoDownload("Kết thúc đồng bộ biên bản công tơ...", 100);
                                 }
                             }, Common.DELAY);
+                            //endregion
 //
 
+                            //region get bban tu ti và tu ti
                             //TODO Get Tu ti
                             resultGet_bban_TUTI = callGet_bban_TUTI();
 
@@ -411,7 +418,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                 getView().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
-                                        updateInfoDownload("Đang đồng bộ dữ liệu biên bản TU TI...", finalI * 100 / resultGet_bban_TUTIsize);
+                                        updateInfoDownload("Đang đồng bộ dữ liệu TU TI...", finalI * 100 / resultGet_bban_TUTIsize);
                                     }
                                 }, DELAY_PROGESS_PBAR);
 
@@ -464,10 +471,34 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                     updateInfoDownload("Kết thúc đồng bộ dữ liệu biên bản TU TI...", 100);
                                 }
                             }, Common.DELAY);
+                            //endregion
 
 
-                            //region tram......
-                            //TODO GetTram
+                            //region xác nhận đồng bộ ok các biên bản trên
+                            //                            ResponseGetSuccessPostRequest dataRequest = new ResponseGetSuccessPostRequest(onIDataCommon.getLoginData().getmMaDvi(), onIDataCommon.getMaNVien(), "OK");
+//
+//                            //nếu call ok
+//                            if (callResponseGetSuccessPostRequest(dataRequest)) {
+//                                getView().postDelayed(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        updateInfoDownload("Kết thúc gửi yêu cầu máy chủ xác nhận đồng bộ thành công biên bản...", 100);
+//                                    }
+//                                }, Common.DELAY);
+//                            } else {
+//                                getView().postDelayed(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        updateInfoDownload("Gặp vấn dề khi gửi yêu cầu máy chủ xác nhận đồng bộ thành công biên bản...", 100);
+//                                    }
+//                                }, Common.DELAY);
+//
+//                                infoSessionDownload.setTYPE_RESULT(Common.TYPE_RESULT.ERROR.content);
+//                            }
+                            //endregion
+
+
+                            //region GetTram
                             resultGetTram = callGetTram();
                             //nếu null = có lỗi khi đồng bộ các dữ liệu trạm
                             //vẫn cho tiếp tục với các biên bản khác
@@ -480,8 +511,6 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
 
                             final int resultGetTramsize = resultGetTram.size();
-
-
                             try {
                                 //mỗi dữ liệu trạm sẽ được cập nhật toàn bộ
 
@@ -547,9 +576,10 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                     updateInfoDownload("Kết thúc đồng bộ Trạm...", 100);
                                 }
                             }, DELAY);
+                            //endregion
 
 
-                            //TODO Get Nhà cung cấp dữ liệu đo xa
+                            //region Chung loai cto
                             resultLayDuLieuLoaiCongTo = callLayDuLieuLoaiCongTo();
                             //nếu null = có lỗi khi đồng bộ các dữ liệu Chủng loại
                             if (resultLayDuLieuLoaiCongTo == null) {
@@ -614,9 +644,10 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                     updateInfoDownload("Kết thúc đồng bộ Chủng loại...", 100);
                                 }
                             }, DELAY);
+                            //endregion
 
 
-                            //TODO Get Nhà cung cấp dữ liệu đo xa
+                            //region get ly do treo thao
                             resultLayDuLieuLyDoTreothao = callLayDuLieuLyDoTreothao();
 
                             //nếu null = có lỗi khi đồng bộ các dữ liệu Chủng loại
@@ -735,12 +766,124 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
         });
     }
 
+    private boolean callResponseGetSuccessPostRequest(final ResponseGetSuccessPostRequest dataRequest) throws ExecutionException, InterruptedException {
+        TthtHnApiInterface.IAsync iAsync = new TthtHnApiInterface.IAsync() {
+            @Override
+            public void onPreExecute() throws Exception {
+                try {
+                    //init protocol server
+                    apiInterface = TthtHnApi.getClient().create(TthtHnApiInterface.class);
+
+
+                    //update
+                    getView().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            messageServer.append("-Đang gửi yêu cầu tới máy chủ xác nhận đồng bộ biên bản thành công...-");
+                            updateInfoDownload("Đang gửi yêu cầu tới máy chủ xác nhận đồng bộ biên bản thành công...", 0);
+                        }
+                    });
+
+
+                    //check internet
+                    if (!Common.isNetworkConnected(getContext())) {
+                        messageServer.append("-Chưa có kết nối internet, vui lòng kiểm tra lại!-");
+                        throw new Exception(messageServer.toString());
+                    }
+
+                } catch (final Exception e) {
+                    getView().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex10.getContent(), e.getMessage(), null);
+                        }
+                    });
+
+
+                    //ném ex ra bên ngoài thân async để cancel async
+                    e.printStackTrace();
+                    throw e;
+                }
+
+            }
+
+            @Override
+            public Bundle doInBackground() {
+                //ghi vào buldle
+                Bundle result = new Bundle();
+                Boolean dataServer = null;
+
+                try {
+                    //call check CMIS connect
+                    Call<Boolean> callResponseGetSuccess = apiInterface.ResponseGetSuccess(dataRequest);
+                    Response<Boolean> ResponseGetSuccessResponse = callResponseGetSuccess.execute();
+
+
+                    //nếu có response về thì check code 200 (OK) hoặc code khác 200 (FAIL)
+                    int statusCode = ResponseGetSuccessResponse.code();
+                    String errorBody = "";
+                    if (ResponseGetSuccessResponse.errorBody() != null)
+                        errorBody = ResponseGetSuccessResponse.errorBody().string();
+
+                    if (ResponseGetSuccessResponse.isSuccessful() && statusCode == 200) {
+                        dataServer = ResponseGetSuccessResponse.body();
+                    }
+
+
+                    result.putInt(STATUS_CODE, statusCode);
+                    result.putBoolean(BUNDLE_DATA, dataServer);
+                    result.putString(ERROR_BODY, errorBody);
+
+                    return result;
+
+                } catch (Exception e) {
+                    //history lỗi bất ngờ, nén vào bundle ném ra ngoài
+                    e.printStackTrace();
+
+
+                    //return result
+                    result.putInt(STATUS_CODE, 0);
+                    result.putBoolean(BUNDLE_DATA, false);
+                    result.putString(ERROR_BODY, e.getMessage());
+                    return result;
+                }
+            }
+        };
+
+
+        //call
+        TthtHnApiInterface.AsyncApi asyncApi = new TthtHnApiInterface.AsyncApi(iAsync);
+        asyncApi.execute();
+
+
+        Boolean dataServer = null;
+        Bundle resultPostMTBWithImage = asyncApi.get();
+
+
+        //Bundle luôn khác null
+        int statusCode = resultPostMTBWithImage.getInt(STATUS_CODE, 0);
+        String errorBody = resultPostMTBWithImage.getString(ERROR_BODY, "");
+
+
+        //check case
+        if (statusCode == 200) {
+            dataServer = resultPostMTBWithImage.getBoolean(BUNDLE_DATA);
+        } else {
+            //không show thông báo để đồng bộ các danh mục tiếp theo, chỉ ghi lịch sử
+            messageServer.append("-Gặp lỗi khi upload biên bản " + statusCode + " " + errorBody + "-");
+            infoSessionDownload.setTYPE_RESULT(Common.TYPE_RESULT.ERROR.content);
+        }
+
+
+        return dataServer;
+    }
+
 
     private void fillDataHistory2Day() {
 
 
         //listDataHistory
-        List<DownloadAdapter.DataHistoryAdapter> tableHistories2Day = mSqlDAO.getTABLE_HISTORYinNDay(onIDataCommon.getMaNVien(), 7);
+        List<DownloadAdapter.DataDownloadAdapter> tableHistories2Day = mSqlDAO.getTABLE_HISTORYDownloadinNDay(onIDataCommon.getMaNVien(), 7);
 
         if (isShowNoDataText(tableHistories2Day.size()))
             return;
@@ -748,12 +891,12 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
         //fill data history
         if (downloadAdapter == null) {
             downloadAdapter = new DownloadAdapter(getContext(), tableHistories2Day, iDataHistoryAdapter);
-            rvHistory.setAdapter(downloadAdapter);
+            rvDownload.setAdapter(downloadAdapter);
         } else
             downloadAdapter.refresh(tableHistories2Day);
 
 
-        rvHistory.invalidate();
+        rvDownload.invalidate();
     }
 
     private boolean saveDataCto(MtbCtoModel mtbCtoModel) throws Exception {
@@ -826,7 +969,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                 Common.TRANG_THAI_DU_LIEU.CHUA_GHI.content);
 
 
-        if (TRANG_THAI_DU_LIEUList.isEmpty()) {
+        if (TRANG_THAI_DU_LIEUList.size() == 0) {
             //insert
             mSqlDAO.insert(TABLE_CHITIET_CTO.class, tableChitietCtoNew);
             availableCanUpdateInfoCto = true;
@@ -929,8 +1072,6 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
         //check trang thai web
         //khi check về chỉ có những biên bản có giá trị TRANG_THAI là DA_XUAT_RA_WEB - 1 và HET_HIEU_LUC - 21
         Common.TRANG_THAI trangThaiWebNew = Common.TRANG_THAI.findTRANG_THAI(bbanModel.TRANG_THAI);
-        Common.TRANG_THAI_DU_LIEU trangThaiDuLieuMTBNew = Common.TRANG_THAI_DU_LIEU.CHUA_GHI;
-
 
         TABLE_BBAN_CTO tableBbanCtoNewData = new TABLE_BBAN_CTO(
                 0,
@@ -959,16 +1100,16 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                 bbanModel.MA_HDONG,
                 bbanModel.MA_KHANG,
                 bbanModel.LY_DO_TREO_THAO,
-                trangThaiDuLieuMTBNew.content,
+                Common.TRANG_THAI_DU_LIEU.CHUA_GHI.content,
                 Common.TRANG_THAI_DOI_SOAT.CHUA_DOISOAT.content);
 
+        Common.TRANG_THAI_DU_LIEU trangThaiDuLieuMTBNew = null;
 
-        if (TRANG_THAI_DU_LIEUList.isEmpty()) {
+        if (TRANG_THAI_DU_LIEUList.size() == 0) {
             //CHUA_TON_TAI
             //insert
             mSqlDAO.insert(TABLE_BBAN_CTO.class, tableBbanCtoNewData);
         } else {
-
             trangThaiDuLieuMTBNew = Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(TRANG_THAI_DU_LIEUList.get(0));
 
             boolean isMustUpdate = false;
@@ -978,8 +1119,6 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                     //ko nhận
                     break;
                 case DA_XUAT_RA_WEB:
-                    //ko nhận
-                    break;
                 case DA_XUAT_RA_MTB:
                     //nếu dữ liệu đã ghi, đang chờ xác nhân, gửi thất bại, dã tồn tại, đã xác nhận chuyển thành đã ghi
                     //còn lại thì thành chưa ghi
@@ -1060,11 +1199,10 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                 Common.TRANG_THAI_DU_LIEU.CHUA_GHI.content);
 
 
-        if (TRANG_THAI_DU_LIEUList.isEmpty()) {
+        if (TRANG_THAI_DU_LIEUList.size() == 0) {
             //insert
             mSqlDAO.insert(TABLE_BBAN_TUTI.class, tableBbanTutiNew);
         } else {
-
             TABLE_BBAN_TUTI tableBbanTutiHienTai = mSqlDAO.getBBanTuti(tableBbanTutiNew.getID_BBAN_TUTI(), onIDataCommon.getMaNVien()).get(0);
 
 
@@ -1072,9 +1210,6 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
             switch (Common.TRANG_THAI.findTRANG_THAI(bbanTutiModel.TRANG_THAI)) {
                 case CHUA_TON_TAI:
                 case DA_XUAT_RA_WEB:
-
-                    //ko co
-                    break;
                 case DA_XUAT_RA_MTB:
                     //nếu dữ liệu đã ghi, đang chờ xác nhân, gửi thất bại, dã tồn tại, đã xác nhận chuyển thành đã ghi
                     //còn lại thì thành chưa ghi
@@ -1573,6 +1708,14 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                     //init protocol server
                     apiInterface = TthtHnApi.getClient().create(TthtHnApiInterface.class);
 
+                    //update
+                    getView().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            messageServer.append("-Đang gửi yêu cầu đồng bộ biên bản TU TI...-");
+                            updateInfoDownload("Đang gửi yêu cầu đồng bộ biên bản TU TI...", 0);
+                        }
+                    }, Common.DELAY);
 
                     //check internet
                     if (!Common.isNetworkConnected(getContext())) {
@@ -1772,13 +1915,13 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                     apiInterface = TthtHnApi.getClient().create(TthtHnApiInterface.class);
 
                     //update
-                    getView().post(new Runnable() {
+                    getView().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             messageServer.append("-Đang kiểm tra kết nối tới CMIS...-");
                             updateInfoDownload("Đang kiểm tra kết nối tới CMIS...", 0);
                         }
-                    });
+                    }, Common.DELAY);
 
 
                     //check internet
@@ -1894,13 +2037,13 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
 
                     //update
-                    getView().post(new Runnable() {
+                    getView().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             messageServer.append("-Đang gửi yêu cầu đồng bộ biên bản treo tháo...-");
                             updateInfoDownload("Đang gửi yêu cầu đồng bộ biên bản treo tháo...", 0);
                         }
-                    });
+                    }, Common.DELAY);
 
 
                     //check internet
@@ -1997,7 +2140,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
     }
 
     private boolean isShowNoDataText(int size) {
-        rvHistory.setVisibility(size == 0 ? View.GONE : View.VISIBLE);
+        rvDownload.setVisibility(size == 0 ? View.GONE : View.VISIBLE);
         tvNodata.setVisibility(size == 0 ? View.VISIBLE : View.GONE);
 
         if (size == 0)

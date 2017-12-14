@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -32,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.es.tungnv.views.R;
+import com.es.tungnv.views.TthtMainActivity;
 import com.esolutions.esloginlib.lib.LoginFragment;
 
 import java.util.ArrayList;
@@ -51,6 +53,7 @@ import es.vinhnb.ttht.database.table.TABLE_LOAI_CONG_TO;
 import es.vinhnb.ttht.database.table.TABLE_LYDO_TREOTHAO;
 import es.vinhnb.ttht.database.table.TABLE_TRAM;
 import es.vinhnb.ttht.entity.sharedpref.MainSharePref;
+import es.vinhnb.ttht.view.TthtHnHistoryFragment.IOnTthtHnHistoryFragment;
 import es.vinhnb.ttht.view.TthtHnMainFragment.OnListenerTthtHnMainFragment;
 import es.vinhnb.ttht.view.TthtHnUploadFragment.IOnTthtHnUploadFragment;
 import esolutions.com.esdatabaselib.baseSharedPref.SharePrefManager;
@@ -85,6 +88,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         IOnTthtHnTopSearchFragment,
         IInteractionDataCommon,
         IOnTthtHnUploadFragment,
+        IOnTthtHnHistoryFragment,
         IOnBBanAdapter {
 
     private LoginFragment.LoginData mLoginData;
@@ -96,6 +100,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
     private TthtHnMainFragment fragmentMain;
     private TthtHnDownloadFragment fragmentDownload;
     private TthtHnUploadFragment fragmentUpload;
+    private TthtHnHistoryFragment fragmentHistory;
     private TthtHnChiTietCtoFragment fragmentChitietCto;
     private TthtHnBBanTutiFragment fragmentBBanTuTi;
     private TthtHnTopMenuChiTietCtoFragment fragmentTopMenuChiTietCto;
@@ -312,10 +317,14 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         };
 
 
+
+
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         NaviMenuAdapter adapterNavMenu = new NaviMenuAdapter(this, naviMenuList);
         mGridView.setAdapter(adapterNavMenu);
+
+
         mGridView.invalidate();
 
 
@@ -494,6 +503,22 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                     break;
 
                 case HISTORY:
+                    //luu gia tri de su dung khi onBackPress
+                    tagMenuNaviLeftList = tagNew;
+
+
+                    if (fragmentVisible instanceof TthtHnHistoryFragment) {
+                        isAddMain = false;
+                    } else {
+                        fragmentHistory = new TthtHnHistoryFragment().newInstance();
+                        isAddMain = true;
+                    }
+
+
+                    fragmentTopSearchFragment = (TthtHnTopSearchFragment) showTopMenuFragment(tagNew, TagMenuTop.SEARCH);
+
+                    updateSessionBackstackFragment(fragmentTopSearchFragment, fragmentHistory, false);
+
                     break;
             }
 

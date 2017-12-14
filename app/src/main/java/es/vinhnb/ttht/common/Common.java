@@ -373,6 +373,7 @@ public class Common {
     }
 
     public enum TYPE_SEARCH_HISTORY {
+        TYPE_CALL_API("Kiểu lịch sử"),
         DATE_CALL_API("Ngày đồng bộ");
         private String content;
 
@@ -1202,5 +1203,4 @@ public class Common {
         String byteBimap = Base64.encodeToString(imageByte, Base64.NO_WRAP);
         return byteBimap;
     }
-
 }

@@ -4,7 +4,322 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+
+     <RelativeLayout
+            android:id="@+id/rl_download_111"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/xml_tththn_rectangle"
+            android:padding="@dimen/_10sdp">
+
+            <LinearLayout
+                android:id="@+id/ll_t_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/rl_a_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true">
+
+                    <ImageView
+                        android:id="@+id/iv_ic_download"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/xml_tththn_cricle_type4"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:src="@drawable/ic_tththn_download2"
+                        android:textSize="@dimen/_14sdp"
+                        android:textStyle="bold"
+                        tools:text="1" />
+
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:id="@+id/tv_type"
+                        style="@style/textStyle3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/iv_ic_download"
+                        android:text="ĐỒNG BỘ DỮ LIỆU"
+                        />
+
+                    <TextView
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_below="@+id/tv_type"
+                        android:id="@+id/tv_date_download_history"
+                        style="@style/textStyle3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_toRightOf="@id/iv_ic_download"
+                        tools:text="25/05/2017 12h30" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_notify_download"
+                    style="@style/textStyle4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_toRightOf="@id/rl_a_icon"
+                    android:gravity="right"
+                    tools:text="THÀNH CÔNG" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/v_t_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/ll_t_1"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:layout_marginLeft="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:background="@color/tththn_text_less_black" />
+
+            <RelativeLayout
+                android:id="@+id/rl_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/v_t_1"
+                android:layout_marginLeft="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_5sdp">
+
+                <LinearLayout
+                    android:id="@+id/ll_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <TextView
+                        style="@style/textStyle1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Số biên bản" />
+
+                    <TextView
+
+                        style="@style/textStyle1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="Số công tơ treo" />
+
+                    <TextView
+
+                        style="@style/textStyle1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="Số công tơ tháo" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_1"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <TextView
+                        android:id="@+id/tv_so_bb"
+                        style="@style/textStyle3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        tools:text="2" />
+
+                    <TextView
+                        android:id="@+id/tv_so_treo"
+                        style="@style/textStyle3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        tools:text="2" />
+
+                    <TextView
+                        android:id="@+id/tv_so_thao"
+                        style="@style/textStyle3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        tools:text="2" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_2"
+                android:layout_marginLeft="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_5sdp">
+
+                <LinearLayout
+                    android:id="@+id/ll_1_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <TextView
+                        style="@style/textStyle1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Số biên bản TU TI" />
+
+                    <TextView
+                        style="@style/textStyle1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="Số lượng TU" />
+
+                    <TextView
+
+                        style="@style/textStyle1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="Số lượng TI" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_2_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_1_1"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <TextView
+                        android:id="@+id/tv_so_bb_tuti"
+                        style="@style/textStyle3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        tools:text="2" />
+
+                    <TextView
+                        android:id="@+id/tv_so_tu"
+                        style="@style/textStyle3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        tools:text="2" />
+
+                    <TextView
+                        android:id="@+id/tv_so_ti"
+                        style="@style/textStyle3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        tools:text="2" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_3"
+                android:layout_marginLeft="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_5sdp">
+
+                <LinearLayout
+                    android:id="@+id/ll_1_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        style="@style/textStyle1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Số lượng trạm" />
+
+                    <TextView
+                        style="@style/textStyle1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="Số lượng chủng loại" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_2_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_1_2"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:id="@+id/tv_so_tram"
+                        style="@style/textStyle3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        tools:text="2" />
+
+                    <TextView
+                        android:id="@+id/tv_so_chungloai"
+                        style="@style/textStyle3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        tools:text="2" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_error_download_history"
+                style="@style/buttonStyle1"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/rl_4"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:drawableLeft="@drawable/ic_ttht_error"
+                android:text="Thông tin thêm"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+        </RelativeLayout>
+
     <RelativeLayout
+        android:id="@+id/rl_upload_aa"
+        android:layout_below="@+id/rl_download_111"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10sdp"
@@ -12,20 +327,20 @@
         android:padding="@dimen/_10sdp">
 
         <LinearLayout
-            android:id="@+id/ll_t_1"
+            android:id="@+id/upload_ll_t_1a"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <RelativeLayout
-                android:id="@+id/rl_a_icon"
+                android:id="@+id/upload_rl_a_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true">
 
                 <ImageView
-                    android:id="@+id/iv_ic_download"
+                    android:id="@+id/upload_iv_ic_download"
                     android:layout_width="@dimen/_24sdp"
                     android:layout_height="@dimen/_24sdp"
                     android:layout_centerVertical="true"
@@ -33,23 +348,34 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/xml_tththn_cricle_type4"
                     android:gravity="center_horizontal|center_vertical"
-                    android:src="@drawable/ic_tththn_download2"
+                    android:src="@drawable/ic_tththn_upload"
                     android:textSize="@dimen/_14sdp"
                     android:textStyle="bold"
                     tools:text="1" />
 
                 <TextView
-                    android:id="@+id/tv_date_download_history"
+                    android:textStyle="bold"
+                    android:id="@+id/download_tv_type"
                     style="@style/textStyle3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/iv_ic_download"
+                    android:layout_toRightOf="@id/upload_iv_ic_download"
+                    android:text="GỬI DỮ LIỆU"
+                    />
+
+                <TextView
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_below="@+id/download_tv_type"
+                    android:id="@+id/upload_tv_date_download_history"
+                    style="@style/textStyle3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/upload_iv_ic_download"
                     tools:text="25/05/2017 12h30" />
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/tv_notify_download"
+                android:id="@+id/upload_tv_notify_download"
                 style="@style/textStyle4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,25 +387,25 @@
         </LinearLayout>
 
         <View
-            android:id="@+id/v_t_1"
+            android:id="@+id/upload_v_t_1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@+id/ll_t_1"
+            android:layout_below="@+id/upload_ll_t_1a"
             android:layout_marginBottom="@dimen/_3sdp"
             android:layout_marginLeft="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_3sdp"
             android:background="@color/tththn_text_less_black" />
 
         <RelativeLayout
-            android:id="@+id/rl_2"
+            android:id="@+id/upload_rl_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/v_t_1"
+            android:layout_below="@+id/upload_v_t_1"
             android:layout_marginLeft="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_5sdp">
 
             <LinearLayout
-                android:id="@+id/ll_1"
+                android:id="@+id/upload_ll_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -112,16 +438,16 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll_2"
+                android:id="@+id/upload_ll_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_1"
+                android:layout_below="@+id/upload_ll_1"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:orientation="horizontal"
                 android:weightSum="3">
 
                 <TextView
-                    android:id="@+id/tv_so_bb"
+                    android:id="@+id/upload_tv_so_bb"
                     style="@style/textStyle3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -129,7 +455,7 @@
                     tools:text="2" />
 
                 <TextView
-                    android:id="@+id/tv_so_treo"
+                    android:id="@+id/upload_tv_so_treo"
                     style="@style/textStyle3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -138,7 +464,7 @@
                     tools:text="2" />
 
                 <TextView
-                    android:id="@+id/tv_so_thao"
+                    android:id="@+id/upload_tv_so_thao"
                     style="@style/textStyle3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -149,15 +475,15 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/rl_3"
+            android:id="@+id/upload_rl_3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rl_2"
+            android:layout_below="@+id/upload_rl_2"
             android:layout_marginLeft="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_5sdp">
 
             <LinearLayout
-                android:id="@+id/ll_1_1"
+                android:id="@+id/upload_ll_1_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -189,16 +515,16 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll_2_1"
+                android:id="@+id/upload_ll_2_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_1_1"
+                android:layout_below="@+id/upload_ll_1_1"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:orientation="horizontal"
                 android:weightSum="3">
 
                 <TextView
-                    android:id="@+id/tv_so_bb_tuti"
+                    android:id="@+id/upload_tv_so_bb_tuti"
                     style="@style/textStyle3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -206,7 +532,7 @@
                     tools:text="2" />
 
                 <TextView
-                    android:id="@+id/tv_so_tu"
+                    android:id="@+id/upload_tv_so_tu"
                     style="@style/textStyle3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -215,68 +541,7 @@
                     tools:text="2" />
 
                 <TextView
-                    android:id="@+id/tv_so_ti"
-                    style="@style/textStyle3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    tools:text="2" />
-            </LinearLayout>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rl_4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rl_3"
-            android:layout_marginLeft="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_5sdp">
-
-            <LinearLayout
-                android:id="@+id/ll_1_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <TextView
-                    style="@style/textStyle1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Số lượng trạm" />
-
-                <TextView
-                    style="@style/textStyle1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="Số lượng chủng loại" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_2_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_1_2"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <TextView
-                    android:id="@+id/tv_so_tram"
-                    style="@style/textStyle3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    tools:text="2" />
-
-                <TextView
-                    android:id="@+id/tv_so_chungloai"
+                    android:id="@+id/upload_tv_so_ti"
                     style="@style/textStyle3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -288,12 +553,12 @@
         </RelativeLayout>
 
         <Button
-            android:id="@+id/btn_error_download_history"
+            android:id="@+id/upload_btn_error_download_history"
             style="@style/buttonStyle1"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_24sdp"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/rl_4"
+            android:layout_below="@+id/upload_rl_3"
             android:layout_marginTop="@dimen/_5sdp"
             android:drawableLeft="@drawable/ic_ttht_error"
             android:text="Thông tin thêm"

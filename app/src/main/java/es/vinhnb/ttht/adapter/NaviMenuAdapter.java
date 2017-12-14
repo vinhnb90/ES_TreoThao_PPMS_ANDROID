@@ -44,34 +44,37 @@ public class NaviMenuAdapter extends ArrayAdapter<NaviMenuAdapter.NaviMenu> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         //Save view
         // Get the data item for this position
+        View rowView = convertView;
         NaviMenuHolder naviMenuHolder;
         final NaviMenu naviMenuData = getItem(position);
 
 
         // Check if an existing view is being reused, otherwise inflate the view
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_tththn_navi_menu, parent, false);
+        if (rowView == null) {
+            rowView = LayoutInflater.from(getContext()).inflate(R.layout.row_tththn_navi_menu, parent, false);
 
 
             naviMenuHolder = new NaviMenuHolder();
-            naviMenuHolder.ibtnIcon = (ImageButton) convertView.findViewById(R.id.ibtn_nav_icon_menu);
-            naviMenuHolder.tvText = (TextView) convertView.findViewById(R.id.tv_nav_menu);
-            naviMenuHolder.rlView = (RelativeLayout) convertView.findViewById(R.id.rl_nav);
-            naviMenuHolder.vLine = (View) convertView.findViewById(R.id.v_view_line);
+            naviMenuHolder.ibtnIcon = (ImageButton) rowView.findViewById(R.id.ibtn_nav_icon_menu);
+            naviMenuHolder.tvText = (TextView) rowView.findViewById(R.id.tv_nav_menu);
+            naviMenuHolder.rlView = (RelativeLayout) rowView.findViewById(R.id.rl_nav);
+            naviMenuHolder.vLine = (View) rowView.findViewById(R.id.v_view_line);
 
-            final int positionFinal = position;
-            naviMenuHolder.ibtnIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    iNaviMenuAdapter.doClickNaviMenu(positionFinal, naviMenuData.tagMenuNaviLeft);
-                }
-            });
-
-
-            convertView.setTag(naviMenuHolder);
+            rowView.setTag(naviMenuHolder);
         } else
-            naviMenuHolder = (NaviMenuHolder) convertView.getTag();
+            naviMenuHolder = (NaviMenuHolder) rowView.getTag();
 
+
+        rowView.setId(rowView.getId());
+
+        final int positionFinal = position;
+        naviMenuHolder.ibtnIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                iNaviMenuAdapter.doClickNaviMenu(positionFinal, naviMenuData.tagMenuNaviLeft);
+            }
+        });
 
         //if menuTag is line
         if (naviMenuData.tagMenuNaviLeft.typeViewMenu == TthtHnMainActivity.TypeViewMenu.EMPTY)
@@ -103,7 +106,7 @@ public class NaviMenuAdapter extends ArrayAdapter<NaviMenuAdapter.NaviMenu> {
         }
 
         // Return the completed view to render on screen
-        return convertView;
+        return rowView;
     }
 
 

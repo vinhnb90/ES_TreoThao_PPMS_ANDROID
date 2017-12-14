@@ -12,6 +12,7 @@ import es.vinhnb.ttht.adapter.ChiTietCtoAdapter.DataChiTietCtoAdapter;
 import es.vinhnb.ttht.adapter.ChungLoaiAdapter;
 import es.vinhnb.ttht.adapter.DoiSoatAdapter;
 import es.vinhnb.ttht.adapter.DownloadAdapter;
+import es.vinhnb.ttht.adapter.HistoryAdapter;
 import es.vinhnb.ttht.adapter.TramAdapter;
 import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.database.table.TABLE_ANH_HIENTRUONG;
@@ -334,7 +335,59 @@ public class TthtHnSQLDAO extends SqlDAO {
     }
 
 
-    public List<DownloadAdapter.DataHistoryAdapter> getTABLE_HISTORYinNDay(String MA_NVIEN, int nDay) {
+    public List<DownloadAdapter.DataDownloadAdapter> getTABLE_HISTORYDownloadinNDay(String MA_NVIEN, int nDay) {
+        String query = "SELECT * FROM " +
+                TABLE_HISTORY.table.getName() +
+                " WHERE " +
+                TABLE_HISTORY.table.MA_NVIEN +
+                " = " +
+                "'" +
+                MA_NVIEN +
+                "'" +
+                " AND " +
+                TABLE_HISTORY.table.TYPE_CALL_API.name() +
+                " =' " +
+                Common.TYPE_CALL_API.DOWNLOAD.content+
+                "'" +
+                "AND " +
+                TABLE_HISTORY.table.DATE_CALL_API.name() +
+                " > (SELECT DATETIME('now', '-" +
+                nDay +
+                " day')) ORDER BY " +
+                TABLE_HISTORY.table.ID_TABLE_HISTORY.name() +
+                " DESC";
+
+
+        Cursor c = super.mDatabase.rawQuery(query, null);
+
+
+        return super.selectCustomLazy(c, new ItemFactory<DownloadAdapter.DataDownloadAdapter>(DownloadAdapter.DataDownloadAdapter.class) {
+            @Override
+            protected DownloadAdapter.DataDownloadAdapter create(Cursor cursor, int index) {
+                cursor.moveToPosition(index);
+
+                DownloadAdapter.DataDownloadAdapter tableHistory = new DownloadAdapter.DataDownloadAdapter();
+                tableHistory.date = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.DATE_CALL_API.name()));
+                tableHistory.notify = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.TYPE_RESULT.name()));
+                tableHistory.message = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.MESSAGE_RESULT.name()));
+                tableHistory.soBB = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_BBAN_API.name()));
+                tableHistory.soThao = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_CTO_THAO_API.name()));
+                tableHistory.soTreo = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_CTO_TREO_API.name()));
+                tableHistory.soBBTuTi = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_BBAN_TUTI_API.name()));
+                tableHistory.soTu = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_TU_API.name()));
+                tableHistory.soTi = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_TI_API.name()));
+                tableHistory.soTram = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_TRAM_API.name()));
+                tableHistory.soChungLoai = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_CHUNGLOAI_API.name()));
+                tableHistory.typeResult = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.TYPE_RESULT.name()));
+
+                return tableHistory;
+            }
+        });
+    }
+
+
+
+    public List<HistoryAdapter.DataHistoryAdapter> getTABLE_HISTORYinNDay(String MA_NVIEN, int nDay) {
         String query = "SELECT * FROM " +
                 TABLE_HISTORY.table.getName() +
                 " WHERE " +
@@ -355,15 +408,14 @@ public class TthtHnSQLDAO extends SqlDAO {
         Cursor c = super.mDatabase.rawQuery(query, null);
 
 
-        return super.selectCustomLazy(c, new ItemFactory<DownloadAdapter.DataHistoryAdapter>(DownloadAdapter.DataHistoryAdapter.class) {
+        return super.selectCustomLazy(c, new ItemFactory<HistoryAdapter.DataHistoryAdapter>(HistoryAdapter.DataHistoryAdapter.class) {
             @Override
-            protected DownloadAdapter.DataHistoryAdapter create(Cursor cursor, int index) {
+            protected HistoryAdapter.DataHistoryAdapter create(Cursor cursor, int index) {
                 cursor.moveToPosition(index);
 
-                DownloadAdapter.DataHistoryAdapter tableHistory = new DownloadAdapter.DataHistoryAdapter();
+                HistoryAdapter.DataHistoryAdapter tableHistory = new HistoryAdapter.DataHistoryAdapter();
                 tableHistory.date = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.DATE_CALL_API.name()));
-                tableHistory.notify = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.TYPE_RESULT.name()));
-                tableHistory.message = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.MESSAGE_RESULT.name()));
+                tableHistory.notify = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.TYPE_RESULT.name()));tableHistory.message = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.MESSAGE_RESULT.name()));
                 tableHistory.soBB = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_BBAN_API.name()));
                 tableHistory.soThao = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_CTO_THAO_API.name()));
                 tableHistory.soTreo = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_CTO_TREO_API.name()));
@@ -373,11 +425,13 @@ public class TthtHnSQLDAO extends SqlDAO {
                 tableHistory.soTram = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_TRAM_API.name()));
                 tableHistory.soChungLoai = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_CHUNGLOAI_API.name()));
                 tableHistory.typeResult = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.TYPE_RESULT.name()));
+                tableHistory.typeCallApi = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.TYPE_CALL_API.name()));
 
                 return tableHistory;
             }
         });
     }
+
 
 
     public List<DoiSoatAdapter.DataDoiSoat> getDoiSoatAdapter(String args[]) {
