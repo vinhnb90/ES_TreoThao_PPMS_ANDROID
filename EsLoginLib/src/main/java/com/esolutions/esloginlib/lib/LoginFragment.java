@@ -419,12 +419,8 @@ public class LoginFragment extends Fragment {
                 } catch (Exception e) {
                     //show messasge
                     showSnackBar(e.getMessage(), null, null);
-                } finally {
-                    //enable again all view in login
                     finallyClickLogin();
-
                 }
-
 
             }
         });

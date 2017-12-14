@@ -248,225 +248,225 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                             }
 
 
-//                            //TODO nếu OK thì đồng bộ biên bản
-//                            //TODO với mỗi biên bản thì đồng bộ chi tiết công tơ tương ứng biên bản đó
-//                            resultGeT_BBAN = callGeT_BBAN();
-//
-//
-//                            //nếu null = có lỗi khi đồng bộ biên bản
-//                            //không thông báo để tiếp tục đồng bộ các danh mục khác
-//                            if (resultGeT_BBAN == null) {
-//                                infoSessionDownload.setSO_BBAN_API(0);
-//                            } else if (resultGeT_BBAN.size() == 0) {
-//                                //nếu rỗng thì đã hết biên bản, vẫn cho tiếp tục thực hiện call các api khác
-//                                messageServer.append("-Hết biên bản trên máy chủ!-");
-//                                infoSessionDownload.setSO_BBAN_API(0);
-//                            } else {
-//                                //nếu có dữ liệu thì set
-//                                messageServer.append("-Gửi yêu cầu đồng bộ công tơ-..");
-//                            }
-//
-//
-//                            //luôn thực hiện tiếp
-//                            //đếm số công tơ trong tất cả biên bản gửi yêu cầu lên máy chủ lấy về
-//                            if (resultGeT_BBAN != null) {
-//                                //dữ liệu biên bản nhận về là dữ liệu trong 3 ngày trước gồm trạng thái 2, 3, 4
-//                                //set tất cả dữ liệu thành hết hiệu lực
-//                                //update tình trạng mới nhất của từng biên bản
-//
-//                                //TODO
-//                                //get all biên bản không phải hết hiệu lực
-//                                String[] args = new String[]{Common.TRANG_THAI_DU_LIEU.HET_HIEU_LUC.content};
-//                                List<TABLE_BBAN_CTO> tableBbanCtoHetHieuLucList = mSqlDAO.getBBanHetHieuLuc(args);
-//                                final int sizetableBbanCtoHetHieuLucList = tableBbanCtoHetHieuLucList.size();
-//                                for (int i = 0; i < tableBbanCtoHetHieuLucList.size(); i++) {
-//                                    final int finalIi = i;
-//                                    getView().postDelayed(new Runnable() {
-//                                        @Override
-//                                        public void run() {
-//                                            updateInfoDownload("Đang xử lý dữ liệu biên bản trên thiết bị ...", finalIi * 100 / sizetableBbanCtoHetHieuLucList);
-//                                        }
-//                                    }, DELAY_PROGESS_PBAR);
-//
-//                                    //update het hieu luc
-//                                    TABLE_BBAN_CTO tableBbanCtoNew = (TABLE_BBAN_CTO) tableBbanCtoHetHieuLucList.get(i).clone();
-//                                    tableBbanCtoNew.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.HET_HIEU_LUC.content);
-//                                    tableBbanCtoNew.setTRANG_THAI(Common.TRANG_THAI.HET_HIEU_LUC.content);
-//                                    mSqlDAO.updateRows(TABLE_BBAN_CTO.class, tableBbanCtoHetHieuLucList.get(i), tableBbanCtoNew);
-//                                }
-//
-//
-//                                getView().postDelayed(new Runnable() {
-//                                    @Override
-//                                    public void run() {
-//                                        updateInfoDownload("Kết thúc xử lý dữ liệu biên bản trên thiết bị...", 100);
-//                                    }
-//                                }, Common.DELAY);
-//
-//
-//                                final int resultGeT_BBANsize = resultGeT_BBAN.size();
-//                                int countCtoTreo = 0;
-//                                int countCtoThao = 0;
-//
-//                                for (int i = 0; i < resultGeT_BBANsize; i++) {
-//                                    MtbBbanModel bbanModel = resultGeT_BBAN.get(i);
-//                                    final int finalI = i;
-//
-//                                    if(i == 10 * (i/10))
-//                                    {
-//                                        Log.e(TAG, "run: " );
-//                                    }
-//
-//                                    getView().postDelayed(new Runnable() {
-//                                        @Override
-//                                        public void run() {
-//                                            updateInfoDownload("Đang đồng bộ công tơ ...", finalI * 100 / resultGeT_BBANsize);
-//                                        }
-//                                    }, DELAY_PROGESS_PBAR);
-//
-//
-//                                    //có phải update dữ liệu công tơ không
-//                                    saveDataBBan(bbanModel);
-//
-//                                    //call Get_cto
-//                                    resultGet_cto = callGet_cto(bbanModel.ID_BBAN_TRTH);
-//
-//
-//                                    //nếu null = có lỗi khi đồng bộ các công tơ của biên bản
-//                                    //vẫn cho tiếp tục với các biên bản khác
-//                                    if (resultGet_cto == null) {
-//                                        resultGet_cto = new ArrayList<>();
-//                                    } else if (resultGet_cto.size() == 0) {
-//                                        //nếu rỗng thì hiện tại có biên bản nhưng không có công tơ, vẫn cho tiếp tục thực hiện call các api khác
-//                                        messageServer.append("-ID_BBAN_TRTH [" + bbanModel.ID_BBAN_TRTH + "] hiện không có công tơ!-");
-//                                    }
-//
-//
-//                                    //nếu có dữ liệu
-//                                    //update công tơ
-//                                    for (int j = 0; j < resultGet_cto.size(); j++) {
-//                                        MtbCtoModel mtbCtoModel = resultGet_cto.get(j);
-//
-//
-//                                        //nếu là treo
-//                                        if (mtbCtoModel.MA_BDONG.equalsIgnoreCase(Common.MA_BDONG.B.code))
-//                                            countCtoTreo++;
-//
-//                                        //nếu là tháo
-//                                        if (mtbCtoModel.MA_BDONG.equalsIgnoreCase(Common.MA_BDONG.E.code))
-//                                            countCtoThao++;
-//
-//
-//                                        //cập nhật dữ liệu vào TABLE_CHITIET_CTO dựa vào trạng thái dữ liệu
-//                                        //kiểm tra trạng thái và cập nhật công tơ vào database
-//                                        saveDataCto(mtbCtoModel);
-//                                    }
-//                                }
-//                                //kết thúc đồng bộ công tơ
-//                                infoSessionDownload.setSO_BBAN_API(resultGeT_BBANsize);
-//                                infoSessionDownload.setSO_CTO_TREO_API(countCtoTreo);
-//                                infoSessionDownload.setSO_CTO_THAO_API(countCtoThao);
-//                            } else {
-//                                //kết thúc đồng bộ công tơ
-//                                infoSessionDownload.setSO_BBAN_API(0);
-//                                infoSessionDownload.setSO_CTO_TREO_API(0);
-//                                infoSessionDownload.setSO_CTO_THAO_API(0);
-//                            }
-//
-//
-//                            getView().postDelayed(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    updateInfoDownload("Kết thúc đồng bộ biên bản công tơ...", 100);
-//                                }
-//                            }, Common.DELAY);
-//
-
-//                            //TODO Get Tu ti
-//                            resultGet_bban_TUTI = callGet_bban_TUTI();
-//
-//
-//                            //nếu null = có lỗi khi đồng bộ biên bản tuti
-//                            //không thông báo để tiếp tục đồng bộ các danh mục khác
-//                            if (resultGet_bban_TUTI == null) {
-//                                infoSessionDownload.setSO_BBAN_TUTI_API(0);
-//                                resultGet_bban_TUTI = new ArrayList<>();
-//                            } else if (resultGet_bban_TUTI.size() == 0) {
-//                                //nếu rỗng thì đã hết biên bản tu ti, vẫn cho tiếp tục thực hiện call các api khác
-//                                messageServer.append("-Hết biên bản TU TI trên máy chủ!-");
-//                                infoSessionDownload.setSO_BBAN_TUTI_API(0);
-//                            } else {
-//                                //nếu có dữ liệu thì set
-//                                messageServer.append("-Gửi yêu cầu đồng bộ biên bản TU TI...-");
-//                            }
-//
-//
-//                            //luôn thực hiện tiếp
-//                            final int resultGet_bban_TUTIsize = resultGet_bban_TUTI.size();
-//                            int countTI = 0;
-//                            int countTU = 0;
-//                            for (int i = 0; i < resultGet_bban_TUTIsize; i++) {
-//                                MtbBbanTutiModel bbanTutiModel = resultGet_bban_TUTI.get(i);
-//
-//                                final int finalI = i;
-//                                getView().postDelayed(new Runnable() {
-//                                    @Override
-//                                    public void run() {
-//                                        updateInfoDownload("Đang đồng bộ dữ liệu biên bản TU TI...", finalI * 100 / resultGet_bban_TUTIsize);
-//                                    }
-//                                }, DELAY_PROGESS_PBAR);
-//
-//
-//                                saveDataBBanTuti(bbanTutiModel);
-//
-//                                    //call get
-//                                    resultGet_TUTI = callGet_TUTI(bbanTutiModel.ID_BBAN_TUTI);
-//
-//
-//                                    //nếu null = có lỗi khi đồng bộ các TU TI của biên bản TU TI
-//                                    //vẫn cho tiếp tục với các biên bản khác
-//                                    if (resultGet_TUTI == null) {
-//                                        resultGet_TUTI = new ArrayList<>();
-//                                    } else if (resultGet_TUTI.size() == 0) {
-//                                        //nếu rỗng thì hiện tại có biên bản TU TI nhưng không có TU TI, vẫn cho tiếp tục thực hiện call các api khác
-//                                        messageServer.append("-ID_BBAN_TUTI [" + bbanTutiModel.ID_BBAN_TUTI + "] hiện không có TU TI nào!-");
-//                                    }
-//
-//
-//                                    //nếu có dữ liệu
-//                                    //update tu ti
-//                                    for (int j = 0; j < resultGet_TUTI.size(); j++) {
-//                                        MTB_TuTiModel tuTiModel = resultGet_TUTI.get(j);
-//
-//
-//                                        //nếu là TU
-//                                        if (tuTiModel.IS_TU == Common.IS_TU.TU.code)
-//                                            countTU++;
-//
-//                                        //nếu là TI
-//                                        if (tuTiModel.IS_TU == Common.IS_TU.TI.code)
-//                                            countTI++;
-//
-//
-//                                        //cập nhật dữ liệu vào TABLE_CHITIET_TUTI dựa vào trạng thái dữ liệu
-//                                        //kiểm tra trạng thái công tơ trong database
-//                                        saveDataTuti(tuTiModel);
-//                                    }
-//                            }
-//
-//
-//                            //Kết thúc đồng bộ TU TI
-//                            infoSessionDownload.setSO_BBAN_TUTI_API(resultGet_bban_TUTIsize);
-//                            infoSessionDownload.setSO_TU_API(countTU);
-//                            infoSessionDownload.setSO_TI_API(countTI);
-//                            getView().postDelayed(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    updateInfoDownload("Kết thúc đồng bộ dữ liệu biên bản TU TI...", 100);
-//                                }
-//                            }, Common.DELAY);
+                            //TODO nếu OK thì đồng bộ biên bản
+                            //TODO với mỗi biên bản thì đồng bộ chi tiết công tơ tương ứng biên bản đó
+                            resultGeT_BBAN = callGeT_BBAN();
 
 
+                            //nếu null = có lỗi khi đồng bộ biên bản
+                            //không thông báo để tiếp tục đồng bộ các danh mục khác
+                            if (resultGeT_BBAN == null) {
+                                infoSessionDownload.setSO_BBAN_API(0);
+                            } else if (resultGeT_BBAN.size() == 0) {
+                                //nếu rỗng thì đã hết biên bản, vẫn cho tiếp tục thực hiện call các api khác
+                                messageServer.append("-Hết biên bản trên máy chủ!-");
+                                infoSessionDownload.setSO_BBAN_API(0);
+                            } else {
+                                //nếu có dữ liệu thì set
+                                messageServer.append("-Gửi yêu cầu đồng bộ công tơ-..");
+                            }
+
+
+                            //luôn thực hiện tiếp
+                            //đếm số công tơ trong tất cả biên bản gửi yêu cầu lên máy chủ lấy về
+                            if (resultGeT_BBAN != null) {
+                                //dữ liệu biên bản nhận về là dữ liệu trong 3 ngày trước gồm trạng thái 2, 3, 4
+                                //set tất cả dữ liệu thành hết hiệu lực
+                                //update tình trạng mới nhất của từng biên bản
+
+                                //TODO
+                                //get all biên bản không phải hết hiệu lực
+                                String[] args = new String[]{Common.TRANG_THAI_DU_LIEU.HET_HIEU_LUC.content};
+                                List<TABLE_BBAN_CTO> tableBbanCtoHetHieuLucList = mSqlDAO.getBBanHetHieuLuc(args);
+                                final int sizetableBbanCtoHetHieuLucList = tableBbanCtoHetHieuLucList.size();
+                                for (int i = 0; i < tableBbanCtoHetHieuLucList.size(); i++) {
+                                    final int finalIi = i;
+                                    getView().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            updateInfoDownload("Đang xử lý dữ liệu biên bản trên thiết bị ...", finalIi * 100 / sizetableBbanCtoHetHieuLucList);
+                                        }
+                                    }, DELAY_PROGESS_PBAR);
+
+                                    //update het hieu luc
+                                    TABLE_BBAN_CTO tableBbanCtoNew = (TABLE_BBAN_CTO) tableBbanCtoHetHieuLucList.get(i).clone();
+                                    tableBbanCtoNew.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.HET_HIEU_LUC.content);
+                                    tableBbanCtoNew.setTRANG_THAI(Common.TRANG_THAI.HET_HIEU_LUC.content);
+                                    mSqlDAO.updateRows(TABLE_BBAN_CTO.class, tableBbanCtoHetHieuLucList.get(i), tableBbanCtoNew);
+                                }
+
+
+                                getView().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        updateInfoDownload("Kết thúc xử lý dữ liệu biên bản trên thiết bị...", 100);
+                                    }
+                                }, Common.DELAY);
+
+
+                                final int resultGeT_BBANsize = resultGeT_BBAN.size();
+                                int countCtoTreo = 0;
+                                int countCtoThao = 0;
+
+                                for (int i = 0; i < resultGeT_BBANsize; i++) {
+                                    MtbBbanModel bbanModel = resultGeT_BBAN.get(i);
+                                    final int finalI = i;
+
+                                    if (i == 10 * (i / 10)) {
+                                        Log.e(TAG, "run: ");
+                                    }
+
+                                    getView().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            updateInfoDownload("Đang đồng bộ công tơ ...", finalI * 100 / resultGeT_BBANsize);
+                                        }
+                                    }, DELAY_PROGESS_PBAR);
+
+
+                                    //có phải update dữ liệu công tơ không
+                                    saveDataBBan(bbanModel);
+
+                                    //call Get_cto
+                                    resultGet_cto = callGet_cto(bbanModel.ID_BBAN_TRTH);
+
+
+                                    //nếu null = có lỗi khi đồng bộ các công tơ của biên bản
+                                    //vẫn cho tiếp tục với các biên bản khác
+                                    if (resultGet_cto == null) {
+                                        resultGet_cto = new ArrayList<>();
+                                    } else if (resultGet_cto.size() == 0) {
+                                        //nếu rỗng thì hiện tại có biên bản nhưng không có công tơ, vẫn cho tiếp tục thực hiện call các api khác
+                                        messageServer.append("-ID_BBAN_TRTH [" + bbanModel.ID_BBAN_TRTH + "] hiện không có công tơ!-");
+                                    }
+
+
+                                    //nếu có dữ liệu
+                                    //update công tơ
+                                    for (int j = 0; j < resultGet_cto.size(); j++) {
+                                        MtbCtoModel mtbCtoModel = resultGet_cto.get(j);
+
+
+                                        //nếu là treo
+                                        if (mtbCtoModel.MA_BDONG.equalsIgnoreCase(Common.MA_BDONG.B.code))
+                                            countCtoTreo++;
+
+                                        //nếu là tháo
+                                        if (mtbCtoModel.MA_BDONG.equalsIgnoreCase(Common.MA_BDONG.E.code))
+                                            countCtoThao++;
+
+
+                                        //cập nhật dữ liệu vào TABLE_CHITIET_CTO dựa vào trạng thái dữ liệu
+                                        //kiểm tra trạng thái và cập nhật công tơ vào database
+                                        saveDataCto(mtbCtoModel);
+                                    }
+                                }
+                                //kết thúc đồng bộ công tơ
+                                infoSessionDownload.setSO_BBAN_API(resultGeT_BBANsize);
+                                infoSessionDownload.setSO_CTO_TREO_API(countCtoTreo);
+                                infoSessionDownload.setSO_CTO_THAO_API(countCtoThao);
+                            } else {
+                                //kết thúc đồng bộ công tơ
+                                infoSessionDownload.setSO_BBAN_API(0);
+                                infoSessionDownload.setSO_CTO_TREO_API(0);
+                                infoSessionDownload.setSO_CTO_THAO_API(0);
+                            }
+
+
+                            getView().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    updateInfoDownload("Kết thúc đồng bộ biên bản công tơ...", 100);
+                                }
+                            }, Common.DELAY);
+//
+
+                            //TODO Get Tu ti
+                            resultGet_bban_TUTI = callGet_bban_TUTI();
+
+
+                            //nếu null = có lỗi khi đồng bộ biên bản tuti
+                            //không thông báo để tiếp tục đồng bộ các danh mục khác
+                            if (resultGet_bban_TUTI == null) {
+                                infoSessionDownload.setSO_BBAN_TUTI_API(0);
+                                resultGet_bban_TUTI = new ArrayList<>();
+                            } else if (resultGet_bban_TUTI.size() == 0) {
+                                //nếu rỗng thì đã hết biên bản tu ti, vẫn cho tiếp tục thực hiện call các api khác
+                                messageServer.append("-Hết biên bản TU TI trên máy chủ!-");
+                                infoSessionDownload.setSO_BBAN_TUTI_API(0);
+                            } else {
+                                //nếu có dữ liệu thì set
+                                messageServer.append("-Gửi yêu cầu đồng bộ biên bản TU TI...-");
+                            }
+
+
+                            //luôn thực hiện tiếp
+                            final int resultGet_bban_TUTIsize = resultGet_bban_TUTI.size();
+                            int countTI = 0;
+                            int countTU = 0;
+                            for (int i = 0; i < resultGet_bban_TUTIsize; i++) {
+                                MtbBbanTutiModel bbanTutiModel = resultGet_bban_TUTI.get(i);
+
+                                final int finalI = i;
+                                getView().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        updateInfoDownload("Đang đồng bộ dữ liệu biên bản TU TI...", finalI * 100 / resultGet_bban_TUTIsize);
+                                    }
+                                }, DELAY_PROGESS_PBAR);
+
+
+                                saveDataBBanTuti(bbanTutiModel);
+
+                                //call get
+                                resultGet_TUTI = callGet_TUTI(bbanTutiModel.ID_BBAN_TUTI);
+
+
+                                //nếu null = có lỗi khi đồng bộ các TU TI của biên bản TU TI
+                                //vẫn cho tiếp tục với các biên bản khác
+                                if (resultGet_TUTI == null) {
+                                    resultGet_TUTI = new ArrayList<>();
+                                } else if (resultGet_TUTI.size() == 0) {
+                                    //nếu rỗng thì hiện tại có biên bản TU TI nhưng không có TU TI, vẫn cho tiếp tục thực hiện call các api khác
+                                    messageServer.append("-ID_BBAN_TUTI [" + bbanTutiModel.ID_BBAN_TUTI + "] hiện không có TU TI nào!-");
+                                }
+
+
+                                //nếu có dữ liệu
+                                //update tu ti
+                                for (int j = 0; j < resultGet_TUTI.size(); j++) {
+                                    MTB_TuTiModel tuTiModel = resultGet_TUTI.get(j);
+
+
+                                    //nếu là TU
+                                    if (tuTiModel.IS_TU == Common.IS_TU.TU.code)
+                                        countTU++;
+
+                                    //nếu là TI
+                                    if (tuTiModel.IS_TU == Common.IS_TU.TI.code)
+                                        countTI++;
+
+
+                                    //cập nhật dữ liệu vào TABLE_CHITIET_TUTI dựa vào trạng thái dữ liệu
+                                    //kiểm tra trạng thái công tơ trong database
+                                    saveDataTuti(tuTiModel);
+                                }
+                            }
+
+
+                            //Kết thúc đồng bộ TU TI
+                            infoSessionDownload.setSO_BBAN_TUTI_API(resultGet_bban_TUTIsize);
+                            infoSessionDownload.setSO_TU_API(countTU);
+                            infoSessionDownload.setSO_TI_API(countTI);
+                            getView().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    updateInfoDownload("Kết thúc đồng bộ dữ liệu biên bản TU TI...", 100);
+                                }
+                            }, Common.DELAY);
+
+
+                            //region tram......
                             //TODO GetTram
                             resultGetTram = callGetTram();
                             //nếu null = có lỗi khi đồng bộ các dữ liệu trạm
@@ -533,10 +533,9 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                     }
                                 }
 
-                            }catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 e.printStackTrace();
-                                Log.e(TAG, "run: " );
+                                Log.e(TAG, "run: ");
                             }
 
 
@@ -620,18 +619,18 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                             //TODO Get Nhà cung cấp dữ liệu đo xa
                             resultLayDuLieuLyDoTreothao = callLayDuLieuLyDoTreothao();
 
-                                //nếu null = có lỗi khi đồng bộ các dữ liệu Chủng loại
-                                if (resultLayDuLieuLoaiCongTo == null) {
-                                    resultLayDuLieuLoaiCongTo = new ArrayList<>();
-                                } else if (resultLayDuLieuLoaiCongTo.size() == 0) {
-                                    //nếu rỗng thì hiện tại có biên bản nhưng không có công tơ, vẫn cho tiếp tục thực hiện call các api khác
-                                    messageServer.append("-Danh mục lý do treo tháo  hiện không có lý do nào!-");
-                                }
+                            //nếu null = có lỗi khi đồng bộ các dữ liệu Chủng loại
+                            if (resultLayDuLieuLoaiCongTo == null) {
+                                resultLayDuLieuLoaiCongTo = new ArrayList<>();
+                            } else if (resultLayDuLieuLoaiCongTo.size() == 0) {
+                                //nếu rỗng thì hiện tại có biên bản nhưng không có công tơ, vẫn cho tiếp tục thực hiện call các api khác
+                                messageServer.append("-Danh mục lý do treo tháo  hiện không có lý do nào!-");
+                            }
 
 
-                                //mỗi dữ liệu lý do treo tháo sẽ được cập nhật toàn bộ
-                                final int resultLayDuLieuLyDoTreothaosize = resultLayDuLieuLyDoTreothao.size();
-                            try{
+                            //mỗi dữ liệu lý do treo tháo sẽ được cập nhật toàn bộ
+                            final int resultLayDuLieuLyDoTreothaosize = resultLayDuLieuLyDoTreothao.size();
+                            try {
 
                                 for (int i = 0; i < resultLayDuLieuLyDoTreothao.size(); i++) {
                                     D_LY_DO_MODEL object = resultLayDuLieuLyDoTreothao.get(i);
@@ -663,10 +662,9 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                     mSqlDAO.insert(TABLE_LYDO_TREOTHAO.class, tableLydo);
                                 }
 
-                            }catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 e.printStackTrace();
-                                Log.e(TAG, "run: " );
+                                Log.e(TAG, "run: ");
                             }
 
 
@@ -678,6 +676,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                     updateInfoDownload("Kết thúc đồng bộ lý do treo tháo!", 100);
                                 }
                             }, DELAY);
+                            //endregion
 
                         } catch (final Exception e) {
                             e.printStackTrace();
