@@ -240,15 +240,15 @@
         <TextView
             android:id="@+id/tv_download"
             style="@style/textStyle2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/_24sdp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/_5sdp"
-            android:gravity="center_vertical"
+            android:gravity="center_horizontal"
             android:text="Đang tiến hành đồng bộ dữ liệu..."
             android:textColor="@color/tththn_button"
             android:visibility="gone"
-            tools:visibility="gone" />
+            tools:visibility="visible" />
     </RelativeLayout>
 
 

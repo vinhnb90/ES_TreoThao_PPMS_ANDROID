@@ -189,7 +189,7 @@ public class TthtHnSQLDAO extends SqlDAO {
         });
     }
 
-    public List<BBanAdapter.DataBBanAdapter> getBBanAdapter(String[] agrs) {
+    public List<BBanAdapter.DataBBanAdapter> getBBanAdapter2Day(String[] agrs) {
         String query = "SELECT " +
                 TABLE_BBAN_CTO.table.DCHI_HDON.name() +
                 ", " +
@@ -212,6 +212,63 @@ public class TthtHnSQLDAO extends SqlDAO {
                 TABLE_BBAN_CTO.table.getName() +
                 " WHERE " +
                 TABLE_BBAN_CTO.table.MA_NVIEN.name() +
+                " = ?" +
+                " AND " +
+                TABLE_BBAN_CTO.table.NGAY_TRTH.name() +
+                " > (SELECT DATETIME('now', '-" +
+                2 +
+                " day'))";
+
+        Cursor cursor = super.mDatabase.rawQuery(query, agrs);
+
+        return super.selectCustomLazy(cursor, new ItemFactory(BBanAdapter.DataBBanAdapter.class) {
+            @Override
+            protected BBanAdapter.DataBBanAdapter create(Cursor cursor, int index) {
+                BBanAdapter.DataBBanAdapter dataBBanAdapter = new BBanAdapter.DataBBanAdapter();
+                cursor.moveToPosition(index);
+
+                dataBBanAdapter.setDiachiKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.DCHI_HDON.name())));
+                dataBBanAdapter.setLydo(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.LY_DO_TREO_THAO.name())));
+                dataBBanAdapter.setMaGCS(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_GCS_CTO.name())));
+                dataBBanAdapter.setMaHopDong(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_HDONG.name())));
+                dataBBanAdapter.setTenKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TEN_KHANG.name())));
+                dataBBanAdapter.setMaTramcapdien(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_TRAM.name())));
+                dataBBanAdapter.setMaKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_KHANG.name())));
+                dataBBanAdapter.setNgayTrth(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.NGAY_TRTH.name())));
+                dataBBanAdapter.setSobban(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.SO_BBAN.name())));
+
+
+                return dataBBanAdapter;
+            }
+        });
+    }
+
+    public List<BBanAdapter.DataBBanAdapter> getBBanAdapterInDay(String[] agrs) {
+        String query = "SELECT " +
+                TABLE_BBAN_CTO.table.DCHI_HDON.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.LY_DO_TREO_THAO.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.MA_KHANG.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.MA_HDONG.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.MA_GCS_CTO.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.TEN_KHANG.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.MA_TRAM.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.NGAY_TRTH.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.SO_BBAN.name() +
+                " FROM " +
+                TABLE_BBAN_CTO.table.getName() +
+                " WHERE " +
+                TABLE_BBAN_CTO.table.MA_NVIEN.name() +
+                " = ?" +
+                " AND " +
+                TABLE_BBAN_CTO.table.NGAY_TRTH.name() +
                 " = ?" +
                 "";
 
@@ -346,10 +403,11 @@ public class TthtHnSQLDAO extends SqlDAO {
                 "'" +
                 " AND " +
                 TABLE_HISTORY.table.TYPE_CALL_API.name() +
-                " =' " +
-                Common.TYPE_CALL_API.DOWNLOAD.content+
+                " = " +
                 "'" +
-                "AND " +
+                Common.TYPE_CALL_API.DOWNLOAD.content +
+                "'" +
+                " AND " +
                 TABLE_HISTORY.table.DATE_CALL_API.name() +
                 " > (SELECT DATETIME('now', '-" +
                 nDay +
@@ -386,7 +444,6 @@ public class TthtHnSQLDAO extends SqlDAO {
     }
 
 
-
     public List<HistoryAdapter.DataHistoryAdapter> getTABLE_HISTORYinNDay(String MA_NVIEN, int nDay) {
         String query = "SELECT * FROM " +
                 TABLE_HISTORY.table.getName() +
@@ -415,7 +472,8 @@ public class TthtHnSQLDAO extends SqlDAO {
 
                 HistoryAdapter.DataHistoryAdapter tableHistory = new HistoryAdapter.DataHistoryAdapter();
                 tableHistory.date = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.DATE_CALL_API.name()));
-                tableHistory.notify = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.TYPE_RESULT.name()));tableHistory.message = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.MESSAGE_RESULT.name()));
+                tableHistory.notify = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.TYPE_RESULT.name()));
+                tableHistory.message = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.MESSAGE_RESULT.name()));
                 tableHistory.soBB = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_BBAN_API.name()));
                 tableHistory.soThao = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_CTO_THAO_API.name()));
                 tableHistory.soTreo = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_CTO_TREO_API.name()));
@@ -431,7 +489,6 @@ public class TthtHnSQLDAO extends SqlDAO {
             }
         });
     }
-
 
 
     public List<DoiSoatAdapter.DataDoiSoat> getDoiSoatAdapter(String args[]) {
@@ -704,7 +761,19 @@ public class TthtHnSQLDAO extends SqlDAO {
                 " = ?" +
                 " AND " +
                 TABLE_BBAN_CTO.table.TRANG_THAI_DU_LIEU +
-                " != ?";
+                " = '" +
+                Common.TRANG_THAI_DU_LIEU.CHUA_GHI.content +
+                "'" +
+                " OR " +
+                TABLE_BBAN_CTO.table.TRANG_THAI_DU_LIEU +
+                " = '" +
+                Common.TRANG_THAI_DU_LIEU.DA_GHI.content +
+                "'" +
+                " OR " +
+                TABLE_BBAN_CTO.table.TRANG_THAI_DU_LIEU +
+                " = '" +
+                Common.TRANG_THAI_DU_LIEU.GUI_THAT_BAI.content +
+                "'";
 
         Cursor cursor = super.mDatabase.rawQuery(query, args);
 

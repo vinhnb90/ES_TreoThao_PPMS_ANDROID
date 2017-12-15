@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.es.tungnv.views.R;
-import com.es.tungnv.views.TthtMainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +27,7 @@ import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.database.dao.TthtHnSQLDAO;
 import es.vinhnb.ttht.entity.sharedpref.MainSharePref;
 import es.vinhnb.ttht.entity.sharedpref.MenuTopSearchSharePref;
-import es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft;
+import es.vinhnb.ttht.view.TthtHnMainActivityI.TagMenuNaviLeft;
 import esolutions.com.esdatabaselib.baseSharedPref.SharePrefManager;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 
@@ -40,7 +39,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     private TagMenuNaviLeft tagMenuNaviLeft;
     private IInteractionDataCommon onIDataCommon;
 
-    private OnListenerTthtHnMainFragment mListener;
+    private IOnTthtHnMainFragment mListener;
     private TthtHnSQLDAO mSqlDAO;
 
     private RecyclerView mRvMain;
@@ -108,11 +107,11 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
 
 
         //interface
-        if (context instanceof OnListenerTthtHnMainFragment) {
-            mListener = (OnListenerTthtHnMainFragment) context;
+        if (context instanceof IOnTthtHnMainFragment) {
+            mListener = (IOnTthtHnMainFragment) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnListenerTthtHnMainFragment");
+                    + " must implement IOnTthtHnMainFragment");
         }
 
 
@@ -159,53 +158,59 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     }
 
 
-    private void fillDataChungLoai(List<DataChungLoaiAdapter> dataChungLoaiAdapters) {
-        if (isShowNoDataText(dataChungLoaiAdapters.size()))
+    private void fillDataChungLoai(List<DataChungLoaiAdapter> dataChungLoai) {
+        if (isShowNoDataText(dataChungLoai.size()))
             return;
 
         if (mRvMain.getAdapter() instanceof ChiTietCtoAdapter) {
-            ((ChungLoaiAdapter) mRvMain.getAdapter()).refresh(dataChungLoaiAdapters);
+            ((ChungLoaiAdapter) mRvMain.getAdapter()).refresh(dataChungLoai);
         } else {
-            ChungLoaiAdapter chungLoaiAdapter = new ChungLoaiAdapter(getContext(), dataChungLoaiAdapters);
+            ChungLoaiAdapter chungLoaiAdapter = new ChungLoaiAdapter(getContext(), dataChungLoai);
             mRvMain.removeAllViews();
             mRvMain.invalidate();
             mRvMain.swapAdapter(chungLoaiAdapter, true);
         }
 
         mRvMain.invalidate();
+
+        mListener.refreshTopThongKeMainFragment(dataCloaiAdapterList.size(), dataChungLoai.size());
     }
 
 
-    private void fillDataCto(List<DataChiTietCtoAdapter> dataTreoChiTietCtoAdapters) {
-        if (isShowNoDataText(dataTreoChiTietCtoAdapters.size()))
+    private void fillDataCto(List<DataChiTietCtoAdapter> dataTreoChiTietCto) {
+        if (isShowNoDataText(dataTreoChiTietCto.size()))
             return;
 
         if (mRvMain.getAdapter() instanceof ChiTietCtoAdapter) {
-            ((ChiTietCtoAdapter) mRvMain.getAdapter()).refresh(dataTreoChiTietCtoAdapters);
+            ((ChiTietCtoAdapter) mRvMain.getAdapter()).refresh(dataTreoChiTietCto);
         } else {
-            ChiTietCtoAdapter treoCtoAdapter = new ChiTietCtoAdapter(getContext(), dataTreoChiTietCtoAdapters);
+            ChiTietCtoAdapter treoCtoAdapter = new ChiTietCtoAdapter(getContext(), dataTreoChiTietCto);
             mRvMain.removeAllViews();
             mRvMain.invalidate();
             mRvMain.swapAdapter(treoCtoAdapter, true);
         }
 
         mRvMain.invalidate();
+
+        mListener.refreshTopThongKeMainFragment(dataChiTietCtoAdaptersList.size(), dataTreoChiTietCto.size());
     }
 
-    private void fillDataTram(List<DataTramAdapter> dataTramAdapterList) {
-        if (isShowNoDataText(dataTramAdapterList.size()))
+    private void fillDataTram(List<DataTramAdapter> dataTram) {
+        if (isShowNoDataText(dataTram.size()))
             return;
 
         if (mRvMain.getAdapter() instanceof TramAdapter) {
-            ((TramAdapter) mRvMain.getAdapter()).refresh(dataTramAdapterList);
+            ((TramAdapter) mRvMain.getAdapter()).refresh(dataTram);
         } else {
-            TramAdapter tramAdapter = new TramAdapter(getContext(), dataTramAdapterList);
+            TramAdapter tramAdapter = new TramAdapter(getContext(), dataTram);
             mRvMain.removeAllViews();
             mRvMain.invalidate();
             mRvMain.swapAdapter(tramAdapter, true);
         }
 
         mRvMain.invalidate();
+
+        mListener.refreshTopThongKeMainFragment(dataTramAdapterList.size(), dataTram.size());
     }
 
     private void fillDataBBanCto(List<DataBBanAdapter> dataBBanAdapters) {
@@ -221,10 +226,9 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
             mRvMain.invalidate();
             mRvMain.swapAdapter(bBanAdapter, true);
         }
-
-
         mRvMain.invalidate();
 
+        mListener.refreshTopThongKeMainFragment(dataBBanAdaptersList.size(), dataBBanAdapters.size());
     }
 
     private boolean isShowNoDataText(int size) {
@@ -258,7 +262,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
             case BBAN_CTO:
                 //get Data and apdater
                 String[] agrs = new String[]{onIDataCommon.getMaNVien()};
-                dataBBanAdaptersList = mSqlDAO.getBBanAdapter(agrs);
+                dataBBanAdaptersList = mSqlDAO.getBBanAdapter2Day(agrs);
 
 
                 fillDataBBanCto(dataBBanAdaptersList);
@@ -312,7 +316,6 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
                 dataTramAdapterList = mSqlDAO.getTramAdapter(agrs);
                 fillDataTram(dataTramAdapterList);
                 break;
-
         }
     }
 
@@ -389,6 +392,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
                 break;
         }
     }
+
 
     private void searchChungLoai(String typeSearchString, String messageSearch) {
         Common.TYPE_SEARCH_CLOAI typeSearch = Common.TYPE_SEARCH_CLOAI.findTYPE_SEARCH(typeSearchString);
@@ -490,7 +494,12 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
                         isHasData = Common.removeAccent(data.getMaTramcapdien().toLowerCase()).contains(query);
                         break;
                     case NGAY_TRTH:
-                        isHasData = Common.removeAccent(data.getNgayTrth().toLowerCase()).contains(query);
+                        String convertSqlDate = Common.convertDateToDate(query, Common.DATE_TIME_TYPE.type6, Common.DATE_TIME_TYPE.sqlite2);
+                        String[] args = new String[]{onIDataCommon.getMaNVien(), convertSqlDate};
+                        dataBBanAdaptersList.clear();
+                        dataBBanAdaptersList = Common.cloneList(mSqlDAO.getBBanAdapterInDay(args));
+                        isHasData = false;
+                        mListener.refreshTopThongKeMainFragment(dataBBanAdaptersList.size(), 0);
                         break;
                     case TEN_KH:
                         isHasData = Common.removeAccent(data.getTenKH().toLowerCase()).contains(query);
@@ -526,7 +535,10 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
     }
 
 
-    public interface OnListenerTthtHnMainFragment {
+    public interface IOnTthtHnMainFragment {
+
+        void refreshTopThongKeMainFragment(int countRow, int thongKe);
+
     }
 }
 

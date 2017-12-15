@@ -405,7 +405,7 @@ public class LoginFragment extends Fragment {
                                             if (TextUtils.isEmpty(e.getMessage()))
                                                 showSnackBar("Đăng nhập thất bại. Xem chi tiết", "Chờ máy chủ quá lâu!", null);
                                             else
-                                                showSnackBar("Đăng nhập thất bại. Xem chi tiết", e.getMessage(), null);
+                                                showSnackBar("Không kết nối được máy chủ. Kiểm tra lại thông tin kết nối.", e.getMessage(), null);
                                         }
                                     });
 

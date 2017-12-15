@@ -1,5 +1,6 @@
 package es.vinhnb.ttht.view;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -8,21 +9,19 @@ import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.PopupMenu;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.es.tungnv.views.R;
-import com.esolutions.esloginlib.example.MainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,10 +34,11 @@ import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 
 import static es.vinhnb.ttht.common.Common.DELAY_ANIM;
 import static es.vinhnb.ttht.common.Common.MA_BDONG.B;
+import static es.vinhnb.ttht.common.Common.TYPE_SEARCH_HISTORY.DOWNLOAD;
 import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_TAG_MENU;
 import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_TYPE_TOPMENU;
 
-public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
+public class TthtHnTopSearchFragment extends TthtHnBaseFragment implements DatePickerDialog.OnDateSetListener {
 
     private IOnTthtHnTopSearchFragment mListener;
 
@@ -67,15 +67,26 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
     ImageButton ivSpinClick;
 
 
+    @BindView(R.id.ll_search2)
+    LinearLayout llInfo;
+    @BindView(R.id.tv_ngay_search)
+    TextView tvDate;
+    @BindView(R.id.tv_count_all)
+    TextView tvCountRow;
+    @BindView(R.id.tv_thongKe)
+    TextView tvThongKe;
+
+
     TthtHnSQLDAO mSqlDAO;
-    private TthtHnMainActivity.TagMenuTop tagMenuTop;
-    private TthtHnMainActivity.TagMenuNaviLeft tagMenuNaviLeft;
+    private TthtHnMainActivityI.TagMenuTop tagMenuTop;
+    private TthtHnMainActivityI.TagMenuNaviLeft tagMenuNaviLeft;
+    private boolean isSelectSpin;
 
     public TthtHnTopSearchFragment() {
         // Required empty public constructor
     }
 
-    public static TthtHnTopSearchFragment newInstance(TthtHnMainActivity.TagMenuNaviLeft tagMenuNaviLeft, TthtHnMainActivity.TagMenuTop tagMenuTop) {
+    public static TthtHnTopSearchFragment newInstance(TthtHnMainActivityI.TagMenuNaviLeft tagMenuNaviLeft, TthtHnMainActivityI.TagMenuTop tagMenuTop) {
         TthtHnTopSearchFragment fragment = new TthtHnTopSearchFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(BUNDLE_TYPE_TOPMENU, tagMenuTop);
@@ -89,8 +100,8 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            tagMenuNaviLeft = (TthtHnMainActivity.TagMenuNaviLeft) bundle.getSerializable(BUNDLE_TAG_MENU);
-            tagMenuTop = (TthtHnMainActivity.TagMenuTop) bundle.getSerializable(BUNDLE_TYPE_TOPMENU);
+            tagMenuNaviLeft = (TthtHnMainActivityI.TagMenuNaviLeft) bundle.getSerializable(BUNDLE_TAG_MENU);
+            tagMenuTop = (TthtHnMainActivityI.TagMenuTop) bundle.getSerializable(BUNDLE_TYPE_TOPMENU);
         }
 
 
@@ -106,7 +117,6 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
         // Inflate the layout for this fragment
         View viewRoot = inflater.inflate(R.layout.fragment_tththn_menu_search, container, false);
         unbinder = ButterKnife.bind(TthtHnTopSearchFragment.this, viewRoot);
-
 
         try {
             initDataAndView(viewRoot);
@@ -124,7 +134,7 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         try {
-            if (tagMenuNaviLeft == TthtHnMainActivity.TagMenuNaviLeft.CTO_TREO || tagMenuNaviLeft == TthtHnMainActivity.TagMenuNaviLeft.CTO_THAO) {
+            if (tagMenuNaviLeft == TthtHnMainActivityI.TagMenuNaviLeft.CTO_TREO || tagMenuNaviLeft == TthtHnMainActivityI.TagMenuNaviLeft.CTO_THAO) {
                 MenuTopSearchSharePref menuTopSearchSharePref = (MenuTopSearchSharePref) prefManager.getSharePrefObject(MenuTopSearchSharePref.class);
                 typeSearchString = menuTopSearchSharePref.typeSearchString;
                 messageSearch = menuTopSearchSharePref.messageSearch;
@@ -180,30 +190,43 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
         //get share pref
         prefManager = SharePrefManager.getInstance();
 
+        fillThongKe(Common.getDateTimeNow(Common.DATE_TIME_TYPE.type6), 0, 0);
+
         //show spinner
         fillSpinner(tagMenuNaviLeft);
     }
 
-    private void fillSpinner(TthtHnMainActivity.TagMenuNaviLeft tagMenuNaviLeft) {
+    private void fillThongKe(String dateTimeNow, int countRow, int thongKe) {
+
+        tvDate.setText(dateTimeNow);
+        tvCountRow.setText(String.valueOf(countRow));
+        tvThongKe.setText(thongKe + " " + tagMenuNaviLeft.title);
+    }
+
+    private void fillSpinner(TthtHnMainActivityI.TagMenuNaviLeft tagMenuNaviLeft) {
         ArrayAdapter<String> adapterSearch = null;
+        llInfo.setVisibility(View.VISIBLE);
 
         switch (tagMenuNaviLeft) {
             case BBAN_CTO:
-                adapterSearch = new ArrayAdapter<>(getActivity(),
-                        R.layout.row_tththn_spin_white, Common.TYPE_SEARCH_BBAN.getArray());
+
+                adapterSearch = new ArrayAdapter<String>(getActivity(),
+                        R.layout.row_tththn_spin_white, Common.TYPE_SEARCH_BBAN.getArrayShow());
                 break;
             case TRAM:
-                adapterSearch = new ArrayAdapter<>(getActivity(),
-                        R.layout.row_tththn_spin_white, Common.TYPE_SEARCH_TRAM.getArray());
+                llInfo.setVisibility(View.GONE);
+                adapterSearch = new ArrayAdapter<String>(getActivity(),
+                        R.layout.row_tththn_spin_white, Common.TYPE_SEARCH_TRAM.getArrayShow());
                 break;
             case CTO_TREO:
             case CTO_THAO:
-                adapterSearch = new ArrayAdapter<>(getActivity(),
-                        R.layout.row_tththn_spin_white, Common.TYPE_SEARCH_CTO.getArray());
+                adapterSearch = new ArrayAdapter<String>(getActivity(),
+                        R.layout.row_tththn_spin_white, Common.TYPE_SEARCH_CTO.getArrayShow());
                 break;
             case CHUNG_LOAI:
-                adapterSearch = new ArrayAdapter<>(getActivity(),
-                        R.layout.row_tththn_spin_white, Common.TYPE_SEARCH_CLOAI.getArray());
+                llInfo.setVisibility(View.GONE);
+                adapterSearch = new ArrayAdapter<String>(getActivity(),
+                        R.layout.row_tththn_spin_white, Common.TYPE_SEARCH_CLOAI.getArrayShow());
                 break;
             case CHITIET_CTO_TREO:
                 break;
@@ -220,12 +243,11 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
             case LINE2:
                 break;
             case DOWNLOAD:
-                break;
             case UPLOAD:
                 break;
             case HISTORY:
                 adapterSearch = new ArrayAdapter<>(getActivity(),
-                        R.layout.row_tththn_spin_white, Common.TYPE_SEARCH_HISTORY.getArray());
+                        R.layout.row_tththn_spin_white, Common.TYPE_SEARCH_HISTORY.getArrayShow());
                 break;
         }
 
@@ -244,7 +266,7 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
         catchClick();
 
 
-        if (tagMenuNaviLeft == TthtHnMainActivity.TagMenuNaviLeft.CTO_TREO || tagMenuNaviLeft == TthtHnMainActivity.TagMenuNaviLeft.CTO_THAO) {
+        if (tagMenuNaviLeft == TthtHnMainActivityI.TagMenuNaviLeft.CTO_TREO || tagMenuNaviLeft == TthtHnMainActivityI.TagMenuNaviLeft.CTO_THAO) {
             //fillData save state
             MenuTopSearchSharePref topSearchSharePref = (MenuTopSearchSharePref) prefManager.getSharePrefObject(MenuTopSearchSharePref.class);
             this.messageSearch = topSearchSharePref.messageSearch;
@@ -282,6 +304,21 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
     }
 
     private void catchClick() {
+        tvDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+
+                    showDialogChooseDate();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex04.getContent(), e.getMessage(), null);
+                }
+            }
+        });
+
+
         ivSpinClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -294,6 +331,9 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
         spSearch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                etSearch.setText("");
+                etSearch.setEnabled(true);
+                isSelectSpin = false;
                 switch (tagMenuNaviLeft) {
                     case BBAN_CTO:
                         break;
@@ -327,29 +367,14 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
                     case HISTORY:
                         Common.TYPE_SEARCH_HISTORY spClickItem = Common.TYPE_SEARCH_HISTORY.findTYPE_SEARCH(spSearch.getSelectedItem().toString());
                         switch (spClickItem) {
-                            case TYPE_CALL_API:
-                                spSearch.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        //showdialog type call
-                                        //Khởi tạo 1 popupmenu
-                                        PopupMenu popupMenu = new PopupMenu(getContext().getApplicationContext(), spSearch.getSelectedView());
-                                        //đẩy layout của mình vừa tạo ở trên vào ứng dụng
-                                        popupMenu.getMenuInflater().inflate(R.menu.popup_menu_layout, popupMenu.getMenu());
-                                        //Sự kiện click vào item của menu
-                                        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                                            @Override
-                                            public boolean onMenuItemClick(MenuItem menuItem) {
-                                                Toast.makeText(getContext(), "You Clicked : " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-                                                return true;
-                                            }
-                                        });
-                                        popupMenu.show();
-                                    }
-                                });
+                            case CHON:
                                 break;
-                            case DATE_CALL_API:
-                                //show dialog date
+                            case DOWNLOAD:
+                            case UPLOAD:
+                                isSelectSpin = false;
+                                etSearch.setEnabled(false);
+                                etSearch.setText(spClickItem == DOWNLOAD ? Common.TYPE_CALL_API.DOWNLOAD.content : Common.TYPE_CALL_API.UPLOAD.content);
+                                mListener.clickSearch(spClickItem.content, spClickItem == DOWNLOAD ? Common.TYPE_CALL_API.DOWNLOAD.content : Common.TYPE_CALL_API.UPLOAD.content);
                                 break;
                         }
                         break;
@@ -397,7 +422,8 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 try {
-                    mListener.clickSearch(spSearch.getSelectedItem().toString(), etSearch.getText().toString());
+                    if (!isSelectSpin)
+                        mListener.clickSearch(spSearch.getSelectedItem().toString(), etSearch.getText().toString());
                 } catch (Exception e) {
                     e.printStackTrace();
                     ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
@@ -409,6 +435,12 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
 
             }
         });
+    }
+
+    private void showDialogChooseDate() {
+        TthtHnDateTimePickerFragment tthtHnDateTimePickerFragment = new TthtHnDateTimePickerFragment();
+        tthtHnDateTimePickerFragment.setListener(this);
+        tthtHnDateTimePickerFragment.show(((TthtHnBaseActivity) getContext()).getSupportFragmentManager(), "DateMonthYearPickerFragment");
     }
 
     private void setBackgroundTopMenu(View view) {
@@ -427,7 +459,7 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
         }
     }
 
-    public void refreshTagTopMenu(TthtHnMainActivity.TagMenuNaviLeft tagMenuNaviLeft, TthtHnMainActivity.TagMenuTop tagMenuTop) {
+    public void refreshTagTopMenu(TthtHnMainActivityI.TagMenuNaviLeft tagMenuNaviLeft, TthtHnMainActivityI.TagMenuTop tagMenuTop) {
         this.tagMenuNaviLeft = tagMenuNaviLeft;
         this.tagMenuTop = tagMenuTop;
         fillSpinner(tagMenuNaviLeft);
@@ -437,6 +469,72 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment {
         MenuTopSearchSharePref menuTopSearchSharePref = new MenuTopSearchSharePref(spSearch.getSelectedItem().toString(), etSearch.getText().toString());
         prefManager.writeDataSharePref(MenuTopSearchSharePref.class, menuTopSearchSharePref);
     }
+
+    //region DatePickerDialog.OnDateSetListener
+    @Override
+    public void onDateSet(DatePicker datePicker, int formatedYeah, int formatedMonth, int formatedDate) {
+        //TODO formatedMonth start from index 0
+        StringBuilder time = new StringBuilder();
+        if (formatedDate < 10) {
+            time.append("0" + formatedDate);
+        } else time.append(formatedDate);
+        time.append("/");
+
+        if (formatedMonth < 10) {
+            time.append("0" + formatedMonth);
+        } else time.append(formatedMonth);
+        time.append("/");
+
+        time.append(formatedYeah);
+
+        //tìm kiếm local và clear các input field
+        etSearch.setText("");
+        tvDate.setText(time.toString());
+        isSelectSpin = true;
+        String typeSearchString = "";
+        switch (tagMenuNaviLeft) {
+            case BBAN_CTO:
+                typeSearchString = Common.TYPE_SEARCH_BBAN.NGAY_TRTH.content;
+                break;
+            case TRAM:
+                break;
+            case CTO_TREO:
+                typeSearchString = Common.TYPE_SEARCH_CTO.NGAY_TRTH.content;
+            case CTO_THAO:
+                break;
+            case CHUNG_LOAI:
+                break;
+            case CHITIET_CTO_TREO:
+                break;
+            case CHITIET_CTO_THAO:
+                break;
+            case CHITIET_BBAN_TUTI_TREO:
+                break;
+            case CHITIET_BBAN_TUTI_THAO:
+                break;
+            case EMPTY1:
+                break;
+            case LINE1:
+                break;
+            case LINE2:
+                break;
+            case DOWNLOAD:
+                break;
+            case UPLOAD:
+                break;
+            case HISTORY:
+                break;
+        }
+        if(!TextUtils.isEmpty(typeSearchString))
+        {
+            mListener.clickSearch(typeSearchString, tvDate.getText().toString());
+        }
+    }
+
+    public void refreshTopThongKeMainFragment(int countRow, int thongKe) {
+        fillThongKe(tvDate.getText().toString(), countRow, thongKe);
+    }
+    //endregion
 
     public interface IOnTthtHnTopSearchFragment {
         void clickSearch(String typeSearchString, String messageSearch);

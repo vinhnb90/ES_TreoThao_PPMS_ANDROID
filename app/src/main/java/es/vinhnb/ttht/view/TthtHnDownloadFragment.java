@@ -44,6 +44,7 @@ import es.vinhnb.ttht.entity.api.UpdateStatus;
 import es.vinhnb.ttht.server.TthtHnApi;
 import es.vinhnb.ttht.server.TthtHnApiInterface;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
+import esolutions.com.esdatabaselib.baseSqlite.anonation.TYPE;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -119,7 +120,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
             mListener = (OnListenerTthtHnDownloadFragment) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnListenerTthtHnMainFragment");
+                    + " must implement IOnTthtHnMainFragment");
         }
 
         //call Database access object
@@ -278,7 +279,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
                                 //TODO
                                 //get all biên bản không phải hết hiệu lực
-                                String[] args = new String[]{Common.TRANG_THAI_DU_LIEU.HET_HIEU_LUC.content};
+                                String[] args = new String[]{onIDataCommon.getMaNVien()};
                                 List<TABLE_BBAN_CTO> tableBbanCtoHetHieuLucList = mSqlDAO.getBBanHetHieuLuc(args);
                                 final int sizetableBbanCtoHetHieuLucList = tableBbanCtoHetHieuLucList.size();
                                 for (int i = 0; i < tableBbanCtoHetHieuLucList.size(); i++) {
@@ -299,6 +300,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
 
                                 if (sizetableBbanCtoHetHieuLucList != 0) {
+                                    Thread.sleep(DELAY);
                                     getView().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
@@ -377,6 +379,8 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                 infoSessionDownload.setSO_CTO_THAO_API(0);
                             }
 
+
+                            Thread.sleep(DELAY);
 
                             getView().postDelayed(new Runnable() {
                                 @Override
@@ -465,6 +469,8 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                             infoSessionDownload.setSO_BBAN_TUTI_API(resultGet_bban_TUTIsize);
                             infoSessionDownload.setSO_TU_API(countTU);
                             infoSessionDownload.setSO_TI_API(countTI);
+
+                            Thread.sleep(DELAY);
                             getView().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -475,26 +481,31 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
 
                             //region xác nhận đồng bộ ok các biên bản trên
-                            //                            ResponseGetSuccessPostRequest dataRequest = new ResponseGetSuccessPostRequest(onIDataCommon.getLoginData().getmMaDvi(), onIDataCommon.getMaNVien(), "OK");
-//
-//                            //nếu call ok
-//                            if (callResponseGetSuccessPostRequest(dataRequest)) {
-//                                getView().postDelayed(new Runnable() {
-//                                    @Override
-//                                    public void run() {
-//                                        updateInfoDownload("Kết thúc gửi yêu cầu máy chủ xác nhận đồng bộ thành công biên bản...", 100);
-//                                    }
-//                                }, Common.DELAY);
-//                            } else {
-//                                getView().postDelayed(new Runnable() {
-//                                    @Override
-//                                    public void run() {
-//                                        updateInfoDownload("Gặp vấn dề khi gửi yêu cầu máy chủ xác nhận đồng bộ thành công biên bản...", 100);
-//                                    }
-//                                }, Common.DELAY);
-//
-//                                infoSessionDownload.setTYPE_RESULT(Common.TYPE_RESULT.ERROR.content);
-//                            }
+                            if (infoSessionDownload.getTYPE_RESULT() != Common.TYPE_RESULT.ERROR.content) {
+                                ResponseGetSuccessPostRequest dataRequest = new ResponseGetSuccessPostRequest(onIDataCommon.getLoginData().getmMaDvi(), onIDataCommon.getMaNVien(), "OK");
+
+                                //nếu call ok
+                                if (callResponseGetSuccessPostRequest(dataRequest)) {
+                                    Thread.sleep(DELAY);
+                                    getView().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            updateInfoDownload("Xác nhận đồng bộ nguyên vẹn biên bản...", 100);
+                                        }
+                                    }, Common.DELAY);
+                                } else {
+                                    Thread.sleep(DELAY);
+                                    getView().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            updateInfoDownload("Gặp vấn dề khi xác nhận đồng bộ nguyên vẹn biên bản...", 100);
+                                        }
+                                    }, Common.DELAY);
+
+                                    infoSessionDownload.setTYPE_RESULT(Common.TYPE_RESULT.ERROR.content);
+                                }
+                            }
+
                             //endregion
 
 
@@ -511,7 +522,6 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
 
                             final int resultGetTramsize = resultGetTram.size();
-                            try {
                                 //mỗi dữ liệu trạm sẽ được cập nhật toàn bộ
 
                                 for (int i = 0; i < resultGetTramsize; i++) {
@@ -562,14 +572,10 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                     }
                                 }
 
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                Log.e(TAG, "run: ");
-                            }
-
 
                             //Kết thúc đồng bộ trạm
                             infoSessionDownload.setSO_TRAM_API(resultGetTramsize);
+                            Thread.sleep(DELAY);
                             getView().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -637,6 +643,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
 
                             //Kết thúc đồng bộ trạm
+                            Thread.sleep(DELAY);
                             infoSessionDownload.setSO_CHUNGLOAI_API(resultLayDuLieuLoaiCongTosize);
                             getView().postDelayed(new Runnable() {
                                 @Override
@@ -661,45 +668,39 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
                             //mỗi dữ liệu lý do treo tháo sẽ được cập nhật toàn bộ
                             final int resultLayDuLieuLyDoTreothaosize = resultLayDuLieuLyDoTreothao.size();
-                            try {
 
-                                for (int i = 0; i < resultLayDuLieuLyDoTreothao.size(); i++) {
-                                    D_LY_DO_MODEL object = resultLayDuLieuLyDoTreothao.get(i);
-                                    final int finalI = i;
-                                    getView().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            updateInfoDownload("Đang đồng bộ lý do treo tháo...", finalI * 100 / resultLayDuLieuLyDoTreothaosize);
-                                        }
-                                    }, DELAY_PROGESS_PBAR);
-
-
-                                    //delete row
-                                    String[] nameCollumnCheck = new String[]{TABLE_LYDO_TREOTHAO.table.MA_LDO.name()};
-                                    String[] valuesCheck = new String[]{object.MA_LDO};
-                                    mSqlDAO.deleteRows(TABLE_LYDO_TREOTHAO.class, nameCollumnCheck, valuesCheck);
+                            for (int i = 0; i < resultLayDuLieuLyDoTreothao.size(); i++) {
+                                D_LY_DO_MODEL object = resultLayDuLieuLyDoTreothao.get(i);
+                                final int finalI = i;
+                                getView().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        updateInfoDownload("Đang đồng bộ lý do treo tháo...", finalI * 100 / resultLayDuLieuLyDoTreothaosize);
+                                    }
+                                }, DELAY_PROGESS_PBAR);
 
 
-                                    //insert row
-                                    //Lọc dữ liệu từ service to dữ liệu insert
+                                //delete row
+                                String[] nameCollumnCheck = new String[]{TABLE_LYDO_TREOTHAO.table.MA_LDO.name()};
+                                String[] valuesCheck = new String[]{object.MA_LDO};
+                                mSqlDAO.deleteRows(TABLE_LYDO_TREOTHAO.class, nameCollumnCheck, valuesCheck);
 
-                                    TABLE_LYDO_TREOTHAO tableLydo = new TABLE_LYDO_TREOTHAO(
-                                            0,
-                                            object.MA_DVIQLY,
-                                            object.MA_LDO,
-                                            object.TEN_LDO,
-                                            object.NHOM);
 
-                                    mSqlDAO.insert(TABLE_LYDO_TREOTHAO.class, tableLydo);
-                                }
+                                //insert row
+                                //Lọc dữ liệu từ service to dữ liệu insert
 
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                Log.e(TAG, "run: ");
+                                TABLE_LYDO_TREOTHAO tableLydo = new TABLE_LYDO_TREOTHAO(
+                                        0,
+                                        object.MA_DVIQLY,
+                                        object.MA_LDO,
+                                        object.TEN_LDO,
+                                        object.NHOM);
+
+                                mSqlDAO.insert(TABLE_LYDO_TREOTHAO.class, tableLydo);
                             }
 
-
                             //Kết thúc đồng bộ lý do
+                            Thread.sleep(DELAY);
                             infoSessionDownload.setSO_LYDO_TREOTHAO(resultLayDuLieuLyDoTreothaosize);
                             getView().postDelayed(new Runnable() {
                                 @Override
@@ -776,13 +777,13 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
 
                     //update
-                    getView().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            messageServer.append("-Đang gửi yêu cầu tới máy chủ xác nhận đồng bộ biên bản thành công...-");
-                            updateInfoDownload("Đang gửi yêu cầu tới máy chủ xác nhận đồng bộ biên bản thành công...", 0);
-                        }
-                    });
+//                    getView().post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            messageServer.append("-Đang gửi yêu cầu tới máy chủ xác nhận đồng bộ biên bản thành công...-");
+//                            updateInfoDownload("Đang gửi yêu cầu tới máy chủ xác nhận đồng bộ biên bản thành công...", 0);
+//                        }
+//                    });
 
 
                     //check internet

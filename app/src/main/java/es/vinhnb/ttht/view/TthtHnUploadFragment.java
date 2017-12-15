@@ -176,7 +176,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
             mListener = (IOnTthtHnUploadFragment) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnListenerTthtHnMainFragment");
+                    + " must implement IOnTthtHnMainFragment");
         }
 
 

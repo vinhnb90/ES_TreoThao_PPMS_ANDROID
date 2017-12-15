@@ -41,13 +41,13 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
     Button btnChuyenLoaiCtoMenu;
 
     TthtHnSQLDAO mSqlDAO;
-    private TthtHnMainActivity.TagMenuTop tagMenuTop;
+    private TthtHnMainActivityI.TagMenuTop tagMenuTop;
 
     public TthtHnTopMenuChiTietCtoFragment() {
         // Required empty public constructor
     }
 
-    public static TthtHnTopMenuChiTietCtoFragment newInstance(TthtHnMainActivity.TagMenuTop tagMenuTop) {
+    public static TthtHnTopMenuChiTietCtoFragment newInstance(TthtHnMainActivityI.TagMenuTop tagMenuTop) {
         TthtHnTopMenuChiTietCtoFragment fragment = new TthtHnTopMenuChiTietCtoFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(BUNDLE_TYPE_TOPMENU, tagMenuTop);
@@ -60,7 +60,7 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            tagMenuTop = (TthtHnMainActivity.TagMenuTop) bundle.getSerializable(BUNDLE_TYPE_TOPMENU);
+            tagMenuTop = (TthtHnMainActivityI.TagMenuTop) bundle.getSerializable(BUNDLE_TYPE_TOPMENU);
         }
 
 
@@ -175,7 +175,7 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
             public void onClick(final View view) {
                 try {
                     setBackgroundTopMenu(view);
-                    mListener.clickTopMenuChitietCto(TthtHnMainActivity.TagMenuTop.CHITIET_CTO);
+                    mListener.clickTopMenuChitietCto(TthtHnMainActivityI.TagMenuTop.CHITIET_CTO);
                 } catch (Exception e) {
                     e.printStackTrace();
                     ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
@@ -193,7 +193,7 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
                     onIDataCommon.setMA_BDONG(onIDataCommon.getMA_BDONG() == Common.MA_BDONG.B ? Common.MA_BDONG.E : Common.MA_BDONG.B);
 
 
-                    mListener.clickTopMenuChitietCto(TthtHnMainActivity.TagMenuTop.CHUYEN_LOAI_CTO);
+                    mListener.clickTopMenuChitietCto(TthtHnMainActivityI.TagMenuTop.CHUYEN_LOAI_CTO);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -212,7 +212,7 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
 
 
                     //clickTopMenuChitietCto
-                    mListener.clickTopMenuChitietCto(TthtHnMainActivity.TagMenuTop.BBAN_TUTI);
+                    mListener.clickTopMenuChitietCto(TthtHnMainActivityI.TagMenuTop.BBAN_TUTI);
                 } catch (Exception e) {
                     e.printStackTrace();
                     ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
@@ -232,21 +232,21 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
         btnChuyenLoaiCtoMenu.setCompoundDrawablesWithIntrinsicBounds(null, null, ic_tththn_unmark, null);
 
 
-        if (tagMenuTop == TthtHnMainActivity.TagMenuTop.CHITIET_CTO) {
+        if (tagMenuTop == TthtHnMainActivityI.TagMenuTop.CHITIET_CTO) {
             btnCtoMenu.setBackground(xml_tththn_rectangle11_type1);
             btnCtoMenu.setCompoundDrawablesWithIntrinsicBounds(null, null, ic_tththn_mark, null);
         }
-        if (tagMenuTop == TthtHnMainActivity.TagMenuTop.BBAN_TUTI) {
+        if (tagMenuTop == TthtHnMainActivityI.TagMenuTop.BBAN_TUTI) {
             btnBBTuTiMenu.setBackground(xml_tththn_rectangle11_type1);
             btnBBTuTiMenu.setCompoundDrawablesWithIntrinsicBounds(null, null, ic_tththn_mark, null);
         }
     }
 
-    public void refreshTagTopMenu(TthtHnMainActivity.TagMenuTop tagMenuTop) {
+    public void refreshTagTopMenu(TthtHnMainActivityI.TagMenuTop tagMenuTop) {
         this.tagMenuTop = tagMenuTop;
     }
 
     public interface IOnTthtHnTopMenuChiTietCtoFragment {
-        void clickTopMenuChitietCto(TthtHnMainActivity.TagMenuTop tagMenuTop);
+        void clickTopMenuChitietCto(TthtHnMainActivityI.TagMenuTop tagMenuTop);
     }
 }

@@ -11,7 +11,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.provider.MediaStore;
-import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -29,8 +28,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.es.tungnv.views.R;
-import com.esolutions.esloginlib.example.DepartEntity;
-import com.esolutions.esloginlib.lib.DepartUpdateFragment;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
@@ -56,7 +53,7 @@ import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 import static es.vinhnb.ttht.common.Common.DATE_TIME_TYPE.sqlite2;
 import static es.vinhnb.ttht.common.Common.DATE_TIME_TYPE.type6;
 import static es.vinhnb.ttht.view.TthtHnLoginActivity.BUNDLE_TAG_MENU;
-import static es.vinhnb.ttht.view.TthtHnMainActivity.*;
+import static es.vinhnb.ttht.view.TthtHnMainActivityI.*;
 
 
 public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
@@ -363,7 +360,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
             mListener = (OnITthtHnChiTietCtoFragment) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnListenerTthtHnMainFragment");
+                    + " must implement IOnTthtHnMainFragment");
         }
 
 

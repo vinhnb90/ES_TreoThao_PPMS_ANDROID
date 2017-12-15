@@ -22,10 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -33,7 +30,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.es.tungnv.views.R;
-import com.es.tungnv.views.TthtMainActivity;
 import com.esolutions.esloginlib.lib.LoginFragment;
 
 import java.util.ArrayList;
@@ -47,14 +43,13 @@ import es.vinhnb.ttht.database.table.TABLE_BBAN_CTO;
 import es.vinhnb.ttht.database.table.TABLE_BBAN_TUTI;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_CTO;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_TUTI;
-import es.vinhnb.ttht.database.table.TABLE_DVIQLY;
 import es.vinhnb.ttht.database.table.TABLE_HISTORY;
 import es.vinhnb.ttht.database.table.TABLE_LOAI_CONG_TO;
 import es.vinhnb.ttht.database.table.TABLE_LYDO_TREOTHAO;
 import es.vinhnb.ttht.database.table.TABLE_TRAM;
 import es.vinhnb.ttht.entity.sharedpref.MainSharePref;
 import es.vinhnb.ttht.view.TthtHnHistoryFragment.IOnTthtHnHistoryFragment;
-import es.vinhnb.ttht.view.TthtHnMainFragment.OnListenerTthtHnMainFragment;
+import es.vinhnb.ttht.view.TthtHnMainFragment.IOnTthtHnMainFragment;
 import es.vinhnb.ttht.view.TthtHnUploadFragment.IOnTthtHnUploadFragment;
 import esolutions.com.esdatabaselib.baseSharedPref.SharePrefManager;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
@@ -64,22 +59,22 @@ import static es.vinhnb.ttht.adapter.BBanAdapter.*;
 import static es.vinhnb.ttht.view.TthtHnBBanTutiFragment.IOnTthtHnBBanTutiFragment;
 import static es.vinhnb.ttht.view.TthtHnChiTietCtoFragment.OnITthtHnChiTietCtoFragment;
 import static es.vinhnb.ttht.view.TthtHnDownloadFragment.OnListenerTthtHnDownloadFragment;
-import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CHITIET_BBAN_TUTI_THAO;
-import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CHITIET_BBAN_TUTI_TREO;
-import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CHITIET_CTO_THAO;
-import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CHITIET_CTO_TREO;
-import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CTO_THAO;
-import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CTO_TREO;
-import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.TRAM;
-import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuTop.BBAN_TUTI;
-import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuTop.CHITIET_CTO;
+import static es.vinhnb.ttht.view.TthtHnMainActivityI.TagMenuNaviLeft.CHITIET_BBAN_TUTI_THAO;
+import static es.vinhnb.ttht.view.TthtHnMainActivityI.TagMenuNaviLeft.CHITIET_BBAN_TUTI_TREO;
+import static es.vinhnb.ttht.view.TthtHnMainActivityI.TagMenuNaviLeft.CHITIET_CTO_THAO;
+import static es.vinhnb.ttht.view.TthtHnMainActivityI.TagMenuNaviLeft.CHITIET_CTO_TREO;
+import static es.vinhnb.ttht.view.TthtHnMainActivityI.TagMenuNaviLeft.CTO_THAO;
+import static es.vinhnb.ttht.view.TthtHnMainActivityI.TagMenuNaviLeft.CTO_TREO;
+import static es.vinhnb.ttht.view.TthtHnMainActivityI.TagMenuNaviLeft.TRAM;
+import static es.vinhnb.ttht.view.TthtHnMainActivityI.TagMenuTop.BBAN_TUTI;
+import static es.vinhnb.ttht.view.TthtHnMainActivityI.TagMenuTop.CHITIET_CTO;
 import static es.vinhnb.ttht.view.TthtHnTopMenuChiTietCtoFragment.IOnTthtHnTopMenuChiTietCtoFragment;
 import static es.vinhnb.ttht.view.TthtHnTopSearchFragment.IOnTthtHnTopSearchFragment;
 
-public class TthtHnMainActivity extends TthtHnBaseActivity
+public class TthtHnMainActivityI extends TthtHnBaseActivity
         implements
         NaviMenuAdapter.INaviMenuAdapter,
-        OnListenerTthtHnMainFragment,
+        IOnTthtHnMainFragment,
         OnListenerTthtHnDownloadFragment,
         OnITthtHnChiTietCtoFragment,
         ChiTietCtoAdapter.OnIChiTietCtoAdapter,
@@ -898,11 +893,17 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
     public void clickSearch(String typeSearchString, String messageSearch) {
 
         Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
-        if (!(fragmentVisible instanceof TthtHnMainFragment)) {
+        if (fragmentVisible instanceof TthtHnMainFragment) {
+            ((TthtHnMainFragment) fragmentVisible).searchData(typeSearchString, messageSearch);
             return;
         }
 
-        ((TthtHnMainFragment) fragmentVisible).searchData(typeSearchString, messageSearch);
+        if (fragmentVisible instanceof TthtHnHistoryFragment) {
+            ((TthtHnHistoryFragment) fragmentVisible).searchData(typeSearchString, messageSearch);
+            return;
+        }
+
+
     }
     //endregion
 
@@ -1141,6 +1142,18 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         lydo.setText(dataBBanAdapter.getLydo());
 
         dialog.show();
+    }
+    //endregion
+
+    //region IOnTthtHnMainFragment
+    @Override
+    public void refreshTopThongKeMainFragment(int countRow, int thongKe) {
+
+        Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlTopMenu.getId());
+        if(fragmentVisible instanceof TthtHnTopSearchFragment)
+        {
+            ((TthtHnTopSearchFragment)fragmentVisible).refreshTopThongKeMainFragment(countRow, thongKe);
+        }
     }
     //endregion
 }

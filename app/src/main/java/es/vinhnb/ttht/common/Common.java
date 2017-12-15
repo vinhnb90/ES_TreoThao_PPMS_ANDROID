@@ -192,22 +192,27 @@ public class Common {
 
 
     public enum TYPE_SEARCH_BBAN {
-        MA_TRAM("Mã trạm"), NGAY_TRTH("Ngày treo tháo"), TEN_KH("Tên KH"), MA_GCS("Mã GCS"), SO_BBAN("Số Biên bản");
-        private String content;
+        CHON("Tìm theo", true),
+        MA_TRAM("Mã trạm", true),
+        TEN_KH("Tên KH", true),
+        MA_GCS("Mã GCS", true),
+        SO_BBAN("Số Biên bản", true),
+        NGAY_TRTH("Ngày treo tháo", false);
 
-        TYPE_SEARCH_BBAN(String content) {
+        public String content;
+        public boolean isShow;
+
+        TYPE_SEARCH_BBAN(String content, boolean isShow) {
             this.content = content;
+            this.isShow = isShow;
         }
 
-        public String getContent() {
-            return content;
-        }
-
-        public static String[] getArray() {
+        public static String[] getArrayShow() {
             ArrayList<String> result = new ArrayList<>();
 
             for (TYPE_SEARCH_BBAN typeSearch : values()) {
-                result.add(typeSearch.content);
+                if (typeSearch.isShow)
+                    result.add(typeSearch.content);
             }
 
             return result.toArray(new String[result.size()]);
@@ -224,7 +229,7 @@ public class Common {
 
         public static int getPosInArray(String content) {
             int i = 0;
-            for (String s : TYPE_SEARCH_BBAN.getArray()) {
+            for (String s : TYPE_SEARCH_BBAN.getArrayShow()) {
                 if (s.equalsIgnoreCase(content))
                     break;
                 i++;
@@ -233,6 +238,213 @@ public class Common {
         }
     }
 
+    public enum TYPE_SEARCH_CTO {
+        CHON("Tìm theo", true),
+        MA_TRAM("Mã trạm", true),
+        TEN_KH("Tên KH", true),
+        MA_GCS("Mã GCS", true),
+        MA_CTO("Mã công tơ", true),
+        SO_CTO("Số công tơ", true),
+        SO_BBAN("Số Biên bản", true),
+        NGAY_TRTH("Ngày treo tháo", false);
+
+        public String content;
+        public boolean isShow;
+
+        TYPE_SEARCH_CTO(String content, boolean isShow) {
+            this.content = content;
+            this.isShow = isShow;
+        }
+
+        public static String[] getArrayShow() {
+            ArrayList<String> result = new ArrayList<>();
+
+            for (TYPE_SEARCH_CTO typeSearch : values()) {
+                if (typeSearch.isShow)
+                    result.add(typeSearch.content);
+            }
+
+            return result.toArray(new String[result.size()]);
+        }
+
+
+        public static TYPE_SEARCH_CTO findTYPE_SEARCH(String content) {
+            for (TYPE_SEARCH_CTO typeSearch : values()) {
+                if (typeSearch.content.equalsIgnoreCase(content))
+                    return typeSearch;
+            }
+            return null;
+        }
+
+        public static int getPosInArray(String content) {
+            int i = 0;
+            for (String s : TYPE_SEARCH_CTO.getArrayShow()) {
+                if (s.equalsIgnoreCase(content))
+                    break;
+                i++;
+            }
+            return i;
+        }
+    }
+
+    public enum TYPE_SEARCH_TRAM {
+        CHON("Tìm theo", true),
+        MA_TRAM("Mã trạm", true),
+        DINH_DANH("Định danh", true),
+        MA_DVIQLY("Mã đơn vị", true),
+        TEN_TRAM("Tên trạm", true);
+
+        public String content;
+        public boolean isShow;
+
+        TYPE_SEARCH_TRAM(String content, boolean isShow) {
+            this.content = content;
+            this.isShow = isShow;
+        }
+
+        public static String[] getArrayShow() {
+            ArrayList<String> result = new ArrayList<>();
+
+            for (TYPE_SEARCH_TRAM typeSearch : values()) {
+                if (typeSearch.isShow)
+                    result.add(typeSearch.content);
+            }
+
+            return result.toArray(new String[result.size()]);
+        }
+
+
+        public static TYPE_SEARCH_TRAM findTYPE_SEARCH(String content) {
+            for (TYPE_SEARCH_TRAM typeSearch : values()) {
+                if (typeSearch.content.equalsIgnoreCase(content))
+                    return typeSearch;
+            }
+            return null;
+        }
+
+        public static int getPosInArray(String content) {
+            int i = 0;
+            for (String s : TYPE_SEARCH_TRAM.getArrayShow()) {
+                if (s.equalsIgnoreCase(content))
+                    break;
+                i++;
+            }
+            return i;
+        }
+    }
+
+    public enum TYPE_SEARCH_HISTORY {
+        CHON("Tìm theo", true),
+        DOWNLOAD("Tải xuống", true),
+        UPLOAD("Đẩy lên", true),
+
+        DATE_CALL_API("Ngày lịch sử", false);
+
+        public String content;
+        public boolean isShow;
+
+        TYPE_SEARCH_HISTORY(String content, boolean isShow) {
+            this.content = content;
+            this.isShow = isShow;
+        }
+
+        public static String[] getArrayShow() {
+            ArrayList<String> result = new ArrayList<>();
+
+            for (TYPE_SEARCH_HISTORY typeSearch : values()) {
+                if (typeSearch.isShow)
+                    result.add(typeSearch.content);
+            }
+
+            return result.toArray(new String[result.size()]);
+        }
+
+
+        public static TYPE_SEARCH_HISTORY findTYPE_SEARCH(String content) {
+            for (TYPE_SEARCH_HISTORY typeSearchCto : values()) {
+                if (typeSearchCto.content.equalsIgnoreCase(content))
+                    return typeSearchCto;
+            }
+            return null;
+        }
+
+        public static int getPosInArray(String content) {
+            int i = 0;
+            for (String s : TYPE_SEARCH_HISTORY.getArrayShow()) {
+                if (s.equalsIgnoreCase(content))
+                    break;
+                i++;
+            }
+            return i;
+        }
+    }
+
+    public enum TYPE_SEARCH_CLOAI {
+        CHON("Tìm theo", true),
+        TEN_LOAI_CTO("Chủng loại", true),
+        VH_CONG("Vô - Hữu công", true),
+        MA_HANG("Mã hãng", true),
+        TEN_NUOC("Tên nước", true);
+
+        public String content;
+        public boolean isShow;
+
+        TYPE_SEARCH_CLOAI(String content, boolean isShow) {
+            this.content = content;
+            this.isShow = isShow;
+        }
+
+        public static String[] getArrayShow() {
+            ArrayList<String> result = new ArrayList<>();
+
+            for (TYPE_SEARCH_CLOAI typeSearch : values()) {
+                if (typeSearch.isShow)
+                    result.add(typeSearch.content);
+            }
+
+            return result.toArray(new String[result.size()]);
+        }
+
+
+        public static TYPE_SEARCH_CLOAI findTYPE_SEARCH(String content) {
+            for (TYPE_SEARCH_CLOAI typeSearch : values()) {
+                if (typeSearch.content.equalsIgnoreCase(content))
+                    return typeSearch;
+            }
+            return null;
+        }
+
+        public static int getPosInArray(String content) {
+            int i = 0;
+            for (String s : TYPE_SEARCH_CLOAI.getArrayShow()) {
+                if (s.equalsIgnoreCase(content))
+                    break;
+                i++;
+            }
+            return i;
+        }
+    }
+
+    public static final int REQUEST_CODE_PERMISSION = 100;
+
+    public static boolean checkPermission(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(activity.getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
+                    checkSelfPermission(activity.getApplicationContext(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED &&
+                    checkSelfPermission(activity.getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+                    ) {
+                requestPermissions(activity, new String[]{
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.CAMERA,
+                }, REQUEST_CODE_PERMISSION);
+                return true;
+            }
+            return false;
+        } else {
+            return false;
+        }
+    }
 
     public enum TYPE_TRANG_THAI_MTB_ResultModel_NEW {
         GUI_CMIS_THATBAI("2"),
@@ -265,199 +477,6 @@ public class Common {
         }
 
     }
-
-
-    public enum TYPE_SEARCH_CTO {
-        MA_TRAM("Mã trạm"), NGAY_TRTH("Ngày treo tháo"), TEN_KH("Tên KH"), MA_GCS("Mã GCS"), SO_BBAN("Số Biên bản"), MA_CTO("Mã công tơ"), SO_CTO("Số công tơ");
-        private String content;
-
-        TYPE_SEARCH_CTO(String content) {
-            this.content = content;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public static String[] getArray() {
-            ArrayList<String> result = new ArrayList<>();
-
-            for (TYPE_SEARCH_CTO typeSearch : values()) {
-                result.add(typeSearch.content);
-            }
-
-            return result.toArray(new String[result.size()]);
-        }
-
-
-        public static TYPE_SEARCH_CTO findTYPE_SEARCH(String content) {
-            for (TYPE_SEARCH_CTO typeSearchCto : values()) {
-                if (typeSearchCto.content.equalsIgnoreCase(content))
-                    return typeSearchCto;
-            }
-            return null;
-        }
-
-        public static int getPosInArray(String content) {
-            int i = 0;
-            for (String s : TYPE_SEARCH_CTO.getArray()) {
-                if (s.equalsIgnoreCase(content))
-                    break;
-                i++;
-            }
-            return i;
-        }
-    }
-
-    public static final int REQUEST_CODE_PERMISSION = 100;
-
-    public static boolean checkPermission(Activity activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(activity.getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
-                    checkSelfPermission(activity.getApplicationContext(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED &&
-                    checkSelfPermission(activity.getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
-                    ) {
-                requestPermissions(activity, new String[]{
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_PHONE_STATE,
-                        Manifest.permission.CAMERA,
-                }, REQUEST_CODE_PERMISSION);
-                return true;
-            }
-            return false;
-        } else {
-            return false;
-        }
-    }
-
-    public enum TYPE_SEARCH_TRAM {
-        MA_TRAM("Mã trạm"), DINH_DANH("Định danh"), MA_DVIQLY("Mã đơn vị"), TEN_TRAM("Tên trạm");
-        private String content;
-
-        TYPE_SEARCH_TRAM(String content) {
-            this.content = content;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public static String[] getArray() {
-            ArrayList<String> result = new ArrayList<>();
-
-            for (TYPE_SEARCH_TRAM typeSearch : values()) {
-                result.add(typeSearch.content);
-            }
-
-            return result.toArray(new String[result.size()]);
-        }
-
-
-        public static TYPE_SEARCH_TRAM findTYPE_SEARCH(String content) {
-            for (TYPE_SEARCH_TRAM typeSearchCto : values()) {
-                if (typeSearchCto.content.equalsIgnoreCase(content))
-                    return typeSearchCto;
-            }
-            return null;
-        }
-
-        public static int getPosInArray(String content) {
-            int i = 0;
-            for (String s : TYPE_SEARCH_TRAM.getArray()) {
-                if (s.equalsIgnoreCase(content))
-                    break;
-                i++;
-            }
-            return i;
-        }
-    }
-
-    public enum TYPE_SEARCH_HISTORY {
-        TYPE_CALL_API("Kiểu lịch sử"),
-        DATE_CALL_API("Ngày đồng bộ");
-        private String content;
-
-        TYPE_SEARCH_HISTORY(String content) {
-            this.content = content;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public static String[] getArray() {
-            ArrayList<String> result = new ArrayList<>();
-
-            for (TYPE_SEARCH_HISTORY typeSearch : values()) {
-                result.add(typeSearch.content);
-            }
-
-            return result.toArray(new String[result.size()]);
-        }
-
-
-        public static TYPE_SEARCH_HISTORY findTYPE_SEARCH(String content) {
-            for (TYPE_SEARCH_HISTORY typeSearchCto : values()) {
-                if (typeSearchCto.content.equalsIgnoreCase(content))
-                    return typeSearchCto;
-            }
-            return null;
-        }
-
-        public static int getPosInArray(String content) {
-            int i = 0;
-            for (String s : TYPE_SEARCH_HISTORY.getArray()) {
-                if (s.equalsIgnoreCase(content))
-                    break;
-                i++;
-            }
-            return i;
-        }
-    }
-
-
-    public enum TYPE_SEARCH_CLOAI {
-        TEN_LOAI_CTO("Chủng loại"), VH_CONG("Vô - Hữu công"), MA_HANG("Mã hãng"), TEN_NUOC("Tên nước");
-        private String content;
-
-        TYPE_SEARCH_CLOAI(String content) {
-            this.content = content;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public static String[] getArray() {
-            ArrayList<String> result = new ArrayList<>();
-
-            for (TYPE_SEARCH_CLOAI typeSearch : values()) {
-                result.add(typeSearch.content);
-            }
-
-            return result.toArray(new String[result.size()]);
-        }
-
-
-        public static TYPE_SEARCH_CLOAI findTYPE_SEARCH(String content) {
-            for (TYPE_SEARCH_CLOAI typeSearchCto : values()) {
-                if (typeSearchCto.content.equalsIgnoreCase(content))
-                    return typeSearchCto;
-            }
-            return null;
-        }
-
-        public static int getPosInArray(String content) {
-            int i = 0;
-            for (String s : TYPE_SEARCH_CLOAI.getArray()) {
-                if (s.equalsIgnoreCase(content))
-                    break;
-                i++;
-            }
-            return i;
-        }
-    }
-
 
     public static String getImei(Context context) {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
