@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.es.tungnv.views.R;
@@ -57,6 +58,18 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
 
         if (Common.TYPE_RESULT.findTYPE_RESULT(history.typeResult) == Common.TYPE_RESULT.ERROR)
             holder.btnMessage.setVisibility(View.VISIBLE);
+
+
+        if (Common.TYPE_CALL_API.findTYPE_CALL_API(history.typeCallApi) == Common.TYPE_CALL_API.DOWNLOAD) {
+
+            holder.rlUpload.setVisibility(View.GONE);
+            holder.rlDownload.setVisibility(View.VISIBLE);
+        }else
+        {
+
+            holder.rlUpload.setVisibility(View.VISIBLE);
+            holder.rlDownload.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -83,10 +96,13 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
         public TextView tvSoTram;
         public TextView tvSoChungLoai;
         public Button btnMessage;
+        public RelativeLayout rlUpload;
+        public RelativeLayout rlDownload;
 
         public ViewHolder(View itemView) {
             super(itemView);
-
+            rlDownload = (RelativeLayout) itemView.findViewById(R.id.rl_download_111);
+            rlUpload = (RelativeLayout) itemView.findViewById(R.id.rl_upload_aa);
             tvDate = (TextView) itemView.findViewById(R.id.tv_date_download_history);
             tvNotify = (TextView) itemView.findViewById(R.id.tv_notify_download);
             tvSoBB = (TextView) itemView.findViewById(R.id.tv_so_bb);
@@ -127,5 +143,6 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
         public int soChungLoai;
         public String typeResult;
         public String message;
+        public String typeCallApi;
     }
 }

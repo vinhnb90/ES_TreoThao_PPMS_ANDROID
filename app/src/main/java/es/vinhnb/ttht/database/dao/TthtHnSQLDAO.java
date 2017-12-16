@@ -437,6 +437,8 @@ public class TthtHnSQLDAO extends SqlDAO {
                 tableHistory.soTram = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_TRAM_API.name()));
                 tableHistory.soChungLoai = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_CHUNGLOAI_API.name()));
                 tableHistory.typeResult = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.TYPE_RESULT.name()));
+                tableHistory.typeCallApi = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.TYPE_CALL_API.name()));
+
 
                 return tableHistory;
             }

@@ -568,7 +568,8 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
         switch (typeImage) {
             case IMAGE_CONG_TO:
-                TEN_ANH = tableAnhChiso.getTEN_ANH();
+                if (tableAnhChiso != null)
+                    TEN_ANH = tableAnhChiso.getTEN_ANH();
                 if (TextUtils.isEmpty(TEN_ANH))
                     return;
 
@@ -586,6 +587,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
                 break;
             case IMAGE_CONG_TO_NIEM_PHONG:
+                if (tableAnhNiemPhong != null)
                 TEN_ANH = tableAnhNiemPhong.getTEN_ANH();
                 if (TextUtils.isEmpty(TEN_ANH))
                     return;
