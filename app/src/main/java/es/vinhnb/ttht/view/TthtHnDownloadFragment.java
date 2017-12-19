@@ -317,6 +317,9 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
                                 for (int i = 0; i < resultGeT_BBANsize; i++) {
                                     MtbBbanModel bbanModel = resultGeT_BBAN.get(i);
+                                    if (bbanModel.ID_BBAN_TRTH == 2704811) {
+                                        Log.e(TAG, "run error: " + 2704811);
+                                    }
                                     final int finalI = i;
 
                                     if (i == 10 * (i / 10)) {
@@ -522,55 +525,55 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
 
                             final int resultGetTramsize = resultGetTram.size();
-                                //mỗi dữ liệu trạm sẽ được cập nhật toàn bộ
+                            //mỗi dữ liệu trạm sẽ được cập nhật toàn bộ
 
-                                for (int i = 0; i < resultGetTramsize; i++) {
-                                    TRAMVIEW tramview = resultGetTram.get(i);
-                                    final int finalI = i;
-                                    getView().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            updateInfoDownload("Đang đồng bộ Trạm ...", finalI * 100 / resultGetTramsize);
-                                        }
-                                    }, DELAY_PROGESS_PBAR);
-
-
-                                    String[] arg = new String[]{tramview.MA_TRAM};
-                                    List<TABLE_TRAM> tableTrams = mSqlDAO.getTRAM(arg);
-                                    TABLE_TRAM tableTram = null;
-                                    TABLE_TRAM tableTramNew = null;
-                                    if (tableTrams.size() != 0) {
-                                        tableTram = tableTrams.get(0);
+                            for (int i = 0; i < resultGetTramsize; i++) {
+                                TRAMVIEW tramview = resultGetTram.get(i);
+                                final int finalI = i;
+                                getView().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        updateInfoDownload("Đang đồng bộ Trạm ...", finalI * 100 / resultGetTramsize);
                                     }
+                                }, DELAY_PROGESS_PBAR);
 
-                                    if (tableTram != null) {
-                                        //update
-                                        tableTramNew = (TABLE_TRAM) tableTram.clone();
-                                        tableTramNew.setCSUAT_TRAM(tableTram.getCSUAT_TRAM());
-                                        tableTramNew.setDINH_DANH(tableTram.getDINH_DANH());
-                                        tableTramNew.setLOAI_TRAM(tableTram.getLOAI_TRAM());
-                                        tableTramNew.setMA_CAP_DA(tableTram.getMA_CAP_DA());
-                                        tableTramNew.setMA_CAP_DA_RA(tableTram.getMA_CAP_DA_RA());
-                                        tableTramNew.setMA_DVIQLY(tableTram.getMA_DVIQLY());
-                                        tableTramNew.setMA_TRAM(tableTram.getMA_TRAM());
-                                        tableTramNew.setTEN_TRAM(tableTram.getTEN_TRAM());
-                                        mSqlDAO.updateORInsertRows(TABLE_TRAM.class, tableTram, tableTramNew);
-                                    } else {
-                                        //insert
-                                        tableTramNew = new TABLE_TRAM(
-                                                0,
-                                                tramview.MA_TRAM,
-                                                tramview.MA_DVIQLY,
-                                                tramview.TEN_TRAM,
-                                                tramview.LOAI_TRAM,
-                                                tramview.CSUAT_TRAM,
-                                                tramview.MA_CAP_DA,
-                                                tramview.MA_CAP_DA_RA,
-                                                tramview.DINH_DANH);
 
-                                        mSqlDAO.insert(TABLE_TRAM.class, tableTramNew);
-                                    }
+                                String[] arg = new String[]{tramview.MA_TRAM};
+                                List<TABLE_TRAM> tableTrams = mSqlDAO.getTRAM(arg);
+                                TABLE_TRAM tableTram = null;
+                                TABLE_TRAM tableTramNew = null;
+                                if (tableTrams.size() != 0) {
+                                    tableTram = tableTrams.get(0);
                                 }
+
+                                if (tableTram != null) {
+                                    //update
+                                    tableTramNew = (TABLE_TRAM) tableTram.clone();
+                                    tableTramNew.setCSUAT_TRAM(tableTram.getCSUAT_TRAM());
+                                    tableTramNew.setDINH_DANH(tableTram.getDINH_DANH());
+                                    tableTramNew.setLOAI_TRAM(tableTram.getLOAI_TRAM());
+                                    tableTramNew.setMA_CAP_DA(tableTram.getMA_CAP_DA());
+                                    tableTramNew.setMA_CAP_DA_RA(tableTram.getMA_CAP_DA_RA());
+                                    tableTramNew.setMA_DVIQLY(tableTram.getMA_DVIQLY());
+                                    tableTramNew.setMA_TRAM(tableTram.getMA_TRAM());
+                                    tableTramNew.setTEN_TRAM(tableTram.getTEN_TRAM());
+                                    mSqlDAO.updateORInsertRows(TABLE_TRAM.class, tableTram, tableTramNew);
+                                } else {
+                                    //insert
+                                    tableTramNew = new TABLE_TRAM(
+                                            0,
+                                            tramview.MA_TRAM,
+                                            tramview.MA_DVIQLY,
+                                            tramview.TEN_TRAM,
+                                            tramview.LOAI_TRAM,
+                                            tramview.CSUAT_TRAM,
+                                            tramview.MA_CAP_DA,
+                                            tramview.MA_CAP_DA_RA,
+                                            tramview.DINH_DANH);
+
+                                    mSqlDAO.insert(TABLE_TRAM.class, tableTramNew);
+                                }
+                            }
 
 
                             //Kết thúc đồng bộ trạm
@@ -1076,7 +1079,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
         TABLE_BBAN_CTO tableBbanCtoNewData = new TABLE_BBAN_CTO(
                 0,
-                bbanModel.MA_DVIQLY,
+                onIDataCommon.getLoginData().getmMaDvi(),
                 bbanModel.ID_BBAN_TRTH,
                 bbanModel.MA_DDO,
                 bbanModel.SO_BBAN,

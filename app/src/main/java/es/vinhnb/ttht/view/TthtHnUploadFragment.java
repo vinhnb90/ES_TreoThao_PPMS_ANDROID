@@ -129,7 +129,6 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
     private int sobbUploadError;
 
 
-
     public TthtHnUploadFragment() {
         // Required empty public constructor
     }
@@ -247,7 +246,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                     if (rlGuiBBan.getVisibility() == View.GONE) {
                         rlGuiBBan.setVisibility(View.VISIBLE);
                         tvDateUpload.setText(Common.getDateTimeNow(Common.DATE_TIME_TYPE.type9));
-                        tvSoBBUpload.setText(String.valueOf(sobbUpload) + " biên bản");
+                        tvSoBBUpload.setText(sobbUpload + "/" + listID_BBAN_TRTH.size() + " biên bản");
                         tvPercentUpload.setText("0%");
                         pbarUpload.setProgress(0);
 
@@ -304,7 +303,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                             String dateUI = Common.convertDateToDate(infoSessionUpload.getDATE_CALL_API(), Common.DATE_TIME_TYPE.sqlite2, Common.DATE_TIME_TYPE.type9);
                             tvDateUpload.setText(dateUI);
                             tvDateUpload.setTextColor(getResources().getColor(R.color.tththn_button));
-                            tvSoBBUpload.setText(listID_BBAN_TRTH.size() + " biên bản");
+                            tvSoBBUpload.setText(sobbUpload + "/" + listID_BBAN_TRTH.size() + " biên bản");
                         }
                     });
                     //endregion
@@ -1199,10 +1198,6 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
         }
 
 
-        //reset sobbUpload
-        sobbUpload = 0;
-        tvSoBBUpload.setText(sobbUpload + " biên bản");
-
         //update  anh thao
         for (int i = 0; i < data.size(); i++) {
             if (hashMapData.containsKey(data.get(i).ID_BBAN_TRTH)) {
@@ -1213,12 +1208,14 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                     hashMapData.get(data.get(i).ID_BBAN_TRTH).TRANG_THAI_DU_LIEU = data.get(i).TRANG_THAI_DU_LIEU;
                     //tăng số biên bản có thể upload
                     if (data.get(i).TRANG_THAI_DU_LIEU == Common.TRANG_THAI_DU_LIEU.DA_GHI || data.get(i).TRANG_THAI_DU_LIEU == GUI_THAT_BAI) {
-                        sobbUpload++;
                         listID_BBAN_TRTH.add(data.get(i).ID_BBAN_TRTH);
                     }
                 }
             }
         }
+
+        sobbUpload = 0;
+        tvSoBBUpload.setText(sobbUpload + "/" + listID_BBAN_TRTH.size() + " biên bản");
 
         final List<DoiSoatAdapter.DataDoiSoatAdapter> listDataDoiSoatAdapter = new ArrayList<>(hashMapData.values());
 
@@ -1250,7 +1247,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                                     TABLE_BBAN_CTO tableBbanCto = tableBbanCtoList.get(0);
                                     TABLE_BBAN_CTO tableBbanCtoOld = (TABLE_BBAN_CTO) tableBbanCto.clone();
 
-                                    tableBbanCto.setTRANG_THAI_DOI_SOAT(listDataDoiSoatAdapter.get(pos).TRANG_THAI_DU_LIEU.content);
+                                    tableBbanCto.setTRANG_THAI_DOI_SOAT(listDataDoiSoatAdapter.get(pos).TRANG_THAI_DOISOAT.content);
 
                                     mSqlDAO.updateRows(TABLE_BBAN_CTO.class, tableBbanCtoOld, tableBbanCto);
 
@@ -1272,8 +1269,9 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                                         }
                                     }
                                 }
-                                tvSoBBUpload.setText(sobbUpload + " biên bản");
 
+
+                                tvSoBBUpload.setText(sobbUpload + "/" + listID_BBAN_TRTH.size() + " biên bản");
                             }
 
                         } catch (Exception e) {
@@ -1296,6 +1294,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
             return;
 
     }
+
     private boolean isShowNoDataText(int size) {
         rvDoiSoat.setVisibility(size == 0 ? View.GONE : View.VISIBLE);
         tvNodata.setVisibility(size == 0 ? View.VISIBLE : View.GONE);

@@ -54,6 +54,8 @@ import static es.vinhnb.ttht.common.Common.DATE_TIME_TYPE.sqlite1;
 import static es.vinhnb.ttht.common.Common.DATE_TIME_TYPE.sqlite2;
 import static es.vinhnb.ttht.common.Common.DATE_TIME_TYPE.type6;
 import static es.vinhnb.ttht.common.Common.DATE_TIME_TYPE.type9;
+import static es.vinhnb.ttht.common.Common.TRANG_THAI.DA_XUAT_RA_MTB;
+import static es.vinhnb.ttht.common.Common.TRANG_THAI.DA_XUAT_RA_WEB;
 import static es.vinhnb.ttht.view.TthtHnLoginActivity.BUNDLE_TAG_MENU;
 import static es.vinhnb.ttht.view.TthtHnMainActivity.*;
 
@@ -381,6 +383,39 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+
+        //clear text
+        etCS1.setText("");
+        etCS2.setText("");
+        etCS3.setText("");
+        etCS4.setText("");
+        etCS5.setText("");
+
+        //clear text
+        etCS1.setHint("");
+        etCS2.setHint("");
+        etCS3.setHint("");
+        etCS4.setHint("");
+        etCS5.setHint("");
+
+
+//        tableTram = null;
+//        tableLoaiCongTo = null;
+//        tableBbanCto = null;
+//        tableChitietCto = null;
+//        tableLydoTreothao = null;
+//        tableLydoTreothaos = new ArrayList<>();
+//        isRefreshAnhNiemPhong = false;
+//        isRefreshChiSo = false;
+//        TABLE_ANH_HIENTRUONG tableAnhChiso = null;
+//        TABLE_ANH_HIENTRUONG tableAnhNiemPhong = null;
+//        timeFileCaptureAnhChiSo = "";
+//        timeFileCaptureAnhNiemPhong = "";
+//        cs1 = cs2 = cs3 = cs4 = cs5 = "";
+//        pos = -1;
+//        timeSQLCapturedAnhChiso = null;
+//        timeSQLCapturedAnhNiemPhong = null;
+
     }
 
     @Override
@@ -429,6 +464,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         unbinder.unbind();
     }
 
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -455,12 +491,14 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         //get Data Chi tiet cong to
         String[] agrs = new String[]{String.valueOf(onIDataCommom.getID_BBAN_TRTH()), onIDataCommom.getMA_BDONG().code, onIDataCommom.getMaNVien()};
         List<TABLE_CHITIET_CTO> tableChitietCtoList = mSqlDAO.getChiTietCongto(agrs);
+        tableChitietCto = null;
         if (tableChitietCtoList.size() != 0)
             tableChitietCto = tableChitietCtoList.get(0);
 
         //get Data bien ban
         String[] agrsBB = new String[]{String.valueOf(onIDataCommom.getID_BBAN_TRTH()), onIDataCommom.getMaNVien()};
         List<TABLE_BBAN_CTO> tableBbanCtoList = mSqlDAO.getBBan(agrsBB);
+        tableBbanCto = null;
         if (tableBbanCtoList.size() != 0)
             tableBbanCto = tableBbanCtoList.get(0);
 
@@ -468,6 +506,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         //getInfo LyDo
         String MA_DVIQLY = onIDataCommom.getLoginData().getmMaDvi();
         String[] args = new String[]{MA_DVIQLY};
+        tableLydoTreothaos = null;
         tableLydoTreothaos = mSqlDAO.getLydoTreothao(args);
 
 
@@ -475,16 +514,16 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         String MA_CLOAI = tableChitietCto.getMA_CLOAI();
         String[] argsCloai = new String[]{MA_CLOAI};
         List<TABLE_LOAI_CONG_TO> tableLoaiCongToList = mSqlDAO.getLoaiCongto(argsCloai);
+        tableLoaiCongTo = null;
         if (tableLoaiCongToList.size() != 0)
             tableLoaiCongTo = tableLoaiCongToList.get(0);
-        else
-            tableLoaiCongTo = new TABLE_LOAI_CONG_TO();
 
 
         //getInfo Tram
         String MA_TRAM = tableBbanCto.getMA_TRAM();
         String[] argsTram = new String[]{MA_TRAM};
         List<TABLE_TRAM> tableTramList = mSqlDAO.getTRAM(argsTram);
+        tableTram = null;
         if (tableTramList.size() != 0)
             tableTram = tableTramList.get(0);
 
@@ -503,6 +542,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         //get info ẢNH chỉ số
         argsAnh = new String[]{onIDataCommom.getMaNVien(), String.valueOf(ID_CHITIET_CTO)};
         tableAnhHientruongList = mSqlDAO.getAnhHienTruong(argsAnh, Common.TYPE_IMAGE.IMAGE_CONG_TO);
+        tableAnhChiso = null;
         if (tableAnhHientruongList.size() != 0)
             tableAnhChiso = tableAnhHientruongList.get(0);
 
@@ -510,12 +550,30 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         //get Ảnh niêm phong
         argsAnh = new String[]{onIDataCommom.getMaNVien(), String.valueOf(ID_CHITIET_CTO)};
         tableAnhHientruongList = mSqlDAO.getAnhHienTruong(argsAnh, Common.TYPE_IMAGE.IMAGE_CONG_TO_NIEM_PHONG);
+        tableAnhNiemPhong = null;
         if (tableAnhHientruongList.size() != 0)
             tableAnhNiemPhong = tableAnhHientruongList.get(0);
 
 
         //fill data text view
         //CHISO
+
+        //clear text
+        etCS1.setText("");
+        etCS2.setText("");
+        etCS3.setText("");
+        etCS4.setText("");
+        etCS5.setText("");
+
+        //clear text
+        etCS1.setHint("");
+        etCS2.setHint("");
+        etCS3.setHint("");
+        etCS4.setHint("");
+        etCS5.setHint("");
+
+
+
         ViewBO_CHISO viewBOChiso = new ViewBO_CHISO();
         viewBOChiso.tvCS1 = tvCS1;
         viewBOChiso.tvCS2 = tvCS2;
@@ -564,6 +622,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
 
     private void fillImageView(Common.TYPE_IMAGE typeImage, Common.TRANG_THAI_DU_LIEU trangThaiDuLieu) {
+
         //get ten anh
         String TEN_ANH = "";
         String pathAnh = "";
@@ -574,8 +633,10 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
             case IMAGE_CONG_TO:
                 if (tableAnhChiso != null)
                     TEN_ANH = tableAnhChiso.getTEN_ANH();
-                if (TextUtils.isEmpty(TEN_ANH))
+                if (TextUtils.isEmpty(TEN_ANH)) {
+                    ivAnhChiso.setImageDrawable(null);
                     return;
+                }
 
 
                 pathAnh = Common.getRecordDirectoryFolder(Common.FOLDER_NAME.FOLDER_ANH_CONG_TO.name()) + "/" + TEN_ANH;
@@ -593,8 +654,10 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
             case IMAGE_CONG_TO_NIEM_PHONG:
                 if (tableAnhNiemPhong != null)
                     TEN_ANH = tableAnhNiemPhong.getTEN_ANH();
-                if (TextUtils.isEmpty(TEN_ANH))
+                if (TextUtils.isEmpty(TEN_ANH)) {
+                    ivAnhNiemPhong.setImageDrawable(null);
                     return;
+                }
 
 
                 pathAnh = Common.getRecordDirectoryFolder(Common.FOLDER_NAME.FOLDER_ANH_CONG_TO.name()) + "/" + TEN_ANH;
@@ -613,21 +676,16 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
     }
 
     private void fillSpinLyDo(Common.TRANG_THAI_DU_LIEU TRANG_THAI_DU_LIEU) throws Exception {
-        if (tableLydoTreothaos == null)
-            return;
+
 
         String MA_LDO = tableBbanCto.getMA_LDO();
-        int pos = -1;
+        int pos = 0;
         for (int i = 0; i < tableLydoTreothaos.size(); i++) {
             if (tableLydoTreothaos.get(i).getMA_LDO().equalsIgnoreCase(MA_LDO)) {
                 pos = i;
                 break;
             }
         }
-
-
-        if (pos < 0)
-            return;
 
 
         //set adapter
@@ -650,6 +708,8 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
 
     private void fillSpinLoaiHom(Common.TRANG_THAI_DU_LIEU TRANG_THAI_DU_LIEU) throws Exception {
+
+
         //set adapter
         ArrayAdapter<String> adapterSoVien = new ArrayAdapter<>(getActivity(),
                 R.layout.row_tththn_spin, Common.arrLoaiHom);
@@ -672,6 +732,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
     }
 
     private void fillSpinSoChiKiemdinh(Common.TRANG_THAI_DU_LIEU trangThaiDuLieu) throws Exception {
+
         //set adapter
         ArrayAdapter<String> adapterSoVien = new ArrayAdapter<>(getActivity(),
                 R.layout.row_tththn_spin, Common.arrSoVien);
@@ -694,6 +755,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
     }
 
     private void fillSpinSochiHom(Common.TRANG_THAI_DU_LIEU trangThaiDuLieu) throws Exception {
+
         //set adapter
         ArrayAdapter<String> adapterSoVien = new ArrayAdapter<>(getActivity(),
                 R.layout.row_tththn_spin, Common.arrSoVien);
@@ -716,6 +778,8 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
     }
 
     private void fillSpinSoChibooc(Common.TRANG_THAI_DU_LIEU trangThaiDuLieu) throws Exception {
+
+
         //set adapter
         ArrayAdapter<String> adapterSoVien = new ArrayAdapter<>(getActivity(),
                 R.layout.row_tththn_spin, Common.arrSoVien);
@@ -739,6 +803,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
 
     private void fillSpinPhuongthucdoxa(Common.TRANG_THAI_DU_LIEU trangThaiDuLieu) throws Exception {
+
         //get data
         List<String> phuongThucDoXaList = new ArrayList<String>();
         String PHUONG_THUCDOXA = tableLoaiCongTo.getPTHUC_DOXA();
@@ -768,48 +833,50 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
     }
 
     private void showTextView() {
-        tvLoaicto.setText(tableLoaiCongTo.getTEN_LOAI_CTO());
-        tvKH.setText(tableBbanCto.getTEN_KHANG());
-        tvNhacungcap.setText(tableLoaiCongTo.getMA_HANG());
-        tvMaGCS.setText(tableBbanCto.getMA_GCS_CTO());
-        tvSoNo.setText(tableChitietCto.getSO_CTO());
-        tvDiaChi.setText(tableBbanCto.getDCHI_HDON());
-        tvdienap.setText(tableChitietCto.getDIEN_AP());
-        tvdongdien.setText(tableChitietCto.getDONG_DIEN());
-        tvhesoK.setText(tableChitietCto.getHANGSO_K());
-        tvhesonhan.setText(String.valueOf(tableChitietCto.getHS_NHAN()));
-        tvlapquaTi.setText(tableChitietCto.getSO_TI_SAULAP_TUTI());
-        tvlapquaTu.setText(tableChitietCto.getSO_TU_SAULAP_TUTI());
+        tvLoaicto.setText(tableLoaiCongTo == null ? "" : tableLoaiCongTo.getTEN_LOAI_CTO());
+        tvKH.setText(tableBbanCto == null ? "" : tableBbanCto.getTEN_KHANG());
+        tvNhacungcap.setText(tableLoaiCongTo == null ? "" : tableLoaiCongTo.getMA_HANG());
+        tvMaGCS.setText(tableBbanCto == null ? "" : tableBbanCto.getMA_GCS_CTO());
+        tvSoNo.setText(tableChitietCto == null ? "" : tableChitietCto.getSO_CTO());
+        tvDiaChi.setText(tableBbanCto == null ? "" : tableBbanCto.getDCHI_HDON());
+        tvdienap.setText(tableChitietCto == null ? "" : tableChitietCto.getDIEN_AP());
+        tvdongdien.setText(tableChitietCto == null ? "" : tableChitietCto.getDONG_DIEN());
+        tvhesoK.setText(tableChitietCto == null ? "" : tableChitietCto.getHANGSO_K());
+        tvhesonhan.setText(tableChitietCto == null ? "" : String.valueOf(tableChitietCto.getHS_NHAN()));
+        tvlapquaTi.setText(tableChitietCto == null ? "" : tableChitietCto.getSO_TI_SAULAP_TUTI());
+        tvlapquaTu.setText(tableChitietCto == null ? "" : tableChitietCto.getSO_TU_SAULAP_TUTI());
 
-        tvloaicongto.setText(tableLoaiCongTo.getTEN_LOAI_CTO());
-        tvmatemkiemdinh.setText(tableChitietCto.getMA_TEM());
-        tvnamsanxuat.setText(tableChitietCto.getNAM_SX());
-        tvngaykiemdinh.setText(Common.convertDateToDate(String.valueOf(tableChitietCto.getNGAY_KDINH()), sqlite2, type6));
-        tvnuocsanxuat.setText(tableChitietCto.getTEN_NUOC());
-        tvnvienTreothao.setText(".....");
-        tvtramcapdien.setText(tableTram.getTEN_TRAM());
-        tvvtrilapdat.setText(tableChitietCto.getMO_TA_VTRI_TREO());
+        tvloaicongto.setText(tableLoaiCongTo == null ? "" : tableLoaiCongTo.getTEN_LOAI_CTO());
+        tvmatemkiemdinh.setText(tableChitietCto == null ? "" : tableChitietCto.getMA_TEM());
+        tvnamsanxuat.setText(tableChitietCto == null ? "" : tableChitietCto.getNAM_SX());
+        tvngaykiemdinh.setText(tableChitietCto == null ? "" : Common.convertDateToDate(String.valueOf(tableChitietCto.getNGAY_KDINH()), sqlite2, type6));
+        tvnuocsanxuat.setText(tableChitietCto == null ? "" : tableChitietCto.getTEN_NUOC());
+        tvnvienTreothao.setText(tableChitietCto == null ? "" : ".....");
+        tvtramcapdien.setText(tableTram == null ? "" : tableTram.getTEN_TRAM());
+        tvvtrilapdat.setText(tableChitietCto == null ? "" : tableChitietCto.getMO_TA_VTRI_TREO());
     }
 
     private void showEditText(Common.TRANG_THAI_DU_LIEU trangThaiDuLieu) throws Exception {
 
-        if (!TextUtils.isEmpty(tableChitietCto.getTTRANG_NPHONG()))
-            etTinhTrangNiemPhong.setText(tableChitietCto.getTTRANG_NPHONG());
-        etGhiChu.setText(tableChitietCto.getGHI_CHU());
-        etKimNiemChi.setText(tableChitietCto.getSO_KIM_NIEM_CHI());
-        etMaCHiBooc.setText(tableChitietCto.getMA_SOCBOOC());
-        etMaChiKiemDinh.setText(tableChitietCto.getMA_CHIKDINH());
-        etSoLanCanhBao.setText(String.valueOf(tableChitietCto.getLAN()));
-        etTemCamQuang.setText(tableChitietCto.getTEM_CQUANG());
-
-        etMaCHiHomHop.setText(tableChitietCto.getMA_SOCHOM());
+        etTinhTrangNiemPhong.setText(tableChitietCto.getTTRANG_NPHONG());
         etTinhTrangNiemPhong.setHint(TextUtils.isEmpty(tableChitietCto.getTTRANG_NPHONG()) ? "Đầy đủ, dây chì nguyên vẹn, thể hiện rõ mã hiệu ở hai mặt viên chì." : tableChitietCto.getTTRANG_NPHONG());
-        etGhiChu.setHint(tableChitietCto.getGHI_CHU());
-        etKimNiemChi.setHint(tableChitietCto.getSO_KIM_NIEM_CHI());
-        etMaCHiBooc.setHint(tableChitietCto.getMA_SOCBOOC());
-        etMaChiKiemDinh.setHint(tableChitietCto.getMA_CHIKDINH());
-        etSoLanCanhBao.setHint(String.valueOf(tableChitietCto.getLAN()));
-        etTemCamQuang.setHint(tableChitietCto.getTEM_CQUANG());
+
+
+        etGhiChu.setText(tableChitietCto == null ? "" : tableChitietCto.getGHI_CHU());
+        etKimNiemChi.setText(tableChitietCto == null ? "" : tableChitietCto.getSO_KIM_NIEM_CHI());
+        etMaCHiBooc.setText(tableChitietCto == null ? "" : tableChitietCto.getMA_SOCBOOC());
+        etMaChiKiemDinh.setText(tableChitietCto == null ? "" : tableChitietCto.getMA_CHIKDINH());
+        etSoLanCanhBao.setText(tableChitietCto == null ? "" : String.valueOf(tableChitietCto.getLAN()));
+        etTemCamQuang.setText(tableChitietCto == null ? "" : tableChitietCto.getTEM_CQUANG());
+
+        etMaCHiHomHop.setText(tableChitietCto == null ? "" : tableChitietCto.getMA_SOCHOM());
+
+        etGhiChu.setHint(tableChitietCto == null ? "" : tableChitietCto.getGHI_CHU());
+        etKimNiemChi.setHint(tableChitietCto == null ? "" : tableChitietCto.getSO_KIM_NIEM_CHI());
+        etMaCHiBooc.setHint(tableChitietCto == null ? "" : tableChitietCto.getMA_SOCBOOC());
+        etMaChiKiemDinh.setHint(tableChitietCto == null ? "" : tableChitietCto.getMA_CHIKDINH());
+        etSoLanCanhBao.setHint(tableChitietCto == null ? "" : String.valueOf(tableChitietCto.getLAN()));
+        etTemCamQuang.setHint(tableChitietCto == null ? "" : tableChitietCto.getTEM_CQUANG());
 
 
         //set visible
@@ -863,6 +930,19 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
             }
         }
 
+        //clear text
+        viewBOChiso.etCS1.setText("");
+        viewBOChiso.etCS2.setText("");
+        viewBOChiso.etCS3.setText("");
+        viewBOChiso.etCS4.setText("");
+        viewBOChiso.etCS5.setText("");
+
+        //clear text
+        viewBOChiso.etCS1.setHint("");
+        viewBOChiso.etCS2.setHint("");
+        viewBOChiso.etCS3.setHint("");
+        viewBOChiso.etCS4.setHint("");
+        viewBOChiso.etCS5.setHint("");
 
         //set setEnabled
         viewBOChiso.etCS1.setEnabled(true);
@@ -1501,6 +1581,30 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         //reset
         isRefreshChiSo = false;
         isRefreshAnhNiemPhong = false;
+
+
+        //update TRANG_THAI_DULIEU của biên bản
+        List<TABLE_CHITIET_CTO> chitietCtos = mSqlDAO.getChiTietCongto(String.valueOf(tableBbanCto.getID_BBAN_TRTH()));
+        String sTRANG_THAI = tableBbanCto.getTRANG_THAI();
+        Common.TRANG_THAI TRANG_THAI = Common.TRANG_THAI.findTRANG_THAI(sTRANG_THAI);
+        boolean isDaGhi = true;
+
+        if (TRANG_THAI == DA_XUAT_RA_WEB || TRANG_THAI == DA_XUAT_RA_MTB) {
+            for (TABLE_CHITIET_CTO chitietCto : chitietCtos) {
+                Common.TRANG_THAI_DU_LIEU TRANG_THAI_DU_LIEU = Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(chitietCto.getTRANG_THAI_DU_LIEU());
+
+                if (TRANG_THAI_DU_LIEU == Common.TRANG_THAI_DU_LIEU.CHUA_GHI) {
+                    isDaGhi = false;
+                } else {
+                    isDaGhi = true;
+                    break;
+                }
+            }
+        }
+
+        TABLE_BBAN_CTO tableBbanCtoOld = (TABLE_BBAN_CTO) tableBbanCto.clone();
+        tableBbanCto.setTRANG_THAI_DU_LIEU((isDaGhi) ? Common.TRANG_THAI_DU_LIEU.DA_GHI.content : Common.TRANG_THAI_DU_LIEU.CHUA_GHI.content);
+        tableBbanCto.setID_TABLE_BBAN_CTO((int) mSqlDAO.updateORInsertRows(TABLE_BBAN_CTO.class, tableBbanCtoOld, tableBbanCto));
 
         ((TthtHnBaseActivity) getActivity()).showSnackBar("Lưu dữ liệu công tơ thành công!", null, null);
     }

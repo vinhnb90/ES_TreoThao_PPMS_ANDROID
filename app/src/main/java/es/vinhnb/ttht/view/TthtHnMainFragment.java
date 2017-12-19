@@ -262,6 +262,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
             case BBAN_CTO:
                 //get Data and apdater
                 String[] agrs = new String[]{onIDataCommon.getMaNVien()};
+                dataBBanAdaptersList = null;
                 dataBBanAdaptersList = mSqlDAO.getBBanAdapter2Day(agrs);
 
 
@@ -289,6 +290,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
                 tagMenuNaviLeft = onIDataCommon.getMA_BDONG() == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO : TagMenuNaviLeft.CTO_THAO;
 
                 String[] agrsCto = new String[]{onIDataCommon.getMaNVien(), onIDataCommon.getMA_BDONG().code};
+                dataChiTietCtoAdaptersList = null;
                 dataChiTietCtoAdaptersList = mSqlDAO.getTreoDataChiTietCto2DayAdapter(agrsCto);
 
                 if (!TextUtils.isEmpty(typeSearchString)) {
@@ -307,12 +309,14 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
             case CHUNG_LOAI:
                 //get Data and apdater
                 agrs = new String[]{};
+                dataCloaiAdapterList = null;
                 dataCloaiAdapterList = mSqlDAO.getCloaiAdapter(agrs);
                 fillDataChungLoai(dataCloaiAdapterList);
                 break;
 
             case TRAM:
                 agrs = new String[]{};
+                dataTramAdapterList = null;
                 dataTramAdapterList = mSqlDAO.getTramAdapter(agrs);
                 fillDataTram(dataTramAdapterList);
                 break;

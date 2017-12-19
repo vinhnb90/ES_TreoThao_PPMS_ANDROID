@@ -515,12 +515,21 @@ public class TthtHnSQLDAO extends SqlDAO {
                 ", " +
                 TABLE_BBAN_CTO.table.DCHI_HDON.name() +
                 ", " +
+                TABLE_BBAN_CTO.table.TRANG_THAI.name() +
+                ", " +
                 TABLE_BBAN_CTO.table.TRANG_THAI_DOI_SOAT.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.TRANG_THAI_DU_LIEU.name() +
                 " FROM " +
                 TABLE_BBAN_CTO.table.getName() +
                 " WHERE " +
                 TABLE_BBAN_CTO.table.MA_NVIEN.name() +
                 " = ? " +
+                "AND TRANG_THAI == '" +
+                Common.TRANG_THAI.DA_XUAT_RA_WEB.content +
+                "' OR TRANG_THAI == '" +
+                Common.TRANG_THAI.DA_XUAT_RA_MTB.content +
+                "' " +
                 " ) A\n" +
                 "\t\t\tJOIN\n" +
                 "\t\t\t(SELECT " +
@@ -586,6 +595,9 @@ public class TthtHnSQLDAO extends SqlDAO {
                 String TRANG_THAI_DOI_SOAT = cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TRANG_THAI_DOI_SOAT.name()));
                 dataDoiSoat.TRANG_THAI_DOISOAT = Common.TRANG_THAI_DOI_SOAT.findTRANG_THAI_DOI_SOAT(TRANG_THAI_DOI_SOAT);
 
+                String TRANG_THAI_DU_LIEU = cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TRANG_THAI_DU_LIEU.name()));
+                dataDoiSoat.TRANG_THAI_DU_LIEU = Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(TRANG_THAI_DU_LIEU);
+
                 return dataDoiSoat;
             }
         });
@@ -608,6 +620,24 @@ public class TthtHnSQLDAO extends SqlDAO {
                 "";
 
         Cursor cursor = super.mDatabase.rawQuery(query, agrs);
+
+        return super.selectAllLazy(TABLE_CHITIET_CTO.class, cursor);
+    }
+
+
+    public List<TABLE_CHITIET_CTO> getChiTietCongto(String ID_BBAN_TRTH) {
+        String query = "SELECT  * " +
+                " FROM " +
+                TABLE_CHITIET_CTO.table.getName() +
+                " WHERE " +
+                TABLE_CHITIET_CTO.table.ID_BBAN_TRTH.name() +
+                " = ?" +
+                " AND " +
+                TABLE_CHITIET_CTO.table.MA_NVIEN.name() +
+                " = ?" +
+                "";
+
+        Cursor cursor = super.mDatabase.rawQuery(query, null);
 
         return super.selectAllLazy(TABLE_CHITIET_CTO.class, cursor);
     }

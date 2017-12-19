@@ -312,8 +312,6 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         };
 
 
-
-
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         NaviMenuAdapter adapterNavMenu = new NaviMenuAdapter(this, naviMenuList);
@@ -366,7 +364,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 showSnackBar(Common.MESSAGE.ex0x.getContent(), e.getMessage(), null);
-                            }finally {
+                            } finally {
                                 finish();
                             }
 
@@ -422,6 +420,11 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                 case CHUNG_LOAI:
                 case CTO_TREO:
                 case CTO_THAO:
+                    MA_BDONG = (tagNew == CTO_TREO) ? Common.MA_BDONG.B : Common.MA_BDONG.E;
+                    MainSharePref mainSharePref = (MainSharePref) sharePrefManager.getSharePrefObject(MainSharePref.class);
+                    mainSharePref.tagMenuNaviLeft = (MA_BDONG == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO.tagFrag : TagMenuNaviLeft.CTO_THAO.tagFrag);
+                    sharePrefManager.writeDataSharePref(MainSharePref.class, mainSharePref);
+
                     tagMenuNaviLeftList = tagNew;
 
                     if (fragmentVisible instanceof TthtHnMainFragment) {
@@ -1150,9 +1153,8 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
     public void refreshTopThongKeMainFragment(int countRow, int thongKe) {
 
         Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlTopMenu.getId());
-        if(fragmentVisible instanceof TthtHnTopSearchFragment)
-        {
-            ((TthtHnTopSearchFragment)fragmentVisible).refreshTopThongKeMainFragment(countRow, thongKe);
+        if (fragmentVisible instanceof TthtHnTopSearchFragment) {
+            ((TthtHnTopSearchFragment) fragmentVisible).refreshTopThongKeMainFragment(countRow, thongKe);
         }
     }
     //endregion

@@ -24,6 +24,7 @@ import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.view.TthtHnBaseActivity;
 import es.vinhnb.ttht.view.TthtHnChiTietCtoFragment;
 
+import static es.vinhnb.ttht.common.Common.TRANG_THAI_DOI_SOAT.DA_DOISOAT;
 import static es.vinhnb.ttht.view.TthtHnChiTietCtoFragment.showChiso;
 
 /**
@@ -99,19 +100,13 @@ public class DoiSoatAdapter extends RecyclerView.Adapter<DoiSoatAdapter.ViewHold
             holder.btnSelectUpload.setCompoundDrawablesWithIntrinsicBounds(null, null, ic_tththn_unmark, null);
             holder.btnSelectUpload.setVisibility(View.VISIBLE);
 
-
-            switch (doiSoatAdapter.TRANG_THAI_DOISOAT) {
-                case CHUA_DOISOAT:
-                    break;
-                case DA_DOISOAT:
-                    holder.btnSelectUpload.setVisibility(View.VISIBLE);
-                    holder.btnSelectUpload.setBackground(xml_tththn_rectangle11);
-                    holder.btnSelectUpload.setTextColor(text_white);
-                    holder.btnSelectUpload.setText("ĐÃ CHỌN GỬI");
-                    holder.btnSelectUpload.setCompoundDrawablesWithIntrinsicBounds(null, null, ic_tththn_mark, null);
-                    break;
+            if (doiSoatAdapter.TRANG_THAI_DOISOAT == DA_DOISOAT) {
+                holder.btnSelectUpload.setVisibility(View.VISIBLE);
+                holder.btnSelectUpload.setBackground(xml_tththn_rectangle11);
+                holder.btnSelectUpload.setTextColor(text_white);
+                holder.btnSelectUpload.setText("ĐÃ CHỌN GỬI");
+                holder.btnSelectUpload.setCompoundDrawablesWithIntrinsicBounds(null, null, ic_tththn_mark, null);
             }
-
 
             switch (doiSoatAdapter.TRANG_THAI_DU_LIEU) {
 
@@ -122,7 +117,7 @@ public class DoiSoatAdapter extends RecyclerView.Adapter<DoiSoatAdapter.ViewHold
                     holder.btnSelectUpload.setVisibility(View.GONE);
                     break;
                 case DA_GHI:
-                    holder.btnSelectUpload.setVisibility(View.GONE);
+                    holder.btnSelectUpload.setVisibility(View.VISIBLE);
                     break;
                 case GUI_THAT_BAI:
                     holder.btnSelectUpload.setVisibility(View.VISIBLE);
@@ -145,7 +140,6 @@ public class DoiSoatAdapter extends RecyclerView.Adapter<DoiSoatAdapter.ViewHold
             //default set text doi soat
             holder.tvDoiSoatTrangThai.setText(doiSoatAdapter.TRANG_THAI_DU_LIEU.content);
             holder.tvDoiSoatTrangThai.setBackgroundColor(ContextCompat.getColor(context, doiSoatAdapter.TRANG_THAI_DU_LIEU.color));
-
 
 
             String pathAnh = Common.getRecordDirectoryFolder(Common.FOLDER_NAME.FOLDER_ANH_CONG_TO.name()) + "/" + doiSoatAdapter.TEN_ANH_THAO;
