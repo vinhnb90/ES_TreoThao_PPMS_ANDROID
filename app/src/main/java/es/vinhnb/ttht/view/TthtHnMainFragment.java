@@ -27,7 +27,7 @@ import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.database.dao.TthtHnSQLDAO;
 import es.vinhnb.ttht.entity.sharedpref.MainSharePref;
 import es.vinhnb.ttht.entity.sharedpref.MenuTopSearchSharePref;
-import es.vinhnb.ttht.view.TthtHnMainActivityI.TagMenuNaviLeft;
+import es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft;
 import esolutions.com.esdatabaselib.baseSharedPref.SharePrefManager;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 
@@ -289,7 +289,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
                 tagMenuNaviLeft = onIDataCommon.getMA_BDONG() == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO : TagMenuNaviLeft.CTO_THAO;
 
                 String[] agrsCto = new String[]{onIDataCommon.getMaNVien(), onIDataCommon.getMA_BDONG().code};
-                dataChiTietCtoAdaptersList = mSqlDAO.getTreoDataChiTietCtoAdapter(agrsCto);
+                dataChiTietCtoAdaptersList = mSqlDAO.getTreoDataChiTietCto2DayAdapter(agrsCto);
 
                 if (!TextUtils.isEmpty(typeSearchString)) {
                     //nếu có store data fragment thì restore

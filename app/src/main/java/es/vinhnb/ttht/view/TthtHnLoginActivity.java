@@ -169,7 +169,7 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         bundle.putString(BUNDLE_MA_NVIEN, mMaNVien);
 
         Common.setURLServer(loginData.getmURL());
-        startActivity(new Intent(TthtHnLoginActivity.this, TthtHnMainActivityI.class).putExtras(bundle));
+        startActivity(new Intent(TthtHnLoginActivity.this, TthtHnMainActivity.class).putExtras(bundle));
     }
 
     @Override

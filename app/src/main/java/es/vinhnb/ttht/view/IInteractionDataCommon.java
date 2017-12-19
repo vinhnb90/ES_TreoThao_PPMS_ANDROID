@@ -32,7 +32,7 @@ public interface IInteractionDataCommon {
 
     void setVisiblePbarLoad(boolean isShow);
 
-    void setMenuNaviAndTitle(TthtHnMainActivityI.TagMenuNaviLeft tagMenuNaviLeft);
+    void setMenuNaviAndTitle(TthtHnMainActivity.TagMenuNaviLeft tagMenuNaviLeft);
 
     void setNextCto(int posOld);
 

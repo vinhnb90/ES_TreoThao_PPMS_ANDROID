@@ -57,6 +57,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             holder.tvSoTi.setText(String.valueOf(history.soTi));
             holder.tvSoTram.setText(String.valueOf(history.soTram));
             holder.tvSoChungLoai.setText(String.valueOf(history.soChungLoai));
+            holder.tvSoLydo.setText(String.valueOf(history.soLydo));
 
             holder.rlUpload.setVisibility(View.GONE);
             holder.rlDownload.setVisibility(View.VISIBLE);
@@ -98,6 +99,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public RelativeLayout rlDownload;
+        public TextView tvSoLydo;
         public TextView tvDate;
         public TextView tvNotify;
         public TextView tvSoBB;
@@ -135,6 +137,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             tvSoTram = (TextView) itemView.findViewById(R.id.tv_so_tram);
             tvSoChungLoai = (TextView) itemView.findViewById(R.id.tv_so_chungloai);
             btnMessage = (Button) itemView.findViewById(R.id.btn_error_download_history);
+            tvSoLydo = (TextView) itemView.findViewById(R.id.tv_so_lydo);
 
 
             rlUpload = (RelativeLayout) itemView.findViewById(R.id.rl_upload_aa);
@@ -182,6 +185,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         public int soTu;
         public int soTi;
         public int soTram;
+        public int soLydo;
         public int soChungLoai;
         public String typeCallApi;
         public String typeResult;

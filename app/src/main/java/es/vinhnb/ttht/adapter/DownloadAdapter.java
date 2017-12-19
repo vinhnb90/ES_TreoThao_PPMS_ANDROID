@@ -55,6 +55,8 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
         holder.tvSoTi.setText(String.valueOf(history.soTi));
         holder.tvSoTram.setText(String.valueOf(history.soTram));
         holder.tvSoChungLoai.setText(String.valueOf(history.soChungLoai));
+        holder.tvSoLydo.setText(String.valueOf(history.soLydo));
+
 
         if (Common.TYPE_RESULT.findTYPE_RESULT(history.typeResult) == Common.TYPE_RESULT.ERROR)
             holder.btnMessage.setVisibility(View.VISIBLE);
@@ -85,6 +87,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView tvSoLydo;
         public TextView tvDate;
         public TextView tvNotify;
         public TextView tvSoBB;
@@ -112,6 +115,8 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
             tvSoTu = (TextView) itemView.findViewById(R.id.tv_so_tu);
             tvSoTi = (TextView) itemView.findViewById(R.id.tv_so_ti);
             tvSoTram = (TextView) itemView.findViewById(R.id.tv_so_tram);
+            tvSoLydo = (TextView) itemView.findViewById(R.id.tv_so_lydo);
+
             tvSoChungLoai = (TextView) itemView.findViewById(R.id.tv_so_chungloai);
             btnMessage = (Button) itemView.findViewById(R.id.btn_error_download_history);
 
@@ -141,6 +146,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
         public int soTi;
         public int soTram;
         public int soChungLoai;
+        public int soLydo;
         public String typeResult;
         public String message;
         public String typeCallApi;

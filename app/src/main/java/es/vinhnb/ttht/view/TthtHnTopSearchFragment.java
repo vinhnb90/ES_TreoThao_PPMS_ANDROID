@@ -78,15 +78,15 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment implements DateP
 
 
     TthtHnSQLDAO mSqlDAO;
-    private TthtHnMainActivityI.TagMenuTop tagMenuTop;
-    private TthtHnMainActivityI.TagMenuNaviLeft tagMenuNaviLeft;
+    private TthtHnMainActivity.TagMenuTop tagMenuTop;
+    private TthtHnMainActivity.TagMenuNaviLeft tagMenuNaviLeft;
     private boolean isSelectSpin;
 
     public TthtHnTopSearchFragment() {
         // Required empty public constructor
     }
 
-    public static TthtHnTopSearchFragment newInstance(TthtHnMainActivityI.TagMenuNaviLeft tagMenuNaviLeft, TthtHnMainActivityI.TagMenuTop tagMenuTop) {
+    public static TthtHnTopSearchFragment newInstance(TthtHnMainActivity.TagMenuNaviLeft tagMenuNaviLeft, TthtHnMainActivity.TagMenuTop tagMenuTop) {
         TthtHnTopSearchFragment fragment = new TthtHnTopSearchFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(BUNDLE_TYPE_TOPMENU, tagMenuTop);
@@ -100,8 +100,8 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment implements DateP
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            tagMenuNaviLeft = (TthtHnMainActivityI.TagMenuNaviLeft) bundle.getSerializable(BUNDLE_TAG_MENU);
-            tagMenuTop = (TthtHnMainActivityI.TagMenuTop) bundle.getSerializable(BUNDLE_TYPE_TOPMENU);
+            tagMenuNaviLeft = (TthtHnMainActivity.TagMenuNaviLeft) bundle.getSerializable(BUNDLE_TAG_MENU);
+            tagMenuTop = (TthtHnMainActivity.TagMenuTop) bundle.getSerializable(BUNDLE_TYPE_TOPMENU);
         }
 
 
@@ -134,7 +134,7 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment implements DateP
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         try {
-            if (tagMenuNaviLeft == TthtHnMainActivityI.TagMenuNaviLeft.CTO_TREO || tagMenuNaviLeft == TthtHnMainActivityI.TagMenuNaviLeft.CTO_THAO) {
+            if (tagMenuNaviLeft == TthtHnMainActivity.TagMenuNaviLeft.CTO_TREO || tagMenuNaviLeft == TthtHnMainActivity.TagMenuNaviLeft.CTO_THAO) {
                 MenuTopSearchSharePref menuTopSearchSharePref = (MenuTopSearchSharePref) prefManager.getSharePrefObject(MenuTopSearchSharePref.class);
                 typeSearchString = menuTopSearchSharePref.typeSearchString;
                 messageSearch = menuTopSearchSharePref.messageSearch;
@@ -203,7 +203,7 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment implements DateP
         tvThongKe.setText(thongKe + " " + tagMenuNaviLeft.title);
     }
 
-    private void fillSpinner(TthtHnMainActivityI.TagMenuNaviLeft tagMenuNaviLeft) {
+    private void fillSpinner(TthtHnMainActivity.TagMenuNaviLeft tagMenuNaviLeft) {
         ArrayAdapter<String> adapterSearch = null;
         llInfo.setVisibility(View.VISIBLE);
 
@@ -266,7 +266,7 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment implements DateP
         catchClick();
 
 
-        if (tagMenuNaviLeft == TthtHnMainActivityI.TagMenuNaviLeft.CTO_TREO || tagMenuNaviLeft == TthtHnMainActivityI.TagMenuNaviLeft.CTO_THAO) {
+        if (tagMenuNaviLeft == TthtHnMainActivity.TagMenuNaviLeft.CTO_TREO || tagMenuNaviLeft == TthtHnMainActivity.TagMenuNaviLeft.CTO_THAO) {
             //fillData save state
             MenuTopSearchSharePref topSearchSharePref = (MenuTopSearchSharePref) prefManager.getSharePrefObject(MenuTopSearchSharePref.class);
             this.messageSearch = topSearchSharePref.messageSearch;
@@ -459,7 +459,7 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment implements DateP
         }
     }
 
-    public void refreshTagTopMenu(TthtHnMainActivityI.TagMenuNaviLeft tagMenuNaviLeft, TthtHnMainActivityI.TagMenuTop tagMenuTop) {
+    public void refreshTagTopMenu(TthtHnMainActivity.TagMenuNaviLeft tagMenuNaviLeft, TthtHnMainActivity.TagMenuTop tagMenuTop) {
         this.tagMenuNaviLeft = tagMenuNaviLeft;
         this.tagMenuTop = tagMenuTop;
         fillSpinner(tagMenuNaviLeft);

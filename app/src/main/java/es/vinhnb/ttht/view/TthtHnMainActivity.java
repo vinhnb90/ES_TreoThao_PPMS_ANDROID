@@ -59,19 +59,19 @@ import static es.vinhnb.ttht.adapter.BBanAdapter.*;
 import static es.vinhnb.ttht.view.TthtHnBBanTutiFragment.IOnTthtHnBBanTutiFragment;
 import static es.vinhnb.ttht.view.TthtHnChiTietCtoFragment.OnITthtHnChiTietCtoFragment;
 import static es.vinhnb.ttht.view.TthtHnDownloadFragment.OnListenerTthtHnDownloadFragment;
-import static es.vinhnb.ttht.view.TthtHnMainActivityI.TagMenuNaviLeft.CHITIET_BBAN_TUTI_THAO;
-import static es.vinhnb.ttht.view.TthtHnMainActivityI.TagMenuNaviLeft.CHITIET_BBAN_TUTI_TREO;
-import static es.vinhnb.ttht.view.TthtHnMainActivityI.TagMenuNaviLeft.CHITIET_CTO_THAO;
-import static es.vinhnb.ttht.view.TthtHnMainActivityI.TagMenuNaviLeft.CHITIET_CTO_TREO;
-import static es.vinhnb.ttht.view.TthtHnMainActivityI.TagMenuNaviLeft.CTO_THAO;
-import static es.vinhnb.ttht.view.TthtHnMainActivityI.TagMenuNaviLeft.CTO_TREO;
-import static es.vinhnb.ttht.view.TthtHnMainActivityI.TagMenuNaviLeft.TRAM;
-import static es.vinhnb.ttht.view.TthtHnMainActivityI.TagMenuTop.BBAN_TUTI;
-import static es.vinhnb.ttht.view.TthtHnMainActivityI.TagMenuTop.CHITIET_CTO;
+import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CHITIET_BBAN_TUTI_THAO;
+import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CHITIET_BBAN_TUTI_TREO;
+import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CHITIET_CTO_THAO;
+import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CHITIET_CTO_TREO;
+import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CTO_THAO;
+import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.CTO_TREO;
+import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuNaviLeft.TRAM;
+import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuTop.BBAN_TUTI;
+import static es.vinhnb.ttht.view.TthtHnMainActivity.TagMenuTop.CHITIET_CTO;
 import static es.vinhnb.ttht.view.TthtHnTopMenuChiTietCtoFragment.IOnTthtHnTopMenuChiTietCtoFragment;
 import static es.vinhnb.ttht.view.TthtHnTopSearchFragment.IOnTthtHnTopSearchFragment;
 
-public class TthtHnMainActivityI extends TthtHnBaseActivity
+public class TthtHnMainActivity extends TthtHnBaseActivity
         implements
         NaviMenuAdapter.INaviMenuAdapter,
         IOnTthtHnMainFragment,

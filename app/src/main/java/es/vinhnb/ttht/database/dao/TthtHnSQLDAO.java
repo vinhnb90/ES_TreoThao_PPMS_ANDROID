@@ -36,7 +36,7 @@ public class TthtHnSQLDAO extends SqlDAO {
         super(database, context);
     }
 
-    public List<DataChiTietCtoAdapter> getTreoDataChiTietCtoAdapter(String[] agrs) {
+    public List<DataChiTietCtoAdapter> getTreoDataChiTietCto2DayAdapter(String[] agrs) {
 
         String query = "SELECT * FROM(\n" +
                 "SELECT * FROM (\n" +
@@ -58,7 +58,10 @@ public class TthtHnSQLDAO extends SqlDAO {
                 TABLE_BBAN_CTO.table.getName() +
                 " WHERE " +
                 TABLE_BBAN_CTO.table.MA_NVIEN.name() +
-                " =?" +
+                " = ? " +
+                " AND " +
+                TABLE_BBAN_CTO.table.NGAY_TRTH.name() +
+                " > (SELECT strftime('%Y-%m-%d', DATETIME('now', '-2 day')))" +
                 ") \n" +
                 "AS BBAN JOIN (\n" +
                 "SELECT " +
@@ -190,6 +193,8 @@ public class TthtHnSQLDAO extends SqlDAO {
     }
 
     public List<BBanAdapter.DataBBanAdapter> getBBanAdapter2Day(String[] agrs) {
+        String timeNow = Common.getDateTimeNow(Common.DATE_TIME_TYPE.sqlite1);
+
         String query = "SELECT " +
                 TABLE_BBAN_CTO.table.DCHI_HDON.name() +
                 ", " +
@@ -215,9 +220,7 @@ public class TthtHnSQLDAO extends SqlDAO {
                 " = ?" +
                 " AND " +
                 TABLE_BBAN_CTO.table.NGAY_TRTH.name() +
-                " > (SELECT DATETIME('now', '-" +
-                2 +
-                " day'))";
+                " > (SELECT strftime('%Y-%m-%d', DATETIME('now', '-2 day')))";
 
         Cursor cursor = super.mDatabase.rawQuery(query, agrs);
 
@@ -436,6 +439,7 @@ public class TthtHnSQLDAO extends SqlDAO {
                 tableHistory.soTi = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_TI_API.name()));
                 tableHistory.soTram = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_TRAM_API.name()));
                 tableHistory.soChungLoai = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_CHUNGLOAI_API.name()));
+                tableHistory.soLydo = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_LYDO_TREOTHAO.name()));
                 tableHistory.typeResult = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.TYPE_RESULT.name()));
                 tableHistory.typeCallApi = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.TYPE_CALL_API.name()));
 
@@ -457,9 +461,9 @@ public class TthtHnSQLDAO extends SqlDAO {
                 "'" +
                 " AND " +
                 TABLE_HISTORY.table.DATE_CALL_API.name() +
-                " > (SELECT DATETIME('now', '-" +
+                " > (SELECT strftime('%Y-%m-%d', DATETIME('now', '-" +
                 nDay +
-                " day')) ORDER BY " +
+                " day'))) ORDER BY " +
                 TABLE_HISTORY.table.ID_TABLE_HISTORY.name() +
                 " DESC";
 
@@ -484,6 +488,7 @@ public class TthtHnSQLDAO extends SqlDAO {
                 tableHistory.soTi = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_TI_API.name()));
                 tableHistory.soTram = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_TRAM_API.name()));
                 tableHistory.soChungLoai = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_CHUNGLOAI_API.name()));
+                tableHistory.soLydo = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_LYDO_TREOTHAO.name()));
                 tableHistory.typeResult = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.TYPE_RESULT.name()));
                 tableHistory.typeCallApi = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.TYPE_CALL_API.name()));
 

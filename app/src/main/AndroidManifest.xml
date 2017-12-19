@@ -242,7 +242,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="es.vinhnb.ttht.view.TthtHnMainActivityI" />
+        <activity android:name="es.vinhnb.ttht.view.TthtHnMainActivity" />
     </application>
 
 </manifest>

@@ -552,7 +552,12 @@ public class SqlDAO {
         for (Field field : fieldSet) {
             Collumn collumn = listCollumnPrimaryKey.get(field);
             field.setAccessible(true);
-            valuesCheck.add((field.get(dataOld) == null) ? "" : field.get(dataOld).toString());
+            if(dataOld != null){
+                valuesCheck.add((field.get(dataOld) == null) ? "" : field.get(dataOld).toString());
+            }
+            else {
+                valuesCheck.add("");
+            }
             nameCollumnCheck.add(collumn.name());
             whereClause.append(collumn.name() + " = ? ").append(" and ");
         }
