@@ -160,7 +160,6 @@
                     android:singleLine="true"
                     tools:text="05/09/2017"
                     android:textColor="@color/text_white"
-                    android:textColorHint="@color/bb_inActiveBottomBarItemColor"
                     android:textCursorDrawable="@null"
                     android:textSize="@dimen/_9sdp"
                     android:visibility="visible" />
@@ -197,7 +196,6 @@
                 android:singleLine="true"
                 android:text="0 công tơ"
                 android:textColor="@color/text_white"
-                android:textColorHint="@color/bb_inActiveBottomBarItemColor"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/_9sdp"
                 android:visibility="visible" />

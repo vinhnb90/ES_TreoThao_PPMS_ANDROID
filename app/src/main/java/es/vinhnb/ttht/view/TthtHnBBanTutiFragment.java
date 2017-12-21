@@ -627,8 +627,6 @@ public class TthtHnBBanTutiFragment extends TthtHnBaseFragment {
         List<TABLE_CHITIET_CTO> tableChitietCtoList = mSqlDAO.getChiTietCongto(agrs);
         if (tableChitietCtoList.size() != 0)
             tableChitietCto = tableChitietCtoList.get(0);
-        else
-            tableChitietCto = new TABLE_CHITIET_CTO();
 
 
         //get Data bien ban
@@ -636,8 +634,6 @@ public class TthtHnBBanTutiFragment extends TthtHnBaseFragment {
         List<TABLE_BBAN_CTO> tableBbanCtoList = mSqlDAO.getBBan(agrsBB);
         if (tableBbanCtoList.size() != 0)
             tableBbanCto = tableBbanCtoList.get(0);
-        else
-            tableBbanCto = new TABLE_BBAN_CTO();
 
 
         //getInfo Chung loai
@@ -646,8 +642,6 @@ public class TthtHnBBanTutiFragment extends TthtHnBaseFragment {
         List<TABLE_LOAI_CONG_TO> tableLoaiCongToList = mSqlDAO.getLoaiCongto(argsCloai);
         if (tableLoaiCongToList.size() != 0)
             tableLoaiCongTo = tableLoaiCongToList.get(0);
-        else
-            tableLoaiCongTo = new TABLE_LOAI_CONG_TO();
 
 
         //getInfo Tram
@@ -656,16 +650,12 @@ public class TthtHnBBanTutiFragment extends TthtHnBaseFragment {
         List<TABLE_TRAM> tableTramList = mSqlDAO.getTRAM(argsTram);
         if (tableTramList.size() != 0)
             tableTram = tableTramList.get(0);
-        else
-            tableTram = new TABLE_TRAM();
 
 
         //get Data Bban tuti
         List<TABLE_BBAN_TUTI> tableBbanTutiList = mSqlDAO.getBBanTuti(onIDataCommom.getMA_BDONG() == Common.MA_BDONG.B ? onIDataCommom.getID_BBAN_TUTI_CTO_TREO() : onIDataCommom.getID_BBAN_TUTI_CTO_THAO(), onIDataCommom.getMaNVien());
         if (tableBbanTutiList.size() != 0)
             tableBbanTuti = tableBbanTutiList.get(0);
-        else
-            tableBbanTuti = new TABLE_BBAN_TUTI();
 
 
         //get Data chi tiet tuti
@@ -1434,28 +1424,28 @@ public class TthtHnBBanTutiFragment extends TthtHnBaseFragment {
 //        if(tuThao!=null)
 //        {
 //            TABLE_CHITIET_TUTI tableChitietTutiOld = (TABLE_CHITIET_TUTI)tuThao;
-//            tuThao.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DA_GHI.content);
+//            tuThao.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DA_GHI.code);
 //            tuThao.setID_TABLE_CHITIET_TUTI((int) mSqlDAO.updateORInsertRows(TABLE_CHITIET_TUTI.class, tableChitietTutiOld, tuThao));
 //        }
 //
 //        if(tuTreo!=null)
 //        {
 //            TABLE_CHITIET_TUTI tableChitietTutiOld = (TABLE_CHITIET_TUTI)tuTreo;
-//            tuTreo.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DA_GHI.content);
+//            tuTreo.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DA_GHI.code);
 //            tuTreo.setID_TABLE_CHITIET_TUTI((int) mSqlDAO.updateORInsertRows(TABLE_CHITIET_TUTI.class, tableChitietTutiOld, tuTreo));
 //        }
 //
 //        if(tiThao!=null)
 //        {
 //            TABLE_CHITIET_TUTI tableChitietTutiOld = (TABLE_CHITIET_TUTI)tiThao;
-//            tiThao.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DA_GHI.content);
+//            tiThao.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DA_GHI.code);
 //            tiThao.setID_TABLE_CHITIET_TUTI((int) mSqlDAO.updateORInsertRows(TABLE_CHITIET_TUTI.class, tableChitietTutiOld, tiThao));
 //        }
 //
 //        if(tiTreo!=null)
 //        {
 //            TABLE_CHITIET_TUTI tableChitietTutiOld = (TABLE_CHITIET_TUTI)tiTreo;
-//            tiTreo.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DA_GHI.content);
+//            tiTreo.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DA_GHI.code);
 //            tiTreo.setID_TABLE_CHITIET_TUTI((int) mSqlDAO.updateORInsertRows(TABLE_CHITIET_TUTI.class, tableChitietTutiOld, tiTreo));
 //        }
 

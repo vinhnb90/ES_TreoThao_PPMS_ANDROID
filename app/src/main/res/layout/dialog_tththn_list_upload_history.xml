@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:background="@null"
+    android:layout_height="match_parent"
+    android:padding="@dimen/_5sdp">
+
+    <RelativeLayout
+        android:background="@drawable/xml_tththn_rectangle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/top1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <TextView
+                style="@style/textStyle1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="Tổng biên bản gửi" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/_1sdp"
+                android:layout_marginRight="@dimen/_1sdp"
+                android:background="@color/tththn_text_less_black" />
+
+            <TextView
+                style="@style/textStyle1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="Số gửi thành công" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/_1sdp"
+                android:layout_marginRight="@dimen/_1sdp"
+                android:background="@color/tththn_text_less_black" />
+
+
+            <TextView
+                style="@style/textStyle1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="Số gửi lỗi" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/v_top2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/top1"
+            android:background="@color/tththn_text_less_black" />
+
+        <LinearLayout
+            android:id="@+id/ll_top3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/v_top2"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <TextView
+                android:id="@+id/tv_tong_bb"
+                style="@style/textStyle2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                tool:text="5" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/_1sdp"
+                android:layout_marginRight="@dimen/_1sdp"
+                android:background="@color/tththn_text_less_black" />
+
+            <TextView
+                android:id="@+id/tv_tong_bb_ok"
+                style="@style/textStyle2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                tool:text="5" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/_1sdp"
+                android:layout_marginRight="@dimen/_1sdp"
+                android:background="@color/tththn_text_less_black" />
+
+
+            <TextView
+                android:id="@+id/tv_tong_bb_fail"
+                style="@style/textStyle2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                tool:text="0" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_margin="@dimen/_5sdp"
+            android:id="@+id/rv_list_bban_gui"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_300sdp"
+            android:layout_below="@+id/ll_top3"
+            android:layout_marginTop="@dimen/_5sdp"></android.support.v7.widget.RecyclerView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

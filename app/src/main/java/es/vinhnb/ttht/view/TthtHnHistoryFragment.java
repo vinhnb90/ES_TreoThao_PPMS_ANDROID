@@ -1,13 +1,18 @@
 package es.vinhnb.ttht.view;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,9 +21,12 @@ import com.es.tungnv.views.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.vinhnb.ttht.adapter.BBanAdapter;
 import es.vinhnb.ttht.adapter.HistoryAdapter;
+import es.vinhnb.ttht.adapter.HistoryBBanUploadAdapter;
 import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.database.dao.TthtHnSQLDAO;
+import es.vinhnb.ttht.entity.api.MtbBbanModel;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 
 
@@ -126,20 +134,23 @@ public class TthtHnHistoryFragment extends TthtHnBaseFragment {
             iDataHistoryAdapter = new HistoryAdapter.OnIDataHistoryAdapter() {
                 @Override
                 public void doClickBtnMessageHistory(Common.TYPE_CALL_API typeCallApi, int pos, final HistoryAdapter.DataHistoryAdapter historyAdapter) {
-                    IDialog iDialog = new IDialog() {
-                        @Override
-                        void clickOK() {
-                            //copy text
-                            Common.copyTextClipBoard(getContext(), historyAdapter.message);
-                            Toast.makeText(getContext(), "Đã sao chép nội dung.", Toast.LENGTH_SHORT).show();
-                        }
 
-                        @Override
-                        void clickCancel() {
-
-                        }
-                    }.setTextBtnOK("CHÉP NỘI DUNG");
-                    TthtHnHistoryFragment.super.showDialog(getContext(), historyAdapter.message, iDialog);
+                    if (typeCallApi == Common.TYPE_CALL_API.UPLOAD)
+                        showDialogListHistory(pos, historyAdapter);
+//                    IDialog iDialog = new IDialog() {
+//                        @Override
+//                        void clickOK() {
+//                            //copy text
+//                            Common.copyTextClipBoard(getContext(), historyAdapter.message);
+//                            Toast.makeText(getContext(), "Đã sao chép nội dung.", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                        @Override
+//                        void clickCancel() {
+//
+//                        }
+//                    }.setTextBtnOK("CHÉP NỘI DUNG");
+//                    TthtHnHistoryFragment.super.showDialog(getContext(), historyAdapter.message, iDialog);
                 }
 
             };
@@ -152,6 +163,34 @@ public class TthtHnHistoryFragment extends TthtHnBaseFragment {
 
 
         rvHistory.invalidate();
+    }
+
+    private void showDialogListHistory(int pos, HistoryAdapter.DataHistoryAdapter historyAdapter) {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_tththn_message);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.getWindow().setLayout(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        Window window = dialog.getWindow();
+        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
+
+        final RecyclerView rvList = (RecyclerView) dialog.findViewById(R.id.rv_list_bban_gui);
+        final TextView totalBB = (TextView) dialog.findViewById(R.id.tv_tong_bb);
+        final TextView totalBBOK = (TextView) dialog.findViewById(R.id.tv_tong_bb_ok);
+        final TextView totalBBFail = (TextView) dialog.findViewById(R.id.tv_tong_bb_fail);
+
+
+        String[] args = new String[]{onIDataCommon.getMaNVien()};
+        List<HistoryBBanUploadAdapter.DataBBanUploadHistoryAdapter> listData = mSqlDAO.getDataBBanUploadHistoryAdapter(args);
+        HistoryBBanUploadAdapter historyBBanUploadAdapter = new HistoryBBanUploadAdapter(getContext(), listData);
+
+        rvList.setAdapter(historyBBanUploadAdapter);
+        rvList.invalidate();
+        dialog.show();
+
     }
 
     private boolean isShowNoDataText(int size) {

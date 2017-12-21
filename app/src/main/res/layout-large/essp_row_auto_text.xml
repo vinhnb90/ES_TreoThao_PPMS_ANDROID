@@ -5,6 +5,6 @@
     android:layout_height="match_parent"
     android:padding="10dp"
     android:gravity="center_vertical"
-    android:text="Menu content"
+    android:text="Menu code"
     android:textColor="#000"
     android:textSize="20sp" />

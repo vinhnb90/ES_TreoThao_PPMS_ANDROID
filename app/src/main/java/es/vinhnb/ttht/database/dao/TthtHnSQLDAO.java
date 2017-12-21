@@ -13,6 +13,7 @@ import es.vinhnb.ttht.adapter.ChungLoaiAdapter;
 import es.vinhnb.ttht.adapter.DoiSoatAdapter;
 import es.vinhnb.ttht.adapter.DownloadAdapter;
 import es.vinhnb.ttht.adapter.HistoryAdapter;
+import es.vinhnb.ttht.adapter.HistoryBBanUploadAdapter;
 import es.vinhnb.ttht.adapter.TramAdapter;
 import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.database.table.TABLE_ANH_HIENTRUONG;
@@ -21,6 +22,7 @@ import es.vinhnb.ttht.database.table.TABLE_BBAN_TUTI;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_CTO;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_TUTI;
 import es.vinhnb.ttht.database.table.TABLE_HISTORY;
+import es.vinhnb.ttht.database.table.TABLE_HISTORY_UPLOAD;
 import es.vinhnb.ttht.database.table.TABLE_LOAI_CONG_TO;
 import es.vinhnb.ttht.database.table.TABLE_LYDO_TREOTHAO;
 import es.vinhnb.ttht.database.table.TABLE_TRAM;
@@ -902,5 +904,59 @@ public class TthtHnSQLDAO extends SqlDAO {
         Cursor cursor = super.mDatabase.rawQuery(query, args);
 
         return super.selectAllLazy(TABLE_BBAN_CTO.class, cursor);
+    }
+
+    public List<HistoryBBanUploadAdapter.DataBBanUploadHistoryAdapter> getDataBBanUploadHistoryAdapter(String[] args) {
+        String query = "SELECT " +
+                TABLE_BBAN_CTO.table.DCHI_HDON.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.LY_DO_TREO_THAO.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.MA_KHANG.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.MA_HDONG.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.MA_GCS_CTO.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.TEN_KHANG.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.MA_TRAM.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.NGAY_TRTH.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.SO_BBAN.name() +
+                " FROM " +
+                TABLE_BBAN_CTO.table.getName() +
+                " WHERE " +
+                TABLE_BBAN_CTO.table.MA_NVIEN.name() +
+                " = ?" +
+                "";
+
+        Cursor cursor = super.mDatabase.rawQuery(query, args);
+
+        return super.selectCustomLazy(cursor, new ItemFactory(HistoryBBanUploadAdapter.DataBBanUploadHistoryAdapter.class) {
+            @Override
+            protected HistoryBBanUploadAdapter.DataBBanUploadHistoryAdapter create(Cursor cursor, int index) {
+                HistoryBBanUploadAdapter.DataBBanUploadHistoryAdapter uploadHistoryAdapter = new HistoryBBanUploadAdapter.DataBBanUploadHistoryAdapter();
+                cursor.moveToPosition(index);
+
+                uploadHistoryAdapter.setDiachiKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.DCHI_HDON.name())));
+                uploadHistoryAdapter.setLydo(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.LY_DO_TREO_THAO.name())));
+                uploadHistoryAdapter.setMaGCS(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_GCS_CTO.name())));
+                uploadHistoryAdapter.setMaHopDong(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_HDONG.name())));
+                uploadHistoryAdapter.setTenKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TEN_KHANG.name())));
+                uploadHistoryAdapter.setMaTramcapdien(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_TRAM.name())));
+                uploadHistoryAdapter.setMaKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_KHANG.name())));
+                uploadHistoryAdapter.setNgayTrth(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.NGAY_TRTH.name())));
+                uploadHistoryAdapter.setSobban(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.SO_BBAN.name())));
+
+                uploadHistoryAdapter.setID_BBAN_TRTH(cursor.getInt(cursor.getColumnIndex(TABLE_BBAN_CTO.table.ID_BBAN_TRTH.name())));
+                uploadHistoryAdapter.setTYPE_RESPONSE_UPLOAD(cursor.getString(cursor.getColumnIndex(TABLE_HISTORY_UPLOAD.table.TYPE_RESPONSE_UPLOAD.name())));
+                uploadHistoryAdapter.setMESSAGE_RESPONSE(cursor.getString(cursor.getColumnIndex(TABLE_HISTORY_UPLOAD.table.MESSAGE_RESPONSE.name())));
+
+
+                return uploadHistoryAdapter;
+            }
+        });
     }
 }

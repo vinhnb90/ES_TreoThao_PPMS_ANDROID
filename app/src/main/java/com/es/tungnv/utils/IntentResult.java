@@ -46,7 +46,7 @@ public final class IntentResult {
   }
 
   /**
-   * @return raw content of barcode
+   * @return raw code of barcode
    */
   public String getContents() {
     return contents;
@@ -60,7 +60,7 @@ public final class IntentResult {
   }
 
   /**
-   * @return raw bytes of the barcode content, if applicable, or null otherwise
+   * @return raw bytes of the barcode code, if applicable, or null otherwise
    */
   public byte[] getRawBytes() {
     return rawBytes;

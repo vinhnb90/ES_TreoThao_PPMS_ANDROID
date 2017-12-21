@@ -32,6 +32,7 @@ import es.vinhnb.ttht.database.table.TABLE_CHITIET_CTO;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_TUTI;
 import es.vinhnb.ttht.database.table.TABLE_DVIQLY;
 import es.vinhnb.ttht.database.table.TABLE_HISTORY;
+import es.vinhnb.ttht.database.table.TABLE_HISTORY_UPLOAD;
 import es.vinhnb.ttht.database.table.TABLE_LOAI_CONG_TO;
 import es.vinhnb.ttht.database.table.TABLE_LYDO_TREOTHAO;
 import es.vinhnb.ttht.database.table.TABLE_SESSION;
@@ -328,7 +329,8 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
                         TABLE_SESSION.class,
                         TABLE_TRAM.class,
                         TABLE_HISTORY.class,
-                        TABLE_LYDO_TREOTHAO.class
+                        TABLE_LYDO_TREOTHAO.class,
+                        TABLE_HISTORY_UPLOAD.class,
                 });
 
 

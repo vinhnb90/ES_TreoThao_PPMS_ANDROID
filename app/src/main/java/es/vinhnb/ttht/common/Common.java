@@ -491,31 +491,45 @@ public class Common {
         }
     }
 
-    public enum TYPE_TRANG_THAI_MTB_ResultModel_NEW {
-        GUI_CMIS_THATBAI("2"),
-        DANG_CHO_CMIS_XACNHAN("3"),
-        DA_TON_TAI_GUI_TRUOC_DO("31"),
-        CMIS_XACNHAN_OK("4"),
-        HET_HIEU_LUC("21"),
-        LOI_BAT_NGO("");
+    public enum TYPE_RESPONSE_UPLOAD {
+        GUI_CMIS_THATBAI("2", "Máy chủ thống báo: Gửi CMIS thất bại!"),
+        DANG_CHO_CMIS_XACNHAN("3", "Máy chủ thống báo: Đang chờ CMIS xác nhận!"),
+        DA_TON_TAI_GUI_TRUOC_DO("31", "Máy chủ thống báo: Mã biên bản này đã được gửi dữ liệu từ trước!"),
+        CMIS_XACNHAN_OK("4", "Máy chủ thống báo: CMIS đã xác nhận treo tháo!"),
+        HET_HIEU_LUC("21", "Máy chủ thống báo: Biên bản này đã hết hiệu lực 48h kể từ ngày treo tháo!"),
+        LOI_BAT_NGO("", "Máy chủ thống báo: Lỗi bất ngờ!");
 
-        private String content;
+        public String code;
+        public String content;
 
-        TYPE_TRANG_THAI_MTB_ResultModel_NEW(String content) {
+
+        TYPE_RESPONSE_UPLOAD(String code, String content) {
+            this.code = code;
             this.content = content;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
         }
 
         public String getContent() {
             return content;
         }
 
+        public void setContent(String content) {
+            this.content = content;
+        }
 
-        public static TYPE_TRANG_THAI_MTB_ResultModel_NEW find(String content) {
+        public static TYPE_RESPONSE_UPLOAD find(String content) {
             if (TextUtils.isEmpty(content))
                 return LOI_BAT_NGO;
 
-            for (TYPE_TRANG_THAI_MTB_ResultModel_NEW typeSearchCto : values()) {
-                if (typeSearchCto.content.equalsIgnoreCase(content))
+            for (TYPE_RESPONSE_UPLOAD typeSearchCto : values()) {
+                if (typeSearchCto.code.equalsIgnoreCase(content))
                     return typeSearchCto;
             }
             return null;

@@ -70,7 +70,7 @@ public class PopupMenu {
     }
 
     /**
-     * Sets the popup's content.
+     * Sets the popup's code.
      *
      * @param contentView
      */

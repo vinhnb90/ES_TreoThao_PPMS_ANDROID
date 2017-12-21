@@ -119,7 +119,7 @@ public class VideoStreamer implements Runnable {
 			}
 
 			COLLECTING = true;
-			ctype = (String) headers.get("content-type");
+			ctype = (String) headers.get("code-type");
 
 			int bidx = ctype.indexOf("boundary=");
 			String boundary = StreamSplit.BOUNDARY_MARKER_PREFIX;
@@ -155,9 +155,9 @@ public class VideoStreamer implements Runnable {
 						{
 							break;
 						}
-						ctype = (String) headers.get("content-type");
+						ctype = (String) headers.get("code-type");
 						if (ctype == null) {
-							throw new Exception("No part content type");
+							throw new Exception("No part code type");
 						}
 					}
 					//

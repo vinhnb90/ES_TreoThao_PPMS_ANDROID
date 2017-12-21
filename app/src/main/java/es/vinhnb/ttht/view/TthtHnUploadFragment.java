@@ -34,7 +34,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import es.vinhnb.ttht.adapter.DoiSoatAdapter;
-import es.vinhnb.ttht.adapter.HistoryAdapter;
 import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.database.dao.TthtHnSQLDAO;
 import es.vinhnb.ttht.database.table.TABLE_ANH_HIENTRUONG;
@@ -42,6 +41,7 @@ import es.vinhnb.ttht.database.table.TABLE_BBAN_CTO;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_CTO;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_TUTI;
 import es.vinhnb.ttht.database.table.TABLE_HISTORY;
+import es.vinhnb.ttht.database.table.TABLE_HISTORY_UPLOAD;
 import es.vinhnb.ttht.entity.api.MTBModelNew;
 import es.vinhnb.ttht.entity.api.MTB_ResultModel_NEW;
 import es.vinhnb.ttht.server.TthtHnApi;
@@ -52,7 +52,6 @@ import retrofit2.Response;
 
 import static es.vinhnb.ttht.common.Common.DELAY;
 import static es.vinhnb.ttht.common.Common.DELAY_PROGESS_PBAR;
-import static es.vinhnb.ttht.common.Common.TRANG_THAI_DOI_SOAT.CHUA_DOISOAT;
 import static es.vinhnb.ttht.common.Common.TRANG_THAI_DOI_SOAT.DA_DOISOAT;
 import static es.vinhnb.ttht.common.Common.TRANG_THAI_DU_LIEU.GUI_THAT_BAI;
 import static es.vinhnb.ttht.common.Common.TYPE_IMAGE.IMAGE_TI;
@@ -288,6 +287,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                HashMap<Integer, TABLE_HISTORY_UPLOAD> resultUploadHistory = new HashMap<>();
                 try {
                     JSONArray jsonArr = new JSONArray();
                     //region init View
@@ -371,8 +371,12 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                     //region collect data
 
                     for (int i = 0; i < listID_BBAN_TRTH.size(); i++) {
-
+                        TABLE_HISTORY_UPLOAD historyUpload = new TABLE_HISTORY_UPLOAD();
                         try {
+                            historyUpload.setID_BBAN_TRTH(listID_BBAN_TRTH.get(i));
+                            historyUpload.setMA_NVIEN(onIDataCommon.getMaNVien());
+                            historyUpload.setTYPE_RESPONSE_UPLOAD(Common.TYPE_RESPONSE_UPLOAD.LOI_BAT_NGO.code);
+
                             final int finalI = i;
                             getView().postDelayed(new Runnable() {
                                 @Override
@@ -728,124 +732,12 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                             //create object upload
                             //endregion
 
-
-//                            //region test json
-//                            jsonArr.put(
-//                                    DATAtoJSONTTBBanWithImage(
-//                                            //TODO bien ban
-//                                            ID_BBAN_CONGTO,
-//                                            MA_DVIQLY,
-//                                            SO_BBAN,
-//                                            TRANG_THAI.code,
-//
-//                                            //TODO cong to treo
-//                                            LAN_CTO_TREO,
-//                                            VTRI_TREO_THAO_CTO_TREO,
-//                                            SOVIEN_CBOOC_CTO_TREO,
-//                                            LOAI_HOM_CTO_TREO,
-//                                            SOVIEN_CHOM_CTO_TREO,
-//                                            HS_NHAN_CTO_TREO,
-//                                            SO_TU_SAULAP_TUTI_CTO_TREO,
-//                                            SO_TI_SAULAP_TUTI_CTO_TREO,
-//                                            CHI_SO_SAULAP_TUTI_CTO_TREO,
-//                                            CAP_CX_SAULAP_TUTI_CTO_TREO,
-//                                            TEM_CQUANG_CTO_TREO,
-//                                            SOVIEN_CHIKDINH_CTO_TREO,
-//                                            DIEN_AP_SAULAP_TUTI_CTO_TREO,
-//                                            DONG_DIEN_SAULAP_TUTI_CTO_TREO,
-//                                            HANGSO_K_SAULAP_TUTI_CTO_TREO,
-//                                            SO_KIM_NIEM_CHI_CTO_TREO,
-//                                            TTRANG_NPHONG_CTO_TREO,
-//                                            TEN_LOAI_CTO_CTO_TREO,
-//                                            PHUONG_THUC_DO_XA_CTO_TREO,
-//                                            GHI_CHU_CTO_TREO,
-//
-//                                            //TODO cong to thao
-//                                            LAN_CTO_THAO,
-//                                            VTRI_TREO_THAO_CTO_THAO,
-//                                            SOVIEN_CBOOC_CTO_THAO,
-//                                            LOAI_HOM_CTO_THAO,
-//                                            SOVIEN_CHOM_CTO_THAO,
-//                                            HS_NHAN_CTO_THAO,
-//                                            SO_TU_SAULAP_TUTI_CTO_THAO,
-//                                            SO_TI_SAULAP_TUTI_CTO_THAO,
-//                                            CHI_SO_SAULAP_TUTI_CTO_THAO,
-//                                            CAP_CX_SAULAP_TUTI_CTO_THAO,
-//                                            TEM_CQUANG_CTO_THAO,
-//                                            SOVIEN_CHIKDINH_CTO_THAO,
-//                                            DIEN_AP_SAULAP_TUTI_CTO_THAO,
-//                                            DONG_DIEN_SAULAP_TUTI_CTO_THAO,
-//                                            HANGSO_K_SAULAP_TUTI_CTO_THAO,
-//                                            SO_KIM_NIEM_CHI_CTO_THAO,
-//                                            TTRANG_NPHONG_CTO_THAO,
-//                                            TEN_LOAI_CTO_CTO_THAO,
-//                                            PHUONG_THUC_DO_XA_CTO_THAO,
-//                                            GHI_CHU_CTO_THAO,
-//
-//                                            //TODO update bang DU_LIEU_HIEN_TRUONG
-//                                            //TODO anh Cong To Treo
-//                                            ID_BBAN_TUTI_CTO_TREO,
-//                                            ID_CHITIET_TUTI_TU_CTO_TREO,
-//                                            ID_CHITIET_TUTI_TI_CTO_TREO,
-//
-//                                            ID_CHITIET_CTO_TREO,
-//                                            //anh cong to
-//                                            TEN_ANH_CTO_TREO,
-//                                            TEN_ANH_NIEMPHONG_CTO_TREO,
-//                                            ANH_CTO_TREO,
-//                                            ANH_NIEMPHONG_CTO_TREO,
-//                                            CREATE_DAY_ANH_CTO_TREO,
-//                                            CREATE_DAY_ANH_NIEMPHONG_CTO_TREO,
-//
-//                                            //anh TU cto treo
-//                                            TEN_ANH_TU_CTO_TREO,
-//                                            ANH_TU_CTO_TREO,
-//                                            CREATE_DAY_ANH_TU_CTO_TREO,
-//                                            //anh TU mach nhi thu
-//                                            TEN_ANH_TU_ANH_MACH_NHI_THU_CTO_TREO,
-//                                            ANH_TU_ANH_MACH_NHI_THU_CTO_TREO,
-//                                            CREATE_DAY_ANH_MACH_NHI_THU_TU_CTO_TREO,
-//                                            //anh TU mach niem phong
-//                                            TEN_ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO,
-//                                            ANH_TU_ANH_MACH_NIEM_PHONG_CTO_TREO,
-//                                            CREATE_DAY_ANH_MACH_NIEM_PHONG_TU_CTO_TREO,
-//
-//                                            //anh TI
-//                                            TEN_ANH_TI_CTO_TREO,
-//                                            ANH_TI_CTO_TREO,
-//                                            CREATE_DAY_ANH_TI_CTO_TREO,
-//                                            //anh TI mach nhi thu
-//                                            TEN_ANH_TI_ANH_MACH_NHI_THU_CTO_TREO,
-//                                            ANH_TI_ANH_MACH_NHI_THU_CTO_TREO,
-//                                            CREATE_DAY_ANH_MACH_NHI_THU_TI_CTO_TREO,
-//                                            //anh TI mach niem phong
-//                                            TEN_ANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO,
-//                                            ANH_TI_ANH_MACH_NIEM_PHONG_CTO_TREO,
-//                                            CREATE_DAY_ANH_MACH_NIEM_PHONG_TI_CTO_TREO,
-//
-//                                            //TODO anh Cong To Thao
-//                                            ID_BBAN_TUTI_CTO_THAO,
-//                                            ID_CHITIET_TUTI_TU_CTO_THAO,
-//                                            ID_CHITIET_TUTI_TI_CTO_THAO,
-//
-//                                            ID_CHITIET_CTO_THAO,
-//                                            //anh cong to
-//                                            TEN_ANH_CTO_THAO,
-//                                            TEN_ANH_NIEMPHONG_CTO_THAO,
-//                                            ANH_CTO_THAO,
-//                                            ANH_NIEMPHONG_CTO_THAO,
-//                                            CREATE_DAY_ANH_CTO_THAO,
-//                                            CREATE_DAY_ANH_NIEMPHONG_CTO_THAO
-//
-//                                    ));
-//                            //endregion
-
-
                             dataUpload.add(mtbModelNew);
-
 
                         } catch (Exception e) {
                             e.printStackTrace();
+                            historyUpload.setTYPE_RESPONSE_UPLOAD("Lỗi khi khởi tạo dữ liệu upload. \n" + e.getMessage());
+
                             isHasErrorServer = true;
                             sobbUploadError++;
                             getView().post(new Runnable() {
@@ -857,6 +749,8 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                             messageServer.append(e.getMessage());
                             continue;
                         }
+
+                        resultUploadHistory.put(historyUpload.getID_BBAN_TRTH(), historyUpload);
                     }
 
 
@@ -907,9 +801,21 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                         isHasErrorServer = true;
                         sobbUploadError = sobbUpload;
 
+                        for (Integer ID_BBAN_TRTH : resultUploadHistory.keySet()
+                                ) {
+                            if (TextUtils.isEmpty(resultUploadHistory.get(ID_BBAN_TRTH).getMESSAGE_RESPONSE()))
+                                resultUploadHistory.get(ID_BBAN_TRTH).setMESSAGE_RESPONSE("Không kết nối được máy chủ khi gửi biên bản!");
+                        }
+
                     } else if (resultUpload.size() == 0) {
                         //kết nối gửi thành công nhưng ko có dữ liệu trả về nên quy là thất bại
                         //nếu rỗng thì hiện tại có biên bản nhưng không có công tơ, vẫn cho tiếp tục thực hiện call các api khác
+                        for (Integer ID_BBAN_TRTH : resultUploadHistory.keySet()
+                                ) {
+                            if (TextUtils.isEmpty(resultUploadHistory.get(ID_BBAN_TRTH).getMESSAGE_RESPONSE()))
+                                resultUploadHistory.get(ID_BBAN_TRTH).setMESSAGE_RESPONSE("Không nhận được dữ liệu hồi đáp từ máy chủ khi gửi biên bản!");
+                        }
+
                         messageServer.append("--Không nhận được dữ liệu trả về từ máy chủ khi gửi dữ liệu biên bản lên!--");
                         isHasErrorServer = true;
                         sobbUploadError = sobbUpload;
@@ -931,6 +837,12 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
 
 
                         updateDataAfterUpload(mtbResultModelNew);
+
+                        Common.TYPE_RESPONSE_UPLOAD typeResponseUpload = Common.TYPE_RESPONSE_UPLOAD.find(mtbResultModelNew.TRANG_THAI);
+                        resultUploadHistory.get(mtbResultModelNew.ID_BBAN_TRTH).setTYPE_RESPONSE_UPLOAD(typeResponseUpload.content);
+
+                        if (typeResponseUpload == Common.TYPE_RESPONSE_UPLOAD.LOI_BAT_NGO)
+                            resultUploadHistory.get(mtbResultModelNew.ID_BBAN_TRTH).setMESSAGE_RESPONSE(mtbResultModelNew.ERROR);
 
                     }
 
@@ -983,7 +895,17 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                     //ghi history phiên download
                     try {
                         infoSessionUpload.setMESSAGE_RESULT(messageServer.toString());
-                        mSqlDAO.insert(TABLE_HISTORY.class, infoSessionUpload);
+                        infoSessionUpload.setID_TABLE_HISTORY((int) mSqlDAO.insert(TABLE_HISTORY.class, infoSessionUpload));
+                        for (Integer ID_BBAN_TRTH : resultUploadHistory.keySet()
+                                ) {
+                            try {
+                                resultUploadHistory.get(ID_BBAN_TRTH).setID_TABLE_HISTORY_DETAIL(infoSessionUpload.getID_TABLE_HISTORY());
+                                resultUploadHistory.get(ID_BBAN_TRTH).setID_TABLE_HISTORY_DETAIL((int) mSqlDAO.insert(TABLE_HISTORY_UPLOAD.class, resultUploadHistory.get(ID_BBAN_TRTH)));
+                            } catch (Exception e2) {
+                                e2.printStackTrace();
+                                continue;
+                            }
+                        }
                     } catch (final Exception e) {
                         getView().post(new Runnable() {
                             @Override
@@ -1017,10 +939,10 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
     }
 
     private void updateDataAfterUpload(MTB_ResultModel_NEW mtbResultModelNew) throws Exception {
-        Common.TYPE_TRANG_THAI_MTB_ResultModel_NEW trangThai = Common.TYPE_TRANG_THAI_MTB_ResultModel_NEW.find(mtbResultModelNew.TRANG_THAI);
+        Common.TYPE_RESPONSE_UPLOAD typeResponseUpload = Common.TYPE_RESPONSE_UPLOAD.find(mtbResultModelNew.TRANG_THAI);
 
         TABLE_BBAN_CTO tableBbanCtoOld = (TABLE_BBAN_CTO) tableBbanCto.clone();
-        switch (trangThai) {
+        switch (typeResponseUpload) {
             case GUI_CMIS_THATBAI:
                 tableBbanCto.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.GUI_THAT_BAI.content);
                 sobbUploadError++;

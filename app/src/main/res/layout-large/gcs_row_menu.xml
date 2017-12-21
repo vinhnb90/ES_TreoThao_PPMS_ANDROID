@@ -19,7 +19,7 @@
         android:layout_weight="8.5"
         android:textColor="#FFF"
         android:textSize="18sp"
-        android:text="Menu content"
+        android:text="Menu code"
         android:gravity="center_vertical"/>
 
 </LinearLayout>
