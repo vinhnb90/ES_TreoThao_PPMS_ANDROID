@@ -27,12 +27,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import es.vinhnb.ttht.adapter.DoiSoatAdapter;
+import es.vinhnb.ttht.adapter.HistoryAdapter;
 import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.database.dao.TthtHnSQLDAO;
 import es.vinhnb.ttht.database.table.TABLE_ANH_HIENTRUONG;
@@ -51,6 +53,7 @@ import retrofit2.Response;
 import static es.vinhnb.ttht.common.Common.DELAY;
 import static es.vinhnb.ttht.common.Common.DELAY_PROGESS_PBAR;
 import static es.vinhnb.ttht.common.Common.TRANG_THAI_DOI_SOAT.CHUA_DOISOAT;
+import static es.vinhnb.ttht.common.Common.TRANG_THAI_DOI_SOAT.DA_DOISOAT;
 import static es.vinhnb.ttht.common.Common.TRANG_THAI_DU_LIEU.GUI_THAT_BAI;
 import static es.vinhnb.ttht.common.Common.TYPE_IMAGE.IMAGE_TI;
 import static es.vinhnb.ttht.common.Common.TYPE_IMAGE.IMAGE_TU;
@@ -127,6 +130,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
     private TABLE_ANH_HIENTRUONG anhNiemPhongTI;
     private int sobbUploadOK;
     private int sobbUploadError;
+    private List<DoiSoatAdapter.DataDoiSoatAdapter> listDataDoiSoatAdapter;
 
 
     public TthtHnUploadFragment() {
@@ -227,7 +231,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                 try {
                     if (rlInfoGui.getVisibility() == View.GONE) {
                         rlInfoGui.setVisibility(View.VISIBLE);
-                        sobbUpload = sobbUploadError = 0;
+                        sobbUploadOK = sobbUploadError = 0;
                         updateStatusUpload();
                     }
 
@@ -243,10 +247,21 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
             @Override
             public void onClick(View view) {
                 try {
+                    if (hashMapData.size() != 0) {
+                        sobbUpload = 0;
+                        for (Map.Entry<Integer, DoiSoatAdapter.DataDoiSoatAdapter> entry : hashMapData.entrySet()) {
+                            Integer key = entry.getKey();
+                            DoiSoatAdapter.DataDoiSoatAdapter element = entry.getValue();
+                            if (element.TRANG_THAI_DOISOAT == DA_DOISOAT)
+                                sobbUpload++;
+                        }
+                    }
+
+
                     if (rlGuiBBan.getVisibility() == View.GONE) {
                         rlGuiBBan.setVisibility(View.VISIBLE);
                         tvDateUpload.setText(Common.getDateTimeNow(Common.DATE_TIME_TYPE.type9));
-                        tvSoBBUpload.setText(sobbUpload + "/" + listID_BBAN_TRTH.size() + " biên bản");
+                        tvSoBBUpload.setText(sobbUpload + "/" + listDataDoiSoatAdapter.size() + " biên bản");
                         tvPercentUpload.setText("0%");
                         pbarUpload.setProgress(0);
 
@@ -285,9 +300,9 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                     infoSessionUpload.setMA_NVIEN(onIDataCommon.getMaNVien());
                     infoSessionUpload.setTYPE_CALL_API(Common.TYPE_CALL_API.UPLOAD.content);
                     infoSessionUpload.setTYPE_RESULT(Common.TYPE_RESULT.SUCCESS.content);
-
+                    infoSessionUpload.setMESSAGE_RESULT("");
                     sobbUploadOK = sobbUploadError = 0;
-
+                    isHasErrorServer = false;
                     //show Pbar
                     getView().post(new Runnable() {
                         @Override
@@ -303,7 +318,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                             String dateUI = Common.convertDateToDate(infoSessionUpload.getDATE_CALL_API(), Common.DATE_TIME_TYPE.sqlite2, Common.DATE_TIME_TYPE.type9);
                             tvDateUpload.setText(dateUI);
                             tvDateUpload.setTextColor(getResources().getColor(R.color.tththn_button));
-                            tvSoBBUpload.setText(sobbUpload + "/" + listID_BBAN_TRTH.size() + " biên bản");
+                            tvSoBBUpload.setText(sobbUpload + "/" + listDataDoiSoatAdapter.size() + " biên bản");
                         }
                     });
                     //endregion
@@ -849,6 +864,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
 
                     //nếu không có dữ liệu return
                     if (dataUpload.size() == 0) {
+                        sobbUploadError = sobbUpload;
                         infoSessionUpload.setTYPE_RESULT(Common.TYPE_RESULT.ERROR.content);
                         infoSessionUpload.setMESSAGE_RESULT(messageServer.toString());
 
@@ -889,14 +905,14 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                         resultUpload = new ArrayList<>();
                         messageServer.append("--Không kết nối được máy chủ. Timeout...---");
                         isHasErrorServer = true;
-                        sobbUploadError = dataUpload.size();
+                        sobbUploadError = sobbUpload;
 
                     } else if (resultUpload.size() == 0) {
                         //kết nối gửi thành công nhưng ko có dữ liệu trả về nên quy là thất bại
                         //nếu rỗng thì hiện tại có biên bản nhưng không có công tơ, vẫn cho tiếp tục thực hiện call các api khác
                         messageServer.append("--Không nhận được dữ liệu trả về từ máy chủ khi gửi dữ liệu biên bản lên!--");
                         isHasErrorServer = true;
-                        sobbUploadError = dataUpload.size();
+                        sobbUploadError = sobbUpload;
 
                     }
 
@@ -1027,7 +1043,9 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                 break;
             case LOI_BAT_NGO:
                 sobbUploadError++;
-                tableBbanCto.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.DA_GHI.content);
+                tableBbanCto.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.GUI_THAT_BAI.content);
+                infoSessionUpload.setTYPE_RESULT(Common.TYPE_RESULT.ERROR.content);
+                infoSessionUpload.setMESSAGE_RESULT(mtbResultModelNew.ERROR);
                 break;
         }
 
@@ -1178,7 +1196,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
         //get anh treo
         String[] agrs = new String[]{onIDataCommon.getMaNVien(), Common.TYPE_IMAGE.IMAGE_CONG_TO.code};
         List<DoiSoatAdapter.DataDoiSoat> data = mSqlDAO.getDoiSoatAdapter(agrs);
-
+        sobbUpload = 0;
         hashMapData = new HashMap<>();
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).MA_BDONG == Common.MA_BDONG.B) {
@@ -1191,12 +1209,12 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                 element.TRANG_THAI_DU_LIEU = data.get(i).TRANG_THAI_DU_LIEU;
                 element.TRANG_THAI_DOISOAT = data.get(i).TRANG_THAI_DOISOAT;
                 element.ID_BBAN_TRTH = data.get(i).ID_BBAN_TRTH;
-
+                element.SO_BBAN = data.get(i).SO_BBAN;
+                if (element.TRANG_THAI_DOISOAT == DA_DOISOAT)
+                    sobbUpload++;
                 hashMapData.put(data.get(i).ID_BBAN_TRTH, element);
-                data.remove(data.get(i));
             }
         }
-
 
         //update  anh thao
         for (int i = 0; i < data.size(); i++) {
@@ -1214,10 +1232,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
             }
         }
 
-        sobbUpload = 0;
-        tvSoBBUpload.setText(sobbUpload + "/" + listID_BBAN_TRTH.size() + " biên bản");
-
-        final List<DoiSoatAdapter.DataDoiSoatAdapter> listDataDoiSoatAdapter = new ArrayList<>(hashMapData.values());
+        listDataDoiSoatAdapter = new ArrayList<>(hashMapData.values());
 
         //kết hợp dữ liệu 2 loại này
         //fill data doisoat
@@ -1271,7 +1286,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                                 }
 
 
-                                tvSoBBUpload.setText(sobbUpload + "/" + listID_BBAN_TRTH.size() + " biên bản");
+                                tvSoBBUpload.setText(sobbUpload + "/" + listDataDoiSoatAdapter.size() + " biên bản");
                             }
 
                         } catch (Exception e) {
@@ -1287,6 +1302,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
         } else
             doiSoatAdapters.refresh(listDataDoiSoatAdapter);
 
+        tvSoBBUpload.setText(sobbUpload + "/" + listDataDoiSoatAdapter.size() + " biên bản");
 
         rvDoiSoat.invalidate();
 
@@ -1303,6 +1319,79 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
             return true;
         else
             return false;
+    }
+
+    public void clearUpload() {
+        try {
+            fillDataDoiSoat();
+        } catch (Exception e) {
+            e.printStackTrace();
+            ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex04.getContent(), e.getMessage(), null);
+        }
+    }
+
+    public void searchData(String typeSearchString, String messageSearch) {
+        try {
+            Common.TYPE_SEARCH_UPLOAD typeSearch = Common.TYPE_SEARCH_UPLOAD.findTYPE_SEARCH(typeSearchString);
+            List<DoiSoatAdapter.DataDoiSoatAdapter> dataFilter = new ArrayList<>();
+            String query = Common.removeAccent(messageSearch.toString().trim().toLowerCase());
+            switch (typeSearch) {
+                case CHON:
+                    fillDataDoiSoat();
+                    break;
+                case TEN_KH:
+                    if (!TextUtils.isEmpty(messageSearch)) {
+                        for (int i = 0; i < listDataDoiSoatAdapter.size(); i++) {
+                            boolean isHasData = true;
+                            DoiSoatAdapter.DataDoiSoatAdapter data = listDataDoiSoatAdapter.get(i);
+
+                            isHasData = Common.removeAccent(data.TEN_KH.toLowerCase()).contains(query);
+
+                            if (isHasData) {
+                                dataFilter.add(data);
+                            }
+                        }
+                    } else
+                        dataFilter = Common.cloneList(listDataDoiSoatAdapter);
+
+                    //giữ nguyên dữ liệu, lọc cái cần dùng
+                    fillDataDoiSoat(dataFilter);
+                    break;
+                case SO_BBAN:
+                    if (!TextUtils.isEmpty(messageSearch)) {
+                        for (int i = 0; i < listDataDoiSoatAdapter.size(); i++) {
+                            boolean isHasData = true;
+                            DoiSoatAdapter.DataDoiSoatAdapter data = listDataDoiSoatAdapter.get(i);
+
+                            isHasData = Common.removeAccent(data.SO_BBAN.toLowerCase()).contains(query);
+
+                            if (isHasData) {
+                                dataFilter.add(data);
+                            }
+                        }
+                    } else
+                        dataFilter = Common.cloneList(listDataDoiSoatAdapter);
+
+                    //giữ nguyên dữ liệu, lọc cái cần dùng
+                    fillDataDoiSoat(dataFilter);
+                    break;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex04.getContent(), e.getMessage(), null);
+        }
+    }
+
+    private void fillDataDoiSoat(List<DoiSoatAdapter.DataDoiSoatAdapter> dataFilter) {
+        if (doiSoatAdapters == null) {
+            doiSoatAdapters = new DoiSoatAdapter(getContext(), dataFilter, iIteractor);
+            rvDoiSoat.setAdapter(doiSoatAdapters);
+        } else
+            doiSoatAdapters.refresh(dataFilter);
+
+
+        rvDoiSoat.invalidate();
     }
 
     //endregion

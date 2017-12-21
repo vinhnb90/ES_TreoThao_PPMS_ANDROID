@@ -91,7 +91,7 @@ public class DoiSoatAdapter extends RecyclerView.Adapter<DoiSoatAdapter.ViewHold
 
             holder.tvTenKH.setText(doiSoatAdapter.TEN_KH);
             holder.tvDiaChiKH.setText(doiSoatAdapter.DIA_CHI_HOADON);
-
+            holder.tvSoBBan.setText(doiSoatAdapter.SO_BBAN);
             //default set button doi soat
             holder.btnSelectUpload.setVisibility(View.VISIBLE);
             holder.btnSelectUpload.setBackground(xml_tththn_rectangle11_type1);
@@ -183,6 +183,7 @@ public class DoiSoatAdapter extends RecyclerView.Adapter<DoiSoatAdapter.ViewHold
         public TextView tvDoiSoatTrangThai;
         public Button btnSelectUpload;
         public RelativeLayout rlRow;
+        public TextView tvSoBBan;
         public TextView tvStt;
 
         public TextView tvTenKH;
@@ -210,6 +211,9 @@ public class DoiSoatAdapter extends RecyclerView.Adapter<DoiSoatAdapter.ViewHold
             super(itemView);
 
             rlRow = (RelativeLayout) itemView.findViewById(R.id.rl_left);
+            tvSoBBan= (TextView) itemView.findViewById(R.id.tv_so_bban_doisoat);
+
+
             tvStt = (TextView) itemView.findViewById(R.id.tv_stt_upload);
             tvTenKH = (TextView) itemView.findViewById(R.id.tv_dl_tenKH);
             tvDiaChiKH = (TextView) itemView.findViewById(R.id.tv_diachi_tenKH);
@@ -341,6 +345,7 @@ public class DoiSoatAdapter extends RecyclerView.Adapter<DoiSoatAdapter.ViewHold
         public Common.TRANG_THAI_DU_LIEU TRANG_THAI_DU_LIEU;
         public Common.TRANG_THAI_DOI_SOAT TRANG_THAI_DOISOAT;
         public int ID_BBAN_TRTH;
+        public String SO_BBAN;
 
         @Override
         public Object clone() throws CloneNotSupportedException {
@@ -360,6 +365,8 @@ public class DoiSoatAdapter extends RecyclerView.Adapter<DoiSoatAdapter.ViewHold
 
         public Common.MA_BDONG MA_BDONG;
         public int ID_BBAN_TRTH;
+        public String SO_BBAN;
+
 
         public Common.TRANG_THAI_DU_LIEU TRANG_THAI_DU_LIEU;
         public Common.TRANG_THAI_DOI_SOAT TRANG_THAI_DOISOAT;

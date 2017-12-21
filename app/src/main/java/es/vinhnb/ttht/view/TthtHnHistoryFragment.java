@@ -155,12 +155,11 @@ public class TthtHnHistoryFragment extends TthtHnBaseFragment {
     }
 
     private boolean isShowNoDataText(int size) {
-        if(size == 0)
-        {
+        if (size == 0) {
             rvHistory.setVisibility(View.GONE);
             tvNodata.setVisibility(View.VISIBLE);
             return true;
-        }else {
+        } else {
             rvHistory.setVisibility(View.VISIBLE);
             tvNodata.setVisibility(View.GONE);
             return false;

@@ -238,6 +238,51 @@ public class Common {
         }
     }
 
+    public enum TYPE_SEARCH_UPLOAD {
+        CHON("Tìm theo", true),
+        TEN_KH("Tên KH", true),
+        SO_BBAN("Số Biên bản", true)
+        ;
+
+        public String content;
+        public boolean isShow;
+
+        TYPE_SEARCH_UPLOAD(String content, boolean isShow) {
+            this.content = content;
+            this.isShow = isShow;
+        }
+
+        public static String[] getArrayShow() {
+            ArrayList<String> result = new ArrayList<>();
+
+            for (TYPE_SEARCH_UPLOAD typeSearch : values()) {
+                if (typeSearch.isShow)
+                    result.add(typeSearch.content);
+            }
+
+            return result.toArray(new String[result.size()]);
+        }
+
+
+        public static TYPE_SEARCH_UPLOAD findTYPE_SEARCH(String content) {
+            for (TYPE_SEARCH_UPLOAD typeSearch : values()) {
+                if (typeSearch.content.equalsIgnoreCase(content))
+                    return typeSearch;
+            }
+            return null;
+        }
+
+        public static int getPosInArray(String content) {
+            int i = 0;
+            for (String s : TYPE_SEARCH_UPLOAD.getArrayShow()) {
+                if (s.equalsIgnoreCase(content))
+                    break;
+                i++;
+            }
+            return i;
+        }
+    }
+
     public enum TYPE_SEARCH_CTO {
         CHON("Tìm theo", true),
         MA_TRAM("Mã trạm", true),

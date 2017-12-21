@@ -244,6 +244,8 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
 
     public void refreshTagTopMenu(TthtHnMainActivity.TagMenuTop tagMenuTop) {
         this.tagMenuTop = tagMenuTop;
+
+
     }
 
     public interface IOnTthtHnTopMenuChiTietCtoFragment {

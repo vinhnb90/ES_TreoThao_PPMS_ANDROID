@@ -50,6 +50,7 @@ import es.vinhnb.ttht.database.table.TABLE_TRAM;
 import es.vinhnb.ttht.entity.sharedpref.MainSharePref;
 import es.vinhnb.ttht.view.TthtHnHistoryFragment.IOnTthtHnHistoryFragment;
 import es.vinhnb.ttht.view.TthtHnMainFragment.IOnTthtHnMainFragment;
+import es.vinhnb.ttht.view.TthtHnTopUploadFragment.IOnTthtHnTopUploadFragment;
 import es.vinhnb.ttht.view.TthtHnUploadFragment.IOnTthtHnUploadFragment;
 import esolutions.com.esdatabaselib.baseSharedPref.SharePrefManager;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
@@ -84,6 +85,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         IInteractionDataCommon,
         IOnTthtHnUploadFragment,
         IOnTthtHnHistoryFragment,
+        IOnTthtHnTopUploadFragment,
         IOnBBanAdapter {
 
     private LoginFragment.LoginData mLoginData;
@@ -100,6 +102,8 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
     private TthtHnBBanTutiFragment fragmentBBanTuTi;
     private TthtHnTopMenuChiTietCtoFragment fragmentTopMenuChiTietCto;
     private TthtHnTopSearchFragment fragmentTopSearchFragment;
+    private TthtHnTopUploadFragment fragmentTopUploadFragment;
+
     private TagMenuNaviLeft tagMenuNaviLeftList;
 
 
@@ -114,7 +118,6 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
     private int ID_BBAN_TUTI_CTO_THAO;
     private TthtHnSQLDAO mSqlDao;
 
-
     public enum TypeFragment {
         TthtHnMainFragment(TthtHnMainFragment.class),
         TthtHnDownloadFragment(TthtHnDownloadFragment.class),
@@ -122,7 +125,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         TthtHnHistoryFragment(TthtHnHistoryFragment.class),
         TthtHnChiTietCtoFragment(es.vinhnb.ttht.view.TthtHnChiTietCtoFragment.class),
         TthtHnBBanTutiFragment(TthtHnBBanTutiFragment.class),
-
+        TthtHnTopUploadFragment(TthtHnTopUploadFragment.class),
         TthtHnTopMenuChiTietCtoFragment(TthtHnTopMenuChiTietCtoFragment.class),
         TthtHnTopSearchFragment(TthtHnTopSearchFragment.class);
 
@@ -189,6 +192,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         BBAN_TUTI("BBAN_TUTI", TypeFragment.TthtHnTopMenuChiTietCtoFragment),
         CHUYEN_LOAI_CTO("CHUYEN_LOAI_CTO", TypeFragment.TthtHnTopMenuChiTietCtoFragment),
         SEARCH("SEARCH", TypeFragment.TthtHnTopSearchFragment),
+        CLEAR("CLEAR_UPLOAD", TypeFragment.TthtHnTopUploadFragment),
         EMPTY("", null);
 
 
@@ -476,10 +480,10 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                     }
 
 
-                    emptyFragment = showTopMenuFragment(tagNew, TagMenuTop.EMPTY);
+                    fragmentTopUploadFragment = (TthtHnTopUploadFragment) showTopMenuFragment(tagNew, TagMenuTop.CLEAR);
 
 
-                    updateSessionBackstackFragment(emptyFragment, fragmentUpload, false);
+                    updateSessionBackstackFragment(fragmentTopUploadFragment, fragmentUpload, false);
                     break;
 
 
@@ -905,8 +909,16 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
             ((TthtHnHistoryFragment) fragmentVisible).searchData(typeSearchString, messageSearch);
             return;
         }
+    }
 
+    @Override
+    public void clickDate(String date) {
 
+        Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
+        if (fragmentVisible instanceof TthtHnMainFragment) {
+            ((TthtHnMainFragment) fragmentVisible).searchDate(date);
+            return;
+        }
     }
     //endregion
 
@@ -1012,6 +1024,15 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                         isAddTop = true;
                     }
                     return fragmentTopSearchFragment;
+
+                case CLEAR:
+                    if (fragmentVisible instanceof TthtHnTopUploadFragment) {
+                        isAddTop = false;
+                    } else {
+                        fragmentTopUploadFragment = new TthtHnTopUploadFragment().newInstance(tagMenuTop);
+                        isAddTop = true;
+                    }
+                    return fragmentTopUploadFragment;
 
                 case EMPTY:
                     Fragment fragment = new Fragment();
@@ -1155,6 +1176,27 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlTopMenu.getId());
         if (fragmentVisible instanceof TthtHnTopSearchFragment) {
             ((TthtHnTopSearchFragment) fragmentVisible).refreshTopThongKeMainFragment(countRow, thongKe);
+        }
+    }
+    //endregion
+
+
+    //region IOnTthtHnTopUploadFragment
+    @Override
+    public void clickSearchUploadTop(String typeSearchString, String messageSearch) {
+        Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
+        if (fragmentVisible instanceof TthtHnUploadFragment) {
+            ((TthtHnUploadFragment) fragmentVisible).searchData(typeSearchString, messageSearch);
+            return;
+        }
+    }
+
+
+    @Override
+    public void clickClearUpload() {
+        Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlTopMenu.getId());
+        if (fragmentVisible instanceof TthtHnUploadFragment) {
+            ((TthtHnUploadFragment) fragmentVisible).clearUpload();
         }
     }
     //endregion

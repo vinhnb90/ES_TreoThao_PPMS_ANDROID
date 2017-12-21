@@ -32,6 +32,7 @@ import esolutions.com.esdatabaselib.baseSharedPref.SharePrefManager;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 
 import static es.vinhnb.ttht.adapter.ChiTietCtoAdapter.*;
+import static es.vinhnb.ttht.common.Common.TYPE_SEARCH_BBAN.NGAY_TRTH;
 import static es.vinhnb.ttht.view.TthtHnBaseActivity.BUNDLE_TAG_MENU;
 
 public class TthtHnMainFragment extends TthtHnBaseFragment {
@@ -301,8 +302,10 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
                         mRvMain.scrollToPosition(posRecylerClick);
                         mRvMain.postInvalidate();
                     }
-                } else
+                } else {
+                    mListener.refreshTopThongKeMainFragment(dataChiTietCtoAdaptersList.size(), 0);
                     fillDataCto(dataChiTietCtoAdaptersList);
+                }
 
                 break;
 
@@ -444,35 +447,51 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
 
 
         if (!TextUtils.isEmpty(messageSearch)) {
-            for (int i = 0; i < dataChiTietCtoAdaptersList.size(); i++) {
-                boolean isHasData = true;
-                DataChiTietCtoAdapter data = dataChiTietCtoAdaptersList.get(i);
 
-                switch (typeSearch) {
-                    case MA_TRAM:
-                        isHasData = Common.removeAccent(data.getMaTram().toLowerCase()).contains(query);
-                        break;
-                    case NGAY_TRTH:
-                        isHasData = Common.removeAccent(data.getNgaytrth().toLowerCase()).contains(query);
-                        break;
-                    case TEN_KH:
-                        isHasData = Common.removeAccent(data.getTenKH().toLowerCase()).contains(query);
-                        break;
-                    case MA_GCS:
-                        isHasData = Common.removeAccent(data.getMaGCS().toLowerCase()).contains(query);
-                        break;
-                    case SO_BBAN:
-                        isHasData = Common.removeAccent(data.getSobban().toLowerCase()).contains(query);
-                        break;
-                    case MA_CTO:
-                        isHasData = Common.removeAccent(data.getMaCto().toLowerCase()).contains(query);
-                        break;
-                    case SO_CTO:
-                        isHasData = Common.removeAccent(data.getSoCto().toLowerCase()).contains(query);
-                        break;
+            if (typeSearch == Common.TYPE_SEARCH_CTO.NGAY_TRTH) {
+                String convertSqlDate = Common.convertDateToDate(query, Common.DATE_TIME_TYPE.type6, Common.DATE_TIME_TYPE.sqlite2);
+
+                dataChiTietCtoAdaptersList.clear();
+                String dateNow = Common.getDateTimeNow(Common.DATE_TIME_TYPE.type6);
+                if (messageSearch.equals(dateNow)) {
+                    String[] args = new String[]{onIDataCommon.getMaNVien(),  onIDataCommon.getMA_BDONG().code};
+                    dataChiTietCtoAdaptersList = mSqlDAO.getTreoDataChiTietCto2DayAdapter(args);
+                } else {
+                    String[] args = new String[]{onIDataCommon.getMaNVien(), convertSqlDate, onIDataCommon.getMA_BDONG().code};
+                    dataChiTietCtoAdaptersList = mSqlDAO.getTreoDataChiTietCtoAdapter(args);
                 }
-                if (isHasData) {
-                    dataFilter.add(data);
+                dataFilter = dataChiTietCtoAdaptersList;
+            } else {
+                for (int i = 0; i < dataChiTietCtoAdaptersList.size(); i++) {
+                    boolean isHasData = true;
+                    DataChiTietCtoAdapter data = dataChiTietCtoAdaptersList.get(i);
+
+                    switch (typeSearch) {
+                        case MA_TRAM:
+                            isHasData = Common.removeAccent(data.getMaTram().toLowerCase()).contains(query);
+                            break;
+                        case NGAY_TRTH:
+                            isHasData = Common.removeAccent(data.getNgaytrth().toLowerCase()).contains(query);
+                            break;
+                        case TEN_KH:
+                            isHasData = Common.removeAccent(data.getTenKH().toLowerCase()).contains(query);
+                            break;
+                        case MA_GCS:
+                            isHasData = Common.removeAccent(data.getMaGCS().toLowerCase()).contains(query);
+                            break;
+                        case SO_BBAN:
+                            isHasData = Common.removeAccent(data.getSobban().toLowerCase()).contains(query);
+                            break;
+                        case MA_CTO:
+                            isHasData = Common.removeAccent(data.getMaCto().toLowerCase()).contains(query);
+                            break;
+                        case SO_CTO:
+                            isHasData = Common.removeAccent(data.getSoCto().toLowerCase()).contains(query);
+                            break;
+                    }
+                    if (isHasData) {
+                        dataFilter.add(data);
+                    }
                 }
             }
         } else
@@ -480,6 +499,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
 
 
         //giữ nguyên dữ liệu, lọc cái cần dùng
+        mListener.refreshTopThongKeMainFragment(dataFilter.size(), 0);
         fillDataCto(dataFilter);
     }
 
@@ -490,33 +510,41 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
 
 
         if (!TextUtils.isEmpty(messageSearch)) {
-            for (int i = 0; i < dataBBanAdaptersList.size(); i++) {
-                boolean isHasData = true;
-                DataBBanAdapter data = dataBBanAdaptersList.get(i);
-                switch (typeSearch) {
-                    case MA_TRAM:
-                        isHasData = Common.removeAccent(data.getMaTramcapdien().toLowerCase()).contains(query);
-                        break;
-                    case NGAY_TRTH:
-                        String convertSqlDate = Common.convertDateToDate(query, Common.DATE_TIME_TYPE.type6, Common.DATE_TIME_TYPE.sqlite2);
-                        String[] args = new String[]{onIDataCommon.getMaNVien(), convertSqlDate};
-                        dataBBanAdaptersList.clear();
-                        dataBBanAdaptersList = Common.cloneList(mSqlDAO.getBBanAdapterInDay(args));
-                        isHasData = false;
-                        mListener.refreshTopThongKeMainFragment(dataBBanAdaptersList.size(), 0);
-                        break;
-                    case TEN_KH:
-                        isHasData = Common.removeAccent(data.getTenKH().toLowerCase()).contains(query);
-                        break;
-                    case MA_GCS:
-                        isHasData = Common.removeAccent(data.getMaGCS().toLowerCase()).contains(query);
-                        break;
-                    case SO_BBAN:
-                        isHasData = Common.removeAccent(data.getSobban().toLowerCase()).contains(query);
-                        break;
+            if (typeSearch == NGAY_TRTH) {
+                String convertSqlDate = Common.convertDateToDate(query, Common.DATE_TIME_TYPE.type6, Common.DATE_TIME_TYPE.sqlite2);
+
+                dataBBanAdaptersList.clear();
+                String dateNow = Common.getDateTimeNow(Common.DATE_TIME_TYPE.type6);
+                if (messageSearch.equals(dateNow)) {
+                    String[] args = new String[]{onIDataCommon.getMaNVien()};
+                    dataBBanAdaptersList = mSqlDAO.getBBanAdapter2Day(args);
+                } else {
+                    String[] args = new String[]{onIDataCommon.getMaNVien(), convertSqlDate};
+                    dataBBanAdaptersList = mSqlDAO.getBBanAdapterInDay(args);
                 }
-                if (isHasData) {
-                    dataFilter.add(data);
+                dataFilter = dataBBanAdaptersList;
+                mListener.refreshTopThongKeMainFragment(dataBBanAdaptersList.size(), 0);
+            } else {
+                for (int i = 0; i < dataBBanAdaptersList.size(); i++) {
+                    boolean isHasData = true;
+                    DataBBanAdapter data = dataBBanAdaptersList.get(i);
+                    switch (typeSearch) {
+                        case MA_TRAM:
+                            isHasData = Common.removeAccent(data.getMaTramcapdien().toLowerCase()).contains(query);
+                            break;
+                        case TEN_KH:
+                            isHasData = Common.removeAccent(data.getTenKH().toLowerCase()).contains(query);
+                            break;
+                        case MA_GCS:
+                            isHasData = Common.removeAccent(data.getMaGCS().toLowerCase()).contains(query);
+                            break;
+                        case SO_BBAN:
+                            isHasData = Common.removeAccent(data.getSobban().toLowerCase()).contains(query);
+                            break;
+                    }
+                    if (isHasData) {
+                        dataFilter.add(data);
+                    }
                 }
             }
         } else
@@ -536,6 +564,43 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
         this.sizeList = sizeFitle;
         MainSharePref mainSharePref = new MainSharePref(pos, sizeFitle, onIDataCommon.getMA_BDONG() == Common.MA_BDONG.B ? TagMenuNaviLeft.CTO_TREO.tagFrag : TagMenuNaviLeft.CTO_THAO.tagFrag);
         sharePrefManager.writeDataSharePref(MainSharePref.class, mainSharePref);
+    }
+
+    public void searchDate(String date) {
+        switch (tagMenuNaviLeft) {
+            case BBAN_CTO:
+                searchBBan(NGAY_TRTH.content, date);
+                break;
+            case TRAM:
+                break;
+            case CTO_TREO:
+            case CTO_THAO:
+                searchCto(NGAY_TRTH.content, date);
+                break;
+            case CHUNG_LOAI:
+                searchChungLoai(NGAY_TRTH.content, date);
+                break;
+            case CHITIET_CTO_TREO:
+                break;
+            case CHITIET_CTO_THAO:
+                break;
+            case CHITIET_BBAN_TUTI_TREO:
+                break;
+            case CHITIET_BBAN_TUTI_THAO:
+                break;
+            case EMPTY1:
+                break;
+            case LINE1:
+                break;
+            case LINE2:
+                break;
+            case DOWNLOAD:
+                break;
+            case UPLOAD:
+                break;
+            case HISTORY:
+                break;
+        }
     }
 
 

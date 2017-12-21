@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-        <corners android:radius="@dimen/_15sdp"/>
+        <corners android:radius="@dimen/_5sdp"/>
         <solid android:color="@color/tththn_button" />
         </shape>
     </item>
@@ -10,15 +10,15 @@
     <item android:top="@dimen/_1sdp" android:right="@dimen/_1sdp" android:bottom="@dimen/_1sdp" android:left="@dimen/_1sdp" >
         <shape android:shape="rectangle">
             <stroke android:width="@dimen/_1sdp" android:color="#fff"/>
-            <corners android:radius="@dimen/_15sdp"/>
+            <corners android:radius="@dimen/_5sdp"/>
             <solid android:color="#fff" />
         </shape>
     </item>
 
-    <item android:top="@dimen/_2sdp" android:right="@dimen/_2sdp" android:bottom="@dimen/_2sdp" android:left="@dimen/_2sdp" >
+    <item android:top="@dimen/_1sdp" android:right="@dimen/_1sdp" android:bottom="@dimen/_1sdp" android:left="@dimen/_1sdp" >
         <shape android:shape="rectangle">
             <stroke android:width="@dimen/_1sdp" android:color="#fff"/>
-            <corners android:radius="@dimen/_15sdp"/>
+            <corners android:radius="@dimen/_5sdp"/>
             <solid android:color="@color/tththn_button" />
         </shape>
     </item>

@@ -7,10 +7,10 @@
     android:background="@android:color/white">
 
     <ScrollView
-        android:elevation="@dimen/_2sdp"
-        android:layout_margin="@dimen/_5sdp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:elevation="@dimen/_2sdp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -23,6 +23,8 @@
                 android:id="@+id/rl_left"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
                 tools:background="@color/tththn_button">
 
 
@@ -30,7 +32,8 @@
                     android:id="@+id/rl_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10sdp">
+                    android:layout_margin="@dimen/_5sdp"
+                    android:background="@drawable/xml_tththn_rectangle">
 
                     <TextView
                         android:id="@+id/tv_stt_upload"
@@ -54,7 +57,6 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/tv_stt_upload"
                         android:paddingLeft="@dimen/_5sdp"
-                        android:textColor="@color/text_white"
                         tools:text="Nguyễn Văn A" />
 
                     <TextView
@@ -64,26 +66,52 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_dl_tenKH"
                         android:layout_toRightOf="@+id/tv_stt_upload"
-                        android:paddingLeft="@dimen/_5sdp"
-                        android:textColor="@color/text_white"
+                        android:gravity="right"
+                        android:paddingRight="@dimen/_5sdp"
                         tools:text="Ha noi" />
 
                     <View
+                        android:id="@+id/v_view_line_doisoat"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_1sdp"
                         android:layout_below="@+id/tv_diachi_tenKH"
                         android:layout_marginBottom="@dimen/_5sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:background="@color/text_white"
-                        android:paddingLeft="@dimen/_5sdp"
                         android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_toRightOf="@+id/tv_stt_upload"
+                        android:background="@color/tththn_text_less_black"
+                        android:paddingLeft="@dimen/_5sdp" />
+
+                    <TextView
+                        android:id="@+id/tv_t_so_bban_doisoat"
+                        style="@style/textStyle1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/v_view_line_doisoat"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_toRightOf="@+id/tv_stt_upload"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:text="Số biên bản"
                         />
+
+
+                    <TextView
+                        android:id="@+id/tv_so_bban_doisoat"
+                        style="@style/textStyle4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_t_so_bban_doisoat"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_toRightOf="@+id/tv_stt_upload"
+                        android:paddingRight="@dimen/_5sdp"
+                        tools:text="Ha noi" />
                 </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/rl_ll"
+                    android:layout_margin="@dimen/_5sdp"
                     android:background="@color/text_white"
 
                     android:orientation="vertical"

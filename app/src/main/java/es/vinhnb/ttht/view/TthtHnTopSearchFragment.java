@@ -491,44 +491,7 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment implements DateP
         etSearch.setText("");
         tvDate.setText(time.toString());
         isSelectSpin = true;
-        String typeSearchString = "";
-        switch (tagMenuNaviLeft) {
-            case BBAN_CTO:
-                typeSearchString = Common.TYPE_SEARCH_BBAN.NGAY_TRTH.content;
-                break;
-            case TRAM:
-                break;
-            case CTO_TREO:
-                typeSearchString = Common.TYPE_SEARCH_CTO.NGAY_TRTH.content;
-            case CTO_THAO:
-                break;
-            case CHUNG_LOAI:
-                break;
-            case CHITIET_CTO_TREO:
-                break;
-            case CHITIET_CTO_THAO:
-                break;
-            case CHITIET_BBAN_TUTI_TREO:
-                break;
-            case CHITIET_BBAN_TUTI_THAO:
-                break;
-            case EMPTY1:
-                break;
-            case LINE1:
-                break;
-            case LINE2:
-                break;
-            case DOWNLOAD:
-                break;
-            case UPLOAD:
-                break;
-            case HISTORY:
-                break;
-        }
-        if(!TextUtils.isEmpty(typeSearchString))
-        {
-            mListener.clickSearch(typeSearchString, tvDate.getText().toString());
-        }
+        mListener.clickDate(tvDate.getText().toString());
     }
 
     public void refreshTopThongKeMainFragment(int countRow, int thongKe) {
@@ -538,5 +501,7 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment implements DateP
 
     public interface IOnTthtHnTopSearchFragment {
         void clickSearch(String typeSearchString, String messageSearch);
+
+        void clickDate(String date);
     }
 }

@@ -573,7 +573,6 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         etCS5.setHint("");
 
 
-
         ViewBO_CHISO viewBOChiso = new ViewBO_CHISO();
         viewBOChiso.tvCS1 = tvCS1;
         viewBOChiso.tvCS2 = tvCS2;
@@ -931,6 +930,8 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         }
 
         //clear text
+
+
         viewBOChiso.etCS1.setText("");
         viewBOChiso.etCS2.setText("");
         viewBOChiso.etCS3.setText("");
@@ -938,6 +939,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         viewBOChiso.etCS5.setText("");
 
         //clear text
+
         viewBOChiso.etCS1.setHint("");
         viewBOChiso.etCS2.setHint("");
         viewBOChiso.etCS3.setHint("");

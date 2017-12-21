@@ -118,6 +118,89 @@ public class TthtHnSQLDAO extends SqlDAO {
         });
     }
 
+
+    public List<DataChiTietCtoAdapter> getTreoDataChiTietCtoAdapter(String[] agrs) {
+
+        String query = "SELECT * FROM(\n" +
+                "SELECT * FROM (\n" +
+                "SELECT " +
+                TABLE_BBAN_CTO.table.ID_BBAN_TRTH.name() +
+                " AS ID_BBAN_TRTH_BB, " +
+                TABLE_BBAN_CTO.table.TEN_KHANG.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.DCHI_HDON.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.MA_GCS_CTO.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.MA_TRAM.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.NGAY_TRTH.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.SO_BBAN.name() +
+                " FROM " +
+                TABLE_BBAN_CTO.table.getName() +
+                " WHERE " +
+                TABLE_BBAN_CTO.table.MA_NVIEN.name() +
+                " = ? " +
+                " AND " +
+                TABLE_BBAN_CTO.table.NGAY_TRTH.name() +
+                " = ?" +
+                ") \n" +
+                "AS BBAN JOIN (\n" +
+                "SELECT " +
+                TABLE_CHITIET_CTO.table.ID_BBAN_TRTH.name() +
+                " AS ID_BBAN_TRTH_CTO, " +
+                TABLE_CHITIET_CTO.table.MA_CTO.name() +
+                ", " +
+                TABLE_CHITIET_CTO.table.SO_CTO.name() +
+                ", " +
+                TABLE_CHITIET_CTO.table.CHI_SO.name() +
+                ", " +
+                TABLE_CHITIET_CTO.table.ID_BBAN_TUTI.name() +
+                ", " +
+                TABLE_CHITIET_CTO.table.TRANG_THAI_DU_LIEU.name() +
+                " FROM " +
+                TABLE_CHITIET_CTO.table.getName() +
+                " WHERE " +
+                TABLE_CHITIET_CTO.table.MA_BDONG.name() +
+                " = ? \n" +
+                ")\n" +
+                "AS CONGTO ON BBAN.ID_BBAN_TRTH_BB = CONGTO.ID_BBAN_TRTH_CTO \n" +
+                ") AS BBAN_CTO\n" +
+                "left JOIN(\n" +
+                "SELECT ID_BBAN_TUTI , TRANG_THAI_DU_LIEU AS TRANG_THAI_DULIEU_TUTI FROM\n" +
+                "TABLE_BBAN_TUTI) tuti\n" +
+                "ON BBAN_CTO.ID_BBAN_TUTI = tuti.ID_BBAN_TUTI";
+
+
+        Cursor cursor = super.mDatabase.rawQuery(query, agrs);
+
+        return super.selectCustomLazy(cursor, new ItemFactory(DataChiTietCtoAdapter.class) {
+            @Override
+            protected DataChiTietCtoAdapter create(Cursor cursor, int index) {
+                DataChiTietCtoAdapter dataChiTietCtoAdapter = new DataChiTietCtoAdapter();
+                cursor.moveToPosition(index);
+
+                dataChiTietCtoAdapter.setMaCto(cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.MA_CTO.name())));
+                dataChiTietCtoAdapter.setSoCto(cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.SO_CTO.name())));
+                dataChiTietCtoAdapter.setMaTram(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_TRAM.name())));
+                dataChiTietCtoAdapter.setMaGCS(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_GCS_CTO.name())));
+                dataChiTietCtoAdapter.setTenKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TEN_KHANG.name())));
+                dataChiTietCtoAdapter.setDiachiKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.DCHI_HDON.name())));
+                dataChiTietCtoAdapter.setChiso(cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.CHI_SO.name())));
+                dataChiTietCtoAdapter.setIdbbantuti(cursor.getInt(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.ID_BBAN_TUTI.name())));
+                dataChiTietCtoAdapter.setIdbbantrth(cursor.getInt(cursor.getColumnIndex("ID_BBAN_TRTH_BB")));
+                dataChiTietCtoAdapter.setTRANG_THAI_DULIEU(cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.TRANG_THAI_DU_LIEU.name())));
+                dataChiTietCtoAdapter.setNgaytrth(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.NGAY_TRTH.name())));
+                dataChiTietCtoAdapter.setSobban(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.SO_BBAN.name())));
+                dataChiTietCtoAdapter.setTRANG_THAI_DULIEU_TUTI(cursor.getString(cursor.getColumnIndex("TRANG_THAI_DULIEU_TUTI")));
+
+
+                return dataChiTietCtoAdapter;
+            }
+        });
+    }
+
     public List<TramAdapter.DataTramAdapter> getTramAdapter(String[] agrs) {
         String query = "SELECT " +
                 TABLE_TRAM.table.TEN_TRAM.name() +
@@ -511,6 +594,8 @@ public class TthtHnSQLDAO extends SqlDAO {
                 "\t\t\t(SELECT  " +
                 TABLE_BBAN_CTO.table.ID_BBAN_TRTH.name() +
                 ", " +
+                TABLE_BBAN_CTO.table.SO_BBAN.name() +
+                ", " +
                 TABLE_BBAN_CTO.table.TEN_KHANG.name() +
                 ", " +
                 TABLE_BBAN_CTO.table.DCHI_HDON.name() +
@@ -589,6 +674,8 @@ public class TthtHnSQLDAO extends SqlDAO {
                 dataDoiSoat.MA_BDONG = Common.MA_BDONG.findMA_BDONGByCode(MA_BDONG);
 
                 dataDoiSoat.ID_BBAN_TRTH = cursor.getInt(cursor.getColumnIndex(TABLE_BBAN_CTO.table.ID_BBAN_TRTH.name()));
+                dataDoiSoat.SO_BBAN = cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.SO_BBAN.name()));
+
 
                 dataDoiSoat.TEN_ANH = cursor.getString(cursor.getColumnIndex(TABLE_ANH_HIENTRUONG.table.TEN_ANH.name()));
 
