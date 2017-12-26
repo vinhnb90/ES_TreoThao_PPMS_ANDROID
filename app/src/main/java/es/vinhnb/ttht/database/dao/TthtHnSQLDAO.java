@@ -604,19 +604,21 @@ public class TthtHnSQLDAO extends SqlDAO {
                 ", " +
                 TABLE_BBAN_CTO.table.TRANG_THAI.name() +
                 ", " +
-                TABLE_BBAN_CTO.table.TRANG_THAI_DOI_SOAT.name() +
+                TABLE_BBAN_CTO.table.TRANG_THAI_CHON_GUI.name() +
                 ", " +
                 TABLE_BBAN_CTO.table.TRANG_THAI_DU_LIEU.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.TRANG_THAI_DOI_SOAT.name() +
                 " FROM " +
                 TABLE_BBAN_CTO.table.getName() +
                 " WHERE " +
                 TABLE_BBAN_CTO.table.MA_NVIEN.name() +
                 " = ? " +
-                "AND TRANG_THAI == '" +
-                Common.TRANG_THAI.DA_XUAT_RA_WEB.content +
-                "' OR TRANG_THAI == '" +
-                Common.TRANG_THAI.DA_XUAT_RA_MTB.content +
-                "' " +
+                "AND " +
+                TABLE_BBAN_CTO.table.TRANG_THAI_DOI_SOAT.name() +
+                " == '" +
+                Common.TRANG_THAI_DOI_SOAT.CO_THE_DOI_SOAT.content +
+                "'" +
                 " ) A\n" +
                 "\t\t\tJOIN\n" +
                 "\t\t\t(SELECT " +
@@ -631,6 +633,9 @@ public class TthtHnSQLDAO extends SqlDAO {
                 TABLE_CHITIET_CTO.table.ID_CHITIET_CTO.name() +
                 " FROM " +
                 TABLE_CHITIET_CTO.table.getName() +
+                " WHERE " +
+                TABLE_CHITIET_CTO.table.MA_NVIEN.name() +
+                " = ? " +
                 " ) B\n" +
                 "\t\t\tON\n" +
                 "\t\t\tA.ID_BBAN_TRTH = B.ID_BBAN_TRTH_CTO\n" +
@@ -648,6 +653,9 @@ public class TthtHnSQLDAO extends SqlDAO {
                 TABLE_ANH_HIENTRUONG.table.getName() +
                 " WHERE " +
                 TABLE_ANH_HIENTRUONG.table.TYPE.name() +
+                " = ? " +
+                " AND " +
+                TABLE_CHITIET_CTO.table.MA_NVIEN.name() +
                 " = ? " +
                 ") D\n" +
                 "\n" +
@@ -681,11 +689,14 @@ public class TthtHnSQLDAO extends SqlDAO {
 
                 dataDoiSoat.TEN_ANH = cursor.getString(cursor.getColumnIndex(TABLE_ANH_HIENTRUONG.table.TEN_ANH.name()));
 
-                String TRANG_THAI_DOI_SOAT = cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TRANG_THAI_DOI_SOAT.name()));
-                dataDoiSoat.TRANG_THAI_DOISOAT = Common.TRANG_THAI_DOI_SOAT.findTRANG_THAI_DOI_SOAT(TRANG_THAI_DOI_SOAT);
+                String TRANG_THAI_CHON_GUI = cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TRANG_THAI_CHON_GUI.name()));
+                dataDoiSoat.TRANG_THAI_CHON_GUI= Common.TRANG_THAI_CHON_GUI.findTRANG_THAI_CHON_GUI(TRANG_THAI_CHON_GUI);
 
                 String TRANG_THAI_DU_LIEU = cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TRANG_THAI_DU_LIEU.name()));
                 dataDoiSoat.TRANG_THAI_DU_LIEU = Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(TRANG_THAI_DU_LIEU);
+
+                String TRANG_THAI_DOI_SOAT = cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TRANG_THAI_DOI_SOAT.name()));
+                dataDoiSoat.TRANG_THAI_DOI_SOAT = Common.TRANG_THAI_DOI_SOAT.findTRANG_THAI_DOI_SOAT(TRANG_THAI_DOI_SOAT);
 
                 return dataDoiSoat;
             }
@@ -907,10 +918,28 @@ public class TthtHnSQLDAO extends SqlDAO {
     }
 
     public List<HistoryBBanUploadAdapter.DataBBanUploadHistoryAdapter> getDataBBanUploadHistoryAdapter(String[] args) {
-        String query = "SELECT " +
+        String query = "\n" +
+                "SELECT * FROM (\n" +
+                "(\n" +
+                "SELECT * FROM\n" +
+                "(\n" +
+                "(SELECT * FROM " +
+                TABLE_HISTORY_UPLOAD.table.getName() +
+                " WHERE " +
+                "" +
+                TABLE_BBAN_CTO.table.MA_NVIEN.name() +
+                " = " +
+                " ? " +
+                ") A\n" +
+                "JOIN\n" +
+                "(SELECT " +
+                TABLE_BBAN_CTO.table.TRANG_THAI_DU_LIEU.name() +
+                ", " +
                 TABLE_BBAN_CTO.table.DCHI_HDON.name() +
                 ", " +
                 TABLE_BBAN_CTO.table.LY_DO_TREO_THAO.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.ID_BBAN_TRTH.name() +
                 ", " +
                 TABLE_BBAN_CTO.table.MA_KHANG.name() +
                 ", " +
@@ -929,8 +958,32 @@ public class TthtHnSQLDAO extends SqlDAO {
                 TABLE_BBAN_CTO.table.getName() +
                 " WHERE " +
                 TABLE_BBAN_CTO.table.MA_NVIEN.name() +
-                " = ?" +
-                "";
+                " = ?) B\n" +
+                "ON\n" +
+                "A." +
+                TABLE_HISTORY_UPLOAD.table.ID_BBAN_TRTH.name() +
+                "= B." +
+                TABLE_BBAN_CTO.table.ID_BBAN_TRTH.name() +
+                "\n" +
+                ")\n" +
+                ") C\n" +
+                "\n" +
+                "JOIN\n" +
+                "\n" +
+                "(SELECT * FROM " +
+                TABLE_HISTORY.table.getName() +
+                " WHERE " +
+                TABLE_HISTORY.table.MA_NVIEN.name() +
+                " = ? AND " +
+                TABLE_HISTORY.table.DATE_CALL_API.name() +
+                " = ?) D\n" +
+                "\n" +
+                "ON C." +
+                TABLE_HISTORY_UPLOAD.table.ID_TABLE_HISTORY.name() +
+                "  =  D." +
+                TABLE_HISTORY.table.ID_TABLE_HISTORY.name() +
+                " \n" +
+                ")";
 
         Cursor cursor = super.mDatabase.rawQuery(query, args);
 
@@ -953,6 +1006,7 @@ public class TthtHnSQLDAO extends SqlDAO {
                 uploadHistoryAdapter.setID_BBAN_TRTH(cursor.getInt(cursor.getColumnIndex(TABLE_BBAN_CTO.table.ID_BBAN_TRTH.name())));
                 uploadHistoryAdapter.setTYPE_RESPONSE_UPLOAD(cursor.getString(cursor.getColumnIndex(TABLE_HISTORY_UPLOAD.table.TYPE_RESPONSE_UPLOAD.name())));
                 uploadHistoryAdapter.setMESSAGE_RESPONSE(cursor.getString(cursor.getColumnIndex(TABLE_HISTORY_UPLOAD.table.MESSAGE_RESPONSE.name())));
+                uploadHistoryAdapter.setTRANG_THAI_DU_LIEU(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TRANG_THAI_DU_LIEU.name())));
 
 
                 return uploadHistoryAdapter;

@@ -2,34 +2,40 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:gravity="center"
-    android:background="@null"
     android:layout_height="match_parent"
+    android:background="@null"
+    android:gravity="center"
     android:padding="@dimen/_5sdp">
 
     <RelativeLayout
-        android:background="@drawable/xml_tththn_rectangle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/xml_tththn_rectangle5"
+        android:padding="@dimen/_10sdp">
+
         <LinearLayout
             android:id="@+id/top1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="bottom"
             android:weightSum="3">
 
             <TextView
                 style="@style/textStyle1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="Tổng biên bản gửi" />
 
             <View
+
                 android:layout_width="1dp"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_1sdp"
                 android:layout_marginRight="@dimen/_1sdp"
                 android:background="@color/tththn_text_less_black" />
@@ -38,14 +44,16 @@
                 style="@style/textStyle1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="Số gửi thành công" />
 
             <View
                 android:layout_width="1dp"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_1sdp"
                 android:layout_marginRight="@dimen/_1sdp"
                 android:background="@color/tththn_text_less_black" />
@@ -55,19 +63,65 @@
                 style="@style/textStyle1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="Số gửi lỗi" />
 
         </LinearLayout>
 
-        <View
+        <LinearLayout
             android:id="@+id/v_top2"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/top1"
-            android:background="@color/tththn_text_less_black" />
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right">
+
+                <View
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="1dp"
+                    android:background="@color/tththn_text_less_black" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <View
+
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="1dp"
+                    android:background="@color/tththn_text_less_black" />
+
+                <View
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="1dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/tththn_text_less_black" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left">
+
+                <View
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="1dp"
+                    android:background="@color/tththn_text_less_black" />
+            </RelativeLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_top3"
@@ -89,7 +143,7 @@
 
             <View
                 android:layout_width="1dp"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_1sdp"
                 android:layout_marginRight="@dimen/_1sdp"
                 android:background="@color/tththn_text_less_black" />
@@ -105,8 +159,8 @@
                 tool:text="5" />
 
             <View
+                android:layout_height="@dimen/_10sdp"
                 android:layout_width="1dp"
-                android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/_1sdp"
                 android:layout_marginRight="@dimen/_1sdp"
                 android:background="@color/tththn_text_less_black" />
@@ -123,12 +177,21 @@
                 tool:text="0" />
         </LinearLayout>
 
+        <View
+            android:id="@+id/v_33"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/ll_top3"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/tththn_text_less_black" />
+
         <android.support.v7.widget.RecyclerView
-            android:layout_margin="@dimen/_5sdp"
             android:id="@+id/rv_list_bban_gui"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_300sdp"
-            android:layout_below="@+id/ll_top3"
+            android:layout_below="@+id/v_33"
+            android:layout_margin="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_5sdp"></android.support.v7.widget.RecyclerView>
 
     </RelativeLayout>

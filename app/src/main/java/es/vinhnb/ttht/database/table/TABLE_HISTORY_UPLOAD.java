@@ -22,6 +22,7 @@ public class TABLE_HISTORY_UPLOAD {
         ID_TABLE_HISTORY,
         MA_NVIEN,
         ID_BBAN_TRTH,
+        ID_BBAN_CONGTO,
         TYPE_RESPONSE_UPLOAD,
         MESSAGE_RESPONSE;
 
@@ -44,6 +45,9 @@ public class TABLE_HISTORY_UPLOAD {
     @Collumn(name = "ID_BBAN_TRTH", type = TYPE.INTEGER)
     private int ID_BBAN_TRTH;
 
+    @Collumn(name = "ID_BBAN_CONGTO", type = TYPE.INTEGER)
+    private int ID_BBAN_CONGTO;
+
     @Collumn(name = "TYPE_RESPONSE_UPLOAD")
     private String TYPE_RESPONSE_UPLOAD;
 
@@ -59,6 +63,7 @@ public class TABLE_HISTORY_UPLOAD {
             @Params(name = "ID_TABLE_HISTORY") int ID_TABLE_HISTORY,
             @Params(name = "MA_NVIEN") String MA_NVIEN,
             @Params(name = "ID_BBAN_TRTH") int ID_BBAN_TRTH,
+            @Params(name = "ID_BBAN_CONGTO") int ID_BBAN_CONGTO,
             @Params(name = "TYPE_RESPONSE_UPLOAD") String TYPE_RESPONSE_UPLOAD,
             @Params(name = "MESSAGE_RESPONSE") String MESSAGE_RESPONSE
 
@@ -67,6 +72,7 @@ public class TABLE_HISTORY_UPLOAD {
         this.ID_TABLE_HISTORY = ID_TABLE_HISTORY;
         this.MA_NVIEN = MA_NVIEN;
         this.ID_BBAN_TRTH = ID_BBAN_TRTH;
+        this.ID_BBAN_CONGTO = ID_BBAN_CONGTO;
         this.TYPE_RESPONSE_UPLOAD = TYPE_RESPONSE_UPLOAD;
         this.MESSAGE_RESPONSE = MESSAGE_RESPONSE;
 
@@ -119,5 +125,13 @@ public class TABLE_HISTORY_UPLOAD {
 
     public void setMESSAGE_RESPONSE(String MESSAGE_RESPONSE) {
         this.MESSAGE_RESPONSE = MESSAGE_RESPONSE;
+    }
+
+    public int getID_BBAN_CONGTO() {
+        return ID_BBAN_CONGTO;
+    }
+
+    public void setID_BBAN_CONGTO(int ID_BBAN_CONGTO) {
+        this.ID_BBAN_CONGTO = ID_BBAN_CONGTO;
     }
 }

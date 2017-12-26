@@ -94,17 +94,25 @@ public class DepartUpdateFragment<T> extends ModuleFragment {
     }
 
     private void fillData() {
-        ArrayAdapter arrayAdapter = new ArrayAdapter<T>(viewEntity.getContext(), R.layout.row_spin_type_1, R.id.tv_spin, mListDepart);
+        try {
+            ArrayAdapter arrayAdapter = new ArrayAdapter<T>(getContext(), R.layout.row_spin_type_1, R.id.tv_spin, mListDepart);
 
-        //set full screen rows
-        Display display = ((Activity) viewEntity.getContext()).getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
+            //set full screen rows
+            Display display = ((Activity) getContext()).getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
 
-        viewEntity.getSpDvi().setDropDownWidth(size.x);
-        viewEntity.getSpDvi().setGravity(RelativeLayout.CENTER_HORIZONTAL);
-        viewEntity.getSpDvi().setAdapter(arrayAdapter);
-        viewEntity.getSpDvi().invalidate();
+            if (viewEntity == null)
+                return;
+            if (viewEntity.getSpDvi() == null)
+                return;
+            viewEntity.getSpDvi().setDropDownWidth(size.x);
+            viewEntity.getSpDvi().setGravity(RelativeLayout.CENTER_HORIZONTAL);
+            viewEntity.getSpDvi().setAdapter(arrayAdapter);
+            viewEntity.getSpDvi().invalidate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public List<T> getmListDepart() {

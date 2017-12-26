@@ -14,19 +14,16 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.es.tungnv.views.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import es.vinhnb.ttht.adapter.BBanAdapter;
 import es.vinhnb.ttht.adapter.HistoryAdapter;
 import es.vinhnb.ttht.adapter.HistoryBBanUploadAdapter;
 import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.database.dao.TthtHnSQLDAO;
-import es.vinhnb.ttht.entity.api.MtbBbanModel;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
 
 
@@ -168,7 +165,7 @@ public class TthtHnHistoryFragment extends TthtHnBaseFragment {
     private void showDialogListHistory(int pos, HistoryAdapter.DataHistoryAdapter historyAdapter) {
         final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_tththn_message);
+        dialog.setContentView(R.layout.dialog_tththn_list_upload_history);
         dialog.setCanceledOnTouchOutside(true);
         dialog.getWindow().setLayout(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -178,15 +175,45 @@ public class TthtHnHistoryFragment extends TthtHnBaseFragment {
                 WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
 
         final RecyclerView rvList = (RecyclerView) dialog.findViewById(R.id.rv_list_bban_gui);
-        final TextView totalBB = (TextView) dialog.findViewById(R.id.tv_tong_bb);
-        final TextView totalBBOK = (TextView) dialog.findViewById(R.id.tv_tong_bb_ok);
-        final TextView totalBBFail = (TextView) dialog.findViewById(R.id.tv_tong_bb_fail);
+        final TextView tvTotalBB = (TextView) dialog.findViewById(R.id.tv_tong_bb);
+        final TextView tvTotalBBOK = (TextView) dialog.findViewById(R.id.tv_tong_bb_ok);
+        final TextView tvTotalBBFail = (TextView) dialog.findViewById(R.id.tv_tong_bb_fail);
 
-
-        String[] args = new String[]{onIDataCommon.getMaNVien()};
+        String[] args = new String[]{onIDataCommon.getMaNVien(), onIDataCommon.getMaNVien(), onIDataCommon.getMaNVien(), historyAdapter.date};
         List<HistoryBBanUploadAdapter.DataBBanUploadHistoryAdapter> listData = mSqlDAO.getDataBBanUploadHistoryAdapter(args);
         HistoryBBanUploadAdapter historyBBanUploadAdapter = new HistoryBBanUploadAdapter(getContext(), listData);
 
+        int totalBBOK = 0;
+        int totalBBFail = 0;
+        for (int i = 0; i < listData.size(); i++) {
+            HistoryBBanUploadAdapter.DataBBanUploadHistoryAdapter element = listData.get(i);
+            switch (Common.TYPE_RESPONSE_UPLOAD.findByContent(element.getTYPE_RESPONSE_UPLOAD())) {
+                case GUI_CMIS_THATBAI:
+                    totalBBFail++;
+                    break;
+                case DANG_CHO_CMIS_XACNHAN:
+                    totalBBOK++;
+                    break;
+                case DA_TON_TAI_GUI_TRUOC_DO:
+                    totalBBFail++;
+                    break;
+                case CMIS_XACNHAN_OK:
+                    totalBBFail++;
+                    break;
+                case HET_HIEU_LUC:
+                    totalBBFail++;
+                    break;
+                case LOI_BAT_NGO:
+                    totalBBFail++;
+                    break;
+            }
+        }
+
+        tvTotalBB.setText(String.valueOf(listData.size()));
+        tvTotalBBOK.setText(String.valueOf(totalBBOK));
+        tvTotalBBFail.setText(String.valueOf(totalBBFail));
+
+        rvList.setLayoutManager(new LinearLayoutManager(getContext()));
         rvList.setAdapter(historyBBanUploadAdapter);
         rvList.invalidate();
         dialog.show();

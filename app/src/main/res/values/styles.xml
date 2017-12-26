@@ -147,7 +147,7 @@
     </style>
 
     <style name="textStyle4">
-        <item name="android:textSize">@dimen/_12sdp</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
         <item name="android:textColor">@color/tththn_text_little_black</item>
     </style>
 

@@ -514,8 +514,11 @@ public class LoginFragment extends Fragment {
             }
         }
 
-        viewRoot.setBackgroundColor(getResources().getColor(mColorBackground));
+        try {
+            viewRoot.setBackgroundColor(getResources().getColor(mColorBackground));
+        } catch (Exception e1) {
 
+        }
         mTvTitleAppName.setText(mTitleAppName);
         if (mIvIconLogin != null) {
             mIvIconLogin.setImageResource(mIconLogin);
@@ -528,8 +531,8 @@ public class LoginFragment extends Fragment {
                 mTransaction.replace(mLLModuleLogin.getId(), mDepartModule).commit();
         }
 
-        mTvImei.setText("Imei - " + Common.getImei(mLoginViewEntity.getContext()));
-        mTvVersion.setText("Phiên bản - " + Common.getVersion(mLoginViewEntity.getContext()));
+        mTvImei.setText("Imei - " + Common.getImei(getContext()));
+        mTvVersion.setText("Phiên bản - " + Common.getVersion(getContext()));
     }
 
     @Override
@@ -832,7 +835,7 @@ public class LoginFragment extends Fragment {
 
         void saveSessionDatabaseLogin(LoginData dataLoginSession) throws Exception;
 
-        void deleteSessionDatabaseLogin(LoginFragment.LoginData dataLoginSession)throws Exception;
+        void deleteSessionDatabaseLogin(LoginFragment.LoginData dataLoginSession) throws Exception;
 
         String getCodeDepart(int pos);
     }

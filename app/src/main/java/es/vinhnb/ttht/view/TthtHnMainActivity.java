@@ -35,6 +35,7 @@ import com.esolutions.esloginlib.lib.LoginFragment;
 import java.util.ArrayList;
 
 import es.vinhnb.ttht.adapter.ChiTietCtoAdapter;
+import es.vinhnb.ttht.adapter.HistoryBBanUploadAdapter;
 import es.vinhnb.ttht.adapter.NaviMenuAdapter;
 import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.database.dao.TthtHnSQLDAO;
@@ -44,6 +45,7 @@ import es.vinhnb.ttht.database.table.TABLE_BBAN_TUTI;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_CTO;
 import es.vinhnb.ttht.database.table.TABLE_CHITIET_TUTI;
 import es.vinhnb.ttht.database.table.TABLE_HISTORY;
+import es.vinhnb.ttht.database.table.TABLE_HISTORY_UPLOAD;
 import es.vinhnb.ttht.database.table.TABLE_LOAI_CONG_TO;
 import es.vinhnb.ttht.database.table.TABLE_LYDO_TREOTHAO;
 import es.vinhnb.ttht.database.table.TABLE_TRAM;
@@ -86,6 +88,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         IOnTthtHnUploadFragment,
         IOnTthtHnHistoryFragment,
         IOnTthtHnTopUploadFragment,
+        HistoryBBanUploadAdapter.IOnBBanAdapter,
         IOnBBanAdapter {
 
     private LoginFragment.LoginData mLoginData;
@@ -117,6 +120,8 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
     private int ID_BBAN_TUTI_CTO_TREO;
     private int ID_BBAN_TUTI_CTO_THAO;
     private TthtHnSQLDAO mSqlDao;
+
+
 
     public enum TypeFragment {
         TthtHnMainFragment(TthtHnMainFragment.class),
@@ -364,6 +369,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                                 mSqlDao.deleteAll(TABLE_LOAI_CONG_TO.class);
                                 mSqlDao.deleteAll(TABLE_TRAM.class);
                                 mSqlDao.deleteAll(TABLE_HISTORY.class);
+                                mSqlDao.deleteAll(TABLE_HISTORY_UPLOAD.class);
                                 mSqlDao.deleteAll(TABLE_LYDO_TREOTHAO.class);
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -608,27 +614,41 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
                     //refresh data chi tiet cto
                     //lấy pos của fragment chitiet hien tại
                     fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
-                    if (fragmentVisible instanceof TthtHnChiTietCtoFragment)
+                    if (fragmentVisible instanceof TthtHnChiTietCtoFragment) {
                         pos = ((TthtHnChiTietCtoFragment) fragmentVisible).getPos();
-
-                    if (fragmentVisible instanceof TthtHnBBanTutiFragment)
+                        fragmentChitietCto = (TthtHnChiTietCtoFragment) fragmentVisible;
+                        fragmentChitietCto.switchCto();
+                    } else if (fragmentVisible instanceof TthtHnBBanTutiFragment) {
                         pos = ((TthtHnBBanTutiFragment) fragmentVisible).getPos();
-
-                    if (pos == -1)
-                        return;
-
-                    fragmentChitietCto = (TthtHnChiTietCtoFragment) showChiTietCtoFragment(pos);
-
-
-                    mTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentVisible = getSupportFragmentManager().findFragmentById(mRlTopMenu.getId());
-                    if (fragmentVisible instanceof TthtHnTopMenuChiTietCtoFragment) {
-                        fragmentTopMenuChiTietCto = ((TthtHnTopMenuChiTietCtoFragment) fragmentVisible);
-                        fragmentTopMenuChiTietCto.refreshTagTopMenu(CHITIET_CTO);
-                        isAddTop = false;
+                        fragmentChitietCto = (TthtHnChiTietCtoFragment) showChiTietCtoFragment(pos);
+                        mTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentVisible = getSupportFragmentManager().findFragmentById(mRlTopMenu.getId());
+                        if (fragmentVisible instanceof TthtHnTopMenuChiTietCtoFragment) {
+                            fragmentTopMenuChiTietCto = ((TthtHnTopMenuChiTietCtoFragment) fragmentVisible);
+                            fragmentTopMenuChiTietCto.refreshTagTopMenu(CHITIET_CTO);
+                            isAddTop = false;
+                        }
+                        updateSessionBackstackFragment(fragmentTopMenuChiTietCto, fragmentChitietCto, false);
                     }
 
-                    updateSessionBackstackFragment(fragmentTopMenuChiTietCto, fragmentChitietCto, false);
+//
+//
+//
+//                    if (pos == -1)
+//                        return;
+
+//                    fragmentChitietCto = (TthtHnChiTietCtoFragment) showChiTietCtoFragment(pos);
+
+//
+//                    mTransaction = getSupportFragmentManager().beginTransaction();
+//                    fragmentVisible = getSupportFragmentManager().findFragmentById(mRlTopMenu.getId());
+//                    if (fragmentVisible instanceof TthtHnTopMenuChiTietCtoFragment) {
+//                        fragmentTopMenuChiTietCto = ((TthtHnTopMenuChiTietCtoFragment) fragmentVisible);
+//                        fragmentTopMenuChiTietCto.refreshTagTopMenu(CHITIET_CTO);
+//                        isAddTop = false;
+//                    }
+//
+//                    updateSessionBackstackFragment(fragmentTopMenuChiTietCto, fragmentChitietCto, false);
 
                     //ghi thong tin sharepref
                     MainSharePref mainSharePref = (MainSharePref) sharePrefManager.getSharePrefObject(MainSharePref.class);
@@ -1194,11 +1214,58 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
 
     @Override
     public void clickClearUpload() {
-        Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlTopMenu.getId());
+        Fragment fragmentVisible = getSupportFragmentManager().findFragmentById(mRlMain.getId());
         if (fragmentVisible instanceof TthtHnUploadFragment) {
             ((TthtHnUploadFragment) fragmentVisible).clearUpload();
         }
     }
     //endregion
+
+    //region IOnBBanAdapter
+    @Override
+    public void clickBtnUploadHistoryBBanMore(int pos, final HistoryBBanUploadAdapter.DataBBanUploadHistoryAdapter DataBBanUploadHistoryAdapter) {
+        TthtHnBaseFragment.IDialog iDialog = new TthtHnBaseFragment.IDialog() {
+            @Override
+            void clickOK() {
+                //copy text
+                Common.copyTextClipBoard(TthtHnMainActivity.this, DataBBanUploadHistoryAdapter.getTYPE_RESPONSE_UPLOAD());
+                Toast.makeText(TthtHnMainActivity.this, "Đã sao chép nội dung.", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            void clickCancel() {
+
+            }
+        }.setTextBtnOK("Sao chép nội dung");
+        TthtHnBaseFragment.showDialog(this, DataBBanUploadHistoryAdapter.getTYPE_RESPONSE_UPLOAD(), iDialog);
+    }
+
+    @Override
+    public void clickBtnUploadHistoryBBanMessageResponse(int pos, final HistoryBBanUploadAdapter.DataBBanUploadHistoryAdapter DataBBanUploadHistoryAdapter) {
+        TthtHnBaseFragment.IDialog iDialog = new TthtHnBaseFragment.IDialog() {
+            @Override
+            void clickOK() {
+                //copy text
+                Common.copyTextClipBoard(TthtHnMainActivity.this, DataBBanUploadHistoryAdapter.getMESSAGE_RESPONSE());
+                Toast.makeText(TthtHnMainActivity.this, "Đã sao chép nội dung.", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            void clickCancel() {
+
+            }
+        }.setTextBtnOK("Sao chép nội dung");
+        TthtHnBaseFragment.showDialog(TthtHnMainActivity.this, DataBBanUploadHistoryAdapter.getMESSAGE_RESPONSE(), iDialog);
+
+    }
+    //endregion
+
+    //region OnITthtHnChiTietCtoFragment
+    @Override
+    public void fillOkData() {
+        mPbarload.setVisibility(View.GONE);
+    }
+    //endregion
+
 }
 

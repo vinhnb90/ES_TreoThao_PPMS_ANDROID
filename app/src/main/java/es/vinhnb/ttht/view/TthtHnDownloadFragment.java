@@ -1,5 +1,6 @@
 package es.vinhnb.ttht.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -44,7 +45,6 @@ import es.vinhnb.ttht.entity.api.UpdateStatus;
 import es.vinhnb.ttht.server.TthtHnApi;
 import es.vinhnb.ttht.server.TthtHnApiInterface;
 import esolutions.com.esdatabaselib.baseSqlite.SqlHelper;
-import esolutions.com.esdatabaselib.baseSqlite.anonation.TYPE;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -279,6 +279,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 
                                 //TODO
                                 //get all biên bản không phải hết hiệu lực
+
                                 String[] args = new String[]{onIDataCommon.getMaNVien()};
                                 List<TABLE_BBAN_CTO> tableBbanCtoHetHieuLucList = mSqlDAO.getBBanHetHieuLuc(args);
                                 final int sizetableBbanCtoHetHieuLucList = tableBbanCtoHetHieuLucList.size();
@@ -292,12 +293,12 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                     }, DELAY_PROGESS_PBAR);
 
                                     //update het hieu luc
-                                    TABLE_BBAN_CTO tableBbanCtoNew = (TABLE_BBAN_CTO) tableBbanCtoHetHieuLucList.get(i).clone();
+                                    TABLE_BBAN_CTO tableBbanCto = (TABLE_BBAN_CTO) tableBbanCtoHetHieuLucList.get(i);
+                                    TABLE_BBAN_CTO tableBbanCtoNew = (TABLE_BBAN_CTO) tableBbanCto.clone();
                                     tableBbanCtoNew.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.HET_HIEU_LUC.content);
                                     tableBbanCtoNew.setTRANG_THAI(Common.TRANG_THAI.HET_HIEU_LUC.content);
-                                    mSqlDAO.updateRows(TABLE_BBAN_CTO.class, tableBbanCtoHetHieuLucList.get(i), tableBbanCtoNew);
+                                    mSqlDAO.updateRows(TABLE_BBAN_CTO.class, tableBbanCto, tableBbanCtoNew);
                                 }
-
 
                                 if (sizetableBbanCtoHetHieuLucList != 0) {
                                     Thread.sleep(DELAY);
@@ -307,8 +308,45 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                             updateInfoDownload("Kết thúc xử lý dữ liệu biên bản trên thiết bị...", 100);
                                         }
                                     }, Common.DELAY);
-
                                 }
+
+//                                ((Activity) getContext()).runOnUiThread(new Runnable() {
+//                                    public void run() {
+//                                        try {
+//                                            String[] args = new String[]{onIDataCommon.getMaNVien()};
+//                                            List<TABLE_BBAN_CTO> tableBbanCtoHetHieuLucList = mSqlDAO.getBBanHetHieuLuc(args);
+//                                            final int sizetableBbanCtoHetHieuLucList = tableBbanCtoHetHieuLucList.size();
+//                                            for (int i = 0; i < tableBbanCtoHetHieuLucList.size(); i++) {
+//                                                final int finalIi = i;
+//                                                getView().postDelayed(new Runnable() {
+//                                                    @Override
+//                                                    public void run() {
+//                                                        updateInfoDownload("Đang xử lý dữ liệu biên bản trên thiết bị ...", finalIi * 100 / sizetableBbanCtoHetHieuLucList);
+//                                                    }
+//                                                }, DELAY_PROGESS_PBAR);
+//
+//                                                //update het hieu luc
+//                                                TABLE_BBAN_CTO tableBbanCto = (TABLE_BBAN_CTO) tableBbanCtoHetHieuLucList.get(i);
+//                                                TABLE_BBAN_CTO tableBbanCtoNew = (TABLE_BBAN_CTO) tableBbanCto.clone();
+//                                                tableBbanCtoNew.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.HET_HIEU_LUC.content);
+//                                                tableBbanCtoNew.setTRANG_THAI(Common.TRANG_THAI.HET_HIEU_LUC.content);
+//                                                mSqlDAO.updateRows(TABLE_BBAN_CTO.class, tableBbanCto, tableBbanCtoNew);
+//                                            }
+//
+//                                            if (sizetableBbanCtoHetHieuLucList != 0) {
+//                                                Thread.sleep(DELAY);
+//                                                getView().postDelayed(new Runnable() {
+//                                                    @Override
+//                                                    public void run() {
+//                                                        updateInfoDownload("Kết thúc xử lý dữ liệu biên bản trên thiết bị...", 100);
+//                                                    }
+//                                                }, Common.DELAY);
+//                                            }
+//                                        } catch (Exception e) {
+//                                            e.printStackTrace();
+//                                        }
+//                                    }
+//                                });
 
 
                                 final int resultGeT_BBANsize = resultGeT_BBAN.size();
@@ -1105,7 +1143,8 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                 bbanModel.MA_KHANG,
                 bbanModel.LY_DO_TREO_THAO,
                 Common.TRANG_THAI_DU_LIEU.CHUA_GHI.content,
-                Common.TRANG_THAI_DOI_SOAT.CHUA_DOISOAT.content);
+                Common.TRANG_THAI_CHON_GUI.CHUA_CHON_GUI.content,
+                Common.TRANG_THAI_DOI_SOAT.KHONG_THE_DOI_SOAT.content);
 
         Common.TRANG_THAI_DU_LIEU trangThaiDuLieuMTBNew = null;
 

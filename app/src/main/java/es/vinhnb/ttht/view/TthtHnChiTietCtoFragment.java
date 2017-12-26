@@ -383,39 +383,6 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-
-        //clear text
-        etCS1.setText("");
-        etCS2.setText("");
-        etCS3.setText("");
-        etCS4.setText("");
-        etCS5.setText("");
-
-        //clear text
-        etCS1.setHint("");
-        etCS2.setHint("");
-        etCS3.setHint("");
-        etCS4.setHint("");
-        etCS5.setHint("");
-
-
-//        tableTram = null;
-//        tableLoaiCongTo = null;
-//        tableBbanCto = null;
-//        tableChitietCto = null;
-//        tableLydoTreothao = null;
-//        tableLydoTreothaos = new ArrayList<>();
-//        isRefreshAnhNiemPhong = false;
-//        isRefreshChiSo = false;
-//        TABLE_ANH_HIENTRUONG tableAnhChiso = null;
-//        TABLE_ANH_HIENTRUONG tableAnhNiemPhong = null;
-//        timeFileCaptureAnhChiSo = "";
-//        timeFileCaptureAnhNiemPhong = "";
-//        cs1 = cs2 = cs3 = cs4 = cs5 = "";
-//        pos = -1;
-//        timeSQLCapturedAnhChiso = null;
-//        timeSQLCapturedAnhNiemPhong = null;
-
     }
 
     @Override
@@ -886,6 +853,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         etMaChiKiemDinh.setEnabled(true);
         etMaCHiHomHop.setEnabled(true);
         etTemCamQuang.setEnabled(true);
+        etSoLanCanhBao.setEnabled(true);
 
         etCS1.setEnabled(true);
         etCS2.setEnabled(true);
@@ -904,6 +872,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
             etMaChiKiemDinh.setEnabled(false);
             etMaCHiHomHop.setEnabled(false);
             etTemCamQuang.setEnabled(false);
+            etSoLanCanhBao.setEnabled(false);
 
             etCS1.setEnabled(false);
             etCS2.setEnabled(false);
@@ -1606,6 +1575,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
         TABLE_BBAN_CTO tableBbanCtoOld = (TABLE_BBAN_CTO) tableBbanCto.clone();
         tableBbanCto.setTRANG_THAI_DU_LIEU((isDaGhi) ? Common.TRANG_THAI_DU_LIEU.DA_GHI.content : Common.TRANG_THAI_DU_LIEU.CHUA_GHI.content);
+        tableBbanCto.setTRANG_THAI_DOI_SOAT((isDaGhi) ? Common.TRANG_THAI_DOI_SOAT.CO_THE_DOI_SOAT.content : Common.TRANG_THAI_DOI_SOAT.KHONG_THE_DOI_SOAT.content);
         tableBbanCto.setID_TABLE_BBAN_CTO((int) mSqlDAO.updateORInsertRows(TABLE_BBAN_CTO.class, tableBbanCtoOld, tableBbanCto));
 
         ((TthtHnBaseActivity) getActivity()).showSnackBar("Lưu dữ liệu công tơ thành công!", null, null);
@@ -1677,6 +1647,16 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         startActivityForResult(cameraIntent, CAMERA_REQUEST_CONGTO_NIEMPHONG);
     }
 
+    public void switchCto() {
+        try {
+            fillDataChiTietCto();
+            mListener.fillOkData();
+        } catch (Exception e) {
+            e.printStackTrace();
+            ((TthtHnBaseActivity) getActivity()).showSnackBar(Common.MESSAGE.ex03.getContent(), e.getMessage(), null);
+        }
+    }
+
     //endregion
 
     /**
@@ -1690,6 +1670,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnITthtHnChiTietCtoFragment {
+        void fillOkData();
     }
 
     public int getPos() {

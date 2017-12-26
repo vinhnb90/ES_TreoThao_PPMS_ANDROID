@@ -52,7 +52,7 @@ import retrofit2.Response;
 
 import static es.vinhnb.ttht.common.Common.DELAY;
 import static es.vinhnb.ttht.common.Common.DELAY_PROGESS_PBAR;
-import static es.vinhnb.ttht.common.Common.TRANG_THAI_DOI_SOAT.DA_DOISOAT;
+import static es.vinhnb.ttht.common.Common.TRANG_THAI_CHON_GUI.DA_CHON_GUI;
 import static es.vinhnb.ttht.common.Common.TRANG_THAI_DU_LIEU.GUI_THAT_BAI;
 import static es.vinhnb.ttht.common.Common.TYPE_IMAGE.IMAGE_TI;
 import static es.vinhnb.ttht.common.Common.TYPE_IMAGE.IMAGE_TU;
@@ -251,7 +251,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                         for (Map.Entry<Integer, DoiSoatAdapter.DataDoiSoatAdapter> entry : hashMapData.entrySet()) {
                             Integer key = entry.getKey();
                             DoiSoatAdapter.DataDoiSoatAdapter element = entry.getValue();
-                            if (element.TRANG_THAI_DOISOAT == DA_DOISOAT)
+                            if (element.TRANG_THAI_CHON_GUI == DA_CHON_GUI && (element.TRANG_THAI_DU_LIEU == Common.TRANG_THAI_DU_LIEU.DA_GHI || element.TRANG_THAI_DU_LIEU == Common.TRANG_THAI_DU_LIEU.CHUA_GHI))
                                 sobbUpload++;
                         }
                     }
@@ -370,12 +370,33 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
 
                     //region collect data
 
+                    int SO_BBAN_API = 0;
+                    int SO_BBAN_TUTI_API = 0;
+                    int SO_CTO_TREO_API = 0;
+                    int SO_CTO_THAO_API = 0;
+                    int SO_TU_API = 0;
+                    int SO_TI_API = 0;
                     for (int i = 0; i < listID_BBAN_TRTH.size(); i++) {
+                        SO_BBAN_API++;
+                        SO_CTO_TREO_API++;
+                        SO_CTO_THAO_API++;
+
                         TABLE_HISTORY_UPLOAD historyUpload = new TABLE_HISTORY_UPLOAD();
                         try {
                             historyUpload.setID_BBAN_TRTH(listID_BBAN_TRTH.get(i));
+                            String[] args = new String[]{String.valueOf(listID_BBAN_TRTH.get(i)), onIDataCommon.getMaNVien()};
+
+                            int ID_BBAN_CONGTO = 0;
+                            List<TABLE_BBAN_CTO> tableBbanCtos = mSqlDAO.getBBan(args);
+                            if (tableBbanCtos.size() > 0) {
+                                ID_BBAN_CONGTO = tableBbanCtos.get(0).getID_BBAN_CONGTO();
+                            }
+                            if (ID_BBAN_CONGTO == 0)
+                                throw new Exception("\nKhông tìm thấy dữ liệu ID_BBAN_CONGTO tương ứng với ID_BBAN_TRTH = " + listID_BBAN_TRTH.get(i));
+
+                            historyUpload.setID_BBAN_CONGTO(ID_BBAN_CONGTO);
                             historyUpload.setMA_NVIEN(onIDataCommon.getMaNVien());
-                            historyUpload.setTYPE_RESPONSE_UPLOAD(Common.TYPE_RESPONSE_UPLOAD.LOI_BAT_NGO.code);
+                            historyUpload.setTYPE_RESPONSE_UPLOAD(Common.TYPE_RESPONSE_UPLOAD.LOI_BAT_NGO.content);
 
                             final int finalI = i;
                             getView().postDelayed(new Runnable() {
@@ -413,9 +434,6 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                                 tableChitietCtoTreo = tableChitietCtoList.get(0);
 
                             mtbModelNew.setID_BBAN_CONGTO(tableBbanCto.getID_BBAN_CONGTO());
-                            mtbModelNew.setID_BBAN_CONGTO(tableBbanCto.getID_BBAN_CONGTO());
-                            mtbModelNew.setID_BBAN_CONGTO(tableBbanCto.getID_BBAN_CONGTO());
-
 
                             mtbModelNew.setLAN_CTO_TREO(tableChitietCtoTreo.getLAN());
                             mtbModelNew.setVTRI_TREO_THAO_CTO_TREO(tableChitietCtoTreo.getVTRI_TREO());
@@ -495,6 +513,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
 
 
                             if (tableChitietCtoTreo.getID_BBAN_TUTI() != 0) {
+                                SO_BBAN_TUTI_API++;
                                 //get Data chi tiet tuti
                                 List<TABLE_CHITIET_TUTI> tableChitietTutiList = mSqlDAO.getChitietTuTi(tableChitietCtoTreo.getID_BBAN_TUTI(), onIDataCommon.getMaNVien());
                                 for (int j = 0; j < tableChitietTutiList.size(); j++) {
@@ -507,6 +526,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                                         if (tableChitietTuti.getMA_BDONG().equals(Common.MA_BDONG.B.code)) {
                                             tuTreo = tableChitietTuti;
                                             mtbModelNew.setID_CHITIET_TUTI_TU_CTO_TREO(tuTreo.getID_CHITIET_TUTI());
+                                            SO_TU_API++;
                                         }
                                     }
 
@@ -518,6 +538,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                                         if (tableChitietTuti.getMA_BDONG().equals(Common.MA_BDONG.B.code)) {
                                             tiTreo = tableChitietTuti;
                                             mtbModelNew.setID_CHITIET_TUTI_TI_CTO_TREO(tiTreo.getID_CHITIET_TUTI());
+                                            SO_TI_API++;
                                         }
                                     }
                                 }
@@ -750,7 +771,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                             continue;
                         }
 
-                        resultUploadHistory.put(historyUpload.getID_BBAN_TRTH(), historyUpload);
+                        resultUploadHistory.put(historyUpload.getID_BBAN_CONGTO(), historyUpload);
                     }
 
 
@@ -784,14 +805,20 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                     getView().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            updateInfoUpload("Hoàn thành quá trình xử lý dữ liệu để gửi ...", 100);
+                            updateInfoUpload("Đang gửi dữ liệu biên bản lên máy chủ ...", 100);
                         }
                     }, DELAY_PROGESS_PBAR);
 
-                    messageServer.append("--Hoàn thành quá trình xử lý dữ liệu để gửi ...--");
+                    messageServer.append("--Đang gửi dữ liệu biên bản lên máy chủ ...--");
 
                     //region upload
                     resultUpload = callPostMTBWithImage(dataUpload);
+                    infoSessionUpload.setSO_BBAN_API(SO_BBAN_API);
+                    infoSessionUpload.setSO_BBAN_TUTI_API(SO_BBAN_TUTI_API);
+                    infoSessionUpload.setSO_CTO_TREO_API(SO_CTO_TREO_API);
+                    infoSessionUpload.setSO_CTO_THAO_API(SO_CTO_THAO_API);
+                    infoSessionUpload.setSO_TU_API(SO_TU_API);
+                    infoSessionUpload.setSO_TI_API(SO_TI_API);
 
                     //nếu null = có lỗi khi gửi dữ liệu treo tháo
                     if (resultUpload == null) {
@@ -801,19 +828,19 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                         isHasErrorServer = true;
                         sobbUploadError = sobbUpload;
 
-                        for (Integer ID_BBAN_TRTH : resultUploadHistory.keySet()
+                        for (Integer ID_BBAN_CONGTO : resultUploadHistory.keySet()
                                 ) {
-                            if (TextUtils.isEmpty(resultUploadHistory.get(ID_BBAN_TRTH).getMESSAGE_RESPONSE()))
-                                resultUploadHistory.get(ID_BBAN_TRTH).setMESSAGE_RESPONSE("Không kết nối được máy chủ khi gửi biên bản!");
+                            if (TextUtils.isEmpty(resultUploadHistory.get(ID_BBAN_CONGTO).getMESSAGE_RESPONSE()))
+                                resultUploadHistory.get(ID_BBAN_CONGTO).setMESSAGE_RESPONSE("Không kết nối được máy chủ khi gửi biên bản!");
                         }
 
                     } else if (resultUpload.size() == 0) {
                         //kết nối gửi thành công nhưng ko có dữ liệu trả về nên quy là thất bại
                         //nếu rỗng thì hiện tại có biên bản nhưng không có công tơ, vẫn cho tiếp tục thực hiện call các api khác
-                        for (Integer ID_BBAN_TRTH : resultUploadHistory.keySet()
+                        for (Integer ID_BBAN_CONGTO : resultUploadHistory.keySet()
                                 ) {
-                            if (TextUtils.isEmpty(resultUploadHistory.get(ID_BBAN_TRTH).getMESSAGE_RESPONSE()))
-                                resultUploadHistory.get(ID_BBAN_TRTH).setMESSAGE_RESPONSE("Không nhận được dữ liệu hồi đáp từ máy chủ khi gửi biên bản!");
+                            if (TextUtils.isEmpty(resultUploadHistory.get(ID_BBAN_CONGTO).getMESSAGE_RESPONSE()))
+                                resultUploadHistory.get(ID_BBAN_CONGTO).setMESSAGE_RESPONSE("Không nhận được dữ liệu hồi đáp từ máy chủ khi gửi biên bản!");
                         }
 
                         messageServer.append("--Không nhận được dữ liệu trả về từ máy chủ khi gửi dữ liệu biên bản lên!--");
@@ -836,13 +863,33 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                         }, DELAY_PROGESS_PBAR);
 
 
+                        //server đang viết nhầm ID_BBAN_TRTH nhưng lại trả về ID_BBAN_CONGTO
+                        Common.TYPE_RESPONSE_UPLOAD typeResponseUpload = Common.TYPE_RESPONSE_UPLOAD.findByCode(TextUtils.isEmpty(mtbResultModelNew.TRANG_THAI) ? "" : mtbResultModelNew.TRANG_THAI);
+                        int ID_BBAN_CONGTO = Integer.parseInt(mtbResultModelNew.ID_BBAN_TRTH);
+                        resultUploadHistory.get(ID_BBAN_CONGTO).setTYPE_RESPONSE_UPLOAD(typeResponseUpload.content);
+
+                        String[] agrsBB = new String[]{String.valueOf(resultUploadHistory.get(ID_BBAN_CONGTO).getID_BBAN_TRTH()), onIDataCommon.getMaNVien()};
+                        List<TABLE_BBAN_CTO> tableBbanCtoList = mSqlDAO.getBBan(agrsBB);
+                        tableBbanCto = null;
+                        if (tableBbanCtoList.size() != 0)
+                            tableBbanCto = tableBbanCtoList.get(0);
+
                         updateDataAfterUpload(mtbResultModelNew);
 
-                        Common.TYPE_RESPONSE_UPLOAD typeResponseUpload = Common.TYPE_RESPONSE_UPLOAD.find(mtbResultModelNew.TRANG_THAI);
-                        resultUploadHistory.get(mtbResultModelNew.ID_BBAN_TRTH).setTYPE_RESPONSE_UPLOAD(typeResponseUpload.content);
 
                         if (typeResponseUpload == Common.TYPE_RESPONSE_UPLOAD.LOI_BAT_NGO)
-                            resultUploadHistory.get(mtbResultModelNew.ID_BBAN_TRTH).setMESSAGE_RESPONSE(mtbResultModelNew.ERROR);
+                            resultUploadHistory.get(ID_BBAN_CONGTO).setMESSAGE_RESPONSE(mtbResultModelNew.ERROR);
+
+//                        if (typeResponseUpload == Common.TYPE_RESPONSE_UPLOAD.LOI_BAT_NGO)
+//                        {
+//                            int ID_BBAN_CONGTO = 0;
+//                            resultUploadHistory.get(ID_BBAN_CONGTO).setTYPE_RESPONSE_UPLOAD(typeResponseUpload.content);
+//                            resultUploadHistory.get(ID_BBAN_CONGTO).setMESSAGE_RESPONSE(mtbResultModelNew.ERROR);
+//                        }
+//                        else {
+//                            int ID_BBAN_CONGTO = Integer.parseInt(mtbResultModelNew.ID_BBAN_TRTH);
+//                            resultUploadHistory.get(ID_BBAN_CONGTO).setTYPE_RESPONSE_UPLOAD(typeResponseUpload.content);
+//                        }
 
                     }
 
@@ -896,11 +943,11 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                     try {
                         infoSessionUpload.setMESSAGE_RESULT(messageServer.toString());
                         infoSessionUpload.setID_TABLE_HISTORY((int) mSqlDAO.insert(TABLE_HISTORY.class, infoSessionUpload));
-                        for (Integer ID_BBAN_TRTH : resultUploadHistory.keySet()
+                        for (Integer ID_BBAN_CONGTO : resultUploadHistory.keySet()
                                 ) {
                             try {
-                                resultUploadHistory.get(ID_BBAN_TRTH).setID_TABLE_HISTORY_DETAIL(infoSessionUpload.getID_TABLE_HISTORY());
-                                resultUploadHistory.get(ID_BBAN_TRTH).setID_TABLE_HISTORY_DETAIL((int) mSqlDAO.insert(TABLE_HISTORY_UPLOAD.class, resultUploadHistory.get(ID_BBAN_TRTH)));
+                                resultUploadHistory.get(ID_BBAN_CONGTO).setID_TABLE_HISTORY(infoSessionUpload.getID_TABLE_HISTORY());
+                                resultUploadHistory.get(ID_BBAN_CONGTO).setID_TABLE_HISTORY_DETAIL((int) mSqlDAO.insert(TABLE_HISTORY_UPLOAD.class, resultUploadHistory.get(ID_BBAN_CONGTO)));
                             } catch (Exception e2) {
                                 e2.printStackTrace();
                                 continue;
@@ -926,7 +973,6 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
             }
         }).start();
 
-
     }
 
     private void updateListViewAfterUpload() {
@@ -939,7 +985,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
     }
 
     private void updateDataAfterUpload(MTB_ResultModel_NEW mtbResultModelNew) throws Exception {
-        Common.TYPE_RESPONSE_UPLOAD typeResponseUpload = Common.TYPE_RESPONSE_UPLOAD.find(mtbResultModelNew.TRANG_THAI);
+        Common.TYPE_RESPONSE_UPLOAD typeResponseUpload = Common.TYPE_RESPONSE_UPLOAD.findByCode(mtbResultModelNew.TRANG_THAI);
 
         TABLE_BBAN_CTO tableBbanCtoOld = (TABLE_BBAN_CTO) tableBbanCto.clone();
         switch (typeResponseUpload) {
@@ -1116,7 +1162,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
         listID_BBAN_TRTH.clear();
 
         //get anh treo
-        String[] agrs = new String[]{onIDataCommon.getMaNVien(), Common.TYPE_IMAGE.IMAGE_CONG_TO.code};
+        String[] agrs = new String[]{onIDataCommon.getMaNVien(), onIDataCommon.getMaNVien(), Common.TYPE_IMAGE.IMAGE_CONG_TO.code, onIDataCommon.getMaNVien()};
         List<DoiSoatAdapter.DataDoiSoat> data = mSqlDAO.getDoiSoatAdapter(agrs);
         sobbUpload = 0;
         hashMapData = new HashMap<>();
@@ -1129,10 +1175,11 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                 element.LOAI_CTO_TREO = data.get(i).LOAI_CTO;
                 element.TEN_ANH_TREO = data.get(i).TEN_ANH;
                 element.TRANG_THAI_DU_LIEU = data.get(i).TRANG_THAI_DU_LIEU;
-                element.TRANG_THAI_DOISOAT = data.get(i).TRANG_THAI_DOISOAT;
+                element.TRANG_THAI_CHON_GUI = data.get(i).TRANG_THAI_CHON_GUI;
+                element.TRANG_THAI_DOI_SOAT = data.get(i).TRANG_THAI_DOI_SOAT;
                 element.ID_BBAN_TRTH = data.get(i).ID_BBAN_TRTH;
                 element.SO_BBAN = data.get(i).SO_BBAN;
-                if (element.TRANG_THAI_DOISOAT == DA_DOISOAT)
+                if (element.TRANG_THAI_CHON_GUI == DA_CHON_GUI)
                     sobbUpload++;
                 hashMapData.put(data.get(i).ID_BBAN_TRTH, element);
             }
@@ -1147,7 +1194,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                     hashMapData.get(data.get(i).ID_BBAN_TRTH).TEN_ANH_THAO = data.get(i).TEN_ANH;
                     hashMapData.get(data.get(i).ID_BBAN_TRTH).TRANG_THAI_DU_LIEU = data.get(i).TRANG_THAI_DU_LIEU;
                     //tăng số biên bản có thể upload
-                    if (data.get(i).TRANG_THAI_DU_LIEU == Common.TRANG_THAI_DU_LIEU.DA_GHI || data.get(i).TRANG_THAI_DU_LIEU == GUI_THAT_BAI) {
+                    if (data.get(i).TRANG_THAI_CHON_GUI == Common.TRANG_THAI_CHON_GUI.DA_CHON_GUI && (data.get(i).TRANG_THAI_DU_LIEU == Common.TRANG_THAI_DU_LIEU.DA_GHI || data.get(i).TRANG_THAI_DU_LIEU == GUI_THAT_BAI)) {
                         listID_BBAN_TRTH.add(data.get(i).ID_BBAN_TRTH);
                     }
                 }
@@ -1166,12 +1213,12 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                         try {
                             if (listDataDoiSoatAdapter.size() != 0 && pos < listDataDoiSoatAdapter.size()) {
 
-                                switch (listDataDoiSoatAdapter.get(pos).TRANG_THAI_DOISOAT) {
-                                    case CHUA_DOISOAT:
-                                        listDataDoiSoatAdapter.get(pos).TRANG_THAI_DOISOAT = Common.TRANG_THAI_DOI_SOAT.DA_DOISOAT;
+                                switch (listDataDoiSoatAdapter.get(pos).TRANG_THAI_CHON_GUI) {
+                                    case CHUA_CHON_GUI:
+                                        listDataDoiSoatAdapter.get(pos).TRANG_THAI_CHON_GUI = Common.TRANG_THAI_CHON_GUI.DA_CHON_GUI;
                                         break;
-                                    case DA_DOISOAT:
-                                        listDataDoiSoatAdapter.get(pos).TRANG_THAI_DOISOAT = Common.TRANG_THAI_DOI_SOAT.CHUA_DOISOAT;
+                                    case DA_CHON_GUI:
+                                        listDataDoiSoatAdapter.get(pos).TRANG_THAI_CHON_GUI = Common.TRANG_THAI_CHON_GUI.CHUA_CHON_GUI;
                                         break;
                                 }
 
@@ -1184,7 +1231,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                                     TABLE_BBAN_CTO tableBbanCto = tableBbanCtoList.get(0);
                                     TABLE_BBAN_CTO tableBbanCtoOld = (TABLE_BBAN_CTO) tableBbanCto.clone();
 
-                                    tableBbanCto.setTRANG_THAI_DOI_SOAT(listDataDoiSoatAdapter.get(pos).TRANG_THAI_DOISOAT.content);
+                                    tableBbanCto.setTRANG_THAI_CHON_GUI(listDataDoiSoatAdapter.get(pos).TRANG_THAI_CHON_GUI.content);
 
                                     mSqlDAO.updateRows(TABLE_BBAN_CTO.class, tableBbanCtoOld, tableBbanCto);
 
@@ -1194,7 +1241,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
 
 
                                 //update so bien ban
-                                if (listDataDoiSoatAdapter.get(pos).TRANG_THAI_DOISOAT == Common.TRANG_THAI_DOI_SOAT.DA_DOISOAT) {
+                                if (listDataDoiSoatAdapter.get(pos).TRANG_THAI_CHON_GUI == Common.TRANG_THAI_CHON_GUI.DA_CHON_GUI) {
                                     sobbUpload++;
                                     listID_BBAN_TRTH.add(listDataDoiSoatAdapter.get(pos).ID_BBAN_TRTH);
                                 } else {
@@ -1245,6 +1292,19 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
 
     public void clearUpload() {
         try {
+            for (Map.Entry<Integer, DoiSoatAdapter.DataDoiSoatAdapter> entry : hashMapData.entrySet()) {
+                Integer key = entry.getKey();
+                DoiSoatAdapter.DataDoiSoatAdapter element = entry.getValue();
+                if (element.TRANG_THAI_DU_LIEU == Common.TRANG_THAI_DU_LIEU.DA_GHI || element.TRANG_THAI_DU_LIEU == Common.TRANG_THAI_DU_LIEU.GUI_THAT_BAI) {
+                    continue;
+                }
+
+                TABLE_BBAN_CTO tableBbanCto = mSqlDAO.getBBan(new String[]{String.valueOf(element.ID_BBAN_TRTH), onIDataCommon.getMaNVien()}).get(0);
+                TABLE_BBAN_CTO tableBbanCtoOld = (TABLE_BBAN_CTO) tableBbanCto.clone();
+                tableBbanCto.setTRANG_THAI_DOI_SOAT(Common.TRANG_THAI_DOI_SOAT.KHONG_THE_DOI_SOAT.content);
+                tableBbanCto.setID_TABLE_BBAN_CTO((int) mSqlDAO.updateRows(TABLE_BBAN_CTO.class, tableBbanCtoOld, tableBbanCto));
+            }
+
             fillDataDoiSoat();
         } catch (Exception e) {
             e.printStackTrace();

@@ -24,7 +24,7 @@ import es.vinhnb.ttht.common.Common;
 import es.vinhnb.ttht.view.TthtHnBaseActivity;
 import es.vinhnb.ttht.view.TthtHnChiTietCtoFragment;
 
-import static es.vinhnb.ttht.common.Common.TRANG_THAI_DOI_SOAT.DA_DOISOAT;
+import static es.vinhnb.ttht.common.Common.TRANG_THAI_CHON_GUI.DA_CHON_GUI;
 import static es.vinhnb.ttht.view.TthtHnChiTietCtoFragment.showChiso;
 
 /**
@@ -100,7 +100,7 @@ public class DoiSoatAdapter extends RecyclerView.Adapter<DoiSoatAdapter.ViewHold
             holder.btnSelectUpload.setCompoundDrawablesWithIntrinsicBounds(null, null, ic_tththn_unmark, null);
             holder.btnSelectUpload.setVisibility(View.VISIBLE);
 
-            if (doiSoatAdapter.TRANG_THAI_DOISOAT == DA_DOISOAT) {
+            if (doiSoatAdapter.TRANG_THAI_CHON_GUI == DA_CHON_GUI) {
                 holder.btnSelectUpload.setVisibility(View.VISIBLE);
                 holder.btnSelectUpload.setBackground(xml_tththn_rectangle11);
                 holder.btnSelectUpload.setTextColor(text_white);
@@ -343,7 +343,8 @@ public class DoiSoatAdapter extends RecyclerView.Adapter<DoiSoatAdapter.ViewHold
         public String TEN_ANH_THAO;
 
         public Common.TRANG_THAI_DU_LIEU TRANG_THAI_DU_LIEU;
-        public Common.TRANG_THAI_DOI_SOAT TRANG_THAI_DOISOAT;
+        public Common.TRANG_THAI_CHON_GUI TRANG_THAI_CHON_GUI;
+        public Common.TRANG_THAI_DOI_SOAT TRANG_THAI_DOI_SOAT;
         public int ID_BBAN_TRTH;
         public String SO_BBAN;
 
@@ -369,7 +370,9 @@ public class DoiSoatAdapter extends RecyclerView.Adapter<DoiSoatAdapter.ViewHold
 
 
         public Common.TRANG_THAI_DU_LIEU TRANG_THAI_DU_LIEU;
-        public Common.TRANG_THAI_DOI_SOAT TRANG_THAI_DOISOAT;
+        public Common.TRANG_THAI_CHON_GUI TRANG_THAI_CHON_GUI;
+        public Common.TRANG_THAI_DOI_SOAT TRANG_THAI_DOI_SOAT;
+
 
         @Override
         public Object clone() throws CloneNotSupportedException {

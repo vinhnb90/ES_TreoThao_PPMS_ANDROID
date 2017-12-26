@@ -584,7 +584,7 @@
                 android:layout_height="@dimen/_24sdp"
                 android:drawableLeft="@drawable/ic_ttht_error"
                 android:text="Danh sách gửi"
-                android:visibility="gone"
+                android:visibility="visible"
                 tools:visibility="visible" />
 
         </LinearLayout>

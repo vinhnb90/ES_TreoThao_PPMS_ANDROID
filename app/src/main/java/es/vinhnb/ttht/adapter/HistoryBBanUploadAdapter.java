@@ -1,12 +1,16 @@
 package es.vinhnb.ttht.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.es.tungnv.views.R;
@@ -28,10 +32,16 @@ public class HistoryBBanUploadAdapter extends RecyclerView.Adapter<HistoryBBanUp
     private Context context;
     private static List<DataBBanUploadHistoryAdapter> listData = new ArrayList<>();
 
+    private static Drawable xml_tththn_rectangle3_error, xml_tththn_rectangle3_success;
+
     public HistoryBBanUploadAdapter(Context context, List<DataBBanUploadHistoryAdapter> listData) {
         this.context = context;
         //clone
         this.listData = Common.cloneList(listData);
+        if (xml_tththn_rectangle3_error == null)
+            xml_tththn_rectangle3_error = ContextCompat.getDrawable(context, R.drawable.xml_tththn_rectangle3_error);
+        if (xml_tththn_rectangle3_success == null)
+            xml_tththn_rectangle3_success = ContextCompat.getDrawable(context, R.drawable.xml_tththn_rectangle3_success);
 
         if (context instanceof IOnBBanAdapter) {
             iOnBBanAdapter = (IOnBBanAdapter) context;
@@ -55,6 +65,27 @@ public class HistoryBBanUploadAdapter extends RecyclerView.Adapter<HistoryBBanUp
         holder.tvmaGCS.setText(data.maGCS);
         holder.tvmaTramCapDien.setText(data.maTramcapdien);
         holder.ngayTreothao.setText(Common.convertDateToDate(data.ngayTrth, Common.DATE_TIME_TYPE.sqlite2, type6));
+        holder.tvStatus.setText(Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(data.getTRANG_THAI_DU_LIEU()).content);
+
+        holder.btnMessageResponse.setVisibility(View.VISIBLE);
+        if (TextUtils.isEmpty(data.getMESSAGE_RESPONSE()))
+            holder.btnMessageResponse.setVisibility(View.GONE);
+
+        switch (Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(data.getTRANG_THAI_DU_LIEU())) {
+            case CHUA_TON_TAI:
+            case CHUA_GHI:
+            case DA_GHI:
+            case GUI_THAT_BAI:
+            case DA_TON_TAI_GUI_TRUOC_DO:
+            case DA_XAC_NHAN_TREN_CMIS:
+            case HET_HIEU_LUC:
+                holder.rlRow.setBackground(xml_tththn_rectangle3_error);
+                break;
+
+            case DANG_CHO_XAC_NHAN_CMIS:
+                holder.rlRow.setBackground(xml_tththn_rectangle3_success);
+                break;
+        }
     }
 
     @Override
@@ -71,6 +102,7 @@ public class HistoryBBanUploadAdapter extends RecyclerView.Adapter<HistoryBBanUp
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        public RelativeLayout rlRow;
         public TextView tvstt;
         public TextView tvtenKH;
         public TextView tvdiachiKH;
@@ -79,20 +111,23 @@ public class HistoryBBanUploadAdapter extends RecyclerView.Adapter<HistoryBBanUp
         public TextView ngayTreothao;
 
         public Button btnMore;
-        public ImageButton btnDetail;
+        public ImageButton btnMessageResponse;
         public TextView tvStatus;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            rlRow = itemView.findViewById(R.id.rl_row);
             tvstt = itemView.findViewById(R.id.history_upload_tv_bb_stt);
             tvtenKH = itemView.findViewById(R.id.history_upload_tv_bb_tenKH);
             tvdiachiKH = itemView.findViewById(R.id.history_upload_tv_bb_diachi);
             tvmaGCS = itemView.findViewById(R.id.history_upload_tv_bb_magcs);
             tvmaTramCapDien = itemView.findViewById(R.id.history_upload_tv_bb_tramcapdien);
             ngayTreothao = itemView.findViewById(R.id.history_upload_tv_bb_ngaytreothao);
+            tvStatus = itemView.findViewById(R.id.history_upload_tv_status_history_upload);
+
 
             btnMore = itemView.findViewById(R.id.history_upload_btn_bban_more);
-            btnDetail= itemView.findViewById(R.id.history_upload_ibtn_notify);
+            btnMessageResponse = itemView.findViewById(R.id.history_upload_ibtn_notify);
 
             btnMore.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -102,11 +137,11 @@ public class HistoryBBanUploadAdapter extends RecyclerView.Adapter<HistoryBBanUp
                 }
             });
 
-            btnDetail.setOnClickListener(new View.OnClickListener() {
+            btnMessageResponse.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int pos = getAdapterPosition();
-                    iOnBBanAdapter.clickBtnUploadHistoryBBanDetail(pos, listData.get(pos));
+                    iOnBBanAdapter.clickBtnUploadHistoryBBanMessageResponse(pos, listData.get(pos));
                 }
             });
         }
@@ -124,6 +159,7 @@ public class HistoryBBanUploadAdapter extends RecyclerView.Adapter<HistoryBBanUp
         private String sobban;
         private int ID_BBAN_TRTH;
         private String TYPE_RESPONSE_UPLOAD;
+        private String TRANG_THAI_DU_LIEU;
         private String MESSAGE_RESPONSE;
 
         public String getSobban() {
@@ -221,10 +257,19 @@ public class HistoryBBanUploadAdapter extends RecyclerView.Adapter<HistoryBBanUp
         public void setMESSAGE_RESPONSE(String MESSAGE_RESPONSE) {
             this.MESSAGE_RESPONSE = MESSAGE_RESPONSE;
         }
+
+        public String getTRANG_THAI_DU_LIEU() {
+            return TRANG_THAI_DU_LIEU;
+        }
+
+        public void setTRANG_THAI_DU_LIEU(String TRANG_THAI_DU_LIEU) {
+            this.TRANG_THAI_DU_LIEU = TRANG_THAI_DU_LIEU;
+        }
     }
 
     public interface IOnBBanAdapter {
         void clickBtnUploadHistoryBBanMore(int pos, DataBBanUploadHistoryAdapter DataBBanUploadHistoryAdapter);
-        void clickBtnUploadHistoryBBanDetail(int pos, DataBBanUploadHistoryAdapter DataBBanUploadHistoryAdapter);
+
+        void clickBtnUploadHistoryBBanMessageResponse(int pos, DataBBanUploadHistoryAdapter DataBBanUploadHistoryAdapter);
     }
 }

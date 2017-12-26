@@ -524,12 +524,23 @@ public class Common {
             this.content = content;
         }
 
-        public static TYPE_RESPONSE_UPLOAD find(String content) {
+        public static TYPE_RESPONSE_UPLOAD findByContent(String content) {
             if (TextUtils.isEmpty(content))
                 return LOI_BAT_NGO;
 
             for (TYPE_RESPONSE_UPLOAD typeSearchCto : values()) {
-                if (typeSearchCto.code.equalsIgnoreCase(content))
+                if (typeSearchCto.content.equalsIgnoreCase(content))
+                    return typeSearchCto;
+            }
+            return null;
+        }
+
+        public static TYPE_RESPONSE_UPLOAD findByCode(String code) {
+            if (TextUtils.isEmpty(code))
+                return LOI_BAT_NGO;
+
+            for (TYPE_RESPONSE_UPLOAD typeSearchCto : values()) {
+                if (typeSearchCto.code.equalsIgnoreCase(code))
                     return typeSearchCto;
             }
             return null;
@@ -686,9 +697,29 @@ public class Common {
     }
 
 
+    public enum TRANG_THAI_CHON_GUI {
+        CHUA_CHON_GUI("CHƯA CHỌN GỬI"),
+        DA_CHON_GUI("ĐÃ CHỌN GỬI");
+
+        public String content;
+
+        TRANG_THAI_CHON_GUI(String content) {
+            this.content = content;
+        }
+
+        public static TRANG_THAI_CHON_GUI findTRANG_THAI_CHON_GUI(String content) {
+            for (TRANG_THAI_CHON_GUI trangThaiChonGui : values()) {
+                if (trangThaiChonGui.content.equalsIgnoreCase(content))
+                    return trangThaiChonGui;
+            }
+            return null;
+        }
+    }
+
+
     public enum TRANG_THAI_DOI_SOAT {
-        CHUA_DOISOAT("CHƯA ĐỐI SOÁT"),
-        DA_DOISOAT("ĐÃ ĐỐI SOÁT");
+        CO_THE_DOI_SOAT("CÓ THỂ ĐỐI SOÁT"),
+        KHONG_THE_DOI_SOAT("KHÔNG THỂ ĐỐI SOÁT");
 
         public String content;
 
@@ -704,7 +735,6 @@ public class Common {
             return null;
         }
     }
-
 
     //trạng thái dữ liệu của web, chỉ sửa khi update mới từ web về
     public enum TRANG_THAI {
@@ -742,7 +772,7 @@ public class Common {
 
 
     //trạng thái dữ liệu của MTB
-//    DA_DOISOAT("ĐÃ ĐỐI SOÁT", R.color.tththn_doisoat_dadoisoat),
+//    DA_CHON_GUI("ĐÃ ĐỐI SOÁT", R.color.tththn_doisoat_dadoisoat),
 
 
     public enum TRANG_THAI_DU_LIEU {
