@@ -1,10 +1,14 @@
 package es.vinhnb.ttht.view;
 
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.AppCompatSpinner;
@@ -51,6 +55,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 
+
 public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInteface<TABLE_DVIQLY> {
 
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -70,26 +75,68 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
             super.savedInstanceState = savedInstanceState;
 
 
-            //check permission
-            if (Common.checkPermission(this))
-                return;
-
-
             //init view
             initDataAndView(getWindow().getDecorView().getRootView());
 
             //set action
             setAction(savedInstanceState);
+
+
+            //check permission
+            if (Common.checkPermission(this))
+                return;
+
+
+            //setup data
+            //create database
+            SqlHelper.setupDB(
+                    TthtHnLoginActivity.this,
+                    TTHT_HN_DB_CONFIG.class,
+                    new Class[]{
+                            TABLE_ANH_HIENTRUONG.class,
+                            TABLE_BBAN_CTO.class,
+                            TABLE_BBAN_TUTI.class,
+                            TABLE_CHITIET_CTO.class,
+                            TABLE_CHITIET_TUTI.class,
+                            TABLE_DVIQLY.class,
+                            TABLE_LOAI_CONG_TO.class,
+                            TABLE_SESSION.class,
+                            TABLE_TRAM.class,
+                            TABLE_HISTORY.class,
+                            TABLE_LYDO_TREOTHAO.class,
+                            TABLE_HISTORY_UPLOAD.class,
+                    });
+
+
+            //call Database access object
+            mSqlDAO = new SqlDAO(SqlHelper.getIntance().openDB(), this);
+
+
+            //create shared pref
+            ArrayList<Class<?>> setClassSharedPrefConfig = new ArrayList<Class<?>>();
+            setClassSharedPrefConfig.add(LoginSharePref.class);
+            setClassSharedPrefConfig.add(MenuTopSearchSharePref.class);
+            setClassSharedPrefConfig.add(MainSharePref.class);
+            mPrefManager = SharePrefManager.getInstance(this, setClassSharedPrefConfig);
+
         } catch (Exception e) {
             e.printStackTrace();
             super.showSnackBar(Common.MESSAGE.ex03.getContent(), e.getMessage(), null);
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onResume() {
         super.onResume();
         try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
+                    checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED &&
+                    checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+                    )
+                return;
+
+
             //lấy dữ liệu và fill Data dvi
             listDepart = mSqlDAO.selectAllLazy(TABLE_DVIQLY.class, null);
             ((DepartUpdateFragment) loginFragment.getmDepartModule()).setmListDepart(listDepart);
@@ -117,11 +164,40 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
                     Toast.makeText(TthtHnLoginActivity.this, "Unable to show permission required", Toast.LENGTH_LONG).show();
                 } else {
                     try {
-                        //init view
-                        initDataAndView(getWindow().getDecorView().getRootView());
+                        //setup data
+                        //create database
+                        SqlHelper.setupDB(
+                                TthtHnLoginActivity.this,
+                                TTHT_HN_DB_CONFIG.class,
+                                new Class[]{
+                                        TABLE_ANH_HIENTRUONG.class,
+                                        TABLE_BBAN_CTO.class,
+                                        TABLE_BBAN_TUTI.class,
+                                        TABLE_CHITIET_CTO.class,
+                                        TABLE_CHITIET_TUTI.class,
+                                        TABLE_DVIQLY.class,
+                                        TABLE_LOAI_CONG_TO.class,
+                                        TABLE_SESSION.class,
+                                        TABLE_TRAM.class,
+                                        TABLE_HISTORY.class,
+                                        TABLE_LYDO_TREOTHAO.class,
+                                        TABLE_HISTORY_UPLOAD.class,
+                                });
 
 
-                        setAction(super.savedInstanceState);
+                        //call Database access object
+                        mSqlDAO = new SqlDAO(SqlHelper.getIntance().openDB(), this);
+
+
+                        //create shared pref
+                        ArrayList<Class<?>> setClassSharedPrefConfig = new ArrayList<Class<?>>();
+                        setClassSharedPrefConfig.add(LoginSharePref.class);
+                        setClassSharedPrefConfig.add(MenuTopSearchSharePref.class);
+                        setClassSharedPrefConfig.add(MainSharePref.class);
+                        mPrefManager = SharePrefManager.getInstance(this, setClassSharedPrefConfig);
+
+                        loginFragment.setmLoginSharedPref(mPrefManager.getSharePref(LoginSharePref.class));
+
                     } catch (Exception e) {
                         Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
@@ -131,6 +207,11 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
             }
         }
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+    }
+
 
     private void fillDataSharePref() throws Exception {
         try {
@@ -142,17 +223,23 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
                 loginFragment.getmLoginViewEntity().getEtURL().setText(dataLoginSharePref.ip);
                 loginFragment.getmLoginViewEntity().getEtUser().setText(dataLoginSharePref.user);
                 loginFragment.getmLoginViewEntity().getEtPass().setText(dataLoginSharePref.pass);
-
+                loginFragment.getmLoginViewEntity().getCbSave().setChecked(dataLoginSharePref.isCheckSave);
 
                 //check and set pos for dvi spin
                 if (loginFragment.getmDepartModule() == null)
                     return;
 
 
-                AppCompatSpinner spDvi = ((DepartUpdateFragment<DepartEntity>) loginFragment.getmDepartModule()).getViewEntity().getSpDvi();
+                final AppCompatSpinner spDvi = ((DepartUpdateFragment<DepartEntity>) loginFragment.getmDepartModule()).getViewEntity().getSpDvi();
                 if (dataLoginSharePref.posSpinDvi < spDvi.getCount()) {
-                    spDvi.setSelection(dataLoginSharePref.posSpinDvi);
-                    spDvi.invalidate();
+                    loginFragment.getView().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            spDvi.setSelection(dataLoginSharePref.posSpinDvi);
+                            spDvi.invalidate();
+                        }
+                    });
+
                 }
             }
         } catch (Exception e) {
@@ -272,6 +359,8 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
 
     @Override
     public List<TABLE_DVIQLY> selectDBDepart() {
+        if (mSqlDAO == null)
+            return new ArrayList<>();
         return mSqlDAO.selectAllLazy(TABLE_DVIQLY.class, null);
     }
 
@@ -312,38 +401,6 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
         //set view full screen
         super.setupFullScreen();
         super.setCoordinatorLayout(coordinatorLayout);
-
-
-        //create database
-        SqlHelper.setupDB(
-                TthtHnLoginActivity.this,
-                TTHT_HN_DB_CONFIG.class,
-                new Class[]{
-                        TABLE_ANH_HIENTRUONG.class,
-                        TABLE_BBAN_CTO.class,
-                        TABLE_BBAN_TUTI.class,
-                        TABLE_CHITIET_CTO.class,
-                        TABLE_CHITIET_TUTI.class,
-                        TABLE_DVIQLY.class,
-                        TABLE_LOAI_CONG_TO.class,
-                        TABLE_SESSION.class,
-                        TABLE_TRAM.class,
-                        TABLE_HISTORY.class,
-                        TABLE_LYDO_TREOTHAO.class,
-                        TABLE_HISTORY_UPLOAD.class,
-                });
-
-
-        //call Database access object
-        mSqlDAO = new SqlDAO(SqlHelper.getIntance().openDB(), this);
-
-
-        //create shared pref
-        ArrayList<Class<?>> setClassSharedPrefConfig = new ArrayList<Class<?>>();
-        setClassSharedPrefConfig.add(LoginSharePref.class);
-        setClassSharedPrefConfig.add(MenuTopSearchSharePref.class);
-        setClassSharedPrefConfig.add(MainSharePref.class);
-        mPrefManager = SharePrefManager.getInstance(this, setClassSharedPrefConfig);
 
 
         //dump data test
@@ -416,7 +473,6 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
                 mSqlDAO.deleteRows(TABLE_SESSION.class, collumnCheck, valuesCheck);
 
 
-
             }
 
             @Override
@@ -460,8 +516,8 @@ public class TthtHnLoginActivity extends TthtHnBaseActivity implements LoginInte
                 .setmILoginOffline(loginOfflineModeConfig)
                 .setmTitleAppName("TREO THÁO HIỆN TRƯỜNG \nHÀ NỘI")
 //                    .setmIconLogin(R.mipmap.ic_home, (int) getResources().getDimension(R.dimen._50sdp), (int) getResources().getDimension(R.dimen._50sdp))
-                .setmColorBackground(R.color.colorPrimary)
-                .setmLoginSharedPref(mPrefManager.getSharePref(LoginSharePref.class));
+                .setmColorBackground(R.color.colorPrimary);
+//                .setmLoginSharedPref(mPrefManager.getSharePref(LoginSharePref.class));
     }
 
     @Override

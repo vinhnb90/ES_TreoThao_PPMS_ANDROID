@@ -145,7 +145,7 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment implements DateP
 
         } catch (Exception e) {
             e.printStackTrace();
-            ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
+            ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex04.getContent(), e.getMessage(), null);
         }
     }
 
@@ -333,9 +333,30 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment implements DateP
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 etSearch.setText("");
                 etSearch.setEnabled(true);
+                ibtnClear.setEnabled(true);
                 isSelectSpin = false;
                 switch (tagMenuNaviLeft) {
                     case BBAN_CTO:
+                        Common.TYPE_SEARCH_BBAN spClickItemBB = Common.TYPE_SEARCH_BBAN.findTYPE_SEARCH(spSearch.getSelectedItem().toString());
+                        switch (spClickItemBB) {
+                            case CHON:
+                                break;
+                            case MA_TRAM:
+                                break;
+                            case TEN_KH:
+                                break;
+                            case MA_GCS:
+                                break;
+                            case SO_BBAN:
+                                break;
+                            case BBAN_ERROR:
+                                etSearch.setEnabled(false);
+                                ibtnClear.setEnabled(false);
+                                etSearch.setText(Common.TRANG_THAI_DU_LIEU.LOI_BAT_NGO.content);
+                                break;
+                            case NGAY_TRTH:
+                                break;
+                        }
                         break;
                     case TRAM:
                         break;
@@ -391,25 +412,12 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment implements DateP
         ibtnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    Common.runAnimationClickView(view, R.anim.tththn_scale_view_pull, DELAY_ANIM / 2);
-
-                    getView().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                etSearch.setText("");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
-                            }
-                        }
-                    }, DELAY_ANIM);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
-                }
+                getView().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        etSearch.setText("");
+                    }
+                }, DELAY_ANIM);
             }
         });
 
@@ -421,13 +429,8 @@ public class TthtHnTopSearchFragment extends TthtHnBaseFragment implements DateP
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                try {
-                    if (!isSelectSpin)
-                        mListener.clickSearch(spSearch.getSelectedItem().toString(), etSearch.getText().toString());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
-                }
+                if (!isSelectSpin)
+                    mListener.clickSearch(spSearch.getSelectedItem().toString(), etSearch.getText().toString());
             }
 
             @Override

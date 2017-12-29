@@ -26,6 +26,7 @@ public class TABLE_BBAN_CTO implements Cloneable {
         SO_BBAN,
         NGAY_TRTH,
         MA_NVIEN,
+        TEN_NVIEN_TREO_THAO,
         MA_LDO,
         NGAY_TAO,
         NGUOI_TAO,
@@ -46,6 +47,7 @@ public class TABLE_BBAN_CTO implements Cloneable {
         MA_KHANG,
         LY_DO_TREO_THAO,
         TRANG_THAI_DU_LIEU,
+        NOI_DUNG_LOI_DONG_BO,
         TRANG_THAI_CHON_GUI,
         TRANG_THAI_DOI_SOAT;
 
@@ -76,6 +78,9 @@ public class TABLE_BBAN_CTO implements Cloneable {
 
     @Collumn(name = "MA_NVIEN", type = TYPE.TEXT)
     private String MA_NVIEN;
+
+    @Collumn(name = "TEN_NVIEN_TREO_THAO", type = TYPE.TEXT)
+    private String TEN_NVIEN_TREO_THAO;
 
     @Collumn(name = "MA_LDO", type = TYPE.TEXT)
     private String MA_LDO;
@@ -137,6 +142,9 @@ public class TABLE_BBAN_CTO implements Cloneable {
     @Collumn(name = "TRANG_THAI_DU_LIEU", type = TYPE.TEXT)
     private String TRANG_THAI_DU_LIEU;
 
+    @Collumn(name = "NOI_DUNG_LOI_DONG_BO", type = TYPE.TEXT)
+    private String NOI_DUNG_LOI_DONG_BO;
+
     @Collumn(name = "TRANG_THAI_CHON_GUI", type = TYPE.TEXT)
     private String TRANG_THAI_CHON_GUI;
 
@@ -156,6 +164,7 @@ public class TABLE_BBAN_CTO implements Cloneable {
                           @Params(name = "SO_BBAN") String SO_BBAN,
                           @Params(name = "NGAY_TRTH") String NGAY_TRTH,
                           @Params(name = "MA_NVIEN") String MA_NVIEN,
+                          @Params(name = "TEN_NVIEN_TREO_THAO") String TEN_NVIEN_TREO_THAO,
                           @Params(name = "MA_LDO") String MA_LDO,
                           @Params(name = "NGAY_TAO") String NGAY_TAO,
                           @Params(name = "NGUOI_TAO") String NGUOI_TAO,
@@ -176,6 +185,7 @@ public class TABLE_BBAN_CTO implements Cloneable {
                           @Params(name = "MA_KHANG") String MA_KHANG,
                           @Params(name = "LY_DO_TREO_THAO") String LY_DO_TREO_THAO,
                           @Params(name = "TRANG_THAI_DU_LIEU") String TRANG_THAI_DU_LIEU,
+                          @Params(name = "NOI_DUNG_LOI_DONG_BO") String NOI_DUNG_LOI_DONG_BO,
                           @Params(name = "TRANG_THAI_CHON_GUI") String TRANG_THAI_CHON_GUI,
                           @Params(name = "TRANG_THAI_DOI_SOAT") String TRANG_THAI_DOI_SOAT
 
@@ -188,6 +198,7 @@ public class TABLE_BBAN_CTO implements Cloneable {
         this.SO_BBAN = SO_BBAN;
         this.NGAY_TRTH = NGAY_TRTH;
         this.MA_NVIEN = MA_NVIEN;
+        this.TEN_NVIEN_TREO_THAO = TEN_NVIEN_TREO_THAO;
         this.MA_LDO = MA_LDO;
         this.NGAY_TAO = NGAY_TAO;
         this.NGUOI_TAO = NGUOI_TAO;
@@ -208,6 +219,7 @@ public class TABLE_BBAN_CTO implements Cloneable {
         this.MA_KHANG = MA_KHANG;
         this.LY_DO_TREO_THAO = LY_DO_TREO_THAO;
         this.TRANG_THAI_DU_LIEU = TRANG_THAI_DU_LIEU;
+        this.NOI_DUNG_LOI_DONG_BO = NOI_DUNG_LOI_DONG_BO;
         this.TRANG_THAI_CHON_GUI = TRANG_THAI_CHON_GUI;
         this.TRANG_THAI_DOI_SOAT = TRANG_THAI_DOI_SOAT;
     }
@@ -267,6 +279,14 @@ public class TABLE_BBAN_CTO implements Cloneable {
 
     public void setMA_NVIEN(String MA_NVIEN) {
         this.MA_NVIEN = MA_NVIEN;
+    }
+
+    public String getTEN_NVIEN_TREO_THAO() {
+        return TEN_NVIEN_TREO_THAO;
+    }
+
+    public void setTEN_NVIEN_TREO_THAO(String TEN_NVIEN_TREO_THAO) {
+        this.TEN_NVIEN_TREO_THAO = TEN_NVIEN_TREO_THAO;
     }
 
     public String getMA_LDO() {
@@ -427,6 +447,14 @@ public class TABLE_BBAN_CTO implements Cloneable {
 
     public void setTRANG_THAI_DU_LIEU(String TRANG_THAI_DU_LIEU) {
         this.TRANG_THAI_DU_LIEU = TRANG_THAI_DU_LIEU;
+    }
+
+    public String getNOI_DUNG_LOI_DONG_BO() {
+        return NOI_DUNG_LOI_DONG_BO;
+    }
+
+    public void setNOI_DUNG_LOI_DONG_BO(String NOI_DUNG_LOI_DONG_BO) {
+        this.NOI_DUNG_LOI_DONG_BO = NOI_DUNG_LOI_DONG_BO;
     }
 
     public String getTRANG_THAI_CHON_GUI() {

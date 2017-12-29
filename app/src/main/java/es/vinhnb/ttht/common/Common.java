@@ -175,8 +175,10 @@ public class Common {
         ex06("Gặp vấn đề kết nối, vui lòng thử lại!"),
         ex07("Gặp vấn đề khi ghi dữ liệu!"),
         ex08("Gặp vấn đề khi chụp ảnh!"),
+        ex081("Gặp vấn đề khi phóng to ảnh!"),
         ex09("Gặp vấn đề khi xử lý dữ liệu để gửi!"),
         ex10("Gặp vấn đề trong quá trình gửi dữ liệu!"),
+        ex101("Gặp vấn đề trong quá trình xử lý dữ liệu sau khi gửi!"),
         ex0x("Xảy ra lỗi bất ngờ!");
 
         private String content;
@@ -197,6 +199,7 @@ public class Common {
         TEN_KH("Tên KH", true),
         MA_GCS("Mã GCS", true),
         SO_BBAN("Số Biên bản", true),
+        BBAN_ERROR("Biên bản lỗi", true),
         NGAY_TRTH("Ngày treo tháo", false);
 
         public String content;
@@ -241,8 +244,7 @@ public class Common {
     public enum TYPE_SEARCH_UPLOAD {
         CHON("Tìm theo", true),
         TEN_KH("Tên KH", true),
-        SO_BBAN("Số Biên bản", true)
-        ;
+        SO_BBAN("Số Biên bản", true);
 
         public String content;
         public boolean isShow;
@@ -783,7 +785,9 @@ public class Common {
         DANG_CHO_XAC_NHAN_CMIS("ĐANG CHỜ XÁC NHẬN CMIS", R.color.tththn_trangthai_dulieu_dangcho_xacnhan),
         DA_TON_TAI_GUI_TRUOC_DO("ĐÃ TỒN TẠI TRƯỚC ĐÓ", R.color.tththn_trangthai_dulieu_da_tontai_truocdo),
         DA_XAC_NHAN_TREN_CMIS("ĐÃ XÁC NHẬN TRÊN CMIS", R.color.tththn_trangthai_dulieu_da_xacnhan_cmis),
-        HET_HIEU_LUC("HẾT HIỆU LỰC", R.color.tththn_trangthai_dulieu_het_hieuluc);
+        HET_HIEU_LUC("HẾT HIỆU LỰC", R.color.tththn_trangthai_dulieu_het_hieuluc),
+        LOI_BAT_NGO("LỖI BẤT NGỜ", R.color.tththn_trangthai_dulieu_het_hieuluc);
+
 
         public String content;
         public int color;

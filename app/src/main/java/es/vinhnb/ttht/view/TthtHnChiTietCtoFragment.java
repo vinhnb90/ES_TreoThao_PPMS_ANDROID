@@ -613,8 +613,10 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
                 ivAnhChiso.setImageBitmap(bitmap);
                 ivAnhChiso.setEnabled(true);
-                if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS)
+                if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS || trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_XAC_NHAN_TREN_CMIS) {
                     ivAnhChiso.setEnabled(false);
+                    btnChupAnhChiso.setEnabled(false);
+                }
 
                 break;
             case IMAGE_CONG_TO_NIEM_PHONG:
@@ -634,8 +636,11 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
                 ivAnhNiemPhong.setImageBitmap(bitmap);
                 ivAnhNiemPhong.setEnabled(true);
-                if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS)
+
+                if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS || trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_XAC_NHAN_TREN_CMIS) {
                     ivAnhNiemPhong.setEnabled(false);
+                    btnChupAnhNiemPhong.setEnabled(false);
+                }
                 break;
         }
 
@@ -817,7 +822,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         tvnamsanxuat.setText(tableChitietCto == null ? "" : tableChitietCto.getNAM_SX());
         tvngaykiemdinh.setText(tableChitietCto == null ? "" : Common.convertDateToDate(String.valueOf(tableChitietCto.getNGAY_KDINH()), sqlite2, type6));
         tvnuocsanxuat.setText(tableChitietCto == null ? "" : tableChitietCto.getTEN_NUOC());
-        tvnvienTreothao.setText(tableChitietCto == null ? "" : ".....");
+        tvnvienTreothao.setText(tableBbanCto == null ? "" : tableBbanCto.getTEN_NVIEN_TREO_THAO());
         tvtramcapdien.setText(tableTram == null ? "" : tableTram.getTEN_TRAM());
         tvvtrilapdat.setText(tableChitietCto == null ? "" : tableChitietCto.getMO_TA_VTRI_TREO());
     }
@@ -922,7 +927,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
         viewBOChiso.etCS4.setEnabled(true);
         viewBOChiso.etCS5.setEnabled(true);
 
-        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS) {
+        if (trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS || trangThaiDuLieu == Common.TRANG_THAI_DU_LIEU.DA_XAC_NHAN_TREN_CMIS) {
             viewBOChiso.etCS1.setEnabled(false);
             viewBOChiso.etCS2.setEnabled(false);
             viewBOChiso.etCS3.setEnabled(false);
@@ -1146,7 +1151,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
                     Common.zoomImage(getActivity(), bitmap);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    ((TthtHnBaseActivity) getActivity()).showSnackBar(Common.MESSAGE.ex04.getContent(), e.getMessage(), null);
+                    ((TthtHnBaseActivity) getActivity()).showSnackBar(Common.MESSAGE.ex081.getContent(), e.getMessage(), null);
                 }
             }
         });
@@ -1158,7 +1163,7 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
                     captureAnhNiemPhong();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    ((TthtHnBaseActivity) getActivity()).showSnackBar(Common.MESSAGE.ex04.getContent(), e.getMessage(), null);
+                    ((TthtHnBaseActivity) getActivity()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
                 }
             }
         });
@@ -1208,14 +1213,12 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
                         return;
                     }
 
-
                     //zoom
                     Common.zoomImage(getActivity(), bitmap);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    ((TthtHnBaseActivity) getActivity()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
+                    ((TthtHnBaseActivity) getActivity()).showSnackBar(Common.MESSAGE.ex081.getContent(), e.getMessage(), null);
                 }
-
             }
         });
     }
@@ -1575,6 +1578,22 @@ public class TthtHnChiTietCtoFragment extends TthtHnBaseFragment {
 
         TABLE_BBAN_CTO tableBbanCtoOld = (TABLE_BBAN_CTO) tableBbanCto.clone();
         tableBbanCto.setTRANG_THAI_DU_LIEU((isDaGhi) ? Common.TRANG_THAI_DU_LIEU.DA_GHI.content : Common.TRANG_THAI_DU_LIEU.CHUA_GHI.content);
+
+        String sMA_LDO = spLydo.getSelectedItem().toString();
+        int pos = 0;
+        if(!TextUtils.isEmpty(sMA_LDO))
+        {
+            for (int i = 0; i < tableLydoTreothaos.size(); i++) {
+                if (tableLydoTreothaos.get(i).toString().equalsIgnoreCase(sMA_LDO)) {
+                    pos = i;
+                    break;
+                }
+            }
+        }
+
+
+        tableBbanCto.setMA_LDO(tableLydoTreothaos.get(pos).getMA_LDO());
+        tableBbanCto.setLY_DO_TREO_THAO(tableLydoTreothaos.get(pos).getTEN_LDO());
         tableBbanCto.setTRANG_THAI_DOI_SOAT((isDaGhi) ? Common.TRANG_THAI_DOI_SOAT.CO_THE_DOI_SOAT.content : Common.TRANG_THAI_DOI_SOAT.KHONG_THE_DOI_SOAT.content);
         tableBbanCto.setID_TABLE_BBAN_CTO((int) mSqlDAO.updateORInsertRows(TABLE_BBAN_CTO.class, tableBbanCtoOld, tableBbanCto));
 

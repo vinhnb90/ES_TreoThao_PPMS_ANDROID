@@ -109,10 +109,15 @@ public class TthtHnSQLDAO extends SqlDAO {
                 dataChiTietCtoAdapter.setChiso(cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.CHI_SO.name())));
                 dataChiTietCtoAdapter.setIdbbantuti(cursor.getInt(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.ID_BBAN_TUTI.name())));
                 dataChiTietCtoAdapter.setIdbbantrth(cursor.getInt(cursor.getColumnIndex("ID_BBAN_TRTH_BB")));
-                dataChiTietCtoAdapter.setTRANG_THAI_DULIEU(cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.TRANG_THAI_DU_LIEU.name())));
                 dataChiTietCtoAdapter.setNgaytrth(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.NGAY_TRTH.name())));
                 dataChiTietCtoAdapter.setSobban(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.SO_BBAN.name())));
-                dataChiTietCtoAdapter.setTRANG_THAI_DULIEU_TUTI(cursor.getString(cursor.getColumnIndex("TRANG_THAI_DULIEU_TUTI")));
+
+
+                String sTRANG_THAI_DU_LIEU_TUTI = cursor.getString(cursor.getColumnIndex("TRANG_THAI_DULIEU_TUTI"));
+                dataChiTietCtoAdapter.setTRANG_THAI_DU_LIEU_TUTI(Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(sTRANG_THAI_DU_LIEU_TUTI));
+
+                String sTRANG_THAI_DU_LIEU = cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.TRANG_THAI_DU_LIEU.name()));
+                dataChiTietCtoAdapter.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(sTRANG_THAI_DU_LIEU));
 
 
                 return dataChiTietCtoAdapter;
@@ -192,10 +197,14 @@ public class TthtHnSQLDAO extends SqlDAO {
                 dataChiTietCtoAdapter.setChiso(cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.CHI_SO.name())));
                 dataChiTietCtoAdapter.setIdbbantuti(cursor.getInt(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.ID_BBAN_TUTI.name())));
                 dataChiTietCtoAdapter.setIdbbantrth(cursor.getInt(cursor.getColumnIndex("ID_BBAN_TRTH_BB")));
-                dataChiTietCtoAdapter.setTRANG_THAI_DULIEU(cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.TRANG_THAI_DU_LIEU.name())));
                 dataChiTietCtoAdapter.setNgaytrth(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.NGAY_TRTH.name())));
                 dataChiTietCtoAdapter.setSobban(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.SO_BBAN.name())));
-                dataChiTietCtoAdapter.setTRANG_THAI_DULIEU_TUTI(cursor.getString(cursor.getColumnIndex("TRANG_THAI_DULIEU_TUTI")));
+
+                String sTRANG_THAI_DU_LIEU_TUTI = cursor.getString(cursor.getColumnIndex("TRANG_THAI_DULIEU_TUTI"));
+                dataChiTietCtoAdapter.setTRANG_THAI_DU_LIEU_TUTI(Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(sTRANG_THAI_DU_LIEU_TUTI));
+
+                String sTRANG_THAI_DU_LIEU = cursor.getString(cursor.getColumnIndex(TABLE_CHITIET_CTO.table.TRANG_THAI_DU_LIEU.name()));
+                dataChiTietCtoAdapter.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(sTRANG_THAI_DU_LIEU));
 
 
                 return dataChiTietCtoAdapter;
@@ -298,6 +307,10 @@ public class TthtHnSQLDAO extends SqlDAO {
                 TABLE_BBAN_CTO.table.NGAY_TRTH.name() +
                 ", " +
                 TABLE_BBAN_CTO.table.SO_BBAN.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.TRANG_THAI_DU_LIEU.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.NOI_DUNG_LOI_DONG_BO.name() +
                 " FROM " +
                 TABLE_BBAN_CTO.table.getName() +
                 " WHERE " +
@@ -324,8 +337,11 @@ public class TthtHnSQLDAO extends SqlDAO {
                 dataBBanAdapter.setMaKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_KHANG.name())));
                 dataBBanAdapter.setNgayTrth(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.NGAY_TRTH.name())));
                 dataBBanAdapter.setSobban(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.SO_BBAN.name())));
+                dataBBanAdapter.setNOI_DUNG_LOI_DONG_BO(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.NOI_DUNG_LOI_DONG_BO.name())));
 
 
+                String sTRANG_THAI_DU_LIEU = cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TRANG_THAI_DU_LIEU.name()));
+                dataBBanAdapter.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(sTRANG_THAI_DU_LIEU));
                 return dataBBanAdapter;
             }
         });
@@ -350,6 +366,10 @@ public class TthtHnSQLDAO extends SqlDAO {
                 TABLE_BBAN_CTO.table.NGAY_TRTH.name() +
                 ", " +
                 TABLE_BBAN_CTO.table.SO_BBAN.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.TRANG_THAI_DU_LIEU.name() +
+                ", " +
+                TABLE_BBAN_CTO.table.NOI_DUNG_LOI_DONG_BO.name() +
                 " FROM " +
                 TABLE_BBAN_CTO.table.getName() +
                 " WHERE " +
@@ -377,7 +397,10 @@ public class TthtHnSQLDAO extends SqlDAO {
                 dataBBanAdapter.setMaKH(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.MA_KHANG.name())));
                 dataBBanAdapter.setNgayTrth(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.NGAY_TRTH.name())));
                 dataBBanAdapter.setSobban(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.SO_BBAN.name())));
+                dataBBanAdapter.setNOI_DUNG_LOI_DONG_BO(cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.NOI_DUNG_LOI_DONG_BO.name())));
 
+                String sTRANG_THAI_DU_LIEU = cursor.getString(cursor.getColumnIndex(TABLE_BBAN_CTO.table.TRANG_THAI_DU_LIEU.name()));
+                dataBBanAdapter.setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(sTRANG_THAI_DU_LIEU));
 
                 return dataBBanAdapter;
             }
@@ -525,6 +548,7 @@ public class TthtHnSQLDAO extends SqlDAO {
                 tableHistory.soTram = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_TRAM_API.name()));
                 tableHistory.soChungLoai = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_CHUNGLOAI_API.name()));
                 tableHistory.soLydo = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_LYDO_TREOTHAO.name()));
+                tableHistory.soBBError = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_BBAN_API_LOI.name()));
                 tableHistory.typeResult = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.TYPE_RESULT.name()));
                 tableHistory.typeCallApi = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.TYPE_CALL_API.name()));
 
@@ -574,6 +598,8 @@ public class TthtHnSQLDAO extends SqlDAO {
                 tableHistory.soTram = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_TRAM_API.name()));
                 tableHistory.soChungLoai = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_CHUNGLOAI_API.name()));
                 tableHistory.soLydo = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_LYDO_TREOTHAO.name()));
+                tableHistory.soBBError = cursor.getInt(cursor.getColumnIndex(TABLE_HISTORY.table.SO_BBAN_API_LOI.name()));
+
                 tableHistory.typeResult = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.TYPE_RESULT.name()));
                 tableHistory.typeCallApi = cursor.getString(cursor.getColumnIndex(TABLE_HISTORY.table.TYPE_CALL_API.name()));
 
@@ -896,6 +922,10 @@ public class TthtHnSQLDAO extends SqlDAO {
                 " WHERE " +
                 TABLE_BBAN_CTO.table.MA_NVIEN +
                 " = ?" +
+                " AND " +
+                TABLE_BBAN_CTO.table.NGAY_TRTH.name() +
+                " < (SELECT strftime('%Y-%m-%d', DATETIME('now', '-2 day'))" +
+                ") \n" +
                 " AND " +
                 TABLE_BBAN_CTO.table.TRANG_THAI_DU_LIEU +
                 " = '" +

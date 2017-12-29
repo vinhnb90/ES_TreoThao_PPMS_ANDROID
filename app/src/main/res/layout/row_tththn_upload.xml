@@ -299,6 +299,7 @@
                             android:layout_height="match_parent"
                             android:background="@drawable/xml_tththn_rectangle6"
                             android:padding="@dimen/_5sdp"
+                            android:src="@color/tththn_text_less_black"
                             tools:visibility="visible" />
 
 
@@ -329,6 +330,7 @@
                                     style="@style/edittextStyle3"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+
                                     android:layout_below="@+id/tv_41a_doisoat_CS1_treo"
                                     android:layout_marginTop="@dimen/_5sdp"
                                     android:text="" />

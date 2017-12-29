@@ -173,20 +173,14 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
         btnCtoMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                try {
                     setBackgroundTopMenu(view);
                     mListener.clickTopMenuChitietCto(TthtHnMainActivity.TagMenuTop.CHITIET_CTO);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
-                }
             }
         });
 
         btnChuyenLoaiCtoMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
                     onIDataCommon.setVisiblePbarLoad(true);
 
                     //refresh data MA_BDONG, ID_BBAN_TUTI
@@ -194,30 +188,18 @@ public class TthtHnTopMenuChiTietCtoFragment extends TthtHnBaseFragment {
 
 
                     mListener.clickTopMenuChitietCto(TthtHnMainActivity.TagMenuTop.CHUYEN_LOAI_CTO);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
-                }
             }
         });
 
         btnBBTuTiMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-
-                try {
                     //clickTopMenuChitietCto
                     setBackgroundTopMenu(view);
 
 
                     //clickTopMenuChitietCto
                     mListener.clickTopMenuChitietCto(TthtHnMainActivity.TagMenuTop.BBAN_TUTI);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
-                }
-
             }
         });
     }

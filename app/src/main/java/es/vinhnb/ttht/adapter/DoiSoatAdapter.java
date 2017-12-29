@@ -284,7 +284,7 @@ public class DoiSoatAdapter extends RecyclerView.Adapter<DoiSoatAdapter.ViewHold
                         Common.zoomImage(context, bitmap);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        ((TthtHnBaseActivity) context).showSnackBar(Common.MESSAGE.ex04.getContent(), e.getMessage(), null);
+                        ((TthtHnBaseActivity) context).showSnackBar(Common.MESSAGE.ex081.getContent(), e.getMessage(), null);
                     }
                 }
             });

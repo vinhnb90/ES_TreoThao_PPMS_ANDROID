@@ -139,7 +139,7 @@ public class LoginFragment extends Fragment {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            showSnackBar("Lỗi hiển thị ", e.getMessage(), null);
+            showSnackBar("Gặp vấn đề hiển thị!", e.getMessage(), null);
         }
     }
 
@@ -159,7 +159,7 @@ public class LoginFragment extends Fragment {
             setAction(savedInstanceState);
         } catch (Exception e) {
             e.printStackTrace();
-            showSnackBar("Lỗi hiển thị", e.getMessage(), null);
+            showSnackBar("Gặp vấn đề hiển thị!", e.getMessage(), null);
         }
         return viewRoot;
     }
@@ -181,7 +181,7 @@ public class LoginFragment extends Fragment {
                                 //check url
                                 mURL = mEtURL.getText().toString();
                                 if (TextUtils.isEmpty(mURL))
-                                    throw new RuntimeException("Không để trống đường dẫn máy chủ");
+                                    throw new RuntimeException("Vui lòng nhập đường dẫn máy chủ!");
 
 
                                 //call server
@@ -206,7 +206,7 @@ public class LoginFragment extends Fragment {
                                                             mLoginInteface.saveDBDepart(mDepartModule.getmListDepart());
                                                     } catch (Exception e) {
                                                         e.printStackTrace();
-                                                        showSnackBar("Lỗi hiển thị", e.getMessage(), null);
+                                                        showSnackBar("Lỗi lưu data đơn vị!", e.getMessage(), null);
                                                     } finally {
                                                         //hide progressbar
                                                         mDepartModule.getViewEntity().getViewLayout().post(new Runnable() {
@@ -217,7 +217,7 @@ public class LoginFragment extends Fragment {
                                                                     mDepartModule.getViewEntity().getPbarDownloadDvi().setVisibility(View.GONE);
                                                                 } catch (Exception e) {
                                                                     e.printStackTrace();
-                                                                    showSnackBar("Lỗi hiển thị", e.getMessage(), null);
+                                                                    showSnackBar("Lỗi hiển thị!", e.getMessage(), null);
                                                                 }
                                                             }
                                                         });
@@ -239,7 +239,7 @@ public class LoginFragment extends Fragment {
                                                         mDepartModule.getViewEntity().getPbarDownloadDvi().setVisibility(View.GONE);
                                                     } catch (Exception e) {
                                                         e.printStackTrace();
-                                                        showSnackBar("Lỗi hiển thị", e.getMessage(), null);
+                                                        showSnackBar("Lỗi hiển thị!", e.getMessage(), null);
                                                     }
                                                 }
                                             });
@@ -259,7 +259,7 @@ public class LoginFragment extends Fragment {
                                             mDepartModule.getViewEntity().getPbarDownloadDvi().setVisibility(View.GONE);
                                         } catch (Exception e) {
                                             e.printStackTrace();
-                                            showSnackBar("Lỗi hiển thị", e.getMessage(), null);
+                                            showSnackBar("Lỗi hiển thị!", e.getMessage(), null);
                                         }
                                     }
                                 });
@@ -304,6 +304,7 @@ public class LoginFragment extends Fragment {
                         mDepartModule.getViewEntity().getSpDvi().setEnabled(false);
                         mDepartModule.getViewEntity().getIbtnDownloadDvi().setEnabled(false);
                     }
+                    mEtURL.setEnabled(false);
                     mEtUser.setEnabled(false);
                     mEtPass.setEnabled(false);
                     mCbSaveInfo.setEnabled(false);
@@ -312,7 +313,7 @@ public class LoginFragment extends Fragment {
                     //check connect internet
                     if (mILoginOffline == null) {
                         if (!Common.isNetworkConnected(getContext()))
-                            throw new Exception("Chưa có kết nối internet, vui lòng kiểm tra lại!");
+                            throw new Exception("Chua có kết nối internet, vui lòng kiểm tra lại!");
                     }
 
 
@@ -329,13 +330,13 @@ public class LoginFragment extends Fragment {
                     if (TextUtils.isEmpty(mURL)) {
                         mEtUser.setEnabled(true);
                         mEtUser.requestFocus();
-                        throw new Exception("Không để trống đường dẫn máy chủ");
+                        throw new Exception("Không để trống đường dẫn máy chủ!");
                     }
 
                     if (TextUtils.isEmpty(mUser)) {
                         mEtUser.setEnabled(true);
                         mEtUser.requestFocus();
-                        throw new Exception("Không để trống tài khoản");
+                        throw new Exception("Vui lòng nhập tài khoản");
                     }
 
                     if (TextUtils.isEmpty(mPass)) {
@@ -352,16 +353,16 @@ public class LoginFragment extends Fragment {
                     final boolean resultCheckOfflineLogin = mILoginOffline.checkSessionLogin(mLoginData);
 
                     if (!Common.isNetworkConnected(getContext())) {
-                        //check kết quả
+                        //check k?t qu?
                         if (resultCheckOfflineLogin) {
-                            //nếu ofline ok
+                            //n?u ofline ok
                             Common.IDialog iDialog = new Common.IDialog() {
                                 @Override
                                 public void clickOK() {
                                     try {
                                         processLogin();
                                     } catch (Exception e) {
-                                        showSnackBar("Đăng nhập chế độ offline thất bại!", e.getMessage(), null);
+                                        showSnackBar("Gặp vấn đề khi đăng nhập chế độ offline!", e.getMessage(), null);
                                     }
                                 }
 
@@ -369,11 +370,11 @@ public class LoginFragment extends Fragment {
                                 public void clickCancel() {
 
                                 }
-                            }.setTextBtnOK("Đăng nhập OFFLINE");
+                            }.setTextBtnOK("Ðang nhập");
 
-                            Common.showDialog(getContext(), "Hiện không có kết nối internet.\nTài khoản có thể đăng nhập chế độ offline.", iDialog);
+                            Common.showDialog(getContext(), "Có thể đăng nhập chế độ OFFLINE.", iDialog);
                         } else
-                            showSnackBar("Cần kết nối mạng internet!", null, null);
+                            showSnackBar("Cần kết nối internet!", null, null);
                         return;
                     } else {
                         //show progress bar
@@ -388,11 +389,11 @@ public class LoginFragment extends Fragment {
                                 try {
 
                                     final ResultLogin resultCheckServerLogin = mLoginInteface.checkServerLogin(mLoginData);
-                                    //nếu server trả về
+                                    //n?u server tr? v?
                                     if (resultCheckServerLogin.isLoginSuccess) {
                                         processLogin();
                                     } else {
-                                        //ko login đc server thì xóa row dữ liệu seession đó
+                                        //ko login dc server thì xóa row d? li?u seession dó
                                         mILoginOffline.deleteSessionDatabaseLogin(mLoginData);
                                         showSnackBar(resultCheckServerLogin.message, null, null);
                                     }
@@ -403,9 +404,9 @@ public class LoginFragment extends Fragment {
                                         public void run() {
 
                                             if (TextUtils.isEmpty(e.getMessage()))
-                                                showSnackBar("Đăng nhập thất bại. Xem chi tiết", "Chờ máy chủ quá lâu!", null);
+                                                showSnackBar("Quá lâu khi chờ máy chủ phản hồi!", "", null);
                                             else
-                                                showSnackBar("Không kết nối được máy chủ. Kiểm tra lại thông tin kết nối.", e.getMessage(), null);
+                                                showSnackBar("Không kết nối được máy chủ, kiểm tra thông tin!", e.getMessage(), null);
                                         }
                                     });
 
@@ -433,6 +434,7 @@ public class LoginFragment extends Fragment {
                 mEtUser.setEnabled(true);
                 mEtPass.setEnabled(true);
                 mCbSaveInfo.setEnabled(true);
+                mEtURL.setEnabled(true);
                 if (mDepartModule != null) {
                     mDepartModule.getViewEntity().getSpDvi().setEnabled(true);
                     mDepartModule.getViewEntity().getIbtnDownloadDvi().setEnabled(true);
@@ -519,6 +521,7 @@ public class LoginFragment extends Fragment {
         } catch (Exception e1) {
 
         }
+
         mTvTitleAppName.setText(mTitleAppName);
         if (mIvIconLogin != null) {
             mIvIconLogin.setImageResource(mIconLogin);
@@ -628,7 +631,9 @@ public class LoginFragment extends Fragment {
 
 
             // Inflate our custom view
-            View snackView = this.getLayoutInflater().inflate(R.layout.snackbar_custom, null);
+
+            View snackView = LayoutInflater.from(getContext()).inflate(R.layout.snackbar_custom, null);
+
             TextView tvMessage = (TextView) snackView.findViewById(R.id.tv_snackbar_message);
             Button btnOk = (Button) snackView.findViewById(R.id.btn_snackbar_ok);
             Button btnContent = (Button) snackView.findViewById(R.id.btn_snackbar_content);
@@ -835,7 +840,9 @@ public class LoginFragment extends Fragment {
 
         void saveSessionDatabaseLogin(LoginData dataLoginSession) throws Exception;
 
+
         void deleteSessionDatabaseLogin(LoginFragment.LoginData dataLoginSession) throws Exception;
+
 
         String getCodeDepart(int pos);
     }

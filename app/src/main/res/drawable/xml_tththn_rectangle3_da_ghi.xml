@@ -8,7 +8,7 @@
         <corners
             android:bottomLeftRadius="@dimen/_5sdp"
             android:topLeftRadius="@dimen/_5sdp" />
-        <solid android:color="@color/button_disable_dark_orange" />
+        <solid android:color="@color/tththn_button" />
     </shape>
 </item>
 </layer-list>

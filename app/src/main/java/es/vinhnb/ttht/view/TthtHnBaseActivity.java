@@ -114,7 +114,14 @@ public abstract class TthtHnBaseActivity extends AppCompatActivity implements IB
         final Snackbar.Callback snackCallback = new Snackbar.Callback() {
             @Override
             public void onDismissed(Snackbar snackbar, int event) {
-                snackbarQueues.remove(snackQueue);
+                for (Iterator<SnackQueue> iter = snackbarQueues.listIterator(); iter.hasNext(); ) {
+                    SnackQueue a = iter.next();
+                    if (snackQueue == a) {
+                        iter.remove();
+                    }
+                }
+
+//                snackbarQueues.remove(snackQueue);
                 if (snackbarQueues.size() > 0) {
                     showSbar(snackbarQueues.get(0));
                 } else {

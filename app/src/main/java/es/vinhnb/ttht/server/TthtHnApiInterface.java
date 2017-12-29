@@ -41,7 +41,7 @@ public interface TthtHnApiInterface {
     Call<List<MtbBbanModel>> GeT_BBAN(@Query("maDonVi") String maDonVi, @Query("maNhanVien") String maNhanVien);
 
     @GET("Get_cto")
-    Call<List<MtbCtoModel>> Get_cto(@Query("maDonVi") String maDonVi, @Query("idBienBan") String idBienBan);
+    Call<Object> Get_cto(@Query("maDonVi") String maDonVi, @Query("idBienBan") String idBienBan);
 
     @GET("Get_bban_TUTI")
     Call<List<MtbBbanTutiModel>> Get_bban_TUTI(@Query("maDonVi") String maDonVi, @Query("maNhanVien") String maNhanVien);

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.es.tungnv.views.R;
 
@@ -134,24 +135,24 @@ public class TthtHnHistoryFragment extends TthtHnBaseFragment {
 
                     if (typeCallApi == Common.TYPE_CALL_API.UPLOAD)
                         showDialogListHistory(pos, historyAdapter);
-//                    IDialog iDialog = new IDialog() {
-//                        @Override
-//                        void clickOK() {
-//                            //copy text
-//                            Common.copyTextClipBoard(getContext(), historyAdapter.message);
-//                            Toast.makeText(getContext(), "Đã sao chép nội dung.", Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                        @Override
-//                        void clickCancel() {
-//
-//                        }
-//                    }.setTextBtnOK("CHÉP NỘI DUNG");
-//                    TthtHnHistoryFragment.super.showDialog(getContext(), historyAdapter.message, iDialog);
+                    else {
+                        IDialog iDialog = new IDialog() {
+                            @Override
+                            void clickOK() {
+                                //copy text
+                                Common.copyTextClipBoard(getContext(), historyAdapter.message);
+                                Toast.makeText(getContext(), "Đã sao chép nội dung.", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            void clickCancel() {
+
+                            }
+                        }.setTextBtnOK("CHÉP NỘI DUNG");
+                        TthtHnHistoryFragment.super.showDialog(getContext(), historyAdapter.message, iDialog);
+                    }
                 }
-
             };
-
         if (historyAdapter == null) {
             historyAdapter = new HistoryAdapter(getContext(), dataHistoryAdapters, iDataHistoryAdapter);
             rvHistory.setAdapter(historyAdapter);

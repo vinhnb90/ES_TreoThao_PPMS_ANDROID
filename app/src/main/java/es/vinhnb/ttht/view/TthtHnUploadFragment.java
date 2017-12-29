@@ -237,7 +237,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                     prepareDataUpload();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex04.getContent(), e.getMessage(), null);
+                    ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex09.getContent(), e.getMessage(), null);
                 }
             }
         });
@@ -271,7 +271,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex04.getContent(), e.getMessage(), null);
+                    ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex09.getContent(), e.getMessage(), null);
                 }
             }
         });
@@ -376,6 +376,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                     int SO_CTO_THAO_API = 0;
                     int SO_TU_API = 0;
                     int SO_TI_API = 0;
+                    messageServer.append("\nĐang xử lý dữ liệu để gửi lên máy chủ");
                     for (int i = 0; i < listID_BBAN_TRTH.size(); i++) {
                         SO_BBAN_API++;
                         SO_CTO_TREO_API++;
@@ -390,9 +391,10 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                             List<TABLE_BBAN_CTO> tableBbanCtos = mSqlDAO.getBBan(args);
                             if (tableBbanCtos.size() > 0) {
                                 ID_BBAN_CONGTO = tableBbanCtos.get(0).getID_BBAN_CONGTO();
-                            }
-                            if (ID_BBAN_CONGTO == 0)
+                            } else {
+                                messageServer.append("\nKhông tìm thấy ID ");
                                 throw new Exception("\nKhông tìm thấy dữ liệu ID_BBAN_CONGTO tương ứng với ID_BBAN_TRTH = " + listID_BBAN_TRTH.get(i));
+                            }
 
                             historyUpload.setID_BBAN_CONGTO(ID_BBAN_CONGTO);
                             historyUpload.setMA_NVIEN(onIDataCommon.getMaNVien());
@@ -757,7 +759,8 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
 
                         } catch (Exception e) {
                             e.printStackTrace();
-                            historyUpload.setTYPE_RESPONSE_UPLOAD("Lỗi khi khởi tạo dữ liệu upload. \n" + e.getMessage());
+                            historyUpload.setTYPE_RESPONSE_UPLOAD(Common.TYPE_RESPONSE_UPLOAD.LOI_BAT_NGO.content);
+                            messageServer.append("\nLỗi khi khởi tạo dữ liệu upload của biên bản có ID_BBAN_TRTH: " + listID_BBAN_TRTH.get(i) + ". Nội dung lỗi: " + e.getMessage());
 
                             isHasErrorServer = true;
                             sobbUploadError++;
@@ -767,7 +770,6 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                                     updateStatusUpload();
                                 }
                             });
-                            messageServer.append(e.getMessage());
                             continue;
                         }
 
@@ -779,6 +781,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
 
                     //nếu không có dữ liệu return
                     if (dataUpload.size() == 0) {
+                        messageServer.append("\nKhông có biên bản nào được xử lý thành công để gửi lên máy chủ.");
                         sobbUploadError = sobbUpload;
                         infoSessionUpload.setTYPE_RESULT(Common.TYPE_RESULT.ERROR.content);
                         infoSessionUpload.setMESSAGE_RESULT(messageServer.toString());
@@ -801,6 +804,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                         infoSessionUpload.setMESSAGE_RESULT(messageServer.toString());
                     }
 
+                    messageServer.append("\nBắt đầu gửi dữ liệu biên bản lên máy chủ.");
 
                     getView().postDelayed(new Runnable() {
                         @Override
@@ -808,8 +812,6 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                             updateInfoUpload("Đang gửi dữ liệu biên bản lên máy chủ ...", 100);
                         }
                     }, DELAY_PROGESS_PBAR);
-
-                    messageServer.append("--Đang gửi dữ liệu biên bản lên máy chủ ...--");
 
                     //region upload
                     resultUpload = callPostMTBWithImage(dataUpload);
@@ -824,7 +826,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                     if (resultUpload == null) {
                         //gửi thất bại
                         resultUpload = new ArrayList<>();
-                        messageServer.append("--Không kết nối được máy chủ. Timeout...---");
+                        messageServer.append("\nKhông nhận được phản hồi từ máy chủ.");
                         isHasErrorServer = true;
                         sobbUploadError = sobbUpload;
 
@@ -837,19 +839,21 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                     } else if (resultUpload.size() == 0) {
                         //kết nối gửi thành công nhưng ko có dữ liệu trả về nên quy là thất bại
                         //nếu rỗng thì hiện tại có biên bản nhưng không có công tơ, vẫn cho tiếp tục thực hiện call các api khác
+                        messageServer.append("\nKhông nhận được phản hồi từ máy chủ.");
                         for (Integer ID_BBAN_CONGTO : resultUploadHistory.keySet()
                                 ) {
                             if (TextUtils.isEmpty(resultUploadHistory.get(ID_BBAN_CONGTO).getMESSAGE_RESPONSE()))
                                 resultUploadHistory.get(ID_BBAN_CONGTO).setMESSAGE_RESPONSE("Không nhận được dữ liệu hồi đáp từ máy chủ khi gửi biên bản!");
                         }
 
-                        messageServer.append("--Không nhận được dữ liệu trả về từ máy chủ khi gửi dữ liệu biên bản lên!--");
                         isHasErrorServer = true;
                         sobbUploadError = sobbUpload;
 
                     }
 
                     final int finalResultUpload = resultUpload.size();
+                    if (finalResultUpload > 0)
+                        messageServer.append("\nBắt đầu xử lý dữ liệu nhận được từ phản hồi của máy chủ.");
                     for (int i = 0; i < resultUpload.size(); i++) {
                         MTB_ResultModel_NEW mtbResultModelNew = resultUpload.get(i);
                         final int finalI = i;
@@ -874,11 +878,16 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                         if (tableBbanCtoList.size() != 0)
                             tableBbanCto = tableBbanCtoList.get(0);
 
-                        updateDataAfterUpload(mtbResultModelNew);
-
-
                         if (typeResponseUpload == Common.TYPE_RESPONSE_UPLOAD.LOI_BAT_NGO)
                             resultUploadHistory.get(ID_BBAN_CONGTO).setMESSAGE_RESPONSE(mtbResultModelNew.ERROR);
+
+                        try {
+                            updateDataAfterUpload(mtbResultModelNew);
+                        } catch (Exception e) {
+                            messageServer.append("\nGặp vấn đề khi xử khi dữ liệu của biên bản có ID_BBAN_TRTH " + mtbResultModelNew.ID_BBAN_TRTH + ". Nội dung lỗi: " + e.getMessage());
+                            continue;
+                        }
+
 
 //                        if (typeResponseUpload == Common.TYPE_RESPONSE_UPLOAD.LOI_BAT_NGO)
 //                        {
@@ -892,10 +901,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
 //                        }
 
                     }
-
-
                     //endregion
-
                     //endregion
 
                 } catch (final Exception e) {
@@ -913,6 +919,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                         @Override
                         public void run() {
                             //update title download
+                            messageServer.append("\n Kết thúc quá trình gửi dữ liệu lên máy chủ!");
                             updateInfoUpload("Kết thúc quá trình gửi dữ liệu lên máy chủ!", 100);
 
                             if (isHasErrorServer) {
@@ -1048,7 +1055,6 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
                     getView().post(new Runnable() {
                         @Override
                         public void run() {
-                            messageServer.append("-Đang gửi yêu cầu cho phép gửi dữ liệu lên máy chủ...-");
                             updateInfoUpload("Đang gửi yêu cầu cho phép gửi dữ liệu lên máy chủ....", 0);
                         }
                     });
@@ -1056,7 +1062,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
 
                     //check internet
                     if (!Common.isNetworkConnected(getContext())) {
-                        messageServer.append("-Chưa có kết nối internet, vui lòng kiểm tra lại!-");
+                        messageServer.append("\nChưa có kết nối internet, vui lòng kiểm tra lại!");
                         throw new Exception(messageServer.toString());
                     }
 
@@ -1139,7 +1145,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
             dataServer = resultPostMTBWithImage.getParcelableArrayList(BUNDLE_DATA);
         } else {
             //không show thông báo để đồng bộ các danh mục tiếp theo, chỉ ghi lịch sử
-            messageServer.append("-Gặp lỗi khi upload biên bản " + statusCode + " " + errorBody + "-");
+            messageServer.append("\nKhông nhận được dữ liệu phản hổi khi upload dứ liệu biên bản " + statusCode + " " + errorBody + "-");
             infoSessionUpload.setTYPE_RESULT(Common.TYPE_RESULT.ERROR.content);
         }
 
@@ -1260,7 +1266,7 @@ public class TthtHnUploadFragment extends TthtHnBaseFragment {
 
                         } catch (Exception e) {
                             e.printStackTrace();
-                            ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex04.getContent(), e.getMessage(), null);
+                            ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex09.getContent(), e.getMessage(), null);
                         }
 
                     }

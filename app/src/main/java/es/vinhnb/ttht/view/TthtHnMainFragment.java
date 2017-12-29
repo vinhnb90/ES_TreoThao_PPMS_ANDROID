@@ -3,6 +3,7 @@ package es.vinhnb.ttht.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -97,7 +98,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
             setAction(savedInstanceState);
         } catch (Exception e) {
             e.printStackTrace();
-            ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
+            ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex04.getContent(), e.getMessage(), null);
         }
         return viewRoot;
     }
@@ -139,7 +140,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
+            ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex04.getContent(), e.getMessage(), null);
         }
     }
 
@@ -254,6 +255,10 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
         tvNodata = (TextView) viewRoot.findViewById(R.id.tv_nodata);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRvMain.setLayoutManager(layoutManager);
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), R.drawable.ttht_hn_divider);
+//        dividerItemDecoration.setOrientation(DividerItemDecoration.VERTICAL);
+//        mRvMain.addItemDecoration(dividerItemDecoration);
+//        mRvMain.addItemDecoration(new MyDividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL, 16));
     }
 
     @Override
@@ -454,7 +459,7 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
                 dataChiTietCtoAdaptersList.clear();
                 String dateNow = Common.getDateTimeNow(Common.DATE_TIME_TYPE.type6);
                 if (messageSearch.equals(dateNow)) {
-                    String[] args = new String[]{onIDataCommon.getMaNVien(),  onIDataCommon.getMA_BDONG().code};
+                    String[] args = new String[]{onIDataCommon.getMaNVien(), onIDataCommon.getMA_BDONG().code};
                     dataChiTietCtoAdaptersList = mSqlDAO.getTreoDataChiTietCto2DayAdapter(args);
                 } else {
                     String[] args = new String[]{onIDataCommon.getMaNVien(), convertSqlDate, onIDataCommon.getMA_BDONG().code};
@@ -540,6 +545,11 @@ public class TthtHnMainFragment extends TthtHnBaseFragment {
                             break;
                         case SO_BBAN:
                             isHasData = Common.removeAccent(data.getSobban().toLowerCase()).contains(query);
+                            break;
+                        case BBAN_ERROR:
+                            isHasData = Common.removeAccent(data.getTRANG_THAI_DU_LIEU().content.toLowerCase()).contains(query);
+                            break;
+                        case NGAY_TRTH:
                             break;
                     }
                     if (isHasData) {

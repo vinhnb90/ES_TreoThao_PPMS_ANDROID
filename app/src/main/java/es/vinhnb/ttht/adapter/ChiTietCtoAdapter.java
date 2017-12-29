@@ -1,14 +1,12 @@
 package es.vinhnb.ttht.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.vinhnb.ttht.common.Common;
+import es.vinhnb.ttht.common.Common.TRANG_THAI_DU_LIEU;
 import es.vinhnb.ttht.view.IInteractionDataCommon;
 
 import static es.vinhnb.ttht.common.Common.MA_BDONG.B;
@@ -33,6 +32,8 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
     private Context context;
     private static List<DataChiTietCtoAdapter> listData = new ArrayList<>();
     private static int posClick;
+
+    private static Drawable xml_tththn_rectangle3_error, xml_tththn_rectangle3_success, xml_tththn_rectangle3_da_ghi, xml_tththn_rectangle3_normal;
 
     public ChiTietCtoAdapter(Context context, List<DataChiTietCtoAdapter> listData) {
         this.context = context;
@@ -52,11 +53,20 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
         else
             throw new ClassCastException("context must be implemnet IInteractionDataCommon!");
 
+        if (xml_tththn_rectangle3_error == null)
+            xml_tththn_rectangle3_error = ContextCompat.getDrawable(context, R.drawable.xml_tththn_rectangle3_error);
+        if (xml_tththn_rectangle3_success == null)
+            xml_tththn_rectangle3_success = ContextCompat.getDrawable(context, R.drawable.xml_tththn_rectangle3_success);
+        if (xml_tththn_rectangle3_normal == null)
+            xml_tththn_rectangle3_normal = ContextCompat.getDrawable(context, R.drawable.xml_tththn_rectangle3_normal);
+        if (xml_tththn_rectangle3_da_ghi == null)
+            xml_tththn_rectangle3_da_ghi = ContextCompat.getDrawable(context, R.drawable.xml_tththn_rectangle3_da_ghi);
+
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rowView = LayoutInflater.from(context).inflate(R.layout.row_tththn_chitiet_cto_adapter, null);
+        View rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_tththn_chitiet_cto_adapter, null);
         ViewHolder viewHolder = new ViewHolder(rowView);
         return viewHolder;
     }
@@ -75,44 +85,35 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
         holder.tvNgayTrth.setText(Common.convertDateToDate(data.ngaytrth, Common.DATE_TIME_TYPE.sqlite2, Common.DATE_TIME_TYPE.type6));
 
 
+        holder.tvStatus.setText(data.getTRANG_THAI_DU_LIEU().content);
 
-        //background select
-        holder.mRlMain.setBackgroundColor(Color.WHITE);
-        if (position == posClick) {
-            holder.mRlMain.setBackgroundColor(ContextCompat.getColor(context, R.color.tththn_background_lv5));
-        }
+        holder.rlRow.setBackground(xml_tththn_rectangle3_normal);
 
-        Common.TRANG_THAI_DU_LIEU TRANG_THAI = Common.TRANG_THAI_DU_LIEU.CHUA_GHI;
-
-        //check bban cong to
-        TRANG_THAI = Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(data.getTRANG_THAI_DULIEU());
-
-        //check bb tuti
-        //nếu data.getTRANG_THAI_DULIEU_TUTI() == null thì tức công tơ này ko có bb tu ti
-        if (data.getIdbbantuti() != 0 && !TextUtils.isEmpty(data.getTRANG_THAI_DULIEU_TUTI())) {
-            if (Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(data.getTRANG_THAI_DULIEU_TUTI()) == Common.TRANG_THAI_DU_LIEU.CHUA_GHI)
-                TRANG_THAI = Common.TRANG_THAI_DU_LIEU.CHUA_GHI;
-            else if (Common.TRANG_THAI_DU_LIEU.findTRANG_THAI_DU_LIEU(data.getTRANG_THAI_DULIEU_TUTI()) == Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS)
-                TRANG_THAI = Common.TRANG_THAI_DU_LIEU.DANG_CHO_XAC_NHAN_CMIS;
-            else
-                TRANG_THAI = Common.TRANG_THAI_DU_LIEU.DA_GHI;
-        }
-
-
-        switch (TRANG_THAI) {
+        switch (data.TRANG_THAI_DU_LIEU) {
+            case CHUA_TON_TAI:
             case CHUA_GHI:
-                holder.mLLView.setBackgroundColor(ContextCompat.getColor(context, R.color.tththn_background_chua_ghi));
+                holder.rlRow.setBackground(xml_tththn_rectangle3_normal);
                 break;
 
             case DA_GHI:
-                holder.mLLView.setBackgroundColor(ContextCompat.getColor(context, R.color.tththn_background_da_ghi));
+            case GUI_THAT_BAI:
+                holder.rlRow.setBackground(xml_tththn_rectangle3_da_ghi);
+                break;
+
+            case DA_TON_TAI_GUI_TRUOC_DO:
+            case HET_HIEU_LUC:
+                holder.rlRow.setBackground(xml_tththn_rectangle3_error);
                 break;
 
             case DANG_CHO_XAC_NHAN_CMIS:
-                holder.mLLView.setBackgroundColor(ContextCompat.getColor(context, R.color.tththn_background_da_gui));
+            case DA_XAC_NHAN_TREN_CMIS:
+                holder.rlRow.setBackground(xml_tththn_rectangle3_success);
                 break;
+            default:
+                holder.rlRow.setBackground(xml_tththn_rectangle3_normal);
 
         }
+
     }
 
     @Override
@@ -164,8 +165,8 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
         public TextView tvmaTram;
         public TextView tvchiso;
 
-        public LinearLayout mLLView;
-        public RelativeLayout mRlMain;
+        public TextView tvStatus;
+        public RelativeLayout rlRow;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -178,8 +179,8 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
             tvmaTram = itemView.findViewById(R.id.tv_matram);
             tvNgayTrth = itemView.findViewById(R.id.tv_ngaytreothao);
             tvchiso = itemView.findViewById(R.id.tv_chiso);
-            mRlMain = itemView.findViewById(R.id.rl_main_row_chitiet_cto);
-            mLLView = itemView.findViewById(R.id.ll_main_row_chitiet_cto);
+            rlRow = itemView.findViewById(R.id.rl_rl_rl);
+            tvStatus = itemView.findViewById(R.id.tv_status_cto);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -226,8 +227,8 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
         private String ngaytrth;
         private String sobban;
 
-        private String TRANG_THAI_DULIEU;
-        private String TRANG_THAI_DULIEU_TUTI;
+        private Common.TRANG_THAI_DU_LIEU TRANG_THAI_DU_LIEU;
+        private Common.TRANG_THAI_DU_LIEU TRANG_THAI_DU_LIEU_TUTI;
 
 
         public String getSobban() {
@@ -318,20 +319,21 @@ public class ChiTietCtoAdapter extends RecyclerView.Adapter<ChiTietCtoAdapter.Vi
             this.chiso = chiso;
         }
 
-        public String getTRANG_THAI_DULIEU() {
-            return TRANG_THAI_DULIEU;
+
+        public TRANG_THAI_DU_LIEU getTRANG_THAI_DU_LIEU() {
+            return TRANG_THAI_DU_LIEU;
         }
 
-        public void setTRANG_THAI_DULIEU(String TRANG_THAI_DULIEU) {
-            this.TRANG_THAI_DULIEU = TRANG_THAI_DULIEU;
+        public void setTRANG_THAI_DU_LIEU(Common.TRANG_THAI_DU_LIEU TRANG_THAI_DU_LIEU) {
+            this.TRANG_THAI_DU_LIEU = TRANG_THAI_DU_LIEU;
         }
 
-        public void setTRANG_THAI_DULIEU_TUTI(String TRANG_THAI_DULIEU_TUTI) {
-            this.TRANG_THAI_DULIEU_TUTI = TRANG_THAI_DULIEU_TUTI;
+        public void setTRANG_THAI_DU_LIEU_TUTI(Common.TRANG_THAI_DU_LIEU TRANG_THAI_DU_LIEU_TUTI) {
+            this.TRANG_THAI_DU_LIEU_TUTI = TRANG_THAI_DU_LIEU_TUTI;
         }
 
-        public String getTRANG_THAI_DULIEU_TUTI() {
-            return TRANG_THAI_DULIEU_TUTI;
+        public Common.TRANG_THAI_DU_LIEU  getTRANG_THAI_DU_LIEU_TUTI() {
+            return TRANG_THAI_DU_LIEU_TUTI;
         }
     }
 }

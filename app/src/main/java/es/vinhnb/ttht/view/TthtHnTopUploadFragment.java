@@ -63,7 +63,6 @@ public class TthtHnTopUploadFragment extends TthtHnBaseFragment {
     ImageButton ivSpinClick;
 
 
-
     TthtHnSQLDAO mSqlDAO;
     private TthtHnMainActivity.TagMenuTop tagMenuTop;
     private boolean isSelectSpin;
@@ -213,25 +212,12 @@ public class TthtHnTopUploadFragment extends TthtHnBaseFragment {
         ibtnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    Common.runAnimationClickView(view, R.anim.tththn_scale_view_pull, DELAY_ANIM / 2);
-
-                    getView().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                etSearch.setText("");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
-                            }
-                        }
-                    }, DELAY_ANIM);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
-                }
+                getView().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        etSearch.setText("");
+                    }
+                }, DELAY_ANIM);
             }
         });
 
@@ -243,13 +229,8 @@ public class TthtHnTopUploadFragment extends TthtHnBaseFragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                try {
-                    if (!isSelectSpin)
-                        mListener.clickSearchUploadTop(spSearch.getSelectedItem().toString(), etSearch.getText().toString());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    ((TthtHnBaseActivity) getContext()).showSnackBar(Common.MESSAGE.ex08.getContent(), e.getMessage(), null);
-                }
+                if (!isSelectSpin)
+                    mListener.clickSearchUploadTop(spSearch.getSelectedItem().toString(), etSearch.getText().toString());
             }
 
             @Override
@@ -269,6 +250,7 @@ public class TthtHnTopUploadFragment extends TthtHnBaseFragment {
 
     public interface IOnTthtHnTopUploadFragment {
         void clickSearchUploadTop(String typeSearchString, String messageSearch);
+
         void clickClearUpload();
     }
 }

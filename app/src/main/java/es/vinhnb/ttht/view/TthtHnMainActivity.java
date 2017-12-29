@@ -30,10 +30,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.es.tungnv.views.R;
+import com.es.tungnv.views.TthtMainActivity;
 import com.esolutions.esloginlib.lib.LoginFragment;
 
 import java.util.ArrayList;
 
+import es.vinhnb.ttht.adapter.BBanAdapter;
 import es.vinhnb.ttht.adapter.ChiTietCtoAdapter;
 import es.vinhnb.ttht.adapter.HistoryBBanUploadAdapter;
 import es.vinhnb.ttht.adapter.NaviMenuAdapter;
@@ -945,7 +947,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
     private void callFragment(TagMenuNaviLeft tagNew) {
         try {
             //check fragment
-            //trong trường hợp mRlMain.getId() được replace bởi nhiều loại fragment khác nhau trong enum TypeFragment
+            //trong trường hợp rlRow.getId() được replace bởi nhiều loại fragment khác nhau trong enum TypeFragment
             //kiểm tra click menu mới có phải là loại khác fragment của menu cũ không
             boolean isSameTypeFragment = false;
             if (tagMenuNaviLeftList.typeFrag == tagNew.typeFrag)
@@ -1186,6 +1188,24 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
         lydo.setText(dataBBanAdapter.getLydo());
 
         dialog.show();
+    }
+
+    @Override
+    public void clickBtnBBanEror(int pos, final DataBBanAdapter dataBBanAdapter) {
+        TthtHnBaseFragment.IDialog iDialog = new TthtHnBaseFragment.IDialog() {
+            @Override
+            void clickOK() {
+                //copy text
+                Common.copyTextClipBoard(TthtHnMainActivity.this, dataBBanAdapter.getNOI_DUNG_LOI_DONG_BO());
+                Toast.makeText(TthtHnMainActivity.this, "Đã sao chép nội dung.", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            void clickCancel() {
+
+            }
+        }.setTextBtnOK("CHÉP NỘI DUNG");
+        TthtHnBaseFragment.showDialog(this, dataBBanAdapter.getNOI_DUNG_LOI_DONG_BO(), iDialog);
     }
     //endregion
 

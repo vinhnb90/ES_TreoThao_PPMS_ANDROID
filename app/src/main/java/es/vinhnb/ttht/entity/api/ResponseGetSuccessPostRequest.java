@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by VinhNB on 12/14/2017.
  */
@@ -16,19 +18,18 @@ public class ResponseGetSuccessPostRequest implements Parcelable{
     @SerializedName("maNhanVien")
     public String maNhanVien ;
 
-    @SerializedName("result")
-    public String result ;
+    @SerializedName("listID_BBAN_TRTHDownloadOK")
+    public List<Integer> listID_BBAN_TRTHDownloadOK ;
 
-    public ResponseGetSuccessPostRequest(String maDonVi, String maNhanVien, String result) {
+    public ResponseGetSuccessPostRequest(String maDonVi, String maNhanVien, List<Integer> listID_BBAN_TRTHDownloadOK) {
         this.maDonVi = maDonVi;
         this.maNhanVien = maNhanVien;
-        this.result = result;
+        this.listID_BBAN_TRTHDownloadOK = listID_BBAN_TRTHDownloadOK;
     }
 
     protected ResponseGetSuccessPostRequest(Parcel in) {
         maDonVi = in.readString();
         maNhanVien = in.readString();
-        result = in.readString();
     }
 
     public static final Creator<ResponseGetSuccessPostRequest> CREATOR = new Creator<ResponseGetSuccessPostRequest>() {
@@ -52,6 +53,5 @@ public class ResponseGetSuccessPostRequest implements Parcelable{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(maDonVi);
         parcel.writeString(maNhanVien);
-        parcel.writeString(result);
     }
 }

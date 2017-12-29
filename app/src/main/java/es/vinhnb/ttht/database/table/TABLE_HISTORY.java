@@ -34,6 +34,7 @@ public class TABLE_HISTORY {
         SO_CTO_THAO_API,
         SO_CTO_TREO_API,
         SO_BBAN_TUTI_API,
+        SO_BBAN_API_LOI,
         SO_TU_API,
         SO_TI_API,
         SO_TRAM_API,
@@ -69,25 +70,28 @@ public class TABLE_HISTORY {
     @Collumn(name = "MESSAGE_RESULT", type = TYPE.TEXT)
     private String MESSAGE_RESULT;
 
-    @Collumn(name = "SO_BBAN_API", type = TYPE.TEXT)
+    @Collumn(name = "SO_BBAN_API", type = TYPE.INTEGER)
     private int SO_BBAN_API;
 
-    @Collumn(name = "SO_CTO_THAO_API", type = TYPE.TEXT)
+    @Collumn(name = "SO_CTO_THAO_API", type = TYPE.INTEGER)
     private int SO_CTO_THAO_API;
 
-    @Collumn(name = "SO_CTO_TREO_API", type = TYPE.TEXT)
+    @Collumn(name = "SO_CTO_TREO_API", type = TYPE.INTEGER)
     private int SO_CTO_TREO_API;
 
-    @Collumn(name = "SO_BBAN_TUTI_API", type = TYPE.TEXT)
+    @Collumn(name = "SO_BBAN_TUTI_API", type = TYPE.INTEGER)
     private int SO_BBAN_TUTI_API;
 
-    @Collumn(name = "SO_TU_API", type = TYPE.TEXT)
+    @Collumn(name = "SO_BBAN_API_LOI", type = TYPE.INTEGER)
+    private int SO_BBAN_API_LOI;
+
+    @Collumn(name = "SO_TU_API", type = TYPE.INTEGER)
     private int SO_TU_API;
 
-    @Collumn(name = "SO_TI_API", type = TYPE.TEXT)
+    @Collumn(name = "SO_TI_API", type = TYPE.INTEGER)
     private int SO_TI_API;
 
-    @Collumn(name = "SO_TRAM_API", type = TYPE.TEXT)
+    @Collumn(name = "SO_TRAM_API", type = TYPE.INTEGER)
     private int SO_TRAM_API;
 
     @Collumn(name = "SO_CHUNGLOAI_API", type = TYPE.INTEGER)
@@ -113,6 +117,7 @@ public class TABLE_HISTORY {
                          @Params(name = "SO_CTO_THAO_API") int SO_CTO_THAO_API,
                          @Params(name = "SO_CTO_TREO_API") int SO_CTO_TREO_API,
                          @Params(name = "SO_BBAN_TUTI_API") int SO_BBAN_TUTI_API,
+                         @Params(name = "SO_BBAN_API_LOI") int SO_BBAN_API_LOI,
                          @Params(name = "SO_TU_API") int SO_TU_API,
                          @Params(name = "SO_TI_API") int SO_TI_API,
                          @Params(name = "SO_TRAM_API") int SO_TRAM_API,
@@ -133,6 +138,7 @@ public class TABLE_HISTORY {
         this.SO_CTO_THAO_API = SO_CTO_THAO_API;
         this.SO_CTO_TREO_API = SO_CTO_TREO_API;
         this.SO_BBAN_TUTI_API = SO_BBAN_TUTI_API;
+        this.SO_BBAN_API_LOI = SO_BBAN_API_LOI;
         this.SO_TU_API = SO_TU_API;
         this.SO_TI_API = SO_TI_API;
         this.SO_TRAM_API = SO_TRAM_API;
@@ -226,6 +232,14 @@ public class TABLE_HISTORY {
 
     public void setSO_BBAN_TUTI_API(int SO_BBAN_TUTI_API) {
         this.SO_BBAN_TUTI_API = SO_BBAN_TUTI_API;
+    }
+
+    public int getSO_BBAN_API_LOI() {
+        return SO_BBAN_API_LOI;
+    }
+
+    public void setSO_BBAN_API_LOI(int SO_BBAN_API_LOI) {
+        this.SO_BBAN_API_LOI = SO_BBAN_API_LOI;
     }
 
     public int getSO_TU_API() {
