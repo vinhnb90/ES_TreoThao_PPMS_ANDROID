@@ -351,7 +351,7 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
                                     String error = null;
                                     if (resultGet_ctoResponse instanceof List<?>) {
                                         if (((List) resultGet_ctoResponse).size() == 0) {
-                                            error = "Không có dữ liệu công tơ trả về.! Liên hệ hỗ trợ kiểm tra dữ liệu các công tơ, tại biên bản " + bbanModel.ID_BBAN_TRTH;
+                                            error = "\nKhông có dữ liệu công tơ trả về.! Liên hệ hỗ trợ kiểm tra dữ liệu các công tơ, tại biên bản " + bbanModel.ID_BBAN_TRTH;
                                             messageServer.append(error);
                                         } else {
                                             try {
@@ -375,10 +375,10 @@ public class TthtHnDownloadFragment extends TthtHnBaseFragment {
 //                                            } else
                                         }
                                     } else if (resultGet_ctoResponse instanceof String) {
-                                        error = "MÁY CHỦ THÔNG BÁO: tại biên bản " + bbanModel.ID_BBAN_TRTH + " " + (String) resultGet_ctoResponse;
+                                        error = "\nMÁY CHỦ THÔNG BÁO: tại biên bản " + bbanModel.ID_BBAN_TRTH + " " + (String) resultGet_ctoResponse;
                                         messageServer.append(error);
                                     } else {
-                                        error = "Mất kết nối khi đang lấy dữ liệu công tơ!. Vui lòng kiểm tra mạng và thử đồng bộ lại, Nếu vẫn xảy ra liên hệ nhân viên lập trình";
+                                        error = "\nMất kết nối khi đang lấy dữ liệu công tơ!. Vui lòng kiểm tra mạng và thử đồng bộ lại, Nếu vẫn xảy ra liên hệ nhân viên lập trình";
                                         messageServer.append(error);
                                     }
 

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -48,6 +49,7 @@ public abstract class TthtHnBaseFragment extends Fragment implements IBaseView{
                 WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
 
         final TextView tvMessage = (TextView) dialog.findViewById(R.id.tv_message);
+        tvMessage.setMovementMethod(new ScrollingMovementMethod());
         final TextView tvTitle = (TextView) dialog.findViewById(R.id.tv_title_dialog);
         final Button btHuy = (Button) dialog.findViewById(R.id.btn_huy);
         final Button btContinued = (Button) dialog.findViewById(R.id.btn_tieptuc);
