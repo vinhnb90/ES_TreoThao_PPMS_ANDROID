@@ -23,7 +23,7 @@ public class TRAMVIEW implements Parcelable{
     public String LOAI_TRAM ;
 
     @SerializedName("CSUAT_TRAM")
-    public int CSUAT_TRAM ;
+    public float CSUAT_TRAM ;
 
     @SerializedName("MA_CAP_DA")
     public String MA_CAP_DA ;
@@ -34,7 +34,7 @@ public class TRAMVIEW implements Parcelable{
     @SerializedName("DINH_DANH")
     public String DINH_DANH ;
 
-    public TRAMVIEW(String MA_TRAM, String MA_DVIQLY, String TEN_TRAM, String LOAI_TRAM, int CSUAT_TRAM, String MA_CAP_DA, String MA_CAP_DA_RA, String DINH_DANH) {
+    public TRAMVIEW(String MA_TRAM, String MA_DVIQLY, String TEN_TRAM, String LOAI_TRAM, float CSUAT_TRAM, String MA_CAP_DA, String MA_CAP_DA_RA, String DINH_DANH) {
         this.MA_TRAM = MA_TRAM;
         this.MA_DVIQLY = MA_DVIQLY;
         this.TEN_TRAM = TEN_TRAM;
@@ -50,7 +50,7 @@ public class TRAMVIEW implements Parcelable{
         MA_DVIQLY = in.readString();
         TEN_TRAM = in.readString();
         LOAI_TRAM = in.readString();
-        CSUAT_TRAM = in.readInt();
+        CSUAT_TRAM = in.readFloat();
         MA_CAP_DA = in.readString();
         MA_CAP_DA_RA = in.readString();
         DINH_DANH = in.readString();
@@ -79,7 +79,7 @@ public class TRAMVIEW implements Parcelable{
         parcel.writeString(MA_DVIQLY);
         parcel.writeString(TEN_TRAM);
         parcel.writeString(LOAI_TRAM);
-        parcel.writeInt(CSUAT_TRAM);
+        parcel.writeFloat(CSUAT_TRAM);
         parcel.writeString(MA_CAP_DA);
         parcel.writeString(MA_CAP_DA_RA);
         parcel.writeString(DINH_DANH);

@@ -122,7 +122,7 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
     private int ID_BBAN_TUTI_CTO_TREO;
     private int ID_BBAN_TUTI_CTO_THAO;
     private TthtHnSQLDAO mSqlDao;
-
+    private CoordinatorLayout coordinatorLayoutMain;
 
 
     public enum TypeFragment {
@@ -414,9 +414,21 @@ public class TthtHnMainActivity extends TthtHnBaseActivity
 
 
         //set action bar
-        findViewById(R.id.app_bar_tththn).bringToFront();
+        coordinatorLayoutMain = (CoordinatorLayout)  findViewById(R.id.cc_main);
+
+
+        //set action bar
         setSupportActionBar(mToolbar);
         this.setActionBarTittle(TagMenuNaviLeft.BBAN_CTO.title);
+
+        this.getWindow().getDecorView().findViewById(android.R.id.content).post(new Runnable() {
+            @Override
+            public void run() {
+                coordinatorLayoutMain.bringToFront();
+                ((View)coordinatorLayoutMain.getParent()).requestLayout();
+                ((View)coordinatorLayoutMain.getParent()).invalidate();
+            }
+        });
     }
 
     //region NaviMenuAdapter.INaviMenuAdapter

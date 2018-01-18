@@ -641,7 +641,7 @@ public class LoginFragment extends Fragment {
 
 
             //set value
-            etContent.setVisibility(View.GONE);
+            etContent.setVisibility(View.VISIBLE);
             tvMessage.setText(message);
             if (content == null)
                 etContent.setVisibility(View.GONE);

@@ -50,8 +50,8 @@ public class TABLE_TRAM implements Cloneable{
     @Collumn(name = "LOAI_TRAM", type = TYPE.TEXT)
     private String LOAI_TRAM;
 
-    @Collumn(name = "CSUAT_TRAM", type = TYPE.INTEGER)
-    private int CSUAT_TRAM;
+    @Collumn(name = "CSUAT_TRAM", type = TYPE.NUMERIC)
+    private float CSUAT_TRAM;
 
     @Collumn(name = "MA_CAP_DA", type = TYPE.TEXT)
     private String MA_CAP_DA;
@@ -70,7 +70,7 @@ public class TABLE_TRAM implements Cloneable{
                       @Params(name = "MA_DVIQLY") String MA_DVIQLY,
                       @Params(name = "TEN_TRAM") String TEN_TRAM,
                       @Params(name = "LOAI_TRAM") String LOAI_TRAM,
-                      @Params(name = "CSUAT_TRAM") int CSUAT_TRAM,
+                      @Params(name = "CSUAT_TRAM") float CSUAT_TRAM,
                       @Params(name = "MA_CAP_DA") String MA_CAP_DA,
                       @Params(name = "MA_CAP_DA_RA") String MA_CAP_DA_RA,
                       @Params(name = "DINH_DANH") String DINH_DANH) {
@@ -125,11 +125,11 @@ public class TABLE_TRAM implements Cloneable{
         this.LOAI_TRAM = LOAI_TRAM;
     }
 
-    public int getCSUAT_TRAM() {
+    public float getCSUAT_TRAM() {
         return CSUAT_TRAM;
     }
 
-    public void setCSUAT_TRAM(int CSUAT_TRAM) {
+    public void setCSUAT_TRAM(float CSUAT_TRAM) {
         this.CSUAT_TRAM = CSUAT_TRAM;
     }
 

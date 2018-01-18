@@ -9,7 +9,8 @@ public enum TYPE {
     INTEGER("INTEGER"),
     REAL("REAL"),
     TEXT("TEXT"),
-    BLOB("BLOB")
+    BLOB("BLOB"),
+    NUMERIC("NUMERIC")
     ;
 
     private String contentType;

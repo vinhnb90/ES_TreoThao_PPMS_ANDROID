@@ -17,9 +17,6 @@
         android:fitsSystemWindows="true"
         tools:context="es.vinhnb.ttht.view.TthtHnMainActivity">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <android.support.design.widget.AppBarLayout
                 android:id="@+id/app_bar_tththn"
@@ -46,6 +43,7 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_40sdp"
+                android:id="@+id/cc_main"
                 android:elevation="@dimen/_5sdp"
                 android:orientation="vertical">
 
@@ -98,7 +96,6 @@
 
             </android.support.design.widget.CoordinatorLayout>
 
-        </RelativeLayout>
 
 
     </android.support.design.widget.CoordinatorLayout>
